@@ -1,0 +1,72 @@
+{
+  "name": "home_hero_section",
+  "display_name": "Section 1: Hero",
+  "schema": {
+    "kicker": {
+      "type": "text",
+      "pos": 0,
+      "translatable": true,
+      "required": true,
+      "description": "Script accent text above the main title",
+      "display_name": "Kicker Text",
+      "default_value": "Where Dreams Begin"
+    },
+    "title": {
+      "type": "text",
+      "pos": 1,
+      "translatable": true,
+      "required": true,
+      "description": "Main hero title (first line)",
+      "display_name": "Hero Title",
+      "default_value": "Rum River"
+    },
+    "title_accent": {
+      "type": "text",
+      "pos": 2,
+      "translatable": true,
+      "required": true,
+      "description": "Accented title text (second line)",
+      "display_name": "Title Accent",
+      "default_value": "Wedding Barn"
+    },
+    "description": {
+      "type": "textarea",
+      "pos": 3,
+      "translatable": true,
+      "required": true,
+      "description": "Hero description paragraph",
+      "display_name": "Description",
+      "default_value": "Nestled along Minnesota's scenic Rum River, our historic barn offers the perfect blend of rustic charm and modern elegance for your once-in-a-lifetime celebration."
+    },
+    "primary_cta_text": {
+      "type": "text",
+      "pos": 4,
+      "translatable": true,
+      "required": true,
+      "description": "Primary call-to-action button text",
+      "display_name": "CTA Button Text",
+      "default_value": "Schedule Your Visit"
+    },
+    "scroll_text": {
+      "type": "text",
+      "pos": 5,
+      "translatable": true,
+      "required": true,
+      "description": "Scroll indicator text at bottom of hero",
+      "display_name": "Scroll Indicator Text",
+      "default_value": "Discover Your Perfect Day"
+    },
+    "bg_image": {
+      "type": "asset",
+      "pos": 6,
+      "translatable": false,
+      "required": true,
+      "description": "Hero background image (recommended: 1920x1080 or larger)",
+      "display_name": "Background Image",
+      "filetypes": ["images"]
+    }
+  },
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_uuid": null
+}
