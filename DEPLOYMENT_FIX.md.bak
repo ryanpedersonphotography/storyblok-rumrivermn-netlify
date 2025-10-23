@@ -13,7 +13,7 @@ The Storyblok region fix has been deployed, but Netlify environment variables st
 
 ### Update These Variables:
 1. **STORYBLOK_REGION**: Change from `us` to `eu`
-2. Verify **STORYBLOK_ACCESS_TOKEN**: `[REMOVED]`
+2. Verify **STORYBLOK_ACCESS_TOKEN**: `dI9HJYQcCfjLzXCUWpQF8wtt`
 
 ### Netlify Configuration Steps:
 1. Go to Netlify dashboard for the site
@@ -21,7 +21,7 @@ The Storyblok region fix has been deployed, but Netlify environment variables st
 3. Update or add:
    ```
    STORYBLOK_REGION=eu
-   STORYBLOK_ACCESS_TOKEN=[REMOVED]
+   STORYBLOK_ACCESS_TOKEN=dI9HJYQcCfjLzXCUWpQF8wtt
    STORYBLOK_IS_PREVIEW=no
    ```
 4. Trigger a new deployment or clear deploy cache
@@ -29,7 +29,7 @@ The Storyblok region fix has been deployed, but Netlify environment variables st
 ## Test URLs After Update:
 - **Live Site:** https://storyblok-rumrivermn-netlify.netlify.app
 - **Test Page:** https://storyblok-rumrivermn-netlify.netlify.app/test
-- **API Test:** https://api.storyblok.com/v2/cdn/stories/home?token=[REMOVED]
+- **API Test:** https://api.storyblok.com/v2/cdn/stories/home?token=dI9HJYQcCfjLzXCUWpQF8wtt
 
 ## Expected Results After Fix:
 - Debug info should show "Region: eu"

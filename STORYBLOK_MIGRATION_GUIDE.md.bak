@@ -113,7 +113,7 @@ export default async function BetaCMSPage() {
 ### 3. Environment Configuration
 ```bash
 # .env.local
-STORYBLOK_MANAGEMENT_TOKEN=[REMOVED]
+STORYBLOK_MANAGEMENT_TOKEN=szELu2FhITIyhqwwnkCclQtt-104181807873698-6gB8c2-pNYzsiPocqTp-
 STORYBLOK_REGION=eu
 SPACE_ID=288003424841711
 ```

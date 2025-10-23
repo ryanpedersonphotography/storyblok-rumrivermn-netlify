@@ -10,7 +10,7 @@ export default function ApiTestPage() {
       
       <script dangerouslySetInnerHTML={{
         __html: `
-          const TOKEN = 'dI9HJYQcCfjLzXCUWpQF8wtt';
+          const TOKEN = '[REMOVED - see STORYBLOK_TOKENS.md]';
           const SPACE_ID = '287999131965922';
           
           async function testEndpoint(name, url) {

@@ -78,7 +78,35 @@ const url = `https://api.storyblok.com/v2/cdn/stories/home?token=AcBamY8QEHeF7Wi
 - No authentication headers required for CDN API
 - Store in environment variables for production
 
+## Personal Access Token (Management API)
+
+### 5. Personal Access Token
+- **Token**: `YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb`
+- **Name**: pensonaaaal
+- **Type**: Personal Access Token (OAuth-like)
+- **Access**: FULL management API access to ALL account spaces
+- **Use Case**: Content creation, schema management, bulk operations, automation
+- **API**: Management API (`https://mapi.storyblok.com/v1/`)
+- **Authentication**: `Authorization: TOKEN` (no "Bearer" prefix)
+- **⚠️ CRITICAL SECURITY**: NEVER expose publicly - server-side only!
+
+### Management API Usage Examples:
+```javascript
+// Create/update stories
+curl -H "Authorization: YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb" \
+     -X POST https://mapi.storyblok.com/v1/spaces/288003424841711/stories
+
+// Get story by ID (Management API)
+curl -H "Authorization: YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb" \
+     https://mapi.storyblok.com/v1/spaces/288003424841711/stories/104455170476316
+
+// Manage components/schemas
+curl -H "Authorization: YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb" \
+     https://mapi.storyblok.com/v1/spaces/288003424841711/components
+```
+
 ## Current Environment Setup
-- **Production**: Use Public Token
-- **Development**: Can use Preview Token to see drafts
+- **Production**: Use Public Token for content delivery
+- **Development**: Can use Preview Token to see drafts  
+- **Management Operations**: Use Personal Access Token (server-side only)
 - **Feature Flag**: `FEATURE_CMS_IMAGES=0` (images disabled for safety)
