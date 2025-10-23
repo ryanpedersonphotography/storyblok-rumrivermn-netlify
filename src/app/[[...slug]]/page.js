@@ -1,5 +1,6 @@
 import { StoryblokStory } from '@storyblok/react/rsc';
 import { getStoryblokApi } from '@/lib/storyblok';
+import Link from 'next/link';
 
 export default async function Page({ params }) {
 	const { slug } = await params;
@@ -33,7 +34,7 @@ export default async function Page({ params }) {
 				{error.response?.status === 404 && (
 					<div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#f8d7da', border: '1px solid #f5c6cb', borderRadius: '4px' }}>
 						<h3>Content Not Found</h3>
-						<p>The requested story "{fullSlug}" was not found in Storyblok.</p>
+						<p>The requested story &ldquo;{fullSlug}&rdquo; was not found in Storyblok.</p>
 						<p>Please check if the story exists and is published.</p>
 					</div>
 				)}
@@ -47,7 +48,7 @@ export default async function Page({ params }) {
 				</div>
 				
 				<p style={{ marginTop: '1rem' }}>
-					<a href="/test" style={{ color: '#007bff' }}>Visit test page</a> to verify deployment is working.
+					<Link href="/test" style={{ color: '#007bff' }}>Visit test page</Link> to verify deployment is working.
 				</p>
 			</div>
 		);
