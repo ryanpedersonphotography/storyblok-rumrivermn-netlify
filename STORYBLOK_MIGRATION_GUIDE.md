@@ -1,24 +1,26 @@
-# Storyblok CMS Integration Guide
+# Storyblok CMS Integration Guide - Complete Implementation
 
-## What I Learned
+## What We Learned Through Trial and Error
 
 ### The Problem
 - Started with static hotfix components that were pixel-perfect
 - Needed to make content CMS-editable while maintaining exact visual fidelity
 - Multiple token types caused confusion and authentication failures
-- TypeScript module resolution issues with Storyblok SDK imports
+- Background images hardcoded in CSS broke dynamic updates
 
 ### The Solution Pattern
 - **Keep static components unchanged** - preserve pixel-perfect styling
 - **Create CMS twin routes** - `/beta` (static) vs `/beta-cms` (CMS-driven)
 - **Use content mappers** - transform Storyblok data to match static component props
-- **Use Management API directly** - avoid SDK complexity and token issues
+- **Use proper token types** - Public tokens for content delivery, Personal for management
+- **Feature flag images safely** - text content first, images when ready
 
 ### Key Discoveries
-1. **Management tokens work for everything** - no need for separate delivery tokens
-2. **EU region uses default API endpoint** - `https://api.storyblok.com/v2` (not `api.eu.storyblok.com`)
-3. **Direct fetch > SDK** - simpler, fewer dependencies, easier debugging
+1. **Token Types Matter** - Public tokens for CDN API, Personal tokens for Management API
+2. **CSS Variables for Dynamic Images** - `var(--hero-bg, fallback)` pattern
+3. **Feature Flags Essential** - `FEATURE_CMS_IMAGES=0` for safe deployment
 4. **Component mapping is critical** - Storyblok field names must map to existing props
+5. **Single source of truth** - Document all tokens in `STORYBLOK_TOKENS.md`
 
 ## Working Code Implementation
 
@@ -72,9 +74,9 @@ import HeroHotfix from "@/components/hotfix/HeroHotfix";
 import { mapNavbarFromStory, mapHeroFromStory } from "@/components/hotfix/mapFromStoryblok";
 
 async function getStoryblokStory() {
-  // Use the working management token instead of delivery token
-  const token = process.env.STORYBLOK_MANAGEMENT_TOKEN;
-  const url = `https://mapi.storyblok.com/v1/spaces/288003424841711/stories/104455170476316`;
+  // Use public token with delivery API for published content
+  const token = process.env.STORYBLOK_ACCESS_TOKEN;
+  const url = `https://api.storyblok.com/v2/cdn/stories/home?token=${token}&version=published`;
   
   try {
     const response = await fetch(url, { 
@@ -110,13 +112,32 @@ export default async function BetaCMSPage() {
 }
 ```
 
-### 3. Environment Configuration
+### 3. Environment Configuration (UPDATED - WORKING VERSION)
 ```bash
-# .env.local
-STORYBLOK_MANAGEMENT_TOKEN=[REMOVED]
-STORYBLOK_REGION=eu
+# .env.local - see STORYBLOK_TOKENS.md for complete reference
+
+# Space Information
+SPACE_NAME=rum-river-mn
 SPACE_ID=288003424841711
+
+# PUBLIC TOKEN - for production, published content only
+STORYBLOK_ACCESS_TOKEN=tJCdp1QyfInsvreqnI2gLQtt
+
+# ⚠️ PERSONAL ACCESS TOKEN - MANAGEMENT API (NEVER EXPOSE PUBLICLY!)
+# Full account access - server-side only, content creation/management
+STORYBLOK_PERSONAL_ACCESS_TOKEN=YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb
+
+# Feature flags - images safely disabled until ready
+FEATURE_CMS_IMAGES=0
 ```
+
+### 4. Token Documentation (CRITICAL!)
+**All tokens documented in `STORYBLOK_TOKENS.md`:**
+- **Public Token**: Published content via CDN API
+- **Preview Token**: Draft + published content  
+- **Asset Token**: Private assets access
+- **Theme Token**: Theme development
+- **Personal Token**: Management API (full account access)
 
 ### 4. Asset Upload Script (`scripts/update-home-hero-bg.js`)
 ```javascript
@@ -199,15 +220,18 @@ const [, , ASSET_URL, STORY_SLUG] = process.argv;
 
 ## Critical Success Factors
 
-### 1. Token Management
-- **Use Management API tokens for everything** - simpler than multiple token types
-- **Management tokens can read + write** - no need for separate delivery tokens
-- **Store tokens in environment variables** for both local and production
+### 1. Token Management (UPDATED - PROPER APPROACH)
+- **Use correct token types for each API**:
+  - **Public Token**: CDN API for published content (`/beta-cms` production)
+  - **Preview Token**: CDN API for draft content (development)
+  - **Personal Token**: Management API for admin operations (content creation)
+- **Document ALL tokens in `STORYBLOK_TOKENS.md`** - single source of truth
+- **Feature flag images** with `FEATURE_CMS_IMAGES=0` for safe deployment
 
-### 2. API Endpoints
-- **EU Region**: `https://api.storyblok.com/v2` (default)
-- **US Region**: `https://api-us.storyblok.com/v2`
-- **Management API**: `https://mapi.storyblok.com/v1`
+### 2. API Endpoints (CORRECTED)
+- **Content Delivery API**: `https://api.storyblok.com/v2/cdn/` (Public/Preview tokens)
+- **Management API**: `https://mapi.storyblok.com/v1/` (Personal tokens only)
+- **Region doesn't affect endpoints** - use standard URLs
 
 ### 3. Content Structure
 - **Map Storyblok fields exactly to static props** - prevents visual breaks
@@ -224,13 +248,117 @@ const [, , ASSET_URL, STORY_SLUG] = process.argv;
 - **Use manual deployment** to verify changes before auto-deploy
 - **Check function logs** for server-side errors
 
+## 🚨 IMAGE WIRING TODO - COME BACK TO THIS
+
+### Current Status: Images Safely Disabled
+- ✅ **Text content working**: kicker, title, description, CTA text all updating from CMS
+- ✅ **Images feature flagged**: `FEATURE_CMS_IMAGES=0` prevents breaking changes
+- ✅ **CSS fallbacks active**: Static background images still working perfectly
+- ✅ **CSS variables implemented**: `var(--hero-bg, fallback)` pattern ready
+
+### Images That Need CMS Wiring (Complete List)
+
+#### 1. Hero Section Background Images
+- **Current**: Hardcoded in CSS `/hotfix-assets/barn-exterior-full-deck-view-evening.jpg`
+- **CMS Field**: `bg_image` in `home_hero_section` component
+- **Implementation**: Already done with CSS variables - just need to enable feature flag
+- **Enable**: Set `FEATURE_CMS_IMAGES=1` when ready
+
+#### 2. Gallery Section Images (Future)
+- **Current**: Not implemented yet
+- **CMS Field**: TBD - likely `gallery_images` array
+- **Implementation**: Need to create gallery component with dynamic image grid
+- **Priority**: Medium - add after hero images working
+
+#### 3. About Section Images (Future)
+- **Current**: Not implemented yet  
+- **CMS Field**: TBD - likely `about_image` and `team_images`
+- **Implementation**: Need to create about component with image support
+- **Priority**: Low - content-heavy section
+
+#### 4. Venue Features Images (Future)
+- **Current**: Not implemented yet
+- **CMS Field**: TBD - likely `feature_items` with image fields
+- **Implementation**: Need to map feature cards with images
+- **Priority**: High - important for venue marketing
+
+#### 5. Package Cards Images (Future)  
+- **Current**: Not implemented yet
+- **CMS Field**: TBD - likely `package_image` per package
+- **Implementation**: Need to create package component with image support
+- **Priority**: High - critical for conversions
+
+#### 6. Navigation Logo (Future)
+- **Current**: Text-only logo "Rum River Barn"
+- **CMS Field**: TBD - likely `logo_image` in navbar component
+- **Implementation**: Update navbar to support image + text combo
+- **Priority**: Low - text logo works fine
+
+### Image Implementation Checklist
+
+When ready to enable images:
+
+#### Phase 1: Enable Hero Background Images
+- [ ] Verify hero background images work in Storyblok admin
+- [ ] Test image uploads and URL generation  
+- [ ] Set `FEATURE_CMS_IMAGES=1` in production environment
+- [ ] Test `/beta-cms` route shows CMS images correctly
+- [ ] Verify CSS fallback still works if image missing
+
+#### Phase 2: Add Gallery Component
+- [ ] Create `GalleryHotfix` component with image grid
+- [ ] Add `gallery_section` component in Storyblok schema
+- [ ] Implement image array mapping in content mapper
+- [ ] Add responsive image sizing and optimization
+- [ ] Test gallery editing workflow in Storyblok admin
+
+#### Phase 3: Expand Image Support
+- [ ] Add image fields to remaining components (about, features, packages)
+- [ ] Implement lazy loading for performance
+- [ ] Add image alt text and SEO metadata
+- [ ] Create image upload guidelines for content editors
+- [ ] Document image sizing requirements
+
+### Image Technical Implementation Notes
+
+#### CSS Variables Pattern (Already Implemented)
+```css
+.hotfix-hero-romantic {
+  background-image: var(--hero-bg, url("/hotfix-assets/fallback.jpg")) !important;
+}
+```
+
+#### React Component Pattern (Already Implemented)
+```typescript
+// Only set CSS custom property if CMS image enabled and available
+const style: React.CSSProperties = {};
+if (enableCmsImages && data.bgImage) {
+  style['--hero-bg' as any] = `url("${data.bgImage}")`;
+}
+```
+
+#### Asset URL Handling (Already Implemented)
+```typescript
+// Handle both asset objects and string URLs from Storyblok
+let bgImageUrl = null;
+if (content?.bg_image) {
+  if (typeof content.bg_image === 'string') {
+    bgImageUrl = content.bg_image;
+  } else if (content.bg_image?.filename) {
+    bgImageUrl = content.bg_image.filename;
+  }
+}
+```
+
+**🔄 Return to this section when ready to enable images!**
+
 ## Common Pitfalls to Avoid
 
-1. **Don't modify static components** - keep them pixel-perfect
-2. **Don't rely on SDKs** - direct fetch is more reliable
-3. **Don't use multiple token types** - management token handles everything
-4. **Don't assume delivery tokens work** - they often have permission issues
+1. **Don't enable images before text content is stable** - get content working first
+2. **Don't skip feature flags** - images can break layouts unexpectedly  
+3. **Don't forget CSS fallbacks** - always have backup images
+4. **Don't assume asset URLs are strings** - handle objects properly
 5. **Don't skip local testing** - verify before deploying
-6. **Don't change API endpoints randomly** - stick to documented formats
+6. **Don't forget alt text** - accessibility is critical
 
-This pattern allows for **zero-risk CMS migration** with **pixel-perfect preservation** of existing designs.
+This pattern allows for **zero-risk CMS migration** with **pixel-perfect preservation** of existing designs while safely deferring complex image handling until the foundation is solid.
