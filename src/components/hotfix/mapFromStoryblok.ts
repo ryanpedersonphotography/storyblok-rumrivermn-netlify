@@ -30,7 +30,7 @@ export function mapHeroFromStory(content: any) {
     title: content?.title ?? hotfixHero.title,
     titleAccent: content?.title_accent ?? hotfixHero.titleAccent,
     description: content?.description ?? hotfixHero.description,
-    bgImage: content?.bg_image || hotfixHero.bgImage,
+    bgImage: content?.bg_image?.filename || content?.bg_image || hotfixHero.bgImage, // Handle both asset object and string URL
     primaryCta: {
       url: "/contact",
       label: content?.primary_cta_text ?? hotfixHero.primaryCta.label
