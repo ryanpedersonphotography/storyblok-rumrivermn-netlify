@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default async function TokenTest() {
   const token = process.env.STORYBLOK_ACCESS_TOKEN;
   const isPreview = process.env.STORYBLOK_IS_PREVIEW;
@@ -49,7 +51,7 @@ export default async function TokenTest() {
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
       </div>
 
-      <p><a href="/">← Back to Home</a></p>
+      <p><Link href="/">← Back to Home</Link></p>
     </div>
   );
 }
