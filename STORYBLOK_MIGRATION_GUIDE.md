@@ -261,8 +261,8 @@ const [, , ASSET_URL, STORY_SLUG] = process.argv;
 #### 1. Hero Section Background Images
 - **Current**: Hardcoded in CSS `/hotfix-assets/barn-exterior-full-deck-view-evening.jpg`
 - **CMS Field**: `bg_image` in `home_hero_section` component
-- **Implementation**: Already done with CSS variables - just need to enable feature flag
-- **Enable**: Set `FEATURE_CMS_IMAGES=1` when ready
+- **Implementation**: CSS variables ready but images DON'T work yet - need debugging
+- **Status**: BLOCKED - API/auth issues prevent image loading
 
 #### 2. Gallery Section Images (Future)
 - **Current**: Not implemented yet
@@ -298,12 +298,16 @@ const [, , ASSET_URL, STORY_SLUG] = process.argv;
 
 When ready to enable images:
 
-#### Phase 1: Enable Hero Background Images
-- [ ] Verify hero background images work in Storyblok admin
-- [ ] Test image uploads and URL generation  
-- [ ] Set `FEATURE_CMS_IMAGES=1` in production environment
-- [ ] Test `/beta-cms` route shows CMS images correctly
-- [ ] Verify CSS fallback still works if image missing
+#### Phase 1: DEBUG and Fix Hero Background Images
+- [ ] Upload test images in Storyblok admin
+- [ ] Verify image URLs are accessible directly  
+- [ ] Set `FEATURE_CMS_IMAGES=1` for testing (local first!)
+- [ ] Debug why `/beta-cms` route doesn't show CMS images
+- [ ] Fix API/authentication issues preventing image loading
+- [ ] THEN verify images work correctly
+- [ ] Test CSS fallback still works if image missing
+
+⚠️ **IMPORTANT**: Images infrastructure is ready but images DON'T work yet due to unresolved API issues!
 
 #### Phase 2: Add Gallery Component
 - [ ] Create `GalleryHotfix` component with image grid
