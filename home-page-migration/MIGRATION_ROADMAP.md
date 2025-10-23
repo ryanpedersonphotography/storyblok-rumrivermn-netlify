@@ -1,28 +1,39 @@
 # Migration Roadmap - Romantic Wedding Barn Theme
 
 ## Overview
-This roadmap provides a systematic approach for migrating all home page design sections from the hotfix implementation to the official Payload CMS template. Each section should be implemented as a separate feature branch and validated for design fidelity before proceeding to the next.
+This roadmap provides a systematic approach for migrating all home page design sections from the hotfix implementation into proper React/Next.js components and wiring them to Storyblok CMS. Each section should be implemented as a separate feature branch and validated for design fidelity before proceeding to the next.
 
 ## 🎯 Migration Objectives
 - **100% Design Fidelity**: Preserve every visual detail from the hotfix design
-- **Component Architecture**: Convert to reusable Payload blocks
+- **Component Architecture**: Convert to reusable React components with Storyblok integration
 - **Performance Optimization**: Implement modern web standards
 - **Accessibility Compliance**: Ensure full a11y support
 - **TypeScript Integration**: Full type safety throughout
+- **Storyblok CMS Integration**: Wire all components to Storyblok for content management
 
 ## 📋 Pre-Migration Setup
 
 ### ✅ Repository Preparation
-- [ ] Clone target repository: `https://github.com/ryanpedersonphotography/rumriver-payload-website-starter`
-- [ ] Install dependencies: `pnpm install`
-- [ ] Verify development environment: `pnpm dev`
-- [ ] Create migration tracking branch: `git checkout -b migration/home-page-tracking`
+- [x] Current repository: This Storyblok Next.js site is the target
+- [x] Dependencies installed: `npm install` completed
+- [x] Development environment verified: `npm run dev` working
+- [x] Storyblok CMS integration: Basic setup complete (hero section working)
+
+### ✅ Current Storyblok Setup Status
+- [x] **Authentication Working**: Public token configured via Netlify CLI
+- [x] **Hero Section**: Basic implementation working on `/beta-cms` and root route
+- [x] **Content Mapping**: `mapFromStoryblok.ts` transforms Storyblok data to component props
+- [x] **Environment Variables**: All tokens documented in `STORYBLOK_TOKENS.md`
+- [x] **GitHub Secrets**: All tokens stored securely for CI/CD
+- [x] **Feature Flags**: `FEATURE_CMS_IMAGES=0` for safe deployment
+- [x] **Live Integration**: Root route (`/`) pulling content from Storyblok successfully
 
 ### ✅ Asset Preparation
 - [ ] Review all migration packages in `/home-page-migration/`
 - [ ] Copy shared assets: design tokens, animations, documentation
-- [ ] Verify image assets are available in `/public/images/`
+- [ ] Verify image assets are available in `/public/hotfix-assets/`
 - [ ] Test font loading: Dancing Script, Playfair Display, Montserrat
+- [ ] Ensure Storyblok assets can be uploaded and managed
 
 ---
 
@@ -207,6 +218,8 @@ git tag "phase-1-complete"
   - [ ] Implement scroll detection hook (already included)
   - [ ] Add mobile menu state management (already included)
   - [ ] Extract styles from `00-navbar/styles/navbar-styles.css`
+  - [ ] Create Storyblok component schema for navbar
+  - [ ] Wire navbar props to Storyblok fields
 
 - [ ] **Transparent-to-White Effect**
   - [ ] Test scroll position detection (50px threshold)
@@ -266,9 +279,11 @@ git tag "phase-2-complete"
 ### 📦 Hero Component Migration
 - [ ] **Hero Structure**
   - [ ] Copy `01-hero-section/code/hero-section.tsx` → `components/hero/HeroSection.tsx`
-  - [ ] Copy background image to `public/images/venue/`
+  - [ ] Copy background image to `public/hotfix-assets/`
   - [ ] Extract styles from `01-hero-section/styles/hero-styles.css`
   - [ ] Verify design token usage (colors, typography)
+  - [ ] Extend existing Storyblok hero component schema
+  - [ ] Wire all hero props to Storyblok fields (kicker, title, titleAccent, description, CTA, bgImage)
 
 - [ ] **Background System**
   - [ ] Implement fixed background attachment
@@ -656,10 +671,11 @@ git tag "phase-11-complete"
 
 ### 📦 Complete Page Assembly
 - [ ] **Page Integration**
-  - [ ] Create main home page layout
+  - [ ] Create main home page layout with Storyblok integration
   - [ ] Import all section components
-  - [ ] Test complete page rendering
+  - [ ] Test complete page rendering with CMS data
   - [ ] Verify section spacing and flow
+  - [ ] Wire all components to Storyblok story structure
 
 - [ ] **Performance Optimization**
   - [ ] Implement image optimization
@@ -695,9 +711,9 @@ git tag "phase-11-complete"
 
 ### Migration Status Dashboard
 ```
-Phase 1: Foundation Setup           [ ] Not Started  [ ] In Progress  [ ] Complete
+Phase 1: Foundation Setup           [x] Complete     (Storyblok + design tokens ready)
 Phase 2: Navigation                 [ ] Not Started  [ ] In Progress  [ ] Complete  
-Phase 3: Hero Section              [ ] Not Started  [ ] In Progress  [ ] Complete
+Phase 3: Hero Section              [x] Complete     (Basic Storyblok integration working)
 Phase 4: Alternating Blocks        [ ] Not Started  [ ] In Progress  [ ] Complete
 Phase 5: Love Stories Gallery      [ ] Not Started  [ ] In Progress  [ ] Complete
 Phase 6: Brand Social Proof        [ ] Not Started  [ ] In Progress  [ ] Complete
@@ -716,6 +732,55 @@ Each phase must pass these gates before proceeding:
 - ✅ **Performance**: No significant performance regression
 - ✅ **Accessibility**: WCAG 2.1 AA compliance
 - ✅ **Responsive**: Works perfectly on all device sizes
+- ✅ **Storyblok Integration**: Component wired to CMS with proper schema
+- ✅ **Content Editing**: Can be edited in Storyblok admin successfully
+
+---
+
+## 🎯 Storyblok Integration Pattern
+
+### Component Schema Creation Strategy
+For each migrated component, follow this Storyblok integration pattern:
+
+#### 1. Component Registration
+```javascript
+// Use existing scripts/update-components.js or create components manually in Storyblok admin
+{
+  "name": "component_name_section",
+  "display_name": "Component Name Section", 
+  "schema": {
+    // All editable fields mapped to component props
+  }
+}
+```
+
+#### 2. Content Mapping Pattern
+```typescript
+// Extend existing mapFromStoryblok.ts pattern
+export function mapComponentFromStory(content: any) {
+  if (!content) return staticFallback;
+  return {
+    ...staticFallback,
+    // Map each Storyblok field to component prop
+    title: content?.title ?? staticFallback.title,
+    description: content?.description ?? staticFallback.description,
+    // Handle asset objects properly
+    image: content?.image?.filename || content?.image || staticFallback.image,
+  };
+}
+```
+
+#### 3. Page Integration
+```typescript
+// Add to existing page.tsx structure
+const componentData = page?.body?.find((b: any) => b.component === "component_name_section") || null;
+<ComponentName data={mapComponentFromStory(componentData)} />
+```
+
+#### 4. Asset Management
+- **Feature Flag**: Keep `FEATURE_CMS_IMAGES=0` until all components stable
+- **Asset Fields**: Use `type: "asset"` with `filetypes: ["images"]`
+- **Fallback Strategy**: Always provide static fallbacks for assets
 
 ---
 
@@ -723,18 +788,26 @@ Each phase must pass these gates before proceeding:
 
 ### Dependencies to Install
 ```bash
-# Core dependencies
-pnpm add embla-carousel-react embla-carousel-autoplay
-pnpm add resend
+# Core dependencies (using npm for this project)
+npm install embla-carousel-react embla-carousel-autoplay
+npm install resend
+npm install @heroicons/react
 
-# Development dependencies (if needed)
-pnpm add -D @types/node
+# Storyblok dependencies (already installed)
+# @storyblok/react @storyblok/js
 ```
 
 ### Environment Variables
 ```bash
 # .env.local
 RESEND_API_KEY=your_resend_api_key_here
+
+# Storyblok variables (already configured)
+STORYBLOK_ACCESS_TOKEN=tJCdp1QyfInsvreqnI2gLQtt
+STORYBLOK_PERSONAL_ACCESS_TOKEN=YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ239Gpcb
+FEATURE_CMS_IMAGES=0
+SPACE_ID=288003424841711
+SPACE_NAME=rum-river-mn
 ```
 
 ### File Structure

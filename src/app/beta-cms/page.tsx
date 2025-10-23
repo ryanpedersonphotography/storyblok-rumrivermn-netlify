@@ -1,6 +1,7 @@
 import NavbarHotfix from "@/components/hotfix/NavbarHotfix";
 import HeroHotfix from "@/components/hotfix/HeroHotfix";
-import { mapNavbarFromStory, mapHeroFromStory } from "@/components/hotfix/mapFromStoryblok";
+import AlternatingBlocks from "@/components/sections/AlternatingBlocks";
+import { mapNavbarFromStory, mapHeroFromStory, mapAlternatingBlocksFromStory } from "@/components/hotfix/mapFromStoryblok";
 
 async function getStoryblokStory() {
   // Use public token with delivery API  
@@ -36,13 +37,16 @@ export default async function BetaCMSPage() {
   const navbar = page?.body?.find((b: any) => String(b.component).startsWith("navbar")) || null;
   // Fix: Look for the actual component name created by scripts
   const hero = page?.body?.find((b: any) => b.component === "home_hero_section") || null;
+  const alternatingBlocks = page?.body?.find((b: any) => b.component === "alternating_blocks_section") || null;
 
   console.log('Found hero component:', hero);
+  console.log('Found alternating blocks component:', alternatingBlocks);
 
   return (
     <>
       <NavbarHotfix data={mapNavbarFromStory(navbar)} />
       <HeroHotfix   data={mapHeroFromStory(hero)} />
+      <AlternatingBlocks data={mapAlternatingBlocksFromStory(alternatingBlocks)} />
     </>
   );
 }
