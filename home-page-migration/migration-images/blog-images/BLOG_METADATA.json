@@ -1,0 +1,72 @@
+{
+  "category": "blog-images",
+  "totalCouples": 19,
+  "targetPath": "/public/real-wedding-blogs/[couple-name]/",
+  "priority": "MEDIUM",
+  "description": "Curated images specifically for blog posts and featured content",
+  "usageContext": [
+    "Blog post thumbnails",
+    "Featured wedding highlights", 
+    "Social media content",
+    "Quick preview images"
+  ],
+  "codeReferences": [
+    "Blog component image props",
+    "Featured wedding sections",
+    "Thumbnail generators"
+  ],
+  "imageTypes": {
+    "ceremony": {
+      "pattern": "[couple]-wedding-ceremony.jpg",
+      "purpose": "Ceremony moment highlights",
+      "usage": "Blog headers, ceremony showcase"
+    },
+    "portrait": {
+      "pattern": "[couple]-wedding-portrait.jpg", 
+      "purpose": "Couple portrait shots",
+      "usage": "Featured couple images, thumbnails"
+    },
+    "reception": {
+      "pattern": "[couple]-wedding-reception.jpg",
+      "purpose": "Reception celebration moments", 
+      "usage": "Party atmosphere showcase"
+    }
+  },
+  "couples": [
+    {
+      "name": "anthony-and-linnea",
+      "files": ["001.jpg", "002.jpg", "003.jpg", "anthony-linnea-2024-001.jpg", "anthony-linnea-2024-002.jpg", "anthony-linnea-2024-003.jpg"],
+      "featured": true,
+      "blogStatus": "published"
+    },
+    {
+      "name": "emily-and-barron-nixon",
+      "files": ["emily-barron-wedding-ceremony.jpg", "emily-barron-wedding-portrait-hires.jpg", "emily-barron-wedding-reception.jpg"],
+      "featured": true,
+      "blogStatus": "published"
+    },
+    {
+      "name": "erin-kate", 
+      "files": ["erin-kate-wedding-ceremony.jpg", "erin-kate-wedding-portrait.jpg", "erin-kate-wedding-reception.jpg"],
+      "featured": true,
+      "blogStatus": "published"
+    }
+  ],
+  "technicalSpecs": {
+    "format": "JPG preferred, PNG for special cases",
+    "targetResolution": "1200px width (blog optimized)",
+    "maxFileSize": "1MB (optimized for web)",
+    "aspectRatio": "16:9 or 4:3 preferred for consistency"
+  },
+  "optimizationGuidelines": {
+    "compression": "High compression acceptable (blog use)",
+    "webp": "Generate WebP versions for modern browsers",
+    "responsive": "Create 480px, 768px, 1200px versions",
+    "lazyLoading": "All blog images should support lazy loading"
+  },
+  "contentGuidelines": {
+    "ceremony": "Focus on emotional moments, venue atmosphere",
+    "portrait": "High-quality couple shots, venue as backdrop", 
+    "reception": "Party atmosphere, venue in action, guest enjoyment"
+  }
+}

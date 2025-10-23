@@ -1,0 +1,333 @@
+/* HISTORY CAROUSEL SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-history-section {
+  background: #FFFCF8 !important; /* Cream pearl */
+  padding: 80px 0 !important;
+  position: relative !important;
+}
+
+.hotfix-history-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+/* Section Header */
+.hotfix-history-header {
+  text-align: center !important;
+  margin-bottom: 4rem !important;
+}
+
+.hotfix-history-header .hotfix-script-accent {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #9D6B7B !important; /* Dusty rose */
+  margin-bottom: 1rem !important;
+}
+
+.hotfix-history-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 3rem !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  margin-bottom: 1.5rem !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.hotfix-history-lead {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  opacity: 0.8 !important;
+  margin-bottom: 0 !important;
+  max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Carousel Container */
+.hotfix-carousel-wrapper {
+  position: relative !important;
+  overflow: hidden !important;
+  margin-top: 3rem !important;
+}
+
+.hotfix-carousel-track {
+  display: flex !important;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  gap: 2rem !important;
+  padding: 0 2rem !important;
+}
+
+.hotfix-carousel-slide {
+  flex: 0 0 320px !important;
+  position: relative !important;
+}
+
+/* Photo Cards */
+.hotfix-photo-card {
+  background: white !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 32px rgba(107, 78, 61, 0.1) !important;
+  border: 1px solid rgba(212, 165, 116, 0.2) !important;
+  transition: all 0.4s ease !important;
+  cursor: pointer !important;
+}
+
+.hotfix-photo-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(107, 78, 61, 0.2) !important;
+  border-color: rgba(157, 107, 123, 0.3) !important;
+}
+
+.hotfix-photo-card img {
+  width: 100% !important;
+  height: 250px !important;
+  object-fit: cover !important;
+  transition: all 0.4s ease !important;
+}
+
+.hotfix-photo-card:hover img {
+  transform: scale(1.05) !important;
+}
+
+.hotfix-photo-card-content {
+  padding: 1.5rem !important;
+}
+
+.hotfix-photo-card h3 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  margin-bottom: 0.5rem !important;
+  line-height: 1.3 !important;
+}
+
+.hotfix-photo-card p {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  color: #7A8B7F !important; /* Sage green */
+  margin: 0 !important;
+}
+
+/* Carousel Navigation */
+.hotfix-carousel-nav {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 2px solid #7A8B7F !important; /* Sage green */
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #7A8B7F !important;
+  transition: all 0.3s ease !important;
+  z-index: 2 !important;
+}
+
+.hotfix-carousel-nav:hover {
+  background: #9D6B7B !important; /* Dusty rose */
+  border-color: #9D6B7B !important;
+  color: white !important;
+  transform: translateY(-50%) scale(1.1) !important;
+  box-shadow: 0 6px 20px rgba(157, 107, 123, 0.3) !important;
+}
+
+.hotfix-carousel-nav.prev {
+  left: 20px !important;
+}
+
+.hotfix-carousel-nav.next {
+  right: 20px !important;
+}
+
+.hotfix-carousel-nav svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Carousel Indicators */
+.hotfix-carousel-indicators {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  margin-top: 2rem !important;
+}
+
+.hotfix-carousel-indicator {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: #7A8B7F !important; /* Sage green */
+  opacity: 0.4 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.hotfix-carousel-indicator.active {
+  background: #9D6B7B !important; /* Dusty rose */
+  opacity: 1 !important;
+  transform: scale(1.2) !important;
+}
+
+.hotfix-carousel-indicator:hover {
+  opacity: 0.8 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Legacy Carousel Controls (from other sections) */
+.hotfix-carousel-controls {
+  position: absolute !important;
+  bottom: 1rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  gap: 0.5rem !important;
+  z-index: 10 !important;
+}
+
+.hotfix-carousel-dot {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-carousel-dot.active {
+  background: white !important;
+  transform: scale(1.2) !important;
+}
+
+.hotfix-carousel-arrow {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: none !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #6B4E3D !important;
+  transition: all 0.3s ease !important;
+  opacity: 0 !important;
+  z-index: 2 !important;
+}
+
+.hotfix-venue-main-image:hover .hotfix-carousel-arrow {
+  opacity: 1 !important;
+}
+
+.hotfix-carousel-arrow:hover {
+  background: white !important;
+  transform: translateY(-50%) scale(1.1) !important;
+}
+
+.hotfix-carousel-arrow.prev {
+  left: 1rem !important;
+}
+
+.hotfix-carousel-arrow.next {
+  right: 1rem !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .hotfix-history-section {
+    padding: 60px 0 !important;
+  }
+
+  .hotfix-history-title {
+    font-size: 2.5rem !important;
+  }
+
+  .hotfix-carousel-track {
+    padding: 0 1rem !important;
+    gap: 1.5rem !important;
+  }
+
+  .hotfix-carousel-slide {
+    flex: 0 0 280px !important;
+  }
+
+  .hotfix-carousel-nav {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .hotfix-carousel-nav svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .hotfix-carousel-nav.prev {
+    left: 10px !important;
+  }
+
+  .hotfix-carousel-nav.next {
+    right: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotfix-history-section {
+    padding: 40px 0 !important;
+  }
+
+  .hotfix-history-content {
+    padding: 0 1rem !important;
+  }
+
+  .hotfix-history-title {
+    font-size: 2rem !important;
+  }
+
+  .hotfix-history-header .hotfix-script-accent {
+    font-size: 1.5rem !important;
+  }
+
+  .hotfix-history-lead {
+    font-size: 1.125rem !important;
+  }
+
+  .hotfix-carousel-track {
+    padding: 0 0.5rem !important;
+    gap: 1rem !important;
+  }
+
+  .hotfix-carousel-slide {
+    flex: 0 0 250px !important;
+  }
+
+  .hotfix-photo-card img {
+    height: 200px !important;
+  }
+
+  .hotfix-photo-card-content {
+    padding: 1.25rem !important;
+  }
+
+  .hotfix-photo-card h3 {
+    font-size: 1.125rem !important;
+  }
+
+  .hotfix-photo-card p {
+    font-size: 0.9rem !important;
+  }
+}

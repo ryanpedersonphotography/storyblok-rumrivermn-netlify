@@ -1,0 +1,268 @@
+/* MAP SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-map-section {
+  background: white !important;
+  padding: 0 !important;
+  min-height: 100vh !important;
+}
+
+.hotfix-map-container {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  min-height: 100vh !important;
+}
+
+/* Left Panel - Location Information */
+.hotfix-map-info {
+  padding: 80px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  background: #FFFCF8 !important; /* Cream pearl */
+  color: #6B4E3D !important; /* Warm walnut */
+  position: relative !important;
+}
+
+/* Section Header Styling */
+.hotfix-map-header {
+  text-align: center !important;
+  margin-bottom: 3rem !important;
+}
+
+.hotfix-script-accent {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #9D6B7B !important; /* Dusty rose */
+  margin-bottom: 1rem !important;
+}
+
+.hotfix-map-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 3rem !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  margin-bottom: 1.5rem !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.hotfix-map-lead {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  opacity: 0.8 !important;
+  margin-bottom: 3rem !important;
+  max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Location Details */
+.hotfix-location-details {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+}
+
+.hotfix-location-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 1.5rem !important;
+  color: #6B4E3D !important; /* Warm walnut */
+}
+
+.hotfix-location-icon {
+  width: 50px !important;
+  height: 50px !important;
+  background: linear-gradient(135deg, #E4C896 0%, #9D6B7B 100%) !important; /* Champagne gold to dusty rose */
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-location-item:hover .hotfix-location-icon {
+  transform: scale(1.1) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hotfix-location-icon .hotfix-icon {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.hotfix-location-text h4 {
+  font-family: 'Montserrat', sans-serif !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  margin-bottom: 0.5rem !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+}
+
+.hotfix-location-text p {
+  color: #6B4E3D !important; /* Warm walnut */
+  opacity: 0.75 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1rem !important;
+}
+
+/* Right Panel - Interactive Map */
+.hotfix-map-embed {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #7A8B7F !important; /* Sage green */
+}
+
+/* Hero-style Overlay on Map */
+.hotfix-map-embed::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  ) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.hotfix-map-embed iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 0 !important;
+}
+
+/* Floating Action Buttons */
+.hotfix-map-overlay {
+  position: absolute !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  z-index: 2 !important;
+  display: flex !important;
+  gap: 1rem !important;
+}
+
+.hotfix-map-action-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  color: #6B4E3D !important; /* Warm walnut */
+  padding: 0.75rem 1.25rem !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-decoration: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.hotfix-map-action-btn:hover {
+  background: #E4C896 !important; /* Champagne gold */
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+.hotfix-map-action-btn .hotfix-icon-sm {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Add shimmer effect to map action buttons */
+.hotfix-map-action-btn::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.6s ease !important;
+}
+
+.hotfix-map-action-btn:hover::before {
+  transform: translateX(100%) !important;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 1024px) {
+  .hotfix-map-container {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  
+  .hotfix-map-info {
+    padding: 60px 40px !important;
+    min-height: 70vh !important;
+  }
+  
+  .hotfix-map-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hotfix-map-embed {
+    min-height: 500px !important;
+  }
+  
+  .hotfix-map-overlay {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    flex-direction: column !important;
+  }
+  
+  .hotfix-map-action-btn {
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotfix-map-info {
+    padding: 40px 20px !important;
+    text-align: center !important;
+  }
+  
+  .hotfix-map-title {
+    font-size: 2rem !important;
+  }
+  
+  .hotfix-location-details {
+    gap: 1.5rem !important;
+  }
+  
+  .hotfix-location-item {
+    gap: 1rem !important;
+  }
+  
+  .hotfix-location-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+  
+  .hotfix-location-text h4 {
+    font-size: 1.125rem !important;
+  }
+  
+  .hotfix-location-text p {
+    font-size: 0.9rem !important;
+  }
+  
+  .hotfix-map-embed {
+    min-height: 400px !important;
+  }
+}

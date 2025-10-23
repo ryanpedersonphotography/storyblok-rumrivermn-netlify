@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rum River Wedding Barn</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHVYQNKG7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-9NHVYQNKG7');
+    </script>
+    <script type="module" crossorigin src="/assets/index-CGmv6wZw.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dhy2fZ7e.css">
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Hidden forms for Netlify Forms detection -->
+    <form hidden method='post' name='home-schedule-tour'><input type='hidden' name='form-name' value='home-schedule-tour' />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="date" name="proposedEventDate" />
+      <input type="date" name="preferredTourDate" />
+      <select name="preferredTourTime">
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="1:00 PM">1:00 PM</option>
+        <option value="2:00 PM">2:00 PM</option>
+        <option value="3:00 PM">3:00 PM</option>
+        <option value="4:00 PM">4:00 PM</option>
+      </select>
+      <select name="guestCount">
+        <option value="50-100">50-100 Guests</option>
+        <option value="100-150">100-150 Guests</option>
+        <option value="150-200">150-200 Guests</option>
+        <option value="200+">200+ Guests</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
+    <form hidden method='post' name='contact'><input type='hidden' name='form-name' value='contact' />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="date" name="eventDate" />
+      <select name="guestCount">
+        <option value="50-100">50-100 Guests</option>
+        <option value="100-150">100-150 Guests</option>
+        <option value="150-200">150-200 Guests</option>
+        <option value="200+">200+ Guests</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
+    <form hidden method='post' name='schedule-tour'><input type='hidden' name='form-name' value='schedule-tour' />
+      <input type="hidden" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="date" name="proposedEventDate" />
+      <input type="date" name="preferredTourDate" />
+      <select name="preferredTourTime">
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="1:00 PM">1:00 PM</option>
+        <option value="2:00 PM">2:00 PM</option>
+        <option value="3:00 PM">3:00 PM</option>
+        <option value="4:00 PM">4:00 PM</option>
+      </select>
+      <select name="guestCount">
+        <option value="50-100">50-100 Guests</option>
+        <option value="100-150">100-150 Guests</option>
+        <option value="150-200">150-200 Guests</option>
+        <option value="200+">200+ Guests</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
+
+  </body>
+</html>

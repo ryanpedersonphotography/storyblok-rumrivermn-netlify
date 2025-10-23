@@ -1,4 +1,8 @@
 import './globals.css';
+import '@/styles/hotfix/design-tokens.css';
+import '@/styles/hotfix/animations.css';
+import '@/styles/hotfix/navbar-styles.css';
+import '@/styles/hotfix/hero-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 
 export const metadata = {

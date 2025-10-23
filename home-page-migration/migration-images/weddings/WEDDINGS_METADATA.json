@@ -1,0 +1,81 @@
+{
+  "category": "weddings",
+  "totalCouples": 19,
+  "targetPath": "/public/wedding-photos/[couple-name]/",
+  "priority": "HIGH", 
+  "description": "Real wedding portfolio photos organized by couple for showcasing venue in action",
+  "usageContext": [
+    "Real wedding galleries",
+    "Portfolio showcases",
+    "Social proof content",
+    "Blog post illustrations"
+  ],
+  "codeReferences": [
+    "src/data/realWeddings.js (primary data structure)",
+    "Wedding blog components",
+    "Gallery components"
+  ],
+  "couples": [
+    {
+      "name": "anthony-and-linnea",
+      "fileCount": 109,
+      "year": "2024",
+      "featured": true,
+      "keyImages": ["001.jpg", "015.jpg", "030.jpg"],
+      "description": "Recent comprehensive wedding documentation"
+    },
+    {
+      "name": "emily-and-barron-nixon", 
+      "fileCount": 24,
+      "year": "2023",
+      "featured": true,
+      "keyImages": ["001.jpg", "015.jpg"],
+      "description": "Professional wedding photography showcase"
+    },
+    {
+      "name": "loria-and-jason-rolstad-agape",
+      "fileCount": 96,
+      "year": "2014",
+      "featured": false,
+      "keyImages": ["001.jpg", "025.jpg", "050.jpg"],
+      "description": "Historic venue documentation"
+    },
+    {
+      "name": "mattea-courtney-photo-gallery",
+      "fileCount": 89,
+      "year": "2015", 
+      "featured": false,
+      "keyImages": ["001.jpg", "030.jpg", "060.jpg"],
+      "description": "Comprehensive photo gallery example"
+    }
+  ],
+  "namingConvention": {
+    "pattern": "###.jpg",
+    "description": "Sequential numbering starting from 001.jpg",
+    "examples": ["001.jpg", "002.jpg", "015.jpg", "099.jpg"]
+  },
+  "imagePurposes": {
+    "001-010": "Ceremony and preparation shots",
+    "011-050": "Reception and celebration",
+    "051-099": "Detail shots and candids",
+    "100+": "Extended coverage and extras"
+  },
+  "technicalSpecs": {
+    "format": "JPG",
+    "minResolution": "1200px width",
+    "maxFileSize": "3MB",
+    "aspectRatio": "Various (maintain original)",
+    "optimization": "Compress for web without quality loss"
+  },
+  "integrationNotes": {
+    "dataStructure": "References in realWeddings.js expect /wedding-photos/ path",
+    "galleryComponents": "Components iterate through numbered files",
+    "heroImages": "001.jpg typically used as hero/cover image",
+    "thumbnails": "Generate responsive versions for gallery grids"
+  },
+  "migrationPriority": {
+    "high": ["anthony-and-linnea", "emily-and-barron-nixon", "erin-kate"],
+    "medium": ["kyle-carrie", "nick-and-kayla", "rachel-and-vince"],
+    "low": ["2014-2", "kerry-dominic", "kristine-leuze-rum-river"]
+  }
+}

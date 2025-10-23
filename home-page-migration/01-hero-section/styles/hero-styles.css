@@ -1,0 +1,246 @@
+/* HERO SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-hero-romantic {
+  position: relative !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  color: white !important;
+  background-color: #2c241a !important; /* Fallback color */
+  background-image: url("/images/venue/barn-exterior-full-deck-view-evening.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* HOTFIX: Hero background image - Local version for performance */
+.hotfix-hero-romantic::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-image: url("/images/venue/barn-exterior-full-deck-view-evening.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* HOTFIX: Hero dark overlay for text readability */
+.hotfix-hero-romantic::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(135deg, 
+    rgba(44, 36, 22, 0.85) 0%, 
+    rgba(107, 78, 61, 0.75) 50%,
+    rgba(58, 74, 60, 0.80) 100%) !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+
+/* HOTFIX: Hero content container */
+.hotfix-hero-content {
+  position: relative !important;
+  z-index: 10 !important;
+  text-align: center !important;
+  max-width: 800px !important;
+  padding: 0 2rem !important;
+  animation: hotfixFadeInUp 1.2s ease-out !important;
+  color: white !important;
+}
+
+/* HOTFIX: Script accent text (kicker) */
+.hotfix-hero-kicker {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 2rem !important;
+  color: #E4C896 !important; /* Champagne gold */
+  margin-bottom: 1rem !important;
+  font-weight: 400 !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+/* HOTFIX: Hero main title */
+.hotfix-hero-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(3rem, 8vw, 5.5rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 2rem !important;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4) !important;
+}
+
+/* HOTFIX: Hero title accent color */
+.hotfix-hero-title-accent {
+  color: #E4C896 !important; /* Champagne gold */
+}
+
+/* HOTFIX: Hero description */
+.hotfix-hero-description {
+  font-size: 1.25rem !important;
+  line-height: 1.8 !important;
+  color: #FFFCF8 !important; /* Cream pearl */
+  opacity: 0.95 !important;
+  margin-bottom: 3rem !important;
+  max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+/* HOTFIX: Hero buttons container */
+.hotfix-hero-buttons {
+  display: flex !important;
+  gap: 1rem !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+}
+
+/* HOTFIX: Secondary romantic button (the one used in hero) */
+.hotfix-btn-romantic-secondary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem 2.5rem !important;
+  background: transparent !important;
+  color: #FFFCF8 !important; /* Cream pearl */
+  border: 2px solid #E4C896 !important; /* Champagne gold border */
+  border-radius: 9999px !important; /* Full rounded */
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  box-shadow: 0 4px 15px rgba(228, 200, 150, 0.2) !important;
+}
+
+.hotfix-btn-romantic-secondary:hover {
+  background: color-mix(in srgb, #E4C896 90%, #FFFFFF 10%) !important;
+  border-color: #E4C896 !important;
+  color: #6B4E3D !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(228, 200, 150, 0.4) !important;
+}
+
+.hotfix-btn-romantic-secondary::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.6s ease !important;
+  z-index: 0 !important;
+}
+
+.hotfix-btn-romantic-secondary:hover::before {
+  transform: translateX(100%) !important;
+}
+
+.hotfix-btn-romantic-secondary > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* HOTFIX: Scroll indicator at bottom */
+.hotfix-hero-scroll {
+  position: absolute !important;
+  bottom: 2rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  text-align: center !important;
+  color: #FFFCF8 !important; /* Cream pearl */
+  opacity: 0.9 !important;
+  animation: hotfixFadeInUp 1.8s ease-out !important;
+}
+
+.hotfix-hero-scroll-text {
+  font-size: 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 300 !important;
+}
+
+.hotfix-hero-scroll-arrow {
+  font-size: 1.5rem !important;
+  animation: hotfixBounce 2s infinite !important;
+  display: block !important;
+}
+
+/* HOTFIX: Animations */
+@keyframes hotfixFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hotfixBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .hotfix-hero-content {
+    padding: 0 1rem !important;
+  }
+  
+  .hotfix-hero-kicker {
+    font-size: 1.5rem !important;
+  }
+  
+  .hotfix-hero-description {
+    font-size: 1.125rem !important;
+    margin-bottom: 2rem !important;
+  }
+  
+  .hotfix-hero-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+  }
+  
+  .hotfix-btn-romantic-secondary {
+    padding: 0.875rem 2rem !important;
+    font-size: 0.8125rem !important;
+  }
+  
+  .hotfix-hero-scroll {
+    bottom: 1rem !important;
+  }
+}
+
+/* Focus states for accessibility */
+.hotfix-btn-romantic-secondary:focus {
+  outline: 2px solid #E4C896 !important; /* Champagne gold focus ring */
+  outline-offset: 2px !important;
+}

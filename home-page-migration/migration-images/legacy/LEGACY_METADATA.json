@@ -1,0 +1,85 @@
+{
+  "category": "legacy",
+  "totalFiles": "1500+",
+  "targetPath": "ARCHIVE - Selective migration recommended",
+  "priority": "LOW",
+  "description": "Historical archive images from original website (2014-2024)",
+  "usageContext": [
+    "Historical reference",
+    "Backup content",
+    "Potential future use",
+    "Archive preservation"
+  ],
+  "yearBreakdown": {
+    "2024": {
+      "folders": ["07"],
+      "purpose": "Most recent content, potential current use",
+      "migrationRecommendation": "REVIEW - May contain current assets"
+    },
+    "2021": {
+      "folders": ["03"],
+      "purpose": "Recent content, possible relevance",
+      "migrationRecommendation": "SELECTIVE - Check for quality content"
+    },
+    "2020": {
+      "folders": ["10"],
+      "purpose": "COVID-era content",
+      "migrationRecommendation": "ARCHIVE - Historical interest only"
+    },
+    "2017": {
+      "folders": ["06", "08"],
+      "purpose": "Mid-period website content",
+      "migrationRecommendation": "ARCHIVE - Historical reference"
+    },
+    "2016": {
+      "folders": ["01", "08"],
+      "purpose": "Established venue period",
+      "migrationRecommendation": "ARCHIVE - Some quality content possible"
+    },
+    "2015": {
+      "folders": ["03", "05", "06", "08", "12"],
+      "purpose": "Early establishment period",
+      "migrationRecommendation": "SELECTIVE - May contain foundational content"
+    },
+    "2014": {
+      "folders": ["04", "05"],
+      "purpose": "Original website launch content",
+      "migrationRecommendation": "ARCHIVE - Historical significance"
+    }
+  },
+  "duplicateContent": {
+    "venue": "Many images duplicated in current venue/ folder",
+    "bridal-suite": "Duplicated in current bridal-suite/ folder", 
+    "reception": "Duplicated in current reception/ folder",
+    "historical": "Duplicated in current historical/ folder"
+  },
+  "qualityAssessment": {
+    "highQuality": "Small percentage - mostly in 2020+ folders",
+    "mediumQuality": "Some usable content in 2015-2017",
+    "lowQuality": "Majority - outdated, low resolution, poor compression",
+    "duplicates": "Many duplicates with slight variations"
+  },
+  "migrationStrategy": {
+    "phase1": "Skip entirely for initial migration",
+    "phase2": "Selective review of 2020+ content",
+    "phase3": "Historical preservation project (optional)",
+    "criteria": [
+      "Resolution > 1200px width",
+      "File size manageable (<5MB)",
+      "Unique content not available elsewhere",
+      "Historical significance"
+    ]
+  },
+  "technicalConsiderations": {
+    "storage": "Large storage footprint (several GB)",
+    "performance": "Would significantly impact site performance if all migrated",
+    "maintenance": "High maintenance overhead",
+    "organization": "Inconsistent naming and organization"
+  },
+  "recommendations": {
+    "immediate": "Do not migrate during initial site launch",
+    "future": "Consider selective migration for specific use cases",
+    "archive": "Maintain as backup/archive separate from production site",
+    "cleanup": "Potential cleanup project to identify truly valuable content"
+  }
+}

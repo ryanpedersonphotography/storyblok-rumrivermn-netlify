@@ -1,0 +1,157 @@
+/* ALTERNATING BLOCKS SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-alternating-blocks {
+  background: linear-gradient(135deg, rgba(74, 52, 38, 1) 0%, rgba(45, 58, 47, 1) 100%) !important;
+  color: white !important;
+  padding: 100px 0 !important;
+}
+
+.hotfix-alternating-blocks .hotfix-section-header {
+  color: white !important;
+  text-align: center !important;
+  margin-bottom: 4rem !important;
+}
+
+.hotfix-alternating-blocks .hotfix-section-title {
+  color: white !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem !important;
+  margin-bottom: 1.5rem !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+}
+
+.hotfix-alternating-blocks .hotfix-script-accent {
+  color: #E4C896 !important;
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 400 !important;
+}
+
+.hotfix-alternating-blocks .hotfix-lead {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+}
+
+.hotfix-content-wrapper {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+.hotfix-blocks-container {
+  margin-top: 4rem !important;
+}
+
+.hotfix-block-item {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 80px !important;
+  align-items: center !important;
+  margin-bottom: 120px !important;
+}
+
+.hotfix-block-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.hotfix-block-item.reverse {
+  direction: rtl !important;
+}
+
+.hotfix-block-item.reverse .hotfix-block-content {
+  direction: ltr !important;
+}
+
+.hotfix-block-content {
+  padding: 40px !important;
+}
+
+.hotfix-block-content .hotfix-number {
+  font-size: 3rem !important;
+  color: #E4C896 !important;
+  opacity: 0.5 !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  margin-bottom: 20px !important;
+  font-family: 'Playfair Display', serif !important;
+}
+
+.hotfix-block-content h3 {
+  font-size: 2.5rem !important;
+  margin-bottom: 25px !important;
+  font-family: 'Playfair Display', serif !important;
+  color: white !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+}
+
+.hotfix-block-content p {
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+  margin-bottom: 30px !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.hotfix-block-content .hotfix-block-lead {
+  color: #E4C896 !important;
+  font-weight: 400 !important;
+  margin-bottom: 2rem !important;
+}
+
+.hotfix-block-image {
+  position: relative !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.6s ease, box-shadow 0.6s ease !important;
+}
+
+.hotfix-block-item:hover .hotfix-block-image {
+  transform: scale(1.02) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.hotfix-block-image img {
+  width: 100% !important;
+  height: 500px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .hotfix-block-item {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    margin-bottom: 80px !important;
+  }
+  
+  .hotfix-block-item.reverse {
+    direction: ltr !important;
+  }
+  
+  .hotfix-block-content {
+    padding: 20px !important;
+  }
+  
+  .hotfix-block-content h3 {
+    font-size: 2rem !important;
+  }
+  
+  .hotfix-block-content .hotfix-number {
+    font-size: 2.5rem !important;
+  }
+  
+  .hotfix-alternating-blocks .hotfix-section-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hotfix-alternating-blocks {
+    padding: 60px 0 !important;
+  }
+}

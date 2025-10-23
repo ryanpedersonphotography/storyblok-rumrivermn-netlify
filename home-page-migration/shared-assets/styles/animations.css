@@ -1,0 +1,208 @@
+/* SHARED ANIMATIONS - Keyframes and Interactive Effects
+ * Used across multiple sections of the romantic wedding theme
+ */
+
+/* ============================================================================
+   KEYFRAME ANIMATIONS
+   ============================================================================ */
+
+/* Hero fade-in animation */
+@keyframes hotfixFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll indicator bounce animation */
+@keyframes hotfixBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Form background rotation animation */
+@keyframes hotfix-rotate {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+/* ============================================================================
+   SHIMMER EFFECTS
+   ============================================================================ */
+
+/* Button shimmer effect (universal) */
+.hotfix-shimmer-btn::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.6s ease !important;
+  z-index: 0 !important;
+}
+
+.hotfix-shimmer-btn:hover::before {
+  transform: translateX(100%) !important;
+}
+
+/* Gallery shimmer effect */
+.hotfix-gallery-shimmer::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  ) !important;
+  transition: left 0.8s ease-in-out !important;
+  z-index: 10 !important;
+  border-radius: 12px !important;
+  pointer-events: none !important;
+}
+
+.hotfix-gallery-shimmer:hover::before {
+  left: 100% !important;
+}
+
+/* ============================================================================
+   HOVER TRANSFORMS
+   ============================================================================ */
+
+/* Standard lift effect */
+.hotfix-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.hotfix-hover-lift:hover {
+  transform: translateY(-4px) !important;
+}
+
+/* Button lift effect */
+.hotfix-btn-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.hotfix-btn-hover:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* Image scale effect */
+.hotfix-img-hover {
+  transition: transform 0.4s ease !important;
+}
+
+.hotfix-img-hover:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Icon scale effect */
+.hotfix-icon-hover {
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-icon-hover:hover {
+  transform: scale(1.1) !important;
+}
+
+/* ============================================================================
+   GLASSMORPHISM EFFECTS
+   ============================================================================ */
+
+/* Standard glass effect */
+.hotfix-glass {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Enhanced glass effect */
+.hotfix-glass-enhanced {
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ============================================================================
+   GRADIENT ANIMATIONS
+   ============================================================================ */
+
+/* Gradient underline animation */
+.hotfix-gradient-underline::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #9D6B7B 0%, #E4C896 100%) !important;
+  transition: all 0.3s ease !important;
+  transform: translateX(-50%) !important;
+}
+
+.hotfix-gradient-underline:hover::after {
+  width: 100% !important;
+}
+
+/* ============================================================================
+   ACCESSIBILITY ANIMATIONS
+   ============================================================================ */
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hotfix-carousel-track {
+    transition: none !important;
+  }
+  
+  .hotfix-gallery-item::before,
+  .hotfix-shimmer-btn::before {
+    display: none !important;
+  }
+}
+
+/* ============================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/* Hardware acceleration for transforms */
+.hotfix-gpu-accelerated {
+  transform: translateZ(0) !important;
+  will-change: transform !important;
+}
+
+/* Optimize animations for 60fps */
+.hotfix-smooth-animation {
+  transform: translate3d(0, 0, 0) !important;
+  backface-visibility: hidden !important;
+  perspective: 1000px !important;
+}

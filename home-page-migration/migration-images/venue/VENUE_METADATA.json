@@ -1,0 +1,71 @@
+{
+  "category": "venue",
+  "totalFiles": 38,
+  "targetPath": "/public/images/venue/",
+  "priority": "HIGH",
+  "description": "Primary venue marketing images for hero sections, galleries, and feature displays",
+  "usageContext": [
+    "Hero backgrounds",
+    "Venue feature showcases", 
+    "Gallery displays",
+    "Marketing materials"
+  ],
+  "codeReferences": [
+    "src/CohesiveDesign.css (background images)",
+    "SANITY_CONTENT_MIGRATION_DATA.js",
+    "React component props"
+  ],
+  "imageCategories": {
+    "barn-exterior": {
+      "count": 13,
+      "purpose": "Exterior barn shots for hero sections and galleries",
+      "keyFiles": [
+        "barn-exterior-full-view-landscape.jpg",
+        "barn-exterior-full-deck-view-evening.jpg", 
+        "barn-exterior-entrance-lighting-view.jpg"
+      ],
+      "usage": "Primary marketing images, hero backgrounds"
+    },
+    "barn-interior": {
+      "count": 3,
+      "purpose": "Interior venue shots showing space and atmosphere",
+      "keyFiles": [
+        "barn-interior-ceiling-beams-lighting.jpg",
+        "barn-interior-exposed-beams-chandeliers.jpg"
+      ],
+      "usage": "Venue detail pages, interior showcases"
+    },
+    "details": {
+      "count": 16,
+      "purpose": "Rustic details and architectural elements", 
+      "keyFiles": [
+        "details-swing-rustic-romance.jpg",
+        "details-vintage-tractor-rustic.jpg",
+        "details-barn-sign-rustic-lettering.jpg"
+      ],
+      "usage": "Feature callouts, design elements, storytelling"
+    },
+    "property": {
+      "count": 4,
+      "purpose": "Landscape and vineyard shots showing property scope",
+      "keyFiles": [
+        "property-vineyard-rows-landscape.jpg",
+        "property-landscape-rural-vista.jpg"
+      ],
+      "usage": "Property overview, ceremony site marketing"
+    }
+  },
+  "technicalSpecs": {
+    "recommendedFormats": ["JPG", "WebP"],
+    "minResolution": "1200px width",
+    "maxFileSize": "2MB",
+    "aspectRatios": ["16:9", "4:3", "3:2"]
+  },
+  "seoKeywords": [
+    "rum river barn",
+    "wedding venue",
+    "rustic barn",
+    "minnesota wedding",
+    "vineyard ceremony"
+  ]
+}
