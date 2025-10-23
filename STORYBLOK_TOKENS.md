@@ -110,3 +110,25 @@ curl -H "Authorization: YEhO2k7vcACiMyP1hn5jZgtt-104181807873698-2NDxmxXu3ewEQ23
 - **Development**: Can use Preview Token to see drafts  
 - **Management Operations**: Use Personal Access Token (server-side only)
 - **Feature Flag**: `FEATURE_CMS_IMAGES=0` (images disabled for safety)
+
+## GitHub Repository Secrets (Configured)
+All tokens have been set as GitHub repository secrets using GitHub CLI:
+
+```bash
+# Repository secrets set via: gh secret set TOKEN_NAME -b"token_value"
+STORYBLOK_ACCESS_TOKEN          # Public token (tJCdp1QyfInsvreqnI2gLQtt)
+STORYBLOK_PREVIEW_TOKEN         # Preview token (AcBamY8QEHeF7Wid0UOgcAtt) 
+STORYBLOK_PERSONAL_ACCESS_TOKEN # Personal token (YEhO2k7vcACiMyP1hn5jZgtt-...)
+STORYBLOK_ASSET_TOKEN           # Asset token (waTYk2VUxFymCMUMcGXQRwtt)
+STORYBLOK_THEME_TOKEN           # Theme token (np9NPdI2NaJiXf7DmeYB8Qtt)
+SPACE_NAME                      # rum-river-mn
+SPACE_ID                        # 288003424841711
+FEATURE_CMS_IMAGES              # 0 (disabled for safety)
+```
+
+**Access via:**
+- GitHub Actions workflows
+- Netlify deployments (if GitHub integration enabled)
+- Other CI/CD tools with GitHub integration
+
+**Security:** Tokens are encrypted and never exposed in logs or pull requests.
