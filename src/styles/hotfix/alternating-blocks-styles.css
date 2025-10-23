@@ -4,6 +4,12 @@
   background: linear-gradient(135deg, rgba(74, 52, 38, 1) 0%, rgba(45, 58, 47, 1) 100%) !important;
   color: white !important;
   padding: 100px 0 !important;
+  /* Override global Storyblok CSS constraints for full-width */
+  width: 100vw !important;
+  max-width: none !important;
+  max-inline-size: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
 }
 
 .hotfix-alternating-blocks .hotfix-section-header {
