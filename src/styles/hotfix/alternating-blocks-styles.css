@@ -37,8 +37,24 @@
   margin: 0 auto !important;
 }
 
+/* Override content wrapper for alternating blocks to be full width */
+.hotfix-alternating-blocks .hotfix-content-wrapper {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.hotfix-alternating-blocks .hotfix-section-header {
+  max-width: 1200px !important;
+  margin: 0 auto 4rem auto !important;
+  padding: 0 2rem !important;
+}
+
 .hotfix-blocks-container {
-  margin-top: 4rem !important;
+  max-width: 1200px !important;
+  margin: 4rem auto 0 auto !important;
+  padding: 0 2rem !important;
 }
 
 .hotfix-block-item {
