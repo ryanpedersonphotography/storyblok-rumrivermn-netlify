@@ -8,7 +8,7 @@ export default function StoryblokProvider({ children }) {
 	
 	useEffect(() => {
 		// Only enable draft mode in preview environments
-		const isPreview = process.env.STORYBLOK_IS_PREVIEW === 'yes' || process.env.NODE_ENV === 'development';
+		const isPreview = process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW === 'yes' || process.env.NODE_ENV === 'development';
 		
 		if (isPreview && typeof window !== 'undefined') {
 			// Enable bridge for live preview in Storyblok
