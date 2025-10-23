@@ -30,12 +30,14 @@
   - [x] `STORYBLOK_PREVIEW_SECRET` (new UUID)
 
 ### Sanity Check
-- [x] ✅ Server starts on port 3333 (HTTP fallback due to cert issues)
-- [ ] ✅ HTTPS certificate setup (requires manual intervention)
+- [x] ✅ Server starts on port 9999 (no conflicts)
+- [x] ✅ `/beta-cms` route loads correctly with alternating blocks
+- [ ] ✅ HTTPS certificate setup (can be done later)
 
 ### Notes
-- HTTPS certificate generation failed due to permissions, but server runs on HTTP
-- Visual Editor will require HTTPS for production, but we can proceed with development
+- Switched to port 9999 to avoid conflicts with other services
+- HTTPS certificate generation failed due to permissions, but HTTP works for development
+- Visual Editor will require HTTPS for production (Netlify provides this automatically)
 
 ---
 
