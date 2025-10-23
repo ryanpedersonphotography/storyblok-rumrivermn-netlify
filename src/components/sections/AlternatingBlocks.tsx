@@ -3,6 +3,9 @@
  * Dependencies: alternating-blocks CSS classes
  */
 
+'use client'
+import { StoryblokRichText } from '@storyblok/react/rsc';
+
 export interface AlternatingBlocksData {
   sectionHeader: {
     scriptAccent: string;
@@ -13,7 +16,7 @@ export interface AlternatingBlocksData {
     number: string;
     title: string;
     lead: string;
-    content: string[];
+    content: any[]; // Rich text objects from Storyblok
     image: string;
     imageAlt: string;
     isReverse?: boolean;
@@ -42,7 +45,12 @@ export function AlternatingBlocks({ data }: AlternatingBlocksProps) {
                 <h3>{block.title}</h3>
                 <p className="hotfix-block-lead">{block.lead}</p>
                 {block.content.map((paragraph, pIndex) => (
-                  <p key={pIndex} dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <div key={pIndex}>
+                    {(typeof paragraph === 'object' && paragraph.text) 
+                      ? <StoryblokRichText doc={paragraph.text as any} />
+                      : <p dangerouslySetInnerHTML={{ __html: String(paragraph) }} />
+                    }
+                  </div>
                 ))}
               </div>
               <div className="hotfix-block-image">
