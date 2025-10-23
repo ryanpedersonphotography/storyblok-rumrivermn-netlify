@@ -30,15 +30,22 @@ export function mapHeroFromStory(content: any) {
   
   console.log('Mapping hero from Storyblok:', JSON.stringify(content, null, 2));
   
-  // Handle Storyblok asset objects properly
-  let bgImageUrl = hotfixHero.bgImage; // fallback
+  // Feature flag for CMS images (default disabled for safety)
+  const enableCmsImages = process.env.FEATURE_CMS_IMAGES === "1";
   
-  if (content?.bg_image) {
+  // Handle Storyblok asset objects properly, but only if feature is enabled
+  let bgImageUrl = null; // Don't set by default - let CSS fallback handle it
+  
+  if (enableCmsImages && content?.bg_image) {
     if (typeof content.bg_image === 'string') {
       bgImageUrl = content.bg_image;
+      console.log('✅ Using CMS image (string):', bgImageUrl);
     } else if (content.bg_image?.filename) {
       bgImageUrl = content.bg_image.filename;
+      console.log('✅ Using CMS image (asset object):', bgImageUrl);
     }
+  } else {
+    console.log('🔒 CMS images disabled or no bg_image - using CSS fallback');
   }
   
   const mapped = {
@@ -47,7 +54,7 @@ export function mapHeroFromStory(content: any) {
     title: content?.title ?? hotfixHero.title,
     titleAccent: content?.title_accent ?? hotfixHero.titleAccent,
     description: content?.description ?? hotfixHero.description,
-    bgImage: bgImageUrl,
+    bgImage: bgImageUrl, // null = use CSS fallback, string = use CMS image
     primaryCta: {
       url: "/contact",
       label: content?.primary_cta_text ?? hotfixHero.primaryCta.label

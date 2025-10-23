@@ -6,16 +6,17 @@ import { hotfixHero } from './hotfixStaticContent'
 type Props = { data?: typeof hotfixHero }
 
 export default function HeroHotfix({ data = hotfixHero }: Props) {
-  // Get background image URL from data, handling both asset objects and string URLs
-  const bgImageUrl = (data.bgImage as any)?.filename || data.bgImage || hotfixHero.bgImage
-  
   console.log('HeroHotfix received data:', JSON.stringify(data, null, 2));
-  console.log('Using background image URL:', bgImageUrl);
   
-  // Set CSS custom property for dynamic background
-  const style = { 
-    ['--hero-bg' as any]: bgImageUrl ? `url("${bgImageUrl}")` : undefined 
-  } as React.CSSProperties
+  // Only set CSS custom property if we have a CMS image, otherwise let CSS fallback handle it
+  const style: React.CSSProperties = {};
+  
+  if (data.bgImage) {
+    style['--hero-bg' as any] = `url("${data.bgImage}")`;
+    console.log('✅ Setting CSS custom property with CMS image:', data.bgImage);
+  } else {
+    console.log('🎨 Using CSS fallback image - no custom property set');
+  }
 
   return (
     <section className="hotfix-hero-romantic" style={style}>
