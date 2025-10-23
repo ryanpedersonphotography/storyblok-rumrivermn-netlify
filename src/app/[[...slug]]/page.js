@@ -54,9 +54,11 @@ export default async function Page({ params }) {
 				<div style={{ marginTop: '2rem', padding: '1rem', backgroundColor: '#f0f0f0', borderRadius: '4px' }}>
 					<h3>Debug Information</h3>
 					<p><strong>Requested Slug:</strong> {fullSlug}</p>
-					<p><strong>Version:</strong> {sbParams.version}</p>
-					<p><strong>Error Status:</strong> {error.response?.status || 'Unknown'}</p>
+					<p><strong>Version:</strong> {version}</p>
+					<p><strong>Error Status:</strong> {error.message || 'Unknown'}</p>
 					<p><strong>Region:</strong> {process.env.STORYBLOK_REGION}</p>
+					<p><strong>Token:</strong> {process.env.STORYBLOK_ACCESS_TOKEN}</p>
+					<p><strong>Preview Mode:</strong> {process.env.STORYBLOK_IS_PREVIEW}</p>
 				</div>
 				
 				<p style={{ marginTop: '1rem' }}>
