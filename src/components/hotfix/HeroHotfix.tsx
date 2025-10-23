@@ -9,6 +9,9 @@ export default function HeroHotfix({ data = hotfixHero }: Props) {
   // Get background image URL from data, handling both asset objects and string URLs
   const bgImageUrl = (data.bgImage as any)?.filename || data.bgImage || hotfixHero.bgImage
   
+  console.log('HeroHotfix received data:', JSON.stringify(data, null, 2));
+  console.log('Using background image URL:', bgImageUrl);
+  
   // Set CSS custom property for dynamic background
   const style = { 
     ['--hero-bg' as any]: bgImageUrl ? `url("${bgImageUrl}")` : undefined 
