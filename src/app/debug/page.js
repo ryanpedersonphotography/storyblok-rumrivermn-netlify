@@ -1,4 +1,5 @@
 import { getStoryblokApi } from '@/lib/storyblok';
+import Link from 'next/link';
 
 export default async function DebugPage() {
   const storyblokApi = getStoryblokApi();
@@ -178,8 +179,8 @@ export default async function DebugPage() {
       </section>
 
       <div style={{ marginTop: '30px', textAlign: 'center' }}>
-        <a href="/" style={{ color: '#00ffff' }}>← Back to Home</a> | 
-        <a href="/test" style={{ color: '#00ffff' }}>Test Page →</a>
+        <Link href="/" style={{ color: '#00ffff' }}>← Back to Home</Link> | 
+        <Link href="/test" style={{ color: '#00ffff' }}>Test Page →</Link>
       </div>
     </div>
   );
