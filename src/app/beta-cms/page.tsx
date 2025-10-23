@@ -3,10 +3,9 @@ import HeroHotfix from "@/components/hotfix/HeroHotfix";
 import { mapNavbarFromStory, mapHeroFromStory } from "@/components/hotfix/mapFromStoryblok";
 
 async function getStoryblokStory() {
-  // Use the same token and endpoint as the working [[...slug]]/page.js
+  // Use public token with delivery API  
   const token = process.env.STORYBLOK_ACCESS_TOKEN;
-  const version = process.env.STORYBLOK_IS_PREVIEW === 'yes' ? 'draft' : 'published';
-  const url = `https://api.storyblok.com/v2/cdn/stories/home?token=${token}&version=${version}&cv=${Date.now()}`;
+  const url = `https://api.storyblok.com/v2/cdn/stories/home?token=${token}&version=published`;
   
   try {
     const response = await fetch(url, { 
