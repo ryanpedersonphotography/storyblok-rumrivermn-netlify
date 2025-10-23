@@ -3,6 +3,10 @@
 .hotfix-hero-romantic {
   position: relative !important;
   min-height: 100vh !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  max-width: none !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
