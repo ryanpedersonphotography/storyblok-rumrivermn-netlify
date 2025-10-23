@@ -48,7 +48,8 @@ export default async function Page({ params }) {
 				</div>
 				
 				<p style={{ marginTop: '1rem' }}>
-					<Link href="/test" style={{ color: '#007bff' }}>Visit test page</Link> to verify deployment is working.
+					<Link href="/test" style={{ color: '#007bff' }}>Visit test page</Link> to verify deployment is working. | 
+					<Link href="/debug" style={{ color: '#007bff' }}> Debug Console</Link> for detailed diagnostics.
 				</p>
 			</div>
 		);

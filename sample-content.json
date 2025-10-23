@@ -1,0 +1,32 @@
+{
+  "story": {
+    "name": "Home",
+    "slug": "home",
+    "content": {
+      "component": "page",
+      "body": [
+        {
+          "component": "teaser",
+          "headline": "Welcome to Rum River MN",
+          "_uid": "6a63ef12-c50e-4336-b74b-6b7b6b0b9b9b"
+        },
+        {
+          "component": "grid",
+          "columns": [
+            {
+              "component": "feature",
+              "name": "Beautiful Nature",
+              "_uid": "f123456a-1234-5678-9012-123456789abc"
+            },
+            {
+              "component": "feature", 
+              "name": "Community Events",
+              "_uid": "f123456b-1234-5678-9012-123456789abc"
+            }
+          ],
+          "_uid": "g123456c-1234-5678-9012-123456789abc"
+        }
+      ]
+    }
+  }
+}
