@@ -6,8 +6,16 @@ import { hotfixHero } from './hotfixStaticContent'
 type Props = { data?: typeof hotfixHero }
 
 export default function HeroHotfix({ data = hotfixHero }: Props) {
+  // Get background image URL from data, handling both asset objects and string URLs
+  const bgImageUrl = (data.bgImage as any)?.filename || data.bgImage || hotfixHero.bgImage
+  
+  // Set CSS custom property for dynamic background
+  const style = { 
+    ['--hero-bg' as any]: bgImageUrl ? `url("${bgImageUrl}")` : undefined 
+  } as React.CSSProperties
+
   return (
-    <section className="hotfix-hero-romantic">
+    <section className="hotfix-hero-romantic" style={style}>
       <div className="hotfix-hero-content">
         {/* HOTFIX: Script accent kicker */}
         <div className="hotfix-hero-kicker">
