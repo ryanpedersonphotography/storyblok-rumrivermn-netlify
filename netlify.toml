@@ -1,0 +1,20 @@
+[build]
+  framework = "next"
+  publish = ".next"
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "18.17.0"
+
+# For optimal Next.js performance on Netlify
+[context.production]
+  command = "npm ci && npm run build"
+  
+[context.deploy-preview]
+  command = "npm ci && npm run build"
+  
+[context.branch-deploy]
+  command = "npm ci && npm run build"
