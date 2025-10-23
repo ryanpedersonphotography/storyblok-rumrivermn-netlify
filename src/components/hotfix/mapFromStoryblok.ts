@@ -104,7 +104,7 @@ export function mapAlternatingBlocksFromStory(content: any) {
             title: block?.title ?? hotfixAlternatingBlocks.blocks[index]?.title ?? '',
             lead: block?.lead ?? hotfixAlternatingBlocks.blocks[index]?.lead ?? '',
             content: Array.isArray(block?.content) 
-              ? block.content
+              ? block.content.map((p: any) => p.text || String(p))
               : hotfixAlternatingBlocks.blocks[index]?.content ?? [],
             image: blockImageUrl,
             imageAlt: block?.image_alt ?? hotfixAlternatingBlocks.blocks[index]?.imageAlt ?? '',

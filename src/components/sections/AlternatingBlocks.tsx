@@ -4,30 +4,15 @@
  */
 
 'use client'
-import { StoryblokRichText } from '@storyblok/react/rsc';
 
-export interface AlternatingBlocksData {
-  sectionHeader: {
-    scriptAccent: string;
-    title: string;
-    description: string;
-  };
-  blocks: Array<{
-    number: string;
-    title: string;
-    lead: string;
-    content: any[]; // Rich text objects from Storyblok
-    image: string;
-    imageAlt: string;
-    isReverse?: boolean;
-  }>;
-}
+import React from 'react'
+import { hotfixAlternatingBlocks } from '../hotfix/hotfixStaticContent'
 
-interface AlternatingBlocksProps {
-  data: AlternatingBlocksData;
-}
+type Props = { data?: typeof hotfixAlternatingBlocks }
 
-export function AlternatingBlocks({ data }: AlternatingBlocksProps) {
+export default function AlternatingBlocks({ data = hotfixAlternatingBlocks }: Props) {
+  console.log('AlternatingBlocks received data:', JSON.stringify(data, null, 2));
+  
   return (
     <section className="hotfix-alternating-blocks">
       <div className="hotfix-content-wrapper">
@@ -45,12 +30,7 @@ export function AlternatingBlocks({ data }: AlternatingBlocksProps) {
                 <h3>{block.title}</h3>
                 <p className="hotfix-block-lead">{block.lead}</p>
                 {block.content.map((paragraph, pIndex) => (
-                  <div key={pIndex}>
-                    {(typeof paragraph === 'object' && paragraph.text) 
-                      ? <StoryblokRichText doc={paragraph.text as any} />
-                      : <p dangerouslySetInnerHTML={{ __html: String(paragraph) }} />
-                    }
-                  </div>
+                  <p key={pIndex} dangerouslySetInnerHTML={{ __html: String(paragraph) }} />
                 ))}
               </div>
               <div className="hotfix-block-image">
@@ -68,5 +48,3 @@ export function AlternatingBlocks({ data }: AlternatingBlocksProps) {
     </section>
   );
 }
-
-export default AlternatingBlocks;
