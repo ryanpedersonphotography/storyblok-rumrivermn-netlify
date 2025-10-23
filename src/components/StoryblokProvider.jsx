@@ -11,9 +11,12 @@ export default function StoryblokProvider({ children }) {
 		const isPreview = process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW === 'yes' || process.env.NODE_ENV === 'development';
 		
 		if (isPreview && typeof window !== 'undefined') {
-			// Enable bridge for live preview in Storyblok
-			const { loadStoryblokBridge } = require('@storyblok/react');
-			loadStoryblokBridge();
+			// Enable bridge for live preview in Storyblok using dynamic import
+			import('@storyblok/react').then(({ loadStoryblokBridge }) => {
+				loadStoryblokBridge();
+			}).catch(err => {
+				console.warn('Failed to load Storyblok bridge:', err);
+			});
 		}
 	}, []);
 	
