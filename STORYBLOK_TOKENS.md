@@ -117,8 +117,10 @@ All tokens have been set as GitHub repository secrets using GitHub CLI:
 ```bash
 # Repository secrets set via: gh secret set TOKEN_NAME -b"token_value"
 STORYBLOK_ACCESS_TOKEN          # Public token (tJCdp1QyfInsvreqnI2gLQtt)
+STORYBLOK_PUBLIC_TOKEN          # Same as ACCESS_TOKEN - GitHub docs naming
 STORYBLOK_PREVIEW_TOKEN         # Preview token (AcBamY8QEHeF7Wid0UOgcAtt) 
 STORYBLOK_PERSONAL_ACCESS_TOKEN # Personal token (YEhO2k7vcACiMyP1hn5jZgtt-...)
+STORYBLOK_MANAGEMENT_TOKEN      # Same as PERSONAL - GitHub docs naming
 STORYBLOK_ASSET_TOKEN           # Asset token (waTYk2VUxFymCMUMcGXQRwtt)
 STORYBLOK_THEME_TOKEN           # Theme token (np9NPdI2NaJiXf7DmeYB8Qtt)
 SPACE_NAME                      # rum-river-mn
@@ -132,3 +134,55 @@ FEATURE_CMS_IMAGES              # 0 (disabled for safety)
 - Other CI/CD tools with GitHub integration
 
 **Security:** Tokens are encrypted and never exposed in logs or pull requests.
+
+## GitHub Actions Workflow Usage
+
+### Example Workflow (`.github/workflows/build.yml`)
+```yaml
+name: Build and Deploy
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Server-side token (masked in logs, not exposed to browser)
+      STORYBLOK_ACCESS_TOKEN: ${{ secrets.STORYBLOK_ACCESS_TOKEN }}
+      # Feature flag for safe deployments
+      FEATURE_CMS_IMAGES: ${{ secrets.FEATURE_CMS_IMAGES }}
+      # Space information
+      SPACE_ID: ${{ secrets.SPACE_ID }}
+      SPACE_NAME: ${{ secrets.SPACE_NAME }}
+      # Optional: Client-side token (only if truly needed - PUBLIC tokens only!)
+      NEXT_PUBLIC_STORYBLOK_TOKEN: ${{ secrets.STORYBLOK_ACCESS_TOKEN }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm ci
+
+      # Create .env file for build process
+      - name: Create .env file
+        run: |
+          printf "STORYBLOK_ACCESS_TOKEN=%s\n" "${STORYBLOK_ACCESS_TOKEN}" > .env
+          printf "SPACE_ID=%s\n" "${SPACE_ID}" >> .env
+          printf "SPACE_NAME=%s\n" "${SPACE_NAME}" >> .env
+          printf "FEATURE_CMS_IMAGES=%s\n" "${FEATURE_CMS_IMAGES}" >> .env
+
+      - run: npm run build
+      - run: npm run test
+```
+
+### Secret Security Best Practices
+- ✅ **Auto-masked**: GitHub automatically masks secrets from logs
+- ✅ **Encrypted storage**: All secrets encrypted at rest with LibSodium
+- ✅ **Server-side only**: Management/Preview tokens never exposed to client
+- ✅ **Public tokens safe**: Can be exposed via NEXT_PUBLIC_* if needed
+- ✅ **Scoped access**: Repository secrets only available to this repo
+
+### Token Usage Guidelines
+- **Production builds**: Use `STORYBLOK_ACCESS_TOKEN` (Public token)
+- **Development/staging**: Use `STORYBLOK_PREVIEW_TOKEN` for draft content  
+- **Management operations**: Use `STORYBLOK_PERSONAL_ACCESS_TOKEN` in CI scripts only
+- **Never expose**: Management/Preview tokens to client-side code
