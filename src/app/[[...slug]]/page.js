@@ -12,9 +12,21 @@ export default async function Page({ params }) {
 	};
 
 	try {
-		const storyblokApi = getStoryblokApi();
-		let { data } = await storyblokApi.get(`cdn/stories/${fullSlug}`, sbParams);
-		return <StoryblokStory story={data.story} />;
+		// Direct API call to bypass potential caching issues
+		const token = process.env.STORYBLOK_ACCESS_TOKEN;
+		const version = process.env.STORYBLOK_IS_PREVIEW === 'yes' ? 'draft' : 'published';
+		
+		const response = await fetch(
+			`https://api.storyblok.com/v2/cdn/stories/${fullSlug}?token=${token}&version=${version}&cv=${Date.now()}`,
+			{ cache: 'no-store' }
+		);
+		
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+		}
+		
+		const { story } = await response.json();
+		return <StoryblokStory story={story} />;
 	} catch (error) {
 		console.error('Storyblok API Error:', error);
 		
