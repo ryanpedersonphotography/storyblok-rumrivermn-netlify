@@ -1,13 +1,34 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
+import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
 
 interface LoveStoriesGalleryEditorProps {
   blok: any
 }
 
 export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEditorProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedGallery, setSelectedGallery] = useState<any>(null)
+
+  const openModal = (gallery: any) => {
+    // Transform gallery data to wedding data structure for modal
+    const weddingData = {
+      title: gallery.couple_names,
+      wedding_date: gallery.season,
+      location: gallery.venue || 'Rum River Barn',
+      gallery_photos: gallery.gallery_photos || []
+    }
+    setSelectedGallery(weddingData)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedGallery(null)
+  }
+
   return (
     <section className="hotfix-love-stories-gallery" {...storyblokEditable(blok)}>
       <div className="hotfix-love-stories-content">
@@ -46,12 +67,21 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
             }
 
             return (
-              <a
+              <div
                 key={gallery._uid || index}
-                href={gallery.href || '#'}
                 className="hotfix-gallery-item"
+                onClick={() => openModal(gallery)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openModal(gallery)
+                  }
+                }}
                 {...storyblokEditable(gallery)}
                 data-discover="true"
+                style={{ cursor: 'pointer' }}
               >
                 <img
                   src={imageUrl}
@@ -67,14 +97,22 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
                     {gallery.season || 'Summer 2024'}
                   </div>
                   <div className="hotfix-gallery-details">
-                    {gallery.photo_count || 0} Photos • {gallery.venue || 'Rum River Barn'}
+                    {gallery.photo_count || 0} Photos • View Gallery →
                   </div>
                 </div>
-              </a>
+              </div>
             )
           })}
         </div>
       </div>
+
+      {/* Wedding Gallery Modal */}
+      <WeddingGalleryModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        wedding={selectedGallery}
+        variant="standard"
+      />
     </section>
   )
 }

@@ -11,15 +11,34 @@ interface WeddingData {
     filename?: string
     alt?: string
   }>
+  testimonial_text?: string
+  testimonial_author?: string
 }
 
 interface WeddingGalleryModalProps {
   isOpen: boolean
   onClose: () => void
   wedding: WeddingData | null
+  // Future customization props (not yet implemented)
+  variant?: 'standard' | 'deluxe'
+  showTestimonial?: boolean
+  testimonialText?: string
+  testimonialAuthor?: string
 }
 
-export default function WeddingGalleryModal({ isOpen, onClose, wedding }: WeddingGalleryModalProps) {
+export default function WeddingGalleryModal({
+  isOpen,
+  onClose,
+  wedding,
+  variant = 'standard', // Future: 'deluxe' will have different layout
+  showTestimonial = false, // Future: display testimonial in modal
+  testimonialText,
+  testimonialAuthor
+}: WeddingGalleryModalProps) {
+  // Note: variant, showTestimonial, testimonialText, and testimonialAuthor props
+  // are prepared for future Phase 2 enhancements but not yet used in rendering.
+  // See FUTURE_IDEAS.md for implementation details.
+
   // Close modal on ESC key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

@@ -18,14 +18,9 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
   useEffect(() => {
     // Fetch the featured wedding stories
     const fetchWeddings = async () => {
-      console.log('FeaturedWeddingsEditor - blok.featured_weddings:', blok.featured_weddings)
-
       if (!blok.featured_weddings || blok.featured_weddings.length === 0) {
-        console.log('FeaturedWeddingsEditor - No featured weddings configured')
         return
       }
-
-      console.log(`FeaturedWeddingsEditor - Fetching ${blok.featured_weddings.length} weddings`)
 
       try {
         const results = await Promise.all(
@@ -67,16 +62,12 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
         // Filter out failed weddings
         const validWeddings = results.filter(s => s !== null)
 
-        console.log(`FeaturedWeddingsEditor - ${validWeddings.length} valid weddings out of ${blok.featured_weddings.length}`)
-
         // If ALL weddings failed to load, this is a severe error
         if (validWeddings.length === 0 && blok.featured_weddings.length > 0) {
-          console.error('FeaturedWeddingsEditor - All featured weddings failed to load - HIDING SECTION')
           setHasError(true)
           return
         }
 
-        console.log('FeaturedWeddingsEditor - Successfully loaded weddings:', validWeddings.map(w => w.content?.title))
         setWeddingStories(validWeddings)
         setHasError(false)
       } catch (error) {
@@ -101,11 +92,8 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
 
   // Hide entire section if severe error or no valid weddings
   if (hasError || weddingStories.length === 0) {
-    console.log('FeaturedWeddingsEditor - Rendering: HIDDEN (hasError:', hasError, 'weddingStories.length:', weddingStories.length, ')')
     return null
   }
-
-  console.log('FeaturedWeddingsEditor - Rendering:', weddingStories.length, 'weddings')
 
   return (
     <section className="featured-weddings" {...storyblokEditable(blok)}>
