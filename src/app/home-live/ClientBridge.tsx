@@ -13,6 +13,7 @@ import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
 import FooterEditor from '@/components/storyblok/FooterEditor'
+import NavbarHotfix from '@/components/hotfix/NavbarHotfix'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -66,8 +67,11 @@ export default function ClientBridge({ initialStory }: ClientBridgeProps) {
   }, [router])
 
   return (
-    <div className="home-live-container">
-      {story?.content && <StoryblokComponent blok={story.content} />}
-    </div>
+    <>
+      <NavbarHotfix />
+      <div className="home-live-container">
+        {story?.content && <StoryblokComponent blok={story.content} />}
+      </div>
+    </>
   )
 }
