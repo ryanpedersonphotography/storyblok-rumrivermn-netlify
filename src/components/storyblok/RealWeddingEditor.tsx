@@ -4,6 +4,7 @@ import React from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import { render } from 'storyblok-rich-text-react-renderer'
 import MasonryGallery from '../gallery/MasonryGallery'
+import FooterEditor from './FooterEditor'
 
 interface VendorInfo {
   name?: string
@@ -108,9 +109,7 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
         <section className="hotfix-gallery-fullwidth">
           <div className="hotfix-gallery-content-container">
             <div className="hotfix-gallery-header">
-              <div className="hotfix-script-accent">Gallery</div>
-              <h2 className="hotfix-section-title">Wedding Photos</h2>
-              <p className="hotfix-section-lead">{galleryPhotos.length} beautiful moments captured</p>
+              <h2 className="hotfix-section-title">{galleryPhotos.length} Photos</h2>
             </div>
 
             <div className="hotfix-masonry-wrapper">
@@ -120,22 +119,18 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
         </section>
       )}
 
-      {/* Footer */}
-      <footer className="hotfix-wedding-footer">
-        <div className="hotfix-footer-content">
-          <div className="hotfix-footer-brand">
-            <h3 className="hotfix-footer-title">Rum River Wedding Barn</h3>
-            <p className="hotfix-footer-tagline">Where Dreams Begin</p>
-          </div>
-          <div className="hotfix-footer-contact">
-            <p>📍 Hillman, Minnesota</p>
-            <p>📞 612-801-0546</p>
-          </div>
-          <div className="hotfix-footer-copyright">
-            <p>© {new Date().getFullYear()} Rum River Wedding Barn. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Footer - Using FooterEditor Component */}
+      <FooterEditor blok={{
+        _uid: 'footer-wedding',
+        component: 'footer_section',
+        brand_title: 'Rum River Wedding Barn',
+        brand_description: "Where dreams come to life along Minnesota's scenic Rum River. Historic charm meets modern elegance for your perfect celebration.",
+        address: '42618 78th Street, Hillman, MN 56338',
+        phone: '612-801-0546',
+        email: 'info@rumriverbarn.com',
+        facebook_url: '',
+        instagram_url: ''
+      }} />
 
       <style jsx>{`
         .real-wedding-page {
@@ -273,86 +268,22 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
         }
 
         .hotfix-gallery-header {
-          text-align: center;
-          margin-bottom: 3rem;
-        }
-
-        .hotfix-script-accent {
-          font-family: 'Dancing Script', cursive;
-          font-size: 1.5rem;
-          color: #8b7355;
-          margin-bottom: 0.5rem;
+          text-align: left;
+          margin-bottom: 2.5rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 2px solid #e5e5e5;
         }
 
         .hotfix-section-title {
           font-family: 'Playfair Display', serif;
-          font-size: 2.5rem;
-          font-weight: 600;
-          margin-bottom: 0.5rem;
+          font-size: 2rem;
+          font-weight: 500;
           color: #2c2c2c;
-        }
-
-        .hotfix-section-lead {
-          font-size: 1.125rem;
-          color: #666;
+          margin: 0;
         }
 
         .hotfix-masonry-wrapper {
-          margin-top: 2rem;
-        }
-
-        /* Footer */
-        .hotfix-wedding-footer {
-          width: 100%;
-          background: #2c2c2c;
-          color: #fff;
-          padding: 3rem 2rem 2rem;
-        }
-
-        .hotfix-footer-content {
-          max-width: 1200px;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .hotfix-footer-brand {
-          margin-bottom: 2rem;
-        }
-
-        .hotfix-footer-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 2rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .hotfix-footer-tagline {
-          font-family: 'Dancing Script', cursive;
-          font-size: 1.25rem;
-          color: #8b7355;
-        }
-
-        .hotfix-footer-contact {
-          margin-bottom: 2rem;
-          display: flex;
-          justify-content: center;
-          gap: 2rem;
-          flex-wrap: wrap;
-        }
-
-        .hotfix-footer-contact p {
-          font-size: 1rem;
-          margin: 0;
-        }
-
-        .hotfix-footer-copyright {
-          padding-top: 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hotfix-footer-copyright p {
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.6);
-          margin: 0;
+          margin-top: 0;
         }
 
         /* Responsive */
@@ -380,7 +311,7 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
           }
 
           .hotfix-section-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
           }
 
           .hotfix-gallery-fullwidth {
@@ -389,19 +320,6 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
 
           .hotfix-gallery-content-container {
             padding: 0 1rem;
-          }
-
-          .hotfix-footer-contact {
-            flex-direction: column;
-            gap: 0.5rem;
-          }
-
-          .hotfix-footer-title {
-            font-size: 1.5rem;
-          }
-
-          .hotfix-wedding-footer {
-            padding: 2rem 1rem 1.5rem;
           }
         }
       `}</style>
