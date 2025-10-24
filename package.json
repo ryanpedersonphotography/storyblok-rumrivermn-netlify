@@ -17,7 +17,10 @@
     "mime-types": "^3.0.1",
     "next": "15.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "storyblok-js-client": "^7.1.5",
+    "storyblok-rich-text-react-renderer": "^3.0.1",
+    "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
