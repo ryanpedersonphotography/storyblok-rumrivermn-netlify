@@ -68,7 +68,7 @@ export default function WeddingGalleryModal({
 
     return () => {
       document.removeEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = ''
     }
   }, [onClose])
 
