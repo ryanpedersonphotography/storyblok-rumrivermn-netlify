@@ -12,8 +12,10 @@ export async function GET(request: NextRequest) {
   try {
     const token = process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN
 
+    // Correct format: UUID in path, not query param
+    // Returns { story: {...} } instead of { stories: [...] }
     const response = await fetch(
-      `https://api.storyblok.com/v2/cdn/stories?token=${token}&version=${version}&find_by=uuid&by_uuids=${uuid}`,
+      `https://api.storyblok.com/v2/cdn/stories/${uuid}?token=${token}&version=${version}&find_by=uuid`,
       {
         next: { revalidate: version === 'draft' ? 0 : 3600 }
       }
@@ -25,11 +27,11 @@ export async function GET(request: NextRequest) {
 
     const data = await response.json()
 
-    if (!data.stories || data.stories.length === 0) {
+    if (!data.story) {
       return NextResponse.json({ error: 'Story not found' }, { status: 404 })
     }
 
-    return NextResponse.json(data.stories[0])
+    return NextResponse.json(data.story)
   } catch (error) {
     console.error('Error fetching story:', error)
     return NextResponse.json(
