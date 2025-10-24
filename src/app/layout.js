@@ -7,6 +7,7 @@ import '@/styles/hotfix/alternating-blocks-styles.css';
 import '@/styles/hotfix/love-stories-gallery-styles.css';
 import '@/styles/hotfix/brand-social-proof-styles.css';
 import '@/styles/hotfix/testimonials-styles.css';
+import '@/styles/hotfix/history-carousel-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 
 export const metadata = {

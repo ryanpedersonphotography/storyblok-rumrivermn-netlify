@@ -5,6 +5,7 @@ import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEdi
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
 import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
+import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 
 // Initialize Storyblok with component registration
 // Use PREVIEW token for draft content access
@@ -20,6 +21,8 @@ storyblokInit({
     brand_social_proof: BrandSocialProofEditor,
     testimonials_section: TestimonialsEditor,
     testimonial_item: TestimonialItem,
+    history_carousel: HistoryCarouselEditor,
+    history_slide: HistoryCarouselEditor,
   },
 })
 
