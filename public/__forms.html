@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Netlify Forms - Static Detection</title>
+</head>
+<body>
+  <!--
+    This file exists solely for Netlify's bot to detect forms during build.
+    It will never be displayed to users.
+    DO NOT DELETE - Required for Netlify Forms functionality.
+  -->
+
+  <form
+    name="schedule-tour"
+    netlify
+    netlify-honeypot="bot-field"
+    hidden
+  >
+    <!-- Hidden field for form-name (required by Netlify) -->
+    <input type="hidden" name="form-name" value="schedule-tour" />
+
+    <!-- Honeypot field for spam protection (hidden from humans) -->
+    <input type="hidden" name="bot-field" />
+
+    <!-- Actual form fields (must match React component field names exactly) -->
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <input type="date" name="proposedEventDate" />
+    <input type="date" name="preferredTourDate" />
+    <select name="preferredTourTime">
+      <option value="">Select Time</option>
+      <option value="10:00 AM">10:00 AM</option>
+      <option value="11:00 AM">11:00 AM</option>
+      <option value="1:00 PM">1:00 PM</option>
+      <option value="2:00 PM">2:00 PM</option>
+      <option value="3:00 PM">3:00 PM</option>
+      <option value="4:00 PM">4:00 PM</option>
+    </select>
+    <select name="guestCount">
+      <option value="">Select Range</option>
+      <option value="50-100">50-100 Guests</option>
+      <option value="100-150">100-150 Guests</option>
+      <option value="150-200">150-200 Guests</option>
+      <option value="200+">200+ Guests</option>
+    </select>
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>

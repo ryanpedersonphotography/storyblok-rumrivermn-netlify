@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { storyblokEditable } from '@storyblok/react/rsc';
 
 interface ScheduleFormProps {
@@ -17,6 +18,30 @@ interface ScheduleFormProps {
 }
 
 export default function ScheduleFormEditor({ blok }: ScheduleFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      // Post to the static HTML file where Netlify detected the form
+      await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString()
+      });
+
+      // Redirect to thank you page on success
+      window.location.href = blok.thank_you_url || '/thank-you';
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('There was an error submitting the form. Please try again.');
+      setIsSubmitting(false);
+    }
+  };
   const timeOptions = [
     "10:00 AM",
     "11:00 AM",
@@ -55,11 +80,19 @@ export default function ScheduleFormEditor({ blok }: ScheduleFormProps) {
         <form
           className="hotfix-tour-form"
           name={blok.form_name || 'schedule-tour'}
-          method="POST"
-          data-netlify="true"
-          action={blok.thank_you_url || '/thank-you'}
+          onSubmit={handleSubmit}
         >
           <input type="hidden" name="form-name" value={blok.form_name || 'schedule-tour'} />
+
+          {/* Honeypot field for spam protection - hidden from humans */}
+          <input
+            type="text"
+            name="bot-field"
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
 
           <div className="hotfix-form-group">
             <label htmlFor="name" className="hotfix-form-label">Your Name *</label>
@@ -162,8 +195,12 @@ export default function ScheduleFormEditor({ blok }: ScheduleFormProps) {
             />
           </div>
 
-          <button type="submit" className="hotfix-form-submit">
-            {blok.submit_button_text || 'SCHEDULE TOUR'}
+          <button
+            type="submit"
+            className="hotfix-form-submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'SUBMITTING...' : (blok.submit_button_text || 'SCHEDULE TOUR')}
           </button>
         </form>
       </div>
