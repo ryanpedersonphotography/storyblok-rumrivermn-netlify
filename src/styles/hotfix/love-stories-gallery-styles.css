@@ -1,0 +1,245 @@
+/* LOVE STORIES GALLERY SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-love-stories-gallery {
+  background: #F4E4E1 !important; /* blush-pink */
+  padding: 100px 0 !important;
+  min-height: 100vh !important;
+}
+
+.hotfix-love-stories-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+/* HOTFIX: Love Stories Section Header */
+.hotfix-love-stories-header {
+  text-align: center !important;
+  margin-bottom: 3rem !important;
+}
+
+.hotfix-love-stories-header .hotfix-script-accent {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #9D6B7B !important; /* dusty-rose */
+  margin-bottom: 1rem !important;
+}
+
+.hotfix-love-stories-header .hotfix-love-section-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem !important;
+  color: #6B4E3D !important; /* warm-walnut */
+  margin: 0 0 1.5rem 0 !important;
+}
+
+.hotfix-love-stories-header .hotfix-love-lead {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  color: #2C2416 !important; /* text-dark */
+  opacity: 0.9 !important;
+  max-width: 600px !important;
+  margin: 1.5rem auto 0 !important;
+  text-align: center !important;
+}
+
+/* HOTFIX: Wedding Gallery Grid */
+.hotfix-wedding-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  grid-auto-rows: 300px !important;
+  gap: 16px !important;
+  margin-bottom: 3rem !important;
+}
+
+/* HOTFIX: Dynamic Grid Item Sizing */
+.hotfix-gallery-item:nth-child(1) {
+  grid-column: span 2 !important;
+  grid-row: span 2 !important;
+}
+
+.hotfix-gallery-item:nth-child(6) {
+  grid-column: span 2 !important;
+}
+
+.hotfix-gallery-item {
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(2px) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 
+    0 8px 32px rgba(107, 78, 61, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-gallery-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* HOTFIX: Gallery Hover Overlay */
+.hotfix-gallery-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    135deg, 
+    rgba(107, 78, 61, 0.4) 0%,
+    rgba(157, 107, 123, 0.3) 50%,
+    rgba(212, 165, 116, 0.2) 100%
+  ) !important;
+  backdrop-filter: blur(3px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  padding: 2rem !important;
+  opacity: 0 !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-gallery-item:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 
+    0 20px 40px rgba(107, 78, 61, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.hotfix-gallery-item:hover .hotfix-gallery-overlay {
+  opacity: 1 !important;
+}
+
+.hotfix-gallery-item:hover img {
+  transform: scale(1.1) !important;
+}
+
+/* Shimmer effect on hover */
+.hotfix-gallery-item::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%
+  ) !important;
+  transition: left 0.8s ease-in-out !important;
+  z-index: 10 !important;
+  border-radius: 12px !important;
+}
+
+.hotfix-gallery-item:hover::before {
+  left: 100% !important;
+}
+
+/* HOTFIX: Overlay Text Content */
+.hotfix-gallery-couple-names {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: white !important;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(2px) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.hotfix-gallery-season {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1rem !important;
+  color: #E4C896 !important; /* champagne-gold */
+  margin-bottom: 0.25rem !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.hotfix-gallery-details {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.875rem !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 400 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(1px) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Shimmer effect on hover */
+.hotfix-gallery-item::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  ) !important;
+  transition: left 0.8s ease-in-out !important;
+  z-index: 10 !important;
+  border-radius: 12px !important;
+  pointer-events: none !important;
+}
+
+.hotfix-gallery-item:hover::before {
+  left: 100% !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hotfix-gallery-item:nth-child(1),
+  .hotfix-gallery-item:nth-child(6) {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotfix-wedding-gallery {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 300px !important;
+    gap: 16px !important;
+  }
+  
+  .hotfix-gallery-overlay {
+    padding: 1.5rem !important;
+  }
+  
+  .hotfix-gallery-couple-names {
+    font-size: 1.5rem !important;
+  }
+  
+  .hotfix-love-stories-header .hotfix-love-section-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-love-stories-gallery {
+    padding: 60px 0 !important;
+  }
+  
+  .hotfix-love-stories-content {
+    padding: 0 1rem !important;
+  }
+  
+  .hotfix-love-stories-header .hotfix-love-section-title {
+    font-size: 2rem !important;
+  }
+}

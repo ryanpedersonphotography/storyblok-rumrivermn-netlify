@@ -4,6 +4,7 @@ import '@/styles/hotfix/animations.css';
 import '@/styles/hotfix/navbar-styles.css';
 import '@/styles/hotfix/hero-styles.css';
 import '@/styles/hotfix/alternating-blocks-styles.css';
+import '@/styles/hotfix/love-stories-gallery-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 
 export const metadata = {
