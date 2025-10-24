@@ -8,8 +8,6 @@ interface HeroEditorProps {
 }
 
 export default function HeroEditor({ blok }: HeroEditorProps) {
-  console.log('HeroEditor received blok:', JSON.stringify(blok, null, 2))
-  
   // Handle background image (string or asset object)
   const bgImage = typeof blok.bg_image === 'string'
     ? blok.bg_image
@@ -33,7 +31,8 @@ export default function HeroEditor({ blok }: HeroEditorProps) {
         
         {/* Main hero title with accent */}
         <h1 className="hotfix-hero-title">
-          {blok.title || 'Rum River'}<br />
+          {blok.title || 'Rum River'}
+          <br />
           <span className="hotfix-hero-title-accent">
             {blok.title_accent || 'Wedding Barn'}
           </span>
