@@ -51,3 +51,12 @@ export async function fetchStory(slug: string, version: 'draft' | 'published') {
   })
   return data.story
 }
+
+// Fetch multiple stories with filtering and sorting
+export async function fetchStories(params: any) {
+  const { data } = await getStoryblokApi().get('cdn/stories', {
+    version: params.version || 'published',
+    ...params,
+  })
+  return data.stories
+}

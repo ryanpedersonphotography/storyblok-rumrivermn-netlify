@@ -1,0 +1,183 @@
+/* Real Weddings Listing Page Styles */
+
+.real-weddings-listing-page {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.listing-hero {
+  position: relative;
+  min-height: 400px !important;
+  height: 50vh !important;
+  background-image: url('/images/hero-barn.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listing-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Stats Section */
+.listing-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #8b7355;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+/* Wedding Grid */
+.weddings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+
+.wedding-card {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  background: #f5f5f5;
+}
+
+.wedding-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.wedding-image {
+  position: absolute;
+  inset: 0;
+}
+
+.wedding-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.wedding-card:hover .wedding-image img {
+  transform: scale(1.05);
+}
+
+.wedding-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: white;
+}
+
+.wedding-couple-names {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.wedding-date,
+.wedding-photo-count {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.wedding-photo-count {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* No Weddings Message */
+.no-weddings {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.no-weddings p {
+  font-size: 1.125rem;
+  color: #666;
+}
+
+/* Responsive: 2 columns on tablet */
+@media (max-width: 1024px) {
+  .weddings-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .listing-stats {
+    gap: 2rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+/* Responsive: 1 column on mobile */
+@media (max-width: 640px) {
+  .listing-hero {
+    min-height: 300px !important;
+    height: 40vh !important;
+  }
+
+  .listing-stats {
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .weddings-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .wedding-couple-names {
+    font-size: 1.25rem;
+  }
+}
