@@ -39,26 +39,7 @@ export default function WeddingGalleryModal({
   // are prepared for future Phase 2 enhancements but not yet used in rendering.
   // See FUTURE_IDEAS.md for implementation details.
 
-  // Close modal on ESC key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose()
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape)
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden'
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen, onClose])
-
+  // Early return if modal shouldn't be shown
   if (!isOpen || !wedding) return null
 
   // Prepare gallery images
@@ -71,6 +52,25 @@ export default function WeddingGalleryModal({
 
   // If no images, don't show modal
   if (galleryImages.length === 0) return null
+
+  // Close modal on ESC key and handle body scroll
+  // This useEffect only runs when we know we're actually showing the modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [onClose])
 
   return (
     <>
