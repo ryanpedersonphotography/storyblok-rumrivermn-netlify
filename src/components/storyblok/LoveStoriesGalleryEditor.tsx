@@ -92,6 +92,8 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
   }
 
   const closeModal = () => {
+    // Force unlock body scroll BEFORE unmounting modal
+    document.body.style.overflow = ''
     setIsModalOpen(false)
     setSelectedGallery(null)
   }

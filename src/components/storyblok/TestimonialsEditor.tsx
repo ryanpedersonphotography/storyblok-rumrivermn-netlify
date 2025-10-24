@@ -148,6 +148,8 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
   }
 
   const closeModal = () => {
+    // Force unlock body scroll BEFORE unmounting modal
+    document.body.style.overflow = ''
     setIsModalOpen(false)
     setSelectedWedding(null)
   }
