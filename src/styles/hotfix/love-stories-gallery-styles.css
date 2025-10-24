@@ -4,18 +4,27 @@
   background: #F4E4E1 !important; /* blush-pink */
   padding: 100px 0 !important;
   min-height: 100vh !important;
+  /* Override global Storyblok CSS constraints for full-width */
+  width: 100vw !important;
+  max-width: none !important;
+  max-inline-size: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
 }
 
 .hotfix-love-stories-content {
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 2rem !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* HOTFIX: Love Stories Section Header */
 .hotfix-love-stories-header {
+  max-width: 1200px !important;
+  margin: 0 auto 3rem auto !important;
+  padding: 0 2rem !important;
   text-align: center !important;
-  margin-bottom: 3rem !important;
 }
 
 .hotfix-love-stories-header .hotfix-script-accent {
@@ -44,11 +53,13 @@
 
 /* HOTFIX: Wedding Gallery Grid */
 .hotfix-wedding-gallery {
+  max-width: 1200px !important;
+  margin: 0 auto 3rem auto !important;
+  padding: 0 2rem !important;
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
   grid-auto-rows: 300px !important;
   gap: 16px !important;
-  margin-bottom: 3rem !important;
 }
 
 /* HOTFIX: Dynamic Grid Item Sizing */

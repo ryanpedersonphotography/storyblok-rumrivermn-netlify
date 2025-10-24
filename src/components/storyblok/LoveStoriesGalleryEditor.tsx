@@ -8,8 +8,6 @@ interface LoveStoriesGalleryEditorProps {
 }
 
 export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEditorProps) {
-  console.log('LoveStoriesGalleryEditor received blok:', blok)
-
   return (
     <section className="hotfix-love-stories-gallery" {...storyblokEditable(blok)}>
       <div className="hotfix-love-stories-content">

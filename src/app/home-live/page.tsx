@@ -9,8 +9,8 @@ export const fetchCache = 'force-no-store'
 export const runtime = 'nodejs'
 
 export default async function HomeLivePage() {
-  const { isEnabled } = await draftMode()
-  const story = await fetchStory('home', isEnabled ? 'draft' : 'published')
+  // Always use draft version for Visual Editor route
+  const story = await fetchStory('home', 'draft')
 
   if (!story) {
     return (

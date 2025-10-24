@@ -9,8 +9,9 @@ import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEdi
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 
 // Initialize Storyblok for client-side rendering
+// Use PREVIEW token for draft content in Visual Editor
 storyblokInit({
-  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN || '',
+  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN || '',
   components: {
     page: Page,
     home_hero_section: HeroEditor,

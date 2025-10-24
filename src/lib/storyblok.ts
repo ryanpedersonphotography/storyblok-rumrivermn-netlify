@@ -5,8 +5,9 @@ import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEdi
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 
 // Initialize Storyblok with component registration
+// Use PREVIEW token for draft content access
 storyblokInit({
-  accessToken: process.env.STORYBLOK_PUBLIC_TOKEN || process.env.STORYBLOK_ACCESS_TOKEN,
+  accessToken: process.env.STORYBLOK_PREVIEW_TOKEN || process.env.STORYBLOK_ACCESS_TOKEN,
   use: [apiPlugin],
   apiOptions: { region: process.env.STORYBLOK_REGION || 'eu' },
   components: {
