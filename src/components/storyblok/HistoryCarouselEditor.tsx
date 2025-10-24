@@ -351,12 +351,13 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         .hotfix-embla-container {
           display: flex;
-          gap: 1.5rem;
+          gap: 1rem;
         }
 
         .hotfix-embla-slide {
-          flex: 0 0 calc(33.333% - 1rem);
+          flex: 0 0 calc(33.333% - 0.667rem);
           min-width: 0;
+          max-width: 380px;
         }
 
         /* History Card */
@@ -423,7 +424,7 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         /* Card Content */
         .hotfix-history-card-content {
-          padding: 1.5rem;
+          padding: 1rem;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -431,17 +432,17 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         .hotfix-history-card-title {
           font-family: 'Playfair Display', serif;
-          font-size: 1.25rem;
+          font-size: 1.125rem;
           font-weight: 600;
           color: #2c2c2c;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.375rem;
           line-height: 1.3;
         }
 
         .hotfix-history-card-description {
-          font-size: 0.9375rem;
+          font-size: 0.875rem;
           color: #666;
-          line-height: 1.6;
+          line-height: 1.5;
           flex: 1;
         }
 
