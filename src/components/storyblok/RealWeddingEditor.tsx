@@ -77,30 +77,28 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
         </div>
       </section>
 
-      {/* Content Section - matching "Weddings at the Barn" section style */}
+      {/* Content Section - Full Width */}
       <section className="hotfix-section-elegant">
-        <div className="hotfix-section-content">
-          <div className="hotfix-content-wrapper">
-            {/* Intro Text */}
-            {blok.intro && (
-              <div className="hotfix-section-intro">
-                {render(blok.intro)}
-              </div>
-            )}
+        <div className="hotfix-content-wrapper">
+          {/* Intro Text */}
+          {blok.intro && (
+            <div className="hotfix-section-intro">
+              {render(blok.intro)}
+            </div>
+          )}
 
-            {/* Vendors Sidebar - if present */}
-            {hasVendors && (
-              <aside className="wedding-vendors-box">
-                <h3 className="vendors-title">Wedding Vendors</h3>
-                <div className="vendors-list">
-                  {renderVendor(blok.photo_vendor, 'Photography')}
-                  {renderVendor(blok.dj_vendor, 'DJ & Entertainment')}
-                  {renderVendor(blok.flowers_vendor, 'Floral Design')}
-                  {renderVendor(blok.catering_vendor, 'Catering')}
-                </div>
-              </aside>
-            )}
-          </div>
+          {/* Vendors Sidebar - if present */}
+          {hasVendors && (
+            <aside className="wedding-vendors-box">
+              <h3 className="vendors-title">Wedding Vendors</h3>
+              <div className="vendors-list">
+                {renderVendor(blok.photo_vendor, 'Photography')}
+                {renderVendor(blok.dj_vendor, 'DJ & Entertainment')}
+                {renderVendor(blok.flowers_vendor, 'Floral Design')}
+                {renderVendor(blok.catering_vendor, 'Catering')}
+              </div>
+            </aside>
+          )}
         </div>
       </section>
 
@@ -151,22 +149,20 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
           font-size: 3rem !important;
         }
 
-        /* Content Section Styling */
+        /* Content Section Styling - Full Width */
         .hotfix-section-elegant {
+          width: 100%;
           padding: 4rem 2rem;
           background: #fff;
         }
 
-        .hotfix-section-content {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
         .hotfix-content-wrapper {
+          width: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
           display: grid;
           grid-template-columns: 1fr 300px;
           gap: 3rem;
-          margin-bottom: 4rem;
         }
 
         .hotfix-section-intro {
