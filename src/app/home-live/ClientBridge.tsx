@@ -11,6 +11,7 @@ import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEdito
 import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
+import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -27,6 +28,8 @@ storyblokInit({
     history_carousel: HistoryCarouselEditor,
     history_slide: HistoryCarouselEditor,
     schedule_form: ScheduleFormEditor,
+    map_section: MapSectionEditor,
+    location_item: LocationItem,
   },
 })
 
