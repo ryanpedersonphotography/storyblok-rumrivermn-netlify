@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Thank You - Rum River Wedding Barn',
-  description: 'Thank you for your inquiry. We\'ll be in touch soon!',
+  description: 'Thank you for your inquiry. We&apos;ll be in touch soon!',
 };
 
 export default function ThankYouPage() {
@@ -68,7 +68,7 @@ export default function ThankYouPage() {
           lineHeight: '1.7',
           marginBottom: '2rem',
         }}>
-          We're excited to show you our beautiful venue! One of our team members will reach out within 24 hours to confirm your tour date and time.
+          We&apos;re excited to show you our beautiful venue! One of our team members will reach out within 24 hours to confirm your tour date and time.
         </p>
 
         {/* Next Steps */}
@@ -88,7 +88,7 @@ export default function ThankYouPage() {
             textTransform: 'uppercase',
             letterSpacing: '1px',
           }}>
-            What's Next?
+            What&apos;s Next?
           </h2>
           <ul style={{
             listStyle: 'none',
@@ -98,7 +98,7 @@ export default function ThankYouPage() {
             color: '#6B4E3D',
             opacity: 0.8,
           }}>
-            <li style={{ marginBottom: '0.5rem' }}>✓ We'll call or email you within 24 hours</li>
+            <li style={{ marginBottom: '0.5rem' }}>✓ We&apos;ll call or email you within 24 hours</li>
             <li style={{ marginBottom: '0.5rem' }}>✓ Confirm your preferred tour date and time</li>
             <li style={{ marginBottom: '0.5rem' }}>✓ Answer any questions you may have</li>
             <li>✓ Show you why Rum River is perfect for your day</li>
