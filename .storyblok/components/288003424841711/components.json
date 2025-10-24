@@ -199,6 +199,89 @@
     "metadata": {}
   },
   {
+    "name": "gallery_item",
+    "display_name": "Gallery Item",
+    "description": "Individual wedding gallery item for Love Stories section",
+    "created_at": "2025-10-24T03:19:37.219Z",
+    "updated_at": "2025-10-24T03:19:37.219Z",
+    "id": 104801801094466,
+    "schema": {
+      "href": {
+        "type": "text",
+        "pos": 0,
+        "translatable": false,
+        "description": "Link to wedding gallery page (e.g., /real-weddings/couple-name)",
+        "display_name": "Gallery Link",
+        "default_value": "/real-weddings/",
+        "id": "sV6Hz4rETe6bJ7AXnED-Jg"
+      },
+      "image": {
+        "type": "asset",
+        "pos": 1,
+        "translatable": false,
+        "required": true,
+        "description": "Wedding photo for gallery thumbnail",
+        "display_name": "Wedding Photo",
+        "filetypes": [
+          "images"
+        ],
+        "id": "wR3T3X_8RFa05I2FmotZ0A"
+      },
+      "couple_names": {
+        "type": "text",
+        "pos": 2,
+        "translatable": true,
+        "required": true,
+        "description": "Names of the couple (e.g., \"Anthony & Linnea\")",
+        "display_name": "Couple Names",
+        "default_value": "Couple Names",
+        "id": "pNZU0C9RQ3Srv8M-bQdEUg"
+      },
+      "season": {
+        "type": "text",
+        "pos": 3,
+        "translatable": false,
+        "description": "Season and year (e.g., \"Summer 2024\")",
+        "display_name": "Season",
+        "default_value": "Summer 2024",
+        "id": "cc9klfQsRKWqtGOpssVZ3w"
+      },
+      "photo_count": {
+        "type": "number",
+        "pos": 4,
+        "translatable": false,
+        "description": "Number of photos in the gallery",
+        "display_name": "Photo Count",
+        "default_value": 0,
+        "id": "w_vkFrrtSQePhpZ4nGOldA"
+      },
+      "venue": {
+        "type": "text",
+        "pos": 5,
+        "translatable": false,
+        "description": "Venue name",
+        "display_name": "Venue",
+        "default_value": "Rum River Barn",
+        "id": "lJx-pUY6SJWepCpDLZpjGg"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "Gallery Item",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
     "name": "grid",
     "display_name": null,
     "description": null,
@@ -325,6 +408,70 @@
     "metadata": {}
   },
   {
+    "name": "love_stories_gallery",
+    "display_name": "Love Stories Gallery",
+    "description": "Wedding gallery section showcasing real weddings with photos and details",
+    "created_at": "2025-10-24T03:19:37.803Z",
+    "updated_at": "2025-10-24T03:19:37.803Z",
+    "id": 104801803490627,
+    "schema": {
+      "script_accent": {
+        "type": "text",
+        "pos": 0,
+        "translatable": true,
+        "description": "Script-style accent text above the title",
+        "display_name": "Script Accent",
+        "default_value": "Real Love Stories",
+        "id": "Yb4jGQEVS2iNaeKbofySKQ"
+      },
+      "title": {
+        "type": "text",
+        "pos": 1,
+        "translatable": true,
+        "description": "Main section title",
+        "display_name": "Section Title",
+        "default_value": "Weddings at the Barn",
+        "id": "7q9JH3N9QjSC_q_PqmTesw"
+      },
+      "description": {
+        "type": "textarea",
+        "pos": 2,
+        "translatable": true,
+        "description": "Lead description text below the title",
+        "display_name": "Description",
+        "default_value": "Every celebration tells a unique story of love, laughter, and happily ever after.",
+        "id": "L1kllwAyS5OQkwriKm_PpQ"
+      },
+      "galleries": {
+        "type": "bloks",
+        "pos": 3,
+        "translatable": true,
+        "description": "Wedding gallery items",
+        "display_name": "Galleries",
+        "restrict_components": true,
+        "component_whitelist": [
+          "gallery_item"
+        ],
+        "id": "OymN1sffTgmAAOkZq8iEPw"
+      }
+    },
+    "image": null,
+    "preview_field": null,
+    "is_root": false,
+    "preview_tmpl": null,
+    "is_nestable": true,
+    "all_presets": [],
+    "preset_id": null,
+    "real_name": "Love Stories Gallery",
+    "component_group_uuid": null,
+    "color": null,
+    "icon": null,
+    "internal_tags_list": [],
+    "internal_tag_ids": [],
+    "content_type_asset_preview": null,
+    "metadata": {}
+  },
+  {
     "name": "page",
     "display_name": null,
     "description": null,
@@ -391,107 +538,6 @@
     "internal_tag_ids": [],
     "content_type_asset_preview": null,
     "metadata": {}
-  },
-  {
-    "name": "gallery_item",
-    "display_name": "Gallery Item",
-    "description": "Individual wedding gallery item for Love Stories section",
-    "schema": {
-      "href": {
-        "type": "text",
-        "pos": 0,
-        "translatable": false,
-        "description": "Link to wedding gallery page (e.g., /real-weddings/couple-name)",
-        "display_name": "Gallery Link",
-        "default_value": "/real-weddings/"
-      },
-      "image": {
-        "type": "asset",
-        "pos": 1,
-        "translatable": false,
-        "required": true,
-        "description": "Wedding photo for gallery thumbnail",
-        "display_name": "Wedding Photo",
-        "filetypes": ["images"]
-      },
-      "couple_names": {
-        "type": "text",
-        "pos": 2,
-        "translatable": true,
-        "required": true,
-        "description": "Names of the couple (e.g., \"Anthony & Linnea\")",
-        "display_name": "Couple Names",
-        "default_value": "Couple Names"
-      },
-      "season": {
-        "type": "text",
-        "pos": 3,
-        "translatable": false,
-        "description": "Season and year (e.g., \"Summer 2024\")",
-        "display_name": "Season",
-        "default_value": "Summer 2024"
-      },
-      "photo_count": {
-        "type": "number",
-        "pos": 4,
-        "translatable": false,
-        "description": "Number of photos in the gallery",
-        "display_name": "Photo Count",
-        "default_value": 0
-      },
-      "venue": {
-        "type": "text",
-        "pos": 5,
-        "translatable": false,
-        "description": "Venue name",
-        "display_name": "Venue",
-        "default_value": "Rum River Barn"
-      }
-    },
-    "is_root": false,
-    "is_nestable": true
-  },
-  {
-    "name": "love_stories_gallery",
-    "display_name": "Love Stories Gallery",
-    "description": "Wedding gallery section showcasing real weddings with photos and details",
-    "schema": {
-      "script_accent": {
-        "type": "text",
-        "pos": 0,
-        "translatable": true,
-        "description": "Script-style accent text above the title",
-        "display_name": "Script Accent",
-        "default_value": "Real Love Stories"
-      },
-      "title": {
-        "type": "text",
-        "pos": 1,
-        "translatable": true,
-        "description": "Main section title",
-        "display_name": "Section Title",
-        "default_value": "Weddings at the Barn"
-      },
-      "description": {
-        "type": "textarea",
-        "pos": 2,
-        "translatable": true,
-        "description": "Lead description text below the title",
-        "display_name": "Description",
-        "default_value": "Every celebration tells a unique story of love, laughter, and happily ever after."
-      },
-      "galleries": {
-        "type": "bloks",
-        "pos": 3,
-        "translatable": true,
-        "description": "Wedding gallery items",
-        "display_name": "Galleries",
-        "restrict_components": true,
-        "component_whitelist": ["gallery_item"]
-      }
-    },
-    "is_root": false,
-    "is_nestable": true
   },
   {
     "name": "teaser",

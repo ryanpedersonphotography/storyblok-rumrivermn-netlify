@@ -1,0 +1,37 @@
+{
+  "name": "brand_social_proof",
+  "display_name": "Brand Social Proof",
+  "schema": {
+    "brands": {
+      "type": "textarea",
+      "pos": 0,
+      "display_name": "Brand Names",
+      "description": "One brand name per line (e.g., THE KNOT)",
+      "default_value": "THE KNOT\nWEDDINGWIRE\nMARTHA STEWART\nMINNESOTA BRIDE"
+    },
+    "quote_text": {
+      "type": "textarea",
+      "pos": 1,
+      "display_name": "Quote Text",
+      "description": "Main testimonial quote (without highlights)",
+      "default_value": "Rum River Barn isn't just a venue—it's {highlight_1}. Their commitment to saying 'yes' to every couple's vision sets them apart as {highlight_2}."
+    },
+    "highlight_1": {
+      "type": "text",
+      "pos": 2,
+      "display_name": "First Highlight",
+      "description": "First highlighted phrase in quote",
+      "default_value": "where dreams come to life"
+    },
+    "highlight_2": {
+      "type": "text",
+      "pos": 3,
+      "display_name": "Second Highlight",
+      "description": "Second highlighted phrase in quote",
+      "default_value": "Minnesota's most accommodating wedding destination"
+    }
+  },
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Home Page Sections"
+}
