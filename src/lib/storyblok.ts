@@ -20,8 +20,12 @@ export function getStoryblokApi() {
   return getSbApi()
 }
 
-// Fetch story using the SDK
+// Fetch story using the SDK with aggressive cache control
 export async function fetchStory(slug: string, version: 'draft' | 'published') {
-  const { data } = await getStoryblokApi().get(`cdn/stories/${slug}`, { version })
+  const { data } = await getStoryblokApi().get(`cdn/stories/${slug}`, {
+    version,
+    // Disable caching for draft content (Visual Editor)
+    cv: version === 'draft' ? Date.now() : undefined,
+  })
   return data.story
 }
