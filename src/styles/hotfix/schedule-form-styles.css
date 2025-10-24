@@ -1,0 +1,228 @@
+/* SCHEDULE FORM SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-schedule-tour {
+  padding: 120px 80px !important;
+  background: linear-gradient(135deg, #4A3426 0%, #6B4E3D 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Rotating background decoration */
+.hotfix-schedule-tour::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  right: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%) !important;
+  animation: hotfix-rotate 30s linear infinite !important;
+  pointer-events: none !important;
+}
+
+@keyframes hotfix-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hotfix-form-container {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Form Header */
+.hotfix-form-header {
+  text-align: center !important;
+  margin-bottom: 80px !important;
+}
+
+.hotfix-form-script {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #D4A574 !important;
+  margin: 0 0 20px !important;
+}
+
+.hotfix-form-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem !important;
+  line-height: 1.2 !important;
+  color: white !important;
+  margin: 0 0 15px !important;
+  letter-spacing: 2px !important;
+  font-weight: 400 !important;
+}
+
+.hotfix-form-description {
+  font-size: 1rem !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* Glassmorphic Form */
+.hotfix-tour-form {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 50px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  display: grid !important;
+  gap: 30px !important;
+}
+
+.hotfix-form-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 30px !important;
+}
+
+.hotfix-form-group {
+  display: grid !important;
+  gap: 10px !important;
+}
+
+.hotfix-form-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  color: #2C2416 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.hotfix-form-input,
+.hotfix-form-select,
+.hotfix-form-textarea {
+  padding: 15px 20px !important;
+  border: 2px solid rgba(212, 165, 116, 0.3) !important;
+  border-radius: 12px !important;
+  background: white !important;
+  color: #6B4E3D !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-form-input::placeholder,
+.hotfix-form-textarea::placeholder {
+  color: rgba(107, 78, 61, 0.6) !important;
+}
+
+.hotfix-form-input:focus,
+.hotfix-form-select:focus,
+.hotfix-form-textarea:focus {
+  outline: none !important;
+  border-color: #D4A574 !important;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.2) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.hotfix-form-textarea {
+  resize: vertical !important;
+  min-height: 120px !important;
+}
+
+/* Submit Button Enhancement */
+.hotfix-form-submit {
+  margin: 2rem auto 0 !important;
+  display: flex !important;
+  padding: 0.875rem 2.5rem !important;
+  min-width: 200px !important;
+  justify-content: center !important;
+  background: #9D6B7B !important;
+  color: white !important;
+  border: 2px solid #9D6B7B !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.hotfix-form-submit:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(157, 107, 123, 0.4) !important;
+  background: #6B4E3D !important;
+  border-color: #6B4E3D !important;
+}
+
+.hotfix-form-submit:active {
+  transform: translateY(0) !important;
+}
+
+.hotfix-form-submit::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.6s ease !important;
+}
+
+.hotfix-form-submit:hover::before {
+  transform: translateX(100%) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hotfix-schedule-tour {
+    padding: 80px 40px !important;
+  }
+  
+  .hotfix-form-container {
+    max-width: 100% !important;
+  }
+  
+  .hotfix-form-header {
+    margin-bottom: 60px !important;
+  }
+  
+  .hotfix-form-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hotfix-form-script {
+    font-size: 1.5rem !important;
+  }
+  
+  .hotfix-tour-form {
+    padding: 30px !important;
+    border-radius: 16px !important;
+  }
+  
+  .hotfix-form-row {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-schedule-tour {
+    padding: 60px 16px !important;
+  }
+  
+  .hotfix-form-title {
+    font-size: 2rem !important;
+    letter-spacing: 1px !important;
+  }
+  
+  .hotfix-tour-form {
+    padding: 20px !important;
+    gap: 20px !important;
+  }
+  
+  .hotfix-form-input,
+  .hotfix-form-select,
+  .hotfix-form-textarea {
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
+  }
+}

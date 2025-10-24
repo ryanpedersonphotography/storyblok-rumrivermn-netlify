@@ -6,6 +6,7 @@ import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryE
 import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
 import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
+import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 
 // Initialize Storyblok with component registration
 // Use PREVIEW token for draft content access
@@ -23,6 +24,7 @@ storyblokInit({
     testimonial_item: TestimonialItem,
     history_carousel: HistoryCarouselEditor,
     history_slide: HistoryCarouselEditor,
+    schedule_form: ScheduleFormEditor,
   },
 })
 
