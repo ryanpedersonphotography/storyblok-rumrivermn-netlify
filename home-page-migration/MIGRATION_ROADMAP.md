@@ -1,7 +1,16 @@
 # Migration Roadmap - Romantic Wedding Barn Theme
 
+## 🔄 UPDATED: Visual Editor-First Approach
+
+> **Important**: This roadmap has been updated to reflect our **Visual Editor-first workflow**. Instead of building static components and wiring to Storyblok later, we now:
+> 1. Create Storyblok schema FIRST
+> 2. Build components WITH live editing from the start
+> 3. Test in Visual Editor IMMEDIATELY
+>
+> See [VISUAL_EDITOR_WORKFLOW.md](VISUAL_EDITOR_WORKFLOW.md) for complete implementation guide.
+
 ## Overview
-This roadmap provides a systematic approach for migrating all home page design sections from the hotfix implementation into proper React/Next.js components and wiring them to Storyblok CMS. Each section should be implemented as a separate feature branch and validated for design fidelity before proceeding to the next.
+This roadmap provides a systematic approach for implementing all home page design sections as Storyblok-native components with Visual Editor support. Each section should be implemented as a separate feature branch and validated for both design fidelity and live editing functionality before proceeding to the next.
 
 ## 🎯 Migration Objectives
 - **100% Design Fidelity**: Preserve every visual detail from the hotfix design
@@ -20,13 +29,14 @@ This roadmap provides a systematic approach for migrating all home page design s
 - [x] Storyblok CMS integration: Basic setup complete (hero section working)
 
 ### ✅ Current Storyblok Setup Status
-- [x] **Authentication Working**: Public token configured via Netlify CLI
-- [x] **Hero Section**: Basic implementation working on `/beta-cms` and root route
-- [x] **Content Mapping**: `mapFromStoryblok.ts` transforms Storyblok data to component props
-- [x] **Environment Variables**: All tokens documented in `STORYBLOK_TOKENS.md`
-- [x] **GitHub Secrets**: All tokens stored securely for CI/CD
-- [x] **Feature Flags**: `FEATURE_CMS_IMAGES=0` for safe deployment
-- [x] **Live Integration**: Root route (`/`) pulling content from Storyblok successfully
+- [x] **Authentication Working**: Preview and Public tokens configured
+- [x] **Visual Editor Route**: `/home-live` route with ClientBridge for live editing
+- [x] **Hero Section**: HeroEditor.tsx with `storyblokEditable()` wrapper ✅ **COMPLETE**
+- [x] **Alternating Blocks**: AlternatingBlocksEditor.tsx with nested block editing ✅ **COMPLETE**
+- [x] **Environment Variables**: All tokens documented in `.env.local`
+- [x] **Component Mapping**: `storyblok.ts` registers all Editor components
+- [x] **Live Editing Working**: Changes in Storyblok reflect immediately in Visual Editor
+- [x] **Production Deployment**: Deployed to Netlify at `storyblok-rumrivermn-netlify.netlify.app`
 
 ### ✅ Asset Preparation
 - [ ] Review all migration packages in `/home-page-migration/`
@@ -71,45 +81,73 @@ git checkout -b feat/[phase-name]-migration
 git status
 ```
 
-#### 2. Implementation Work
+#### 2. Storyblok Schema Creation (NEW STEP)
 ```bash
-# Work on the phase implementation
-# Follow the detailed phase checklist
-# Test thoroughly on local development
+# BEFORE writing any code, create Storyblok schema
+# 1. Navigate to Storyblok Block Library
+# 2. Create new block with kebab-case name (e.g., "hero-section")
+# 3. Add all required fields (match component data needs)
+# 4. Set field types, defaults, and descriptions
+# 5. Save schema
+
+# Commit schema documentation
+git add .
+git commit -m "docs: add Storyblok schema for [component]"
+```
+
+#### 3. Implementation Work
+```bash
+# Build component WITH Storyblok integration from start
+# - Create [Component]Editor.tsx in /src/components/storyblok/
+# - Add 'use client' directive
+# - Import and use storyblokEditable()
+# - Map blok.field_name to component props
+# - Provide fallback values for all fields
+# - Copy/adapt CSS from migration package
 
 # Commit work incrementally
 git add .
-git commit -m "feat: implement [component] structure"
+git commit -m "feat: implement [component] with storyblokEditable()"
 git commit -m "feat: add [specific-feature] functionality"
 git commit -m "feat: complete [phase-name] styling and animations"
 ```
 
-#### 3. Pre-Merge Validation
+#### 4. Visual Editor Testing (NEW STEP)
 ```bash
-# Build and test
-pnpm build
-pnpm lint
-pnpm type-check  # if available
+# Test in Visual Editor BEFORE merging
+# 1. Start dev server: npm run dev
+# 2. Access http://localhost:9999/home-live
+# 3. Add component block to Home story in Storyblok
+# 4. Fill in content fields
+# 5. Test live editing functionality
 
-# Test in multiple browsers
-# Verify mobile responsiveness
-# Check accessibility with tools
+# Visual Editor Checklist:
+# - [ ] Blue outline appears when clicking component
+# - [ ] Field editor panel opens on click
+# - [ ] Text changes update immediately (no reload)
+# - [ ] Image changes update immediately
+# - [ ] Nested blocks editable individually (if applicable)
+# - [ ] No console errors about missing components
+# - [ ] Bridge loaded message in console
 
 # Final commit
 git add .
-git commit -m "feat: complete [phase-name] migration with full fidelity"
+git commit -m "feat: complete [phase-name] with Visual Editor support"
 ```
 
-#### 4. Design Fidelity Checkpoint
+#### 5. Design Fidelity Checkpoint
 **MANDATORY STOP POINT - Do not proceed until verified:**
 - [ ] **Visual Comparison**: Side-by-side with original design
 - [ ] **Interactive Elements**: All hover/click behaviors working
+- [ ] **Live Editing**: Component editable in Visual Editor ⭐ NEW
+- [ ] **storyblokEditable**: Blue outline appears on click ⭐ NEW
+- [ ] **Immediate Updates**: Changes reflect without page reload ⭐ NEW
 - [ ] **Responsive Design**: Perfect on mobile, tablet, desktop
 - [ ] **Performance Check**: No significant slowdown
 - [ ] **Cross-browser Test**: Chrome, Firefox, Safari
 - [ ] **Accessibility Test**: Screen reader compatibility
 
-#### 5. Merge to Main
+#### 6. Merge to Main
 ```bash
 # Push feature branch
 git push origin feat/[phase-name]-migration
@@ -126,7 +164,7 @@ git branch -d feat/[phase-name]-migration
 git push origin --delete feat/[phase-name]-migration
 ```
 
-#### 6. Phase Completion Documentation
+#### 7. Phase Completion Documentation
 ```bash
 # Update roadmap progress
 # Document any deviations or notes
@@ -135,7 +173,9 @@ git add .
 git commit -m "checkpoint: complete Phase X - [phase-name] migration
 
 ✅ Design fidelity verified
-✅ All interactive elements working  
+✅ All interactive elements working
+✅ Visual Editor live editing tested ⭐ NEW
+✅ Storyblok schema created and documented ⭐ NEW
 ✅ Responsive design confirmed
 ✅ Performance maintained
 ✅ Browser compatibility tested"
@@ -266,9 +306,10 @@ git tag "phase-2-complete"
 
 ---
 
-## Phase 3: Hero Section Implementation
-**Branch**: `feat/hero-migration`  
+## Phase 3: Hero Section Implementation ✅ COMPLETE
+**Branch**: `feat/hero-migration` (merged to main)
 **Base**: `/home-page-migration/01-hero-section/`
+**Implementation**: `/src/components/storyblok/HeroEditor.tsx`
 
 ### 📋 Required Files
 - **📚 Read First**: `01-hero-section/docs/README.md`
@@ -276,84 +317,113 @@ git tag "phase-2-complete"
 - **🎨 Styles**: `01-hero-section/styles/hero-styles.css`
 - **🖼️ Background**: `01-hero-section/images/barn-exterior-full-deck-view-evening.jpg`
 
-### 📦 Hero Component Migration
-- [ ] **Hero Structure**
-  - [ ] Copy `01-hero-section/code/hero-section.tsx` → `components/hero/HeroSection.tsx`
-  - [ ] Copy background image to `public/hotfix-assets/`
-  - [ ] Extract styles from `01-hero-section/styles/hero-styles.css`
-  - [ ] Verify design token usage (colors, typography)
-  - [ ] Extend existing Storyblok hero component schema
-  - [ ] Wire all hero props to Storyblok fields (kicker, title, titleAccent, description, CTA, bgImage)
+### ✅ Hero Component Implementation (COMPLETE)
+- [x] **Storyblok Schema Created**
+  - [x] Block name: `hero-section`
+  - [x] Fields: kicker, title, title_accent, description, primary_cta_text, scroll_text, bg_image
 
-- [ ] **Background System**
-  - [ ] Implement fixed background attachment
-  - [ ] Add gradient overlay system (3-layer)
-  - [ ] Test background image positioning
-  - [ ] Verify parallax effect (CSS-only)
+- [x] **Hero Structure**
+  - [x] Created `HeroEditor.tsx` in `/src/components/storyblok/`
+  - [x] Added `'use client'` directive for Visual Editor
+  - [x] Implemented `storyblokEditable()` wrapper
+  - [x] Copied background image to `public/hotfix-assets/`
+  - [x] Styles integrated in `hotfix-site.css`
+  - [x] All hero props mapped from `blok.field_name`
 
-- [ ] **Content Animation**
-  - [ ] Implement `hotfixFadeInUp` animation (1.2s)
-  - [ ] Add staggered content entrance
-  - [ ] Test script accent fade-in
-  - [ ] Verify button animations
+- [x] **Background System**
+  - [x] Implemented CSS variable background (`--hero-bg`)
+  - [x] Gradient overlay system working
+  - [x] Background image positioning correct
+  - [x] Parallax effect via CSS
 
-- [ ] **Scroll Indicator**
-  - [ ] Add bounce animation (2s infinite)
-  - [ ] Position absolutely at bottom
-  - [ ] Test scroll behavior
-  - [ ] Ensure fade-in timing (1.8s delay)
+- [x] **Content Animation**
+  - [x] `hotfixFadeInUp` animation working
+  - [x] Staggered content entrance implemented
+  - [x] Script accent fade-in functional
+  - [x] Button animations verified
 
-- [ ] **Button System**
-  - [ ] Implement romantic button styles
-  - [ ] Add shimmer hover effects
-  - [ ] Test transform animations
-  - [ ] Verify focus states for accessibility
+- [x] **Scroll Indicator**
+  - [x] Bounce animation working (2s infinite)
+  - [x] Positioned absolutely at bottom
+  - [x] Scroll behavior tested
+  - [x] Fade-in timing correct (1.8s delay)
+
+- [x] **Button System**
+  - [x] Romantic button styles implemented
+  - [x] Shimmer hover effects working
+  - [x] Transform animations smooth
+  - [x] Focus states accessible
+
+- [x] **Visual Editor Integration** ⭐
+  - [x] Component registered in `storyblok.ts`
+  - [x] Live editing tested on `/home-live` route
+  - [x] Blue outline appears on click
+  - [x] All fields update immediately in Visual Editor
+  - [x] Fallback values provided for all fields
 
 ### ✅ Phase 3 Completion Criteria
-- [ ] Hero displays at full viewport height
-- [ ] Background image loads and positions correctly
-- [ ] All entrance animations trigger properly
-- [ ] Scroll indicator bounces correctly
-- [ ] Button interactions feel smooth
-- [ ] Typography hierarchy matches exactly
-- [ ] Responsive behavior works on mobile
+- [x] Hero displays at full viewport height
+- [x] Background image loads and positions correctly
+- [x] All entrance animations trigger properly
+- [x] Scroll indicator bounces correctly
+- [x] Button interactions feel smooth
+- [x] Typography hierarchy matches exactly
+- [x] Responsive behavior works on mobile
+- [x] Visual Editor live editing functional ⭐
 
-**Design Fidelity Check**: ✅ Hero section visually identical to original, all animations working
+**Design Fidelity Check**: ✅ Hero section visually identical to original, all animations working, live editing confirmed
 
 ---
 
-## Phase 4: Alternating Blocks Implementation
-**Branch**: `feat/alternating-blocks-migration`
+## Phase 4: Alternating Blocks Implementation ✅ COMPLETE
+**Branch**: `feat/alternating-blocks-migration` (merged to main)
 **Base**: `/home-page-migration/02-alternating-blocks/`
+**Implementation**: `/src/components/storyblok/AlternatingBlocksEditor.tsx`
 
-### 📦 Alternating Blocks Migration
-- [ ] **Component Structure**
-  - [ ] Create `components/sections/AlternatingBlocks.tsx`
-  - [ ] Implement two-column alternating layout
-  - [ ] Add gradient background system
-  - [ ] Copy styles from migration package
+### ✅ Alternating Blocks Implementation (COMPLETE)
+- [x] **Storyblok Schema Created**
+  - [x] Parent block: `alternating-blocks`
+  - [x] Fields: script_accent, title, description, blocks (nested)
+  - [x] Nested block: `alternating-block-item` with number, title, lead, content, image, is_reverse
 
-- [ ] **Content System**
-  - [ ] Implement venue feature data structure
-  - [ ] Add numbered block indicators
-  - [ ] Create image hover transforms
-  - [ ] Test content alternation (left/right)
+- [x] **Component Structure**
+  - [x] Created `AlternatingBlocksEditor.tsx` in `/src/components/storyblok/`
+  - [x] Added `'use client'` directive for Visual Editor
+  - [x] Implemented `storyblokEditable()` on both parent and nested blocks
+  - [x] Two-column alternating layout implemented
+  - [x] Gradient background system working
+  - [x] Styles integrated in `hotfix-site.css`
 
-- [ ] **Interactive Effects**
-  - [ ] Image hover scale (1.02) with enhanced shadows
-  - [ ] Text content fade animations
-  - [ ] Test numbered indicator styling
-  - [ ] Verify responsive stacking behavior
+- [x] **Content System**
+  - [x] Venue feature data structure with nested blocks
+  - [x] Numbered block indicators (01, 02)
+  - [x] Image hover transforms working
+  - [x] Content alternation (left/right via `is_reverse`)
+
+- [x] **Interactive Effects**
+  - [x] Image hover scale (1.02) with enhanced shadows
+  - [x] Text content fade animations
+  - [x] Numbered indicator styling verified
+  - [x] Responsive stacking behavior confirmed
+
+- [x] **Visual Editor Integration** ⭐
+  - [x] Component registered in `storyblok.ts`
+  - [x] Nested blocks individually editable
+  - [x] Live editing tested on `/home-live` route
+  - [x] Blue outline appears on each block
+  - [x] Image changes update immediately
+  - [x] Fallback images for development
 
 ### ✅ Phase 4 Completion Criteria
-- [ ] Two-column layout alternates correctly
-- [ ] Gradient background matches original
-- [ ] Image hover effects smooth
-- [ ] Content hierarchy preserved
-- [ ] Mobile stacking works properly
-- [ ] All spacing matches design
+- [x] Two-column layout alternates correctly
+- [x] Gradient background matches original
+- [x] Image hover effects smooth
+- [x] Content hierarchy preserved
+- [x] Mobile stacking works properly
+- [x] All spacing matches design
+- [x] Nested block editing functional ⭐
 
-**Design Fidelity Check**: ✅ Layout, colors, and interactions match hotfix design
+**Design Fidelity Check**: ✅ Layout, colors, interactions match hotfix design, nested live editing confirmed
 
 ---
 
@@ -711,11 +781,11 @@ git tag "phase-11-complete"
 
 ### Migration Status Dashboard
 ```
-Phase 1: Foundation Setup           [x] Complete     (Storyblok + design tokens ready)
-Phase 2: Navigation                 [ ] Not Started  [ ] In Progress  [ ] Complete  
-Phase 3: Hero Section              [x] Complete     (Basic Storyblok integration working)
-Phase 4: Alternating Blocks        [ ] Not Started  [ ] In Progress  [ ] Complete
-Phase 5: Love Stories Gallery      [ ] Not Started  [ ] In Progress  [ ] Complete
+Phase 1: Foundation Setup           [x] Complete     (Storyblok + Visual Editor ready)
+Phase 2: Navigation                 [ ] Not Started  [ ] In Progress  [ ] Complete
+Phase 3: Hero Section              [x] Complete     (HeroEditor.tsx with live editing) ✅
+Phase 4: Alternating Blocks        [x] Complete     (AlternatingBlocksEditor.tsx with nested editing) ✅
+Phase 5: Love Stories Gallery      [ ] Not Started  [ ] In Progress  [ ] Complete  👈 NEXT
 Phase 6: Brand Social Proof        [ ] Not Started  [ ] In Progress  [ ] Complete
 Phase 7: Testimonials              [ ] Not Started  [ ] In Progress  [ ] Complete
 Phase 8: History Carousel          [ ] Not Started  [ ] In Progress  [ ] Complete
@@ -725,62 +795,89 @@ Phase 11: Footer Section          [ ] Not Started  [ ] In Progress  [ ] Complete
 Final: Integration                 [ ] Not Started  [ ] In Progress  [ ] Complete
 ```
 
+**Current Progress**: 2 of 11 sections complete (18%)
+**Next Section**: Love Stories Gallery (Phase 5)
+
 ### Quality Gates
 Each phase must pass these gates before proceeding:
 - ✅ **Visual Fidelity**: Pixel-perfect match to original
 - ✅ **Functionality**: All interactions working correctly
+- ✅ **Visual Editor**: Live editing with blue outline on click ⭐ NEW
+- ✅ **Immediate Updates**: Changes reflect without page reload ⭐ NEW
+- ✅ **Storyblok Schema**: Block created with all required fields ⭐ NEW
 - ✅ **Performance**: No significant performance regression
 - ✅ **Accessibility**: WCAG 2.1 AA compliance
 - ✅ **Responsive**: Works perfectly on all device sizes
-- ✅ **Storyblok Integration**: Component wired to CMS with proper schema
-- ✅ **Content Editing**: Can be edited in Storyblok admin successfully
 
 ---
 
-## 🎯 Storyblok Integration Pattern
+## 🎯 Storyblok Integration Pattern (UPDATED for Visual Editor)
 
-### Component Schema Creation Strategy
-For each migrated component, follow this Storyblok integration pattern:
+### Visual Editor-First Component Pattern
+For each component, follow this implementation pattern:
 
-#### 1. Component Registration
-```javascript
-// Use existing scripts/update-components.js or create components manually in Storyblok admin
-{
-  "name": "component_name_section",
-  "display_name": "Component Name Section", 
-  "schema": {
-    // All editable fields mapped to component props
-  }
+#### 1. Create Storyblok Schema FIRST (in Storyblok UI)
+```
+Navigate to: Block Library → New Block
+Block Name: component-name-section (kebab-case)
+Fields:
+  - field_name (text/textarea/asset/blocks)
+  - Set defaults and descriptions for content editors
+  - Mark required fields
+Save block
+```
+
+#### 2. Create Editor Component (in codebase)
+```typescript
+// /src/components/storyblok/[ComponentName]Editor.tsx
+'use client'
+
+import React from 'react'
+import { storyblokEditable } from '@storyblok/react'
+
+interface [ComponentName]EditorProps {
+  blok: any
+}
+
+export default function [ComponentName]Editor({ blok }: [ComponentName]EditorProps) {
+  return (
+    <section className="hotfix-[component-class]" {...storyblokEditable(blok)}>
+      {/* Use blok.field_name with fallbacks */}
+      <h1>{blok.title || 'Default Title'}</h1>
+    </section>
+  )
 }
 ```
 
-#### 2. Content Mapping Pattern
+#### 3. Register Component Mapping
 ```typescript
-// Extend existing mapFromStoryblok.ts pattern
-export function mapComponentFromStory(content: any) {
-  if (!content) return staticFallback;
-  return {
-    ...staticFallback,
-    // Map each Storyblok field to component prop
-    title: content?.title ?? staticFallback.title,
-    description: content?.description ?? staticFallback.description,
-    // Handle asset objects properly
-    image: content?.image?.filename || content?.image || staticFallback.image,
-  };
+// /src/lib/storyblok.ts
+import ComponentNameEditor from '@/components/storyblok/ComponentNameEditor'
+
+export const storyblokComponents = {
+  'component-name-section': ComponentNameEditor,
 }
 ```
 
-#### 3. Page Integration
-```typescript
-// Add to existing page.tsx structure
-const componentData = page?.body?.find((b: any) => b.component === "component_name_section") || null;
-<ComponentName data={mapComponentFromStory(componentData)} />
+#### 4. Test in Visual Editor
+```bash
+# Access Visual Editor route
+http://localhost:9999/home-live
+
+# In Storyblok: Add block to Home story
+# Verify:
+# - Blue outline on click
+# - Field editor opens
+# - Changes update immediately
 ```
 
-#### 4. Asset Management
-- **Feature Flag**: Keep `FEATURE_CMS_IMAGES=0` until all components stable
-- **Asset Fields**: Use `type: "asset"` with `filetypes: ["images"]`
-- **Fallback Strategy**: Always provide static fallbacks for assets
+#### 5. NO Content Mapping Layer Needed
+**Key Difference**: We don't use `mapFromStoryblok()` functions anymore. Components receive `blok` prop directly and access fields via `blok.field_name`. Fallbacks are inline with `||` operator.
+
+#### 6. Asset Management
+- **Asset Fields**: Use `type: "asset"` in Storyblok schema
+- **Image Handling**: `blok.image?.filename || blok.image || '/fallback.jpg'`
+- **Fallback Strategy**: Always provide fallbacks inline
 
 ---
 

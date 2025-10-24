@@ -52,22 +52,24 @@ shared-assets/
     └── ANIMATIONS.md           # 📚 Reference for interactive elements
 ```
 
-## 🔄 Implementation Workflow
+## 🔄 Implementation Workflow (UPDATED: Visual Editor-First)
 
-### **📋 Step 1: Read Primary Guide**
-👉 **MIGRATION_ROADMAP.md** - Contains complete 10-phase workflow
+> **Important Change**: This project now uses a **Visual Editor-first approach**. See [VISUAL_EDITOR_WORKFLOW.md](VISUAL_EDITOR_WORKFLOW.md) for complete details.
 
-### **📋 Step 2: Foundation Setup (Phase 1)**
+### **📋 Step 1: Read Primary Guides**
+👉 **MIGRATION_ROADMAP.md** - Complete 11-phase workflow with Visual Editor integration
+👉 **VISUAL_EDITOR_WORKFLOW.md** - NEW: Visual Editor-first implementation guide
+
+### **📋 Step 2: Foundation Setup (Phase 1) ✅ COMPLETE**
 👉 **shared-assets/docs/DESIGN-TOKENS.md** - Color system
 👉 **shared-assets/docs/ANIMATIONS.md** - Interactive elements
-```bash
-# Copy foundation files first
-cp shared-assets/styles/design-tokens.css project/src/styles/
-cp shared-assets/styles/animations.css project/src/styles/
-```
+- [x] Storyblok Visual Editor route: `/home-live`
+- [x] Component mapping configured in `src/lib/storyblok.ts`
+- [x] Design tokens and animations integrated
 
-### **📋 Step 3: Sequential Phase Implementation**
-For each phase (2-11), follow this pattern:
+### **📋 Step 3: Sequential Phase Implementation** (Visual Editor-First)
+For each phase (2-11), follow this **NEW** pattern:
+
 ```bash
 # 1. Create feature branch
 git checkout -b feat/[section]-migration
@@ -75,16 +77,32 @@ git checkout -b feat/[section]-migration
 # 2. Read section documentation
 cat [XX-section-name]/docs/README.md
 
-# 3. Copy component code
-cp [XX-section-name]/code/*.tsx project/src/components/
+# 3. CREATE STORYBLOK SCHEMA FIRST (in Storyblok UI)
+# - Navigate to Block Library → New Block
+# - Add all required fields
+# - Save schema
 
-# 4. Integrate styles
-# Reference: [XX-section-name]/styles/[section]-styles.css
+# 4. Create [Component]Editor.tsx with Visual Editor support
+# - Add 'use client' directive
+# - Import storyblokEditable from @storyblok/react
+# - Wrap component with {...storyblokEditable(blok)}
+# - Access content via blok.field_name
+# - Provide fallbacks with || operator
 
-# 5. Test and validate
+# 5. Register component in src/lib/storyblok.ts
+# - Import Editor component
+# - Add to storyblokComponents mapping
+
+# 6. TEST IN VISUAL EDITOR (http://localhost:9999/home-live)
+# - Add block to Home story in Storyblok
+# - Verify blue outline appears on click
+# - Test field editing updates immediately
+# - Check nested blocks editable (if applicable)
+
+# 7. Validate design fidelity and Visual Editor functionality
 # Follow phase completion criteria
 
-# 6. Merge checkpoint (mandatory stop)
+# 8. Merge checkpoint (mandatory stop)
 # Follow MIGRATION_ROADMAP.md merge procedures
 ```
 
@@ -94,12 +112,20 @@ cp [XX-section-name]/code/*.tsx project/src/components/
 - **External Libraries**: Embla Carousel (for history section)
 - **Form Integration**: Netlify Forms (needs Payload equivalent)
 
-## Key Migration Notes
-1. All `.hotfix-*` classes need conversion to design tokens
-2. External images need to be downloaded and migrated to Payload media
-3. Hardcoded content should become CMS-managed fields
-4. Form handling needs Payload integration
-5. Romantic button system needs integration with shadcn/ui
+## Key Migration Notes (UPDATED)
+1. All `.hotfix-*` classes preserved (used in Editor components)
+2. Images managed via Storyblok asset fields
+3. All content is Storyblok-managed from the start (not hardcoded)
+4. Components use `storyblokEditable()` for Visual Editor support
+5. Form handling uses Next.js Server Actions (not Netlify Forms)
+6. Components are created as `[Name]Editor.tsx` in `/src/components/storyblok/`
+
+## Completed Sections ✅
+- **Phase 3: Hero Section** - [HeroEditor.tsx](../src/components/storyblok/HeroEditor.tsx)
+- **Phase 4: Alternating Blocks** - [AlternatingBlocksEditor.tsx](../src/components/storyblok/AlternatingBlocksEditor.tsx)
+
+## Next Section 👉
+- **Phase 5: Love Stories Gallery** - See [03-love-stories-gallery/docs/README.md](03-love-stories-gallery/docs/README.md)
 
 ## Assets to Download
 - External images from `rum-river-final.netlify.app`

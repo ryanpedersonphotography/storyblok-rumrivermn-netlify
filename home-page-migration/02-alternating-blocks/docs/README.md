@@ -1,7 +1,10 @@
-# Alternating Blocks Section Migration Guide
+# Alternating Blocks Section Migration Guide ✅ COMPLETE
+
+## Implementation Status
+✅ **COMPLETE** - Implemented as `/src/components/storyblok/AlternatingBlocksEditor.tsx` with nested Visual Editor support
 
 ## Overview
-Two-column alternating layout blocks showcasing venue features with images on alternating sides.
+Two-column alternating layout blocks showcasing venue features with images on alternating sides. Implemented with Visual Editor support for live content editing, including individually editable nested blocks.
 
 ## Files Included
 - `code/alternating-blocks.tsx` - React component code
@@ -70,13 +73,48 @@ Currently references external images from rum-river-final.netlify.app:
 4. Layout uses CSS Grid with reverse direction for alternating
 5. Hover effects on images with scale and shadow
 
-## Payload CMS Integration
-Convert to alternating blocks component with:
-- Section header fields (accent, title, description)
-- Repeatable block items with:
-  - Block number
-  - Title
-  - Lead text
-  - Content paragraphs
-  - Image upload
-  - Layout option (normal/reverse)
+## ✅ Storyblok Integration (COMPLETE)
+
+### Storyblok Schema
+**Parent Block**: `alternating-blocks`
+
+**Parent Fields**:
+- `script_accent` (text) - Script accent text (e.g., "Your Perfect Venue")
+- `title` (text) - Section title
+- `description` (textarea) - Lead description
+- `blocks` (blocks) - Nested alternating block items
+
+**Nested Block**: `alternating-block-item`
+
+**Nested Fields**:
+- `number` (text) - Block number (e.g., "01", "02")
+- `title` (text) - Block title
+- `lead` (text) - Block lead text
+- `content` (rich text/blocks) - Content paragraphs
+- `image` (asset) - Block image upload
+- `image_alt` (text) - Image alt text
+- `is_reverse` (boolean) - Reverse layout (image left, content right)
+
+### Implementation Details
+**Component**: `/src/components/storyblok/AlternatingBlocksEditor.tsx`
+
+**Key Features**:
+- Uses `'use client'` directive for Visual Editor
+- Wraps parent section with `{...storyblokEditable(blok)}`
+- **Nested Editing**: Each block also wrapped with `{...storyblokEditable(block)}`
+- Maps over `blok.blocks` array
+- Handles `is_reverse` for alternating layouts
+- Fallback images for development
+
+**Visual Editor Testing**:
+- ✅ Blue outline on parent section click
+- ✅ Blue outline on each nested block click
+- ✅ All fields editable in real-time
+- ✅ Images update immediately
+- ✅ Layout reverses with `is_reverse` toggle
+- ✅ Tested on `/home-live` route
+
+**Registered in**: `/src/lib/storyblok.ts`
+```typescript
+'alternating-blocks': AlternatingBlocksEditor
+```

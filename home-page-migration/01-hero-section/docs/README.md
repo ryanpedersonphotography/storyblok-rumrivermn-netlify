@@ -1,7 +1,10 @@
-# Hero Section Migration Guide
+# Hero Section Migration Guide ✅ COMPLETE
+
+## Implementation Status
+✅ **COMPLETE** - Implemented as `/src/components/storyblok/HeroEditor.tsx` with Visual Editor support
 
 ## Overview
-The hero section is a full-viewport romantic wedding barn hero with overlay, call-to-action button, and scroll indicator.
+The hero section is a full-viewport romantic wedding barn hero with overlay, call-to-action button, and scroll indicator. Implemented with Visual Editor support for live content editing.
 
 ## Files Included
 - `code/hero-section.tsx` - React component code
@@ -46,11 +49,37 @@ The hero section is a full-viewport romantic wedding barn hero with overlay, cal
 4. Responsive design included for mobile
 5. Accessibility focus states included
 
-## Payload CMS Integration
-Convert to a Hero block with these fields:
-- Kicker text (script accent)
-- Main title 
-- Title accent (highlighted portion)
-- Description text
-- CTA button text & link
-- Background image upload
+## ✅ Storyblok Integration (COMPLETE)
+
+### Storyblok Schema
+**Block Name**: `hero-section`
+
+**Fields**:
+- `kicker` (text) - Script accent text (e.g., "Where Dreams Begin")
+- `title` (text) - Main title (e.g., "Rum River")
+- `title_accent` (text) - Highlighted portion (e.g., "Wedding Barn")
+- `description` (textarea) - Hero description text
+- `primary_cta_text` (text) - CTA button text (e.g., "Schedule Your Visit")
+- `scroll_text` (text) - Scroll indicator text (e.g., "Discover Your Perfect Day")
+- `bg_image` (asset) - Background image upload
+
+### Implementation Details
+**Component**: `/src/components/storyblok/HeroEditor.tsx`
+
+**Key Features**:
+- Uses `'use client'` directive for Visual Editor
+- Wraps section with `{...storyblokEditable(blok)}`
+- Accesses content via `blok.field_name` with `||` fallbacks
+- Handles image as both string and asset object
+- CSS variable for background: `style['--hero-bg']`
+
+**Visual Editor Testing**:
+- ✅ Blue outline appears on click
+- ✅ All fields editable in real-time
+- ✅ Image updates immediately
+- ✅ Tested on `/home-live` route
+
+**Registered in**: `/src/lib/storyblok.ts`
+```typescript
+'hero-section': HeroEditor
+```
