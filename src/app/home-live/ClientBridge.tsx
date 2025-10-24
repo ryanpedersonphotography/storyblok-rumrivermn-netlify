@@ -12,6 +12,7 @@ import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/Test
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
+import FooterEditor from '@/components/storyblok/FooterEditor'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -30,6 +31,7 @@ storyblokInit({
     schedule_form: ScheduleFormEditor,
     map_section: MapSectionEditor,
     location_item: LocationItem,
+    footer_section: FooterEditor,
   },
 })
 

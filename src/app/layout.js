@@ -10,6 +10,7 @@ import '@/styles/hotfix/testimonials-styles.css';
 import '@/styles/hotfix/history-carousel-styles.css';
 import '@/styles/hotfix/schedule-form-styles.css';
 import '@/styles/hotfix/map-section-styles.css';
+import '@/styles/hotfix/footer-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 
 export const metadata = {

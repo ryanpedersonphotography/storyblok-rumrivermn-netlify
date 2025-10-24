@@ -1,0 +1,351 @@
+/* ============================================================================
+   HOTFIX: Footer Section - Enhanced 3-Column Layout with Glassmorphic Effect
+   ============================================================================ */
+
+/* Additional Footer Classes for New Component */
+.hotfix-footer {
+  padding: 5rem 0 3rem !important;
+  background: linear-gradient(135deg, #2C2416 0%, #1F1A11 100%) !important;
+  color: white !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Glassmorphic overlay */
+.hotfix-footer::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(228, 200, 150, 0.08) 0%,
+    rgba(157, 107, 123, 0.06) 25%,
+    rgba(212, 165, 116, 0.04) 50%,
+    rgba(107, 78, 61, 0.08) 75%,
+    rgba(74, 52, 38, 0.12) 100%
+  ) !important;
+  backdrop-filter: blur(0.5px) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+.hotfix-footer::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-image: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(212, 165, 116, 0.05)"/><circle cx="50" cy="30" r="1" fill="rgba(212, 165, 116, 0.05)"/><circle cx="30" cy="50" r="1" fill="rgba(212, 165, 116, 0.05)"/></pattern></defs><rect width="60" height="60" fill="url(%23dots)"/></svg>') !important;
+  pointer-events: none !important;
+  opacity: 0.4 !important;
+}
+
+.hotfix-footer-content {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 3rem !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Use the existing 3-column grid from original CSS */
+.hotfix-footer-content {
+  display: grid !important;
+  grid-template-columns: 2fr 1.5fr 1.5fr !important;
+  gap: 4rem !important;
+  margin-bottom: 3rem !important;
+  align-items: start !important;
+}
+
+.hotfix-footer-section-title {
+  color: #E4C896 !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.125rem !important;
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  position: relative !important;
+}
+
+.hotfix-footer-section-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -8px !important;
+  left: 0 !important;
+  width: 40px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #E4C896 0%, #9D6B7B 100%) !important;
+}
+
+.hotfix-address {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  line-height: 1.6 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.95rem !important;
+}
+
+.hotfix-phone-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-decoration: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+  padding: 0.5rem 0 !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+}
+
+.hotfix-phone-link:hover {
+  color: #E4C896 !important;
+  transform: translateX(4px) !important;
+}
+
+/* Footer Section Titles - Enhanced */
+.hotfix-footer-title {
+  color: #E4C896 !important; /* champagne-gold - brighter */
+  margin-bottom: 1.5rem !important;
+  font-size: 1.375rem !important; /* Slightly larger */
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 600 !important; /* Bolder */
+  letter-spacing: 0.5px !important;
+  position: relative !important;
+}
+
+/* Decorative underline for titles */
+.hotfix-footer-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -8px !important;
+  left: 0 !important;
+  width: 40px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #D4A574 0%, transparent 100%) !important;
+}
+
+/* Footer Text Content - Enhanced */
+.hotfix-footer-description,
+.hotfix-footer-contact {
+  line-height: 1.9 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: rgba(255, 255, 255, 0.85) !important; /* Match links and heroicons */
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Special styling for the business description */
+.hotfix-footer-description {
+  font-style: italic !important;
+  color: rgba(255, 255, 255, 0.85) !important; /* Match links and heroicons */
+  opacity: 0.95 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Phone Link Styling */
+.hotfix-phone-link {
+  color: #D4A574 !important; /* accent-gold */
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-phone-link:hover {
+  color: white !important;
+  transform: translateX(2px) !important;
+}
+
+/* Social Links Container */
+.hotfix-social-links {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  align-items: flex-start !important;
+}
+
+/* Individual Social Link Styling */
+.hotfix-social-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-decoration: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+  padding: 0.75rem 1.5rem 0.75rem 0 !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Hover effect for social links */
+.hotfix-social-link:hover {
+  color: #E4C896 !important;
+  background: rgba(228, 200, 150, 0.08) !important;
+  border-color: rgba(228, 200, 150, 0.2) !important;
+  transform: translateX(4px) !important;
+}
+
+/* Social link glow effect */
+.hotfix-social-link::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, rgba(228, 200, 150, 0.1), transparent) !important;
+  border-radius: inherit !important;
+  opacity: 0 !important;
+  transition: opacity 0.4s ease !important;
+}
+
+.hotfix-social-link:hover::before {
+  opacity: 1 !important;
+}
+
+/* Social Icons */
+.hotfix-social-icon {
+  width: 20px !important;
+  height: 20px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  opacity: 0.85 !important;
+}
+
+.hotfix-social-link:hover .hotfix-social-icon {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Footer Bottom Section */
+.hotfix-footer-bottom {
+  position: relative !important;
+  padding-top: 3rem !important;
+  margin-top: 3rem !important;
+  text-align: center !important;
+}
+
+/* Decorative top border for footer bottom */
+.hotfix-footer-bottom::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 200px !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent 0%, #D4A574 50%, transparent 100%) !important;
+}
+
+/* Copyright text */
+.hotfix-copyright {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 400 !important;
+}
+
+/* Mobile Responsive Design for New Footer */
+@media (max-width: 1024px) {
+  .hotfix-footer-content {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 3rem !important;
+    padding: 0 2rem !important;
+  }
+  
+  .hotfix-footer-container {
+    padding: 0 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hotfix-footer {
+    padding: 4rem 0 2.5rem !important;
+  }
+  
+  .hotfix-footer-content {
+    padding: 0 1.5rem !important;
+  }
+  
+  .hotfix-footer-content {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    text-align: center !important;
+  }
+  
+  .hotfix-footer-title::after {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .hotfix-social-links {
+    align-items: center !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .hotfix-social-link {
+    padding: 0.75rem 1rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  .hotfix-social-link:hover {
+    transform: translateY(-3px) !important;
+  }
+  
+  .hotfix-social-link::before {
+    display: none !important;
+  }
+  
+  .hotfix-social-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-footer {
+    padding: 2.5rem 0 1.5rem !important;
+  }
+  
+  .hotfix-footer-content {
+    padding: 0 1rem !important;
+  }
+  
+  .hotfix-footer-content {
+    gap: 1.5rem !important;
+  }
+  
+  .hotfix-footer-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .hotfix-footer-description,
+  .hotfix-address,
+  .hotfix-phone-link {
+    font-size: 0.875rem !important;
+  }
+  
+  .hotfix-social-links {
+    gap: 0.75rem !important;
+  }
+  
+  .hotfix-social-link {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+}
