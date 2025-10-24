@@ -34,15 +34,15 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
     if (!vendorData.name) return null
 
     return (
-      <div className="wedding-vendor" key={label}>
-        <h4>{label}</h4>
+      <div className="vendor-item" key={label}>
+        <h4 className="vendor-label">{label}</h4>
         <p className="vendor-name">{vendorData.name}</p>
         {vendorData.website && (
           <a href={vendorData.website} target="_blank" rel="noopener noreferrer" className="vendor-link">
-            Visit Website
+            Visit Website →
           </a>
         )}
-        {vendorData.phone && <p className="vendor-phone">{vendorData.phone}</p>}
+        {vendorData.phone && <p className="vendor-phone">📞 {vendorData.phone}</p>}
         {vendorData.description && <p className="vendor-description">{vendorData.description}</p>}
       </div>
     )
@@ -50,191 +50,186 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
 
   const hasVendors = blok.photo_vendor?.[0] || blok.dj_vendor?.[0] || blok.flowers_vendor?.[0] || blok.catering_vendor?.[0]
 
+  // Prepare hero background style
+  const heroImage = blok.hero_image?.filename || ''
+  const heroStyle: React.CSSProperties = {}
+  if (heroImage) {
+    heroStyle['--hero-bg' as any] = `url("${heroImage}")`
+  }
+
   return (
-    <article className="real-wedding" {...storyblokEditable(blok)}>
-      {/* Hero Section */}
-      <section className="wedding-hero">
-        {blok.hero_image?.filename && (
-          <div className="hero-image-container">
-            <img
-              src={blok.hero_image.filename}
-              alt={`${blok.title} wedding at Rum River Barn`}
-              className="hero-image"
-            />
-          </div>
-        )}
-        <div className="hero-content">
-          <h1 className="wedding-title">{blok.title}</h1>
-          {blok.wedding_date && <p className="wedding-date">{blok.wedding_date}</p>}
-          {blok.location && <p className="wedding-location">{blok.location}</p>}
+    <article className="real-wedding-page" {...storyblokEditable(blok)}>
+      {/* Compact Hero Section - matching home page hero but smaller */}
+      <section className="hotfix-hero-romantic hotfix-hero-compact" style={heroStyle}>
+        <div className="hotfix-hero-content">
+          <div className="hotfix-hero-kicker">Real Wedding</div>
+
+          <h1 className="hotfix-hero-title">
+            {blok.title}
+          </h1>
+
+          {blok.wedding_date && (
+            <p className="hotfix-hero-description">
+              {blok.wedding_date} • {blok.location || 'Rum River Barn'}
+            </p>
+          )}
         </div>
       </section>
 
-      {/* Wedding Info */}
-      <section className="wedding-info">
-        <div className="wedding-container">
-          <div className="wedding-main">
+      {/* Content Section - matching "Weddings at the Barn" section style */}
+      <section className="hotfix-section-elegant">
+        <div className="hotfix-section-content">
+          <div className="hotfix-content-wrapper">
+            {/* Intro Text */}
             {blok.intro && (
-              <div className="wedding-intro">
+              <div className="hotfix-section-intro">
                 {render(blok.intro)}
               </div>
             )}
 
-            {/* Photo Gallery */}
-            {galleryPhotos.length > 0 && (
-              <div className="wedding-gallery-section">
-                <h2>Wedding Gallery</h2>
-                <MasonryGallery images={galleryPhotos} columns={3} initialLoad={12} />
-              </div>
+            {/* Vendors Sidebar - if present */}
+            {hasVendors && (
+              <aside className="wedding-vendors-box">
+                <h3 className="vendors-title">Wedding Vendors</h3>
+                <div className="vendors-list">
+                  {renderVendor(blok.photo_vendor, 'Photography')}
+                  {renderVendor(blok.dj_vendor, 'DJ & Entertainment')}
+                  {renderVendor(blok.flowers_vendor, 'Floral Design')}
+                  {renderVendor(blok.catering_vendor, 'Catering')}
+                </div>
+              </aside>
             )}
           </div>
 
-          {/* Sidebar with vendors */}
-          {hasVendors && (
-            <aside className="wedding-sidebar">
-              <h3>Wedding Vendors</h3>
-              <div className="wedding-vendors">
-                {renderVendor(blok.photo_vendor, 'Photographer')}
-                {renderVendor(blok.dj_vendor, 'DJ & Entertainment')}
-                {renderVendor(blok.flowers_vendor, 'Florist')}
-                {renderVendor(blok.catering_vendor, 'Catering')}
+          {/* Wedding Gallery Section */}
+          {galleryPhotos.length > 0 && (
+            <div className="hotfix-wedding-gallery-section">
+              <div className="hotfix-gallery-header">
+                <div className="hotfix-script-accent">Gallery</div>
+                <h2 className="hotfix-section-title">Wedding Photos</h2>
+                <p className="hotfix-section-lead">{galleryPhotos.length} beautiful moments captured</p>
               </div>
-            </aside>
+
+              <div className="hotfix-masonry-wrapper">
+                <MasonryGallery images={galleryPhotos} columns={3} initialLoad={12} />
+              </div>
+            </div>
           )}
         </div>
       </section>
 
       <style jsx>{`
-        .real-wedding {
+        .real-wedding-page {
           width: 100%;
         }
 
-        .wedding-hero {
-          position: relative;
-          width: 100%;
-          min-height: 500px;
-          display: flex;
-          align-items: flex-end;
-          margin-bottom: 3rem;
+        /* Compact Hero - smaller version of home hero */
+        :global(.hotfix-hero-compact) {
+          min-height: 400px !important;
+          height: 50vh !important;
         }
 
-        .hero-image-container {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
+        :global(.hotfix-hero-compact .hotfix-hero-content) {
+          padding: 2rem !important;
         }
 
-        .hero-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        :global(.hotfix-hero-compact .hotfix-hero-title) {
+          font-size: 3rem !important;
         }
 
-        .hero-content {
-          position: relative;
-          z-index: 1;
-          background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-          width: 100%;
-          padding: 3rem 2rem;
-          color: white;
+        /* Content Section Styling */
+        .hotfix-section-elegant {
+          padding: 4rem 2rem;
+          background: #fff;
         }
 
-        .wedding-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 3rem;
-          font-weight: 600;
-          margin: 0 0 0.5rem 0;
-        }
-
-        .wedding-date,
-        .wedding-location {
-          font-size: 1.125rem;
-          margin: 0.25rem 0;
-          opacity: 0.9;
-        }
-
-        .wedding-info {
-          padding: 0 2rem 4rem;
-        }
-
-        .wedding-container {
-          max-width: 1400px;
+        .hotfix-section-content {
+          max-width: 1200px;
           margin: 0 auto;
+        }
+
+        .hotfix-content-wrapper {
           display: grid;
-          grid-template-columns: 1fr 350px;
+          grid-template-columns: 1fr 300px;
           gap: 3rem;
+          margin-bottom: 4rem;
         }
 
-        .wedding-main {
-          min-width: 0;
-        }
-
-        .wedding-intro {
+        .hotfix-section-intro {
           font-size: 1.125rem;
           line-height: 1.8;
-          margin-bottom: 3rem;
           color: #333;
         }
 
-        .wedding-intro :global(p) {
+        .hotfix-section-intro :global(p) {
           margin-bottom: 1rem;
         }
 
-        .wedding-gallery-section h2 {
-          font-family: 'Playfair Display', serif;
-          font-size: 2rem;
-          margin-bottom: 2rem;
-        }
-
-        .wedding-sidebar {
+        /* Vendors Box */
+        .wedding-vendors-box {
           background: #f9f9f9;
-          padding: 2rem;
+          border: 1px solid #e5e5e5;
           border-radius: 12px;
+          padding: 2rem;
           height: fit-content;
           position: sticky;
           top: 2rem;
         }
 
-        .wedding-sidebar h3 {
+        .vendors-title {
           font-family: 'Playfair Display', serif;
           font-size: 1.5rem;
           margin-bottom: 1.5rem;
+          color: #2c2c2c;
         }
 
-        .wedding-vendors {
+        .vendors-list {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
         }
 
-        .wedding-vendor h4 {
-          font-size: 0.875rem;
+        .vendor-item {
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid #e5e5e5;
+        }
+
+        .vendor-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .vendor-label {
+          font-size: 0.75rem;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          color: #666;
+          letter-spacing: 0.1em;
+          color: #8b7355;
           margin-bottom: 0.5rem;
+          font-weight: 600;
         }
 
         .vendor-name {
           font-size: 1.125rem;
           font-weight: 500;
           margin-bottom: 0.5rem;
+          color: #2c2c2c;
         }
 
         .vendor-link {
           display: inline-block;
-          color: #2563eb;
+          color: #8b7355;
           text-decoration: none;
-          font-size: 0.9rem;
-          margin-bottom: 0.25rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+          transition: color 0.3s ease;
         }
 
         .vendor-link:hover {
-          text-decoration: underline;
+          color: #6f5d47;
         }
 
         .vendor-phone {
-          font-size: 0.9rem;
+          font-size: 0.875rem;
           color: #666;
           margin-bottom: 0.25rem;
         }
@@ -245,28 +240,62 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
           color: #555;
         }
 
+        /* Gallery Section */
+        .hotfix-wedding-gallery-section {
+          margin-top: 3rem;
+        }
+
+        .hotfix-gallery-header {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+
+        .hotfix-script-accent {
+          font-family: 'Dancing Script', cursive;
+          font-size: 1.5rem;
+          color: #8b7355;
+          margin-bottom: 0.5rem;
+        }
+
+        .hotfix-section-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 2.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: #2c2c2c;
+        }
+
+        .hotfix-section-lead {
+          font-size: 1.125rem;
+          color: #666;
+        }
+
+        .hotfix-masonry-wrapper {
+          margin-top: 2rem;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
-          .wedding-container {
+          .hotfix-content-wrapper {
             grid-template-columns: 1fr;
           }
 
-          .wedding-sidebar {
+          .wedding-vendors-box {
             position: static;
           }
         }
 
         @media (max-width: 768px) {
-          .wedding-title {
+          .hotfix-section-elegant {
+            padding: 3rem 1rem;
+          }
+
+          :global(.hotfix-hero-compact .hotfix-hero-title) {
+            font-size: 2rem !important;
+          }
+
+          .hotfix-section-title {
             font-size: 2rem;
-          }
-
-          .hero-content {
-            padding: 2rem 1rem;
-          }
-
-          .wedding-info {
-            padding: 0 1rem 3rem;
           }
         }
       `}</style>
