@@ -1,80 +1,66 @@
-/* BRAND SOCIAL PROOF SECTION STYLES - Full-width with Raised Edges */
+/* BRAND SOCIAL PROOF SECTION STYLES - Glassomorphic Design */
 
 .hotfix-brand-quote-section {
-  padding: 60px 0 !important;
-  background: linear-gradient(135deg, #7A8B7F 0%, #6B4E3D 100%) !important;
+  padding: 50px 0 !important;
   position: relative !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 
   /* Full-width breakout */
   width: 100vw !important;
   max-width: none !important;
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
+
+  /* Glassomorphic background */
+  background: linear-gradient(
+    135deg,
+    rgba(122, 139, 127, 0.4) 0%,
+    rgba(107, 78, 61, 0.5) 100%
+  ) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+
+  /* Subtle borders for glass effect */
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+
+  /* Soft shadow for depth */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Raised Top Edge with Enhanced Glass Effect */
+/* Soft gradient overlay for depth */
 .hotfix-brand-quote-section::before {
   content: '' !important;
   position: absolute !important;
-  top: -12px !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 32px !important;
-
-  /* Enhanced glassomorphic effect */
-  background: rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: blur(31px) !important;
-  -webkit-backdrop-filter: blur(31px) !important;
-
-  border-radius: 0 0 60px 60px !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 16px 8px rgba(255, 255, 255, 0.8) !important;
-
-  z-index: 10 !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  ) !important;
   pointer-events: none !important;
-  position: relative !important;
-  overflow: hidden !important;
+  z-index: 1 !important;
 }
 
-/* Raised Bottom Edge with Enhanced Glass Effect */
+/* Subtle noise texture for glass realism */
 .hotfix-brand-quote-section::after {
   content: '' !important;
   position: absolute !important;
-  bottom: -12px !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 32px !important;
-
-  /* Enhanced glassomorphic effect */
-  background: rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: blur(31px) !important;
-  -webkit-backdrop-filter: blur(31px) !important;
-
-  border-radius: 60px 60px 0 0 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
-
-  box-shadow:
-    0 -8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 16px 8px rgba(255, 255, 255, 0.8) !important;
-
-  z-index: 10 !important;
+  inset: 0 !important;
+  background-image: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>') !important;
   pointer-events: none !important;
-  position: relative !important;
-  overflow: hidden !important;
+  z-index: 1 !important;
+  opacity: 0.5 !important;
 }
 
 /* Content Container */
 .hotfix-brand-quote-content {
   position: relative !important;
-  z-index: 2 !important;
+  z-index: 5 !important;
   text-align: center !important;
   max-width: 1200px !important;
   margin: 0 auto !important;
