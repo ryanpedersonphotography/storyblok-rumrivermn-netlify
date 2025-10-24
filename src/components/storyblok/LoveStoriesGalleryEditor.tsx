@@ -25,10 +25,25 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
 
         <div className="hotfix-wedding-gallery">
           {(blok.galleries || []).map((gallery: any, index: number) => {
-            // Handle image as both string and asset object
-            const imageUrl = typeof gallery.image === 'string'
-              ? gallery.image
-              : gallery.image?.filename || '/wedding-photos/placeholder.jpg'
+            // Determine which image to use as the cover
+            let imageUrl = '/wedding-photos/placeholder.jpg'
+
+            // Check if we should use a gallery photo as cover
+            if (
+              typeof gallery.cover_image_index === 'number' &&
+              gallery.cover_image_index >= 0 &&
+              gallery.gallery_photos &&
+              gallery.gallery_photos[gallery.cover_image_index]
+            ) {
+              // Use gallery photo at specified index
+              const photo = gallery.gallery_photos[gallery.cover_image_index]
+              imageUrl = photo.filename || photo
+            } else if (gallery.image) {
+              // Fall back to uploaded cover image
+              imageUrl = typeof gallery.image === 'string'
+                ? gallery.image
+                : gallery.image?.filename || '/wedding-photos/placeholder.jpg'
+            }
 
             return (
               <a

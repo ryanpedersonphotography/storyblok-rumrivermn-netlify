@@ -52,7 +52,21 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
   const hasVendors = blok.photo_vendor?.[0] || blok.dj_vendor?.[0] || blok.flowers_vendor?.[0] || blok.catering_vendor?.[0]
 
   // Prepare hero background style
-  const heroImage = blok.hero_image?.filename || ''
+  // Check if hero_image_index is set and valid
+  let heroImage = ''
+  if (
+    typeof blok.hero_image_index === 'number' &&
+    blok.hero_image_index >= 0 &&
+    blok.gallery_photos &&
+    blok.gallery_photos[blok.hero_image_index]
+  ) {
+    // Use gallery photo at specified index
+    heroImage = blok.gallery_photos[blok.hero_image_index].filename || blok.gallery_photos[blok.hero_image_index]
+  } else {
+    // Fall back to uploaded hero_image
+    heroImage = blok.hero_image?.filename || ''
+  }
+
   const heroStyle: React.CSSProperties = {}
   if (heroImage) {
     heroStyle['--hero-bg' as any] = `url("${heroImage}")`
