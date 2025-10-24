@@ -13,6 +13,9 @@ import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
 import FooterEditor from '@/components/storyblok/FooterEditor'
+import RealWeddingEditor from '@/components/storyblok/RealWeddingEditor'
+import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEditor'
+
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
 storyblokInit({
@@ -31,6 +34,8 @@ storyblokInit({
     map_section: MapSectionEditor,
     location_item: LocationItem,
     footer_section: FooterEditor,
+    real_wedding: RealWeddingEditor,
+    featured_weddings_section: FeaturedWeddingsEditor,
   },
 })
 
