@@ -1,0 +1,220 @@
+/* TESTIMONIALS SECTION STYLES - Extracted from hotfix-site.css */
+
+.hotfix-social-proof {
+  background: #F4E4E1 !important; /* Same blush pink as love stories */
+  padding: 100px 0 !important;
+  min-height: 100vh !important;
+
+  /* 🔥 CRITICAL: Full-width breakout to prevent black bars */
+  width: 100vw !important;
+  max-width: none !important;
+  max-inline-size: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+}
+
+.hotfix-social-proof-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+/* HOTFIX: Social Proof Header */
+.hotfix-social-proof-header {
+  text-align: center !important;
+  margin-bottom: 4rem !important;
+}
+
+.hotfix-social-proof-header .hotfix-script-accent {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #9D6B7B !important;
+  margin-bottom: 1rem !important;
+  display: block !important;
+}
+
+.hotfix-social-proof-header .hotfix-social-section-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem !important;
+  color: #6B4E3D !important;
+  margin: 0 0 1.5rem 0 !important;
+}
+
+.hotfix-social-proof-header .hotfix-social-lead {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+  color: #2C2416 !important;
+  opacity: 0.9 !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+}
+
+/* HOTFIX: Testimonials Grid */
+.hotfix-testimonials-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+  gap: 2.5rem !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* HOTFIX: Testimonial Card */
+.hotfix-testimonial-card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(1.2) !important;
+  padding: 2.5rem !important;
+  border-radius: 12px !important;
+  text-align: center !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block !important;
+}
+
+.hotfix-testimonial-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* HOTFIX: Card Underline Animation */
+.hotfix-card-underline {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 3px !important;
+  background: #E4C896 !important; /* champagne gold */
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-testimonial-card:hover .hotfix-card-underline {
+  width: 100% !important;
+}
+
+/* HOTFIX: Testimonial Quote */
+.hotfix-testimonial-card blockquote {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.125rem !important;
+  line-height: 1.6 !important;
+  color: #6B4E3D !important;
+  font-style: italic !important;
+  margin: 0 0 2rem 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  text-align: left !important;
+}
+
+/* HOTFIX: Star Rating */
+.hotfix-star-rating {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.25rem !important;
+  margin: 1.5rem 0 !important;
+}
+
+.hotfix-star {
+  width: 20px !important;
+  height: 20px !important;
+  color: #E4C896 !important;
+  transition: all 0.3s ease !important;
+}
+
+.hotfix-testimonial-card:hover .hotfix-star {
+  transform: scale(1.1) !important;
+}
+
+/* HOTFIX: Couple Avatar */
+.hotfix-couple-avatar {
+  position: relative !important;
+  width: 80px !important;
+  height: 80px !important;
+  margin: 0 auto 1rem !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-avatar-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-testimonial-card:hover .hotfix-avatar-image {
+  transform: scale(1.1) !important;
+}
+
+/* HOTFIX: Avatar Overlay Effect */
+.hotfix-avatar-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(circle at center, rgba(228, 200, 150, 0.3) 0%, transparent 70%) !important;
+  opacity: 0 !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border-radius: 50% !important;
+}
+
+.hotfix-testimonial-card:hover .hotfix-avatar-overlay {
+  opacity: 1 !important;
+}
+
+/* HOTFIX: Couple Name */
+.hotfix-couple-name {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: #9D6B7B !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* HOTFIX: Gallery CTA */
+.hotfix-wedding-gallery-cta {
+  color: #9D6B7B !important;
+  opacity: 0 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  margin-top: 0.5rem !important;
+  letter-spacing: 0.02em !important;
+  transform: translateY(10px) !important;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.hotfix-testimonial-card:hover .hotfix-wedding-gallery-cta {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* HOTFIX: Social Proof Responsive */
+@media (max-width: 768px) {
+  .hotfix-testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .hotfix-testimonial-card {
+    padding: 2rem !important;
+  }
+
+  .hotfix-social-proof-header .hotfix-social-section-title {
+    font-size: 2.5rem !important;
+  }
+
+  .hotfix-social-proof {
+    padding: 60px 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-social-proof-content {
+    padding: 0 1rem !important;
+  }
+
+  .hotfix-social-proof-header .hotfix-social-section-title {
+    font-size: 2rem !important;
+  }
+}

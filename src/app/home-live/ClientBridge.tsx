@@ -8,6 +8,7 @@ import HeroEditor from '@/components/storyblok/HeroEditor'
 import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEditor'
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
+import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -19,6 +20,8 @@ storyblokInit({
     alternating_blocks_section: AlternatingBlocksEditor,
     love_stories_gallery: LoveStoriesGalleryEditor,
     brand_social_proof: BrandSocialProofEditor,
+    testimonials_section: TestimonialsEditor,
+    testimonial_item: TestimonialItem,
   },
 })
 
