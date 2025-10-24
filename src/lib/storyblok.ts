@@ -2,6 +2,7 @@ import { storyblokInit, apiPlugin, getStoryblokApi as getSbApi } from '@storyblo
 import Page from '@/components/storyblok/Page'
 import HeroEditor from '@/components/storyblok/HeroEditor'
 import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEditor'
+import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 
 // Initialize Storyblok with component registration
 storyblokInit({
@@ -12,6 +13,7 @@ storyblokInit({
     page: Page,
     home_hero_section: HeroEditor,
     alternating_blocks_section: AlternatingBlocksEditor,
+    love_stories_gallery: LoveStoriesGalleryEditor,
   },
 })
 
