@@ -3,16 +3,14 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const uuid = searchParams.get('uuid')
-  const version = searchParams.get('version') || 'published'
+  const version = searchParams.get('version') || 'draft'
 
   if (!uuid) {
     return NextResponse.json({ error: 'UUID is required' }, { status: 400 })
   }
 
   try {
-    const token = version === 'draft'
-      ? process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN
-      : process.env.STORYBLOK_ACCESS_TOKEN
+    const token = process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN
 
     const response = await fetch(
       `https://api.storyblok.com/v2/cdn/stories?token=${token}&version=${version}&find_by=uuid&by_uuids=${uuid}`,

@@ -157,9 +157,10 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
             const cardLocation = gallery.card_location || weddingStory?.content?.location || gallery.venue || 'Rum River Barn'
             const photoCount = weddingStory?.content?.gallery_photos?.length || gallery.photo_count || 0
 
-            // Determine if modal can open (only if weddingStory has photos)
+            // Determine if modal can open (if wedding link exists, even without photos)
             const hasPhotos = weddingStory?.content?.gallery_photos?.length > 0
-            const canOpenModal = hasPhotos
+            const hasWeddingLink = Boolean(gallery.wedding_story)
+            const canOpenModal = hasWeddingLink  // Allow opening if wedding link exists
 
             return (
               <div
@@ -200,7 +201,7 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
                     {cardSubtitle}
                   </div>
                   <div className="hotfix-gallery-details">
-                    {photoCount} Photos {canOpenModal ? '• View Gallery →' : '• Loading...'}
+                    {weddingStory && `${photoCount} Photos • View Gallery →`}
                   </div>
                 </div>
               </div>

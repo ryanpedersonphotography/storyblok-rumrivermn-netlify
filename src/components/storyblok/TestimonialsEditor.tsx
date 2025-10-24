@@ -192,9 +192,10 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
               const testimonialText = wedding?.testimonial_text || 'Celebrating love at Rum River Barn...'
               const title = wedding?.title || 'Wedding'
 
-              // Determine if modal can open (only if wedding has photos)
+              // Determine if modal can open (if UUID exists, even without photos)
               const hasPhotos = wedding?.gallery_photos?.length > 0
-              const canOpenModal = hasPhotos
+              const hasWeddingUuid = Boolean(uuid)
+              const canOpenModal = hasWeddingUuid  // Allow opening if UUID exists
 
               return (
                 <div
@@ -241,7 +242,7 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
                     </div>
                     <div className="hotfix-couple-name">{title}</div>
                     <div className="hotfix-wedding-gallery-cta">
-                      {canOpenModal ? 'View Wedding Gallery →' : 'Loading...'}
+                      {wedding && 'View Wedding Gallery →'}
                     </div>
                   </div>
                 </div>
