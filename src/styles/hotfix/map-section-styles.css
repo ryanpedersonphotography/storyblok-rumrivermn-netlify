@@ -4,6 +4,13 @@
   background: white !important;
   padding: 0 !important;
   min-height: 100vh !important;
+
+  /* 🔥 CRITICAL: Full-width breakout to prevent black bars */
+  width: 100vw !important;
+  max-width: none !important;
+  max-inline-size: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
 }
 
 .hotfix-map-container {
@@ -14,7 +21,7 @@
 
 /* Left Panel - Location Information */
 .hotfix-map-info {
-  padding: 80px !important;
+  padding: 80px 2rem !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
