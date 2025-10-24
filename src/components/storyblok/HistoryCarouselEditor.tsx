@@ -246,7 +246,7 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
       <style jsx>{`
         .hotfix-history-section {
           padding: 5rem 2rem;
-          background: #f9f9f9;
+          background: #e8e6e3;
         }
 
         .hotfix-history-content {
