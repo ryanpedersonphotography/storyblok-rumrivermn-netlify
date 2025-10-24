@@ -9,7 +9,7 @@ import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEdi
 
 // Initialize Storyblok for client-side rendering
 storyblokInit({
-  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLIC_TOKEN || '',
   components: {
     page: Page,
     home_hero_section: HeroEditor,
@@ -26,20 +26,12 @@ export default function ClientBridge({ initialStory }: ClientBridgeProps) {
   const router = useRouter()
 
   useEffect(() => {
-    // Only load bridge when inside Visual Editor (when _storyblok param is present)
-    const isInEditor = typeof window !== 'undefined' &&
-                       window.location.search.includes('_storyblok')
-
-    if (!isInEditor) return
-
-    // Load the bridge script, then connect
+    // Always load the bridge script; it's a no-op outside Visual Editor
     loadStoryblokBridge().then(() => {
       const connect = () => {
         // @ts-ignore
-        if (!window.StoryblokBridge) {
-          setTimeout(connect, 100)
-          return
-        }
+        const SB = (typeof window !== 'undefined') && window.StoryblokBridge
+        if (!SB) return setTimeout(connect, 100)
 
         // @ts-ignore
         const bridge = new window.StoryblokBridge()

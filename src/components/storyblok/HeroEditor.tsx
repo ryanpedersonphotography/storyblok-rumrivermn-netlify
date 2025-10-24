@@ -21,7 +21,6 @@ export default function HeroEditor({ blok }: HeroEditorProps) {
       className="hotfix-hero-romantic"
       {...storyblokEditable(blok)}
       style={style}
-      key={bgImage}
     >
       <div className="hotfix-hero-content">
         {/* Script accent kicker */}

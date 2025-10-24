@@ -8,8 +8,6 @@ interface AlternatingBlocksEditorProps {
 }
 
 export default function AlternatingBlocksEditor({ blok }: AlternatingBlocksEditorProps) {
-  console.log('AlternatingBlocksEditor received blok:', JSON.stringify(blok, null, 2))
-
   // Fallback images to alternate between
   const fallbackImages = [
     '/hotfix-assets/barn-interior-ceiling-beams-lighting.jpg',
