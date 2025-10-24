@@ -76,7 +76,7 @@ export function TestimonialItem({ blok }: { blok: TestimonialItemProps }) {
 
 // Main Testimonials Section Component
 export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
-  const [weddingStories, setWeddingStories] = useState<any[]>([])
+  const [weddingStories, setWeddingStories] = useState<Map<string, any>>(new Map())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedWedding, setSelectedWedding] = useState<any>(null)
   const [hasError, setHasError] = useState(false)
@@ -97,41 +97,44 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
               )
 
               if (!response.ok) {
-                console.warn(`Failed to fetch deluxe wedding with UUID ${uuid}:`, response.status)
+                console.warn(`[TestimonialsEditor] Failed to fetch deluxe wedding ${uuid}:`, response.status)
                 return null
               }
 
               const data = await response.json()
 
               if (!data || !data.content) {
-                console.warn(`Deluxe wedding ${uuid} has no content`)
+                console.warn(`[TestimonialsEditor] Deluxe wedding ${uuid} has no content`)
                 return null
               }
 
-              if (!data.content.title || !data.content.gallery_photos?.length) {
-                console.warn(`Deluxe wedding ${uuid} missing title or gallery photos`)
-                return null
-              }
-
-              return data
+              return { uuid, data }
             } catch (err) {
-              console.warn(`Error fetching deluxe wedding ${uuid}:`, err)
+              console.warn(`[TestimonialsEditor] Error fetching deluxe wedding ${uuid}:`, err)
               return null
             }
           })
         )
 
-        const validWeddings = results.filter(s => s !== null)
+        // Create map of UUID -> wedding data
+        const storiesMap = new Map()
+        results.forEach(result => {
+          if (result && result.data) {
+            storiesMap.set(result.uuid, result.data)
+          }
+        })
 
-        if (validWeddings.length === 0 && blok.deluxe_weddings.length > 0) {
+        setWeddingStories(storiesMap)
+
+        // If no stories fetched successfully, set error
+        if (storiesMap.size === 0 && blok.deluxe_weddings.length > 0) {
           setHasError(true)
-          return
+          console.error('[TestimonialsEditor] Failed to fetch any deluxe wedding stories')
+        } else {
+          setHasError(false)
         }
-
-        setWeddingStories(validWeddings)
-        setHasError(false)
       } catch (error) {
-        console.error('Critical error fetching deluxe weddings:', error)
+        console.error('[TestimonialsEditor] Critical error fetching deluxe weddings:', error)
         setHasError(true)
       }
     }
@@ -152,15 +155,8 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
   // If using deluxe weddings modal system
   const useDeluxeWeddingsMode = blok.deluxe_weddings && blok.deluxe_weddings.length > 0
 
-  // For deluxe weddings mode, hide section if error or no weddings
-  if (useDeluxeWeddingsMode && (hasError || weddingStories.length === 0)) {
-    // Fall back to regular testimonials if no deluxe weddings loaded
-    if (blok.testimonials && blok.testimonials.length > 0) {
-      // Continue to render testimonials below
-    } else {
-      return null
-    }
-  }
+  // Note: Removed section-hiding logic - show cards even if wedding fetch fails
+  // Cards will display using deluxe_weddings UUIDs, modal opens once weddings load
 
   return (
     <section
@@ -178,31 +174,54 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
         </div>
 
         {/* Deluxe Weddings Mode: Show wedding cards with modal */}
-        {useDeluxeWeddingsMode && weddingStories.length > 0 && (
+        {useDeluxeWeddingsMode && (
           <div className="hotfix-testimonials-grid">
-            {weddingStories.map((story, index) => {
-              const wedding = story.content
-              const coverImage = wedding.cover_image?.filename || wedding.hero_image?.filename || wedding.gallery_photos?.[0]?.filename
-              const avatarUrl = wedding.avatar_image?.filename || coverImage
+            {blok.deluxe_weddings.map((uuid: string, index: number) => {
+              // Get wedding data from map (if loaded)
+              const story = weddingStories.get(uuid)
+              const wedding = story?.content
+
+              // Don't skip - show card even if wedding not loaded yet
+              if (uuid && !wedding) {
+                console.warn(`[TestimonialsEditor] Deluxe wedding not loaded yet, showing placeholder card:`, uuid)
+              }
+
+              // Get display data (with fallbacks)
+              const coverImage = wedding?.cover_image?.filename || wedding?.hero_image?.filename || wedding?.gallery_photos?.[0]?.filename
+              const avatarUrl = wedding?.avatar_image?.filename || coverImage
+              const testimonialText = wedding?.testimonial_text || 'Celebrating love at Rum River Barn...'
+              const title = wedding?.title || 'Wedding'
+
+              // Determine if modal can open (only if wedding has photos)
+              const hasPhotos = wedding?.gallery_photos?.length > 0
+              const canOpenModal = hasPhotos
 
               return (
                 <div
-                  key={story.uuid || index}
+                  key={uuid || index}
                   className="hotfix-testimonial-card"
-                  onClick={() => openModal(wedding)}
+                  onClick={() => {
+                    if (canOpenModal) {
+                      openModal(wedding)
+                    } else {
+                      console.warn('[TestimonialsEditor] Wedding photos not loaded yet - modal unavailable')
+                    }
+                  }}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault()
-                      openModal(wedding)
+                      if (canOpenModal) {
+                        openModal(wedding)
+                      }
                     }
                   }}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: canOpenModal ? 'pointer' : 'default', opacity: canOpenModal ? 1 : 0.9 }}
                 >
                   <div className="hotfix-card-underline"></div>
                   <blockquote>
-                    &ldquo;{wedding.testimonial_text || 'Click to view wedding gallery...'}&rdquo;
+                    &ldquo;{testimonialText}&rdquo;
                   </blockquote>
 
                   <StarRating />
@@ -214,14 +233,16 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
                           <img
                             className="hotfix-avatar-image"
                             src={avatarUrl}
-                            alt={wedding.title || 'Wedding'}
+                            alt={title}
                           />
                           <div className="hotfix-avatar-overlay"></div>
                         </>
                       )}
                     </div>
-                    <div className="hotfix-couple-name">{wedding.title || 'Wedding'}</div>
-                    <div className="hotfix-wedding-gallery-cta">View Wedding Gallery →</div>
+                    <div className="hotfix-couple-name">{title}</div>
+                    <div className="hotfix-wedding-gallery-cta">
+                      {canOpenModal ? 'View Wedding Gallery →' : 'Loading...'}
+                    </div>
                   </div>
                 </div>
               )

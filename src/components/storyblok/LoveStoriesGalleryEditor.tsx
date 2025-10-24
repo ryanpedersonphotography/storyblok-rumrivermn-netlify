@@ -96,11 +96,8 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
     setSelectedGallery(null)
   }
 
-  // If all wedding fetches failed and we have galleries, hide section gracefully
-  if (fetchError && blok.galleries && blok.galleries.length > 0) {
-    console.error('[LoveStoriesGalleryEditor] Section hidden due to fetch errors')
-    return null
-  }
+  // Note: Removed section-hiding logic - show cards even if wedding fetch fails
+  // Cards will display using gallery_item data, modal opens once weddings load
 
   return (
     <section className="hotfix-love-stories-gallery" {...storyblokEditable(blok)}>
@@ -122,10 +119,10 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
             // Get linked wedding story (if exists)
             const weddingStory = gallery.wedding_story ? weddingStories.get(gallery.wedding_story) : null
 
-            // Skip rendering if wedding_story is set but not fetched (failed to load)
+            // Don't skip - show card even if wedding not loaded yet
+            // Log when wedding story is linked but not available
             if (gallery.wedding_story && !weddingStory) {
-              console.warn(`[LoveStoriesGalleryEditor] Skipping gallery item - wedding story not loaded:`, gallery.wedding_story)
-              return null
+              console.warn(`[LoveStoriesGalleryEditor] Wedding story not loaded yet, showing card with gallery data:`, gallery.wedding_story)
             }
 
             // Determine which image to use as the cover
@@ -160,22 +157,34 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
             const cardLocation = gallery.card_location || weddingStory?.content?.location || gallery.venue || 'Rum River Barn'
             const photoCount = weddingStory?.content?.gallery_photos?.length || gallery.photo_count || 0
 
+            // Determine if modal can open (only if weddingStory has photos)
+            const hasPhotos = weddingStory?.content?.gallery_photos?.length > 0
+            const canOpenModal = hasPhotos
+
             return (
               <div
                 key={gallery._uid || index}
                 className="hotfix-gallery-item"
-                onClick={() => openModal(gallery, weddingStory)}
+                onClick={() => {
+                  if (canOpenModal) {
+                    openModal(gallery, weddingStory)
+                  } else {
+                    console.warn('[LoveStoriesGalleryEditor] Wedding photos not loaded yet - modal unavailable')
+                  }
+                }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    openModal(gallery, weddingStory)
+                    if (canOpenModal) {
+                      openModal(gallery, weddingStory)
+                    }
                   }
                 }}
                 {...storyblokEditable(gallery)}
                 data-discover="true"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: canOpenModal ? 'pointer' : 'default', opacity: canOpenModal ? 1 : 0.9 }}
               >
                 <img
                   src={imageUrl}
@@ -191,7 +200,7 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
                     {cardSubtitle}
                   </div>
                   <div className="hotfix-gallery-details">
-                    {photoCount} Photos • View Gallery →
+                    {photoCount} Photos {canOpenModal ? '• View Gallery →' : '• Loading...'}
                   </div>
                 </div>
               </div>
