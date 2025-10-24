@@ -96,6 +96,7 @@ export default function MasonryGallery({
         close={() => setLightboxOpen(false)}
         index={lightboxIndex}
         slides={images.map(img => ({ src: img.src, alt: img.alt }))}
+        noScroll={{ disabled: true }}
       />
 
       <style jsx>{`

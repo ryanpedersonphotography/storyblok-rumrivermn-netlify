@@ -192,10 +192,10 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
               const testimonialText = wedding?.testimonial_text || 'Celebrating love at Rum River Barn...'
               const title = wedding?.title || 'Wedding'
 
-              // Determine if modal can open (if UUID exists, even without photos)
+              // Determine if modal can open (only after wedding data loads)
               const hasPhotos = wedding?.gallery_photos?.length > 0
-              const hasWeddingUuid = Boolean(uuid)
-              const canOpenModal = hasWeddingUuid  // Allow opening if UUID exists
+              const hasWedding = Boolean(wedding)
+              const canOpenModal = hasWedding  // Only allow opening when wedding data is loaded
 
               return (
                 <div
