@@ -360,21 +360,39 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           max-width: 380px;
         }
 
-        /* History Card */
+        /* History Card - Testimonial Style */
         .hotfix-history-card {
-          background: white;
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(20px) saturate(1.2);
           border-radius: 12px;
           overflow: hidden;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           height: 100%;
           display: flex;
           flex-direction: column;
+          position: relative;
         }
 
         .hotfix-history-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Card Underline Animation */
+        .hotfix-history-card::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 3px;
+          background: #E4C896;
+          transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hotfix-history-card:hover::after {
+          width: 100%;
         }
 
         /* Image with 5:4 aspect ratio */
@@ -388,11 +406,11 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.3s ease;
+          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .hotfix-history-card:hover .hotfix-history-image {
-          transform: scale(1.05);
+          transform: scale(1.1);
         }
 
         .hotfix-history-gradient {
@@ -412,7 +430,7 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           position: absolute;
           top: 1rem;
           right: 1rem;
-          background: rgba(139, 115, 85, 0.95);
+          background: rgba(157, 107, 123, 0.95);
           color: white;
           padding: 0.5rem 1rem;
           border-radius: 20px;
@@ -420,30 +438,41 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           font-size: 0.875rem;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
           z-index: 2;
+          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hotfix-history-card:hover .hotfix-year-badge {
+          transform: scale(1.05);
+          background: rgba(228, 200, 150, 0.95);
+          color: #6B4E3D;
         }
 
         /* Card Content */
         .hotfix-history-card-content {
-          padding: 1rem;
+          padding: 1.5rem;
           flex: 1;
           display: flex;
           flex-direction: column;
+          text-align: center;
+          position: relative;
+          z-index: 1;
         }
 
         .hotfix-history-card-title {
           font-family: 'Playfair Display', serif;
           font-size: 1.125rem;
           font-weight: 600;
-          color: #2c2c2c;
-          margin-bottom: 0.375rem;
+          color: #9D6B7B;
+          margin-bottom: 0.5rem;
           line-height: 1.3;
         }
 
         .hotfix-history-card-description {
           font-size: 0.875rem;
-          color: #666;
-          line-height: 1.5;
+          color: #6B4E3D;
+          line-height: 1.6;
           flex: 1;
+          opacity: 0.9;
         }
 
         /* Progress Dots */
