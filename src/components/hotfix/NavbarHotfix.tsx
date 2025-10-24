@@ -42,13 +42,6 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
                 {item.label}
               </a>
             ))}
-            
-            {/* CTA Button */}
-            {data.show_cta && (
-              <a href={data.cta.url} className="hotfix-navbar-cta">
-                {data.cta.label}
-              </a>
-            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,17 +83,6 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
             {item.label}
           </a>
         ))}
-        
-        {/* Mobile CTA */}
-        {data.show_cta && (
-          <a
-            href={data.cta.url}
-            className="hotfix-navbar-cta"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {data.cta.label}
-          </a>
-        )}
       </div>
 
       {/* Overlay backdrop for mobile menu */}
