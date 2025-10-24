@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import Link from 'next/link'
+import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
 
 interface FeaturedWeddingsEditorProps {
   blok: any
@@ -10,31 +11,101 @@ interface FeaturedWeddingsEditorProps {
 
 export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorProps) {
   const [weddingStories, setWeddingStories] = useState<any[]>([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedWedding, setSelectedWedding] = useState<any>(null)
+  const [hasError, setHasError] = useState(false)
 
   useEffect(() => {
     // Fetch the featured wedding stories
     const fetchWeddings = async () => {
+      console.log('FeaturedWeddingsEditor - blok.featured_weddings:', blok.featured_weddings)
+
       if (!blok.featured_weddings || blok.featured_weddings.length === 0) {
+        console.log('FeaturedWeddingsEditor - No featured weddings configured')
         return
       }
 
+      console.log(`FeaturedWeddingsEditor - Fetching ${blok.featured_weddings.length} weddings`)
+
       try {
-        const stories = await Promise.all(
+        const results = await Promise.all(
           blok.featured_weddings.map(async (uuid: string) => {
-            const response = await fetch(
-              `/api/storyblok-story?uuid=${uuid}&version=draft`
-            )
-            return response.json()
+            try {
+              const response = await fetch(
+                `/api/storyblok-story?uuid=${uuid}&version=draft`
+              )
+
+              // Handle individual wedding fetch errors
+              if (!response.ok) {
+                console.warn(`Failed to fetch wedding with UUID ${uuid}:`, response.status)
+                return null
+              }
+
+              const data = await response.json()
+
+              // Validate wedding has required data
+              if (!data || !data.content) {
+                console.warn(`Wedding ${uuid} has no content`)
+                return null
+              }
+
+              // Validate has title and images
+              if (!data.content.title || !data.content.gallery_photos?.length) {
+                console.warn(`Wedding ${uuid} missing title or gallery photos`)
+                return null
+              }
+
+              return data
+            } catch (err) {
+              // Individual wedding error - log but don't fail entire section
+              console.warn(`Error fetching wedding ${uuid}:`, err)
+              return null
+            }
           })
         )
-        setWeddingStories(stories.filter(s => s && s.content))
+
+        // Filter out failed weddings
+        const validWeddings = results.filter(s => s !== null)
+
+        console.log(`FeaturedWeddingsEditor - ${validWeddings.length} valid weddings out of ${blok.featured_weddings.length}`)
+
+        // If ALL weddings failed to load, this is a severe error
+        if (validWeddings.length === 0 && blok.featured_weddings.length > 0) {
+          console.error('FeaturedWeddingsEditor - All featured weddings failed to load - HIDING SECTION')
+          setHasError(true)
+          return
+        }
+
+        console.log('FeaturedWeddingsEditor - Successfully loaded weddings:', validWeddings.map(w => w.content?.title))
+        setWeddingStories(validWeddings)
+        setHasError(false)
       } catch (error) {
-        console.error('Error fetching featured weddings:', error)
+        // Severe error (API endpoint unreachable, auth failure, etc.)
+        console.error('Critical error fetching featured weddings:', error)
+        setHasError(true)
       }
     }
 
     fetchWeddings()
   }, [blok.featured_weddings])
+
+  const openModal = (wedding: any) => {
+    setSelectedWedding(wedding)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedWedding(null)
+  }
+
+  // Hide entire section if severe error or no valid weddings
+  if (hasError || weddingStories.length === 0) {
+    console.log('FeaturedWeddingsEditor - Rendering: HIDDEN (hasError:', hasError, 'weddingStories.length:', weddingStories.length, ')')
+    return null
+  }
+
+  console.log('FeaturedWeddingsEditor - Rendering:', weddingStories.length, 'weddings')
 
   return (
     <section className="featured-weddings" {...storyblokEditable(blok)}>
@@ -54,14 +125,21 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
         <div className="weddings-grid">
           {weddingStories.map((story, index) => {
             const wedding = story.content
-            const coverImage = wedding.cover_image?.filename || wedding.hero_image?.filename
-            const slug = story.full_slug?.replace('real-weddings/', '') || story.slug
+            const coverImage = wedding.cover_image?.filename || wedding.hero_image?.filename || wedding.gallery_photos?.[0]?.filename
 
             return (
-              <Link
+              <div
                 key={story.uuid || index}
-                href={`/real-weddings/${slug}`}
                 className="wedding-card"
+                onClick={() => openModal(wedding)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openModal(wedding)
+                  }
+                }}
               >
                 {coverImage && (
                   <div className="wedding-image">
@@ -82,8 +160,9 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
                   {wedding.location && (
                     <div className="wedding-location">{wedding.location}</div>
                   )}
+                  <div className="view-gallery-hint">View Gallery →</div>
                 </div>
-              </Link>
+              </div>
             )
           })}
         </div>
@@ -96,6 +175,13 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
           </div>
         )}
       </div>
+
+      {/* Wedding Gallery Modal */}
+      <WeddingGalleryModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        wedding={selectedWedding}
+      />
 
       <style jsx>{`
         .featured-weddings {
@@ -194,6 +280,18 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
         .wedding-location {
           font-size: 0.9rem;
           opacity: 0.9;
+        }
+
+        .view-gallery-hint {
+          font-size: 0.85rem;
+          margin-top: 0.5rem;
+          opacity: 0.8;
+          font-weight: 500;
+          transition: opacity 0.3s ease;
+        }
+
+        .wedding-card:hover .view-gallery-hint {
+          opacity: 1;
         }
 
         .featured-weddings-cta {
