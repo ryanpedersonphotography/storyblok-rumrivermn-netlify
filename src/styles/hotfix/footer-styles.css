@@ -4,7 +4,7 @@
 
 /* Additional Footer Classes for New Component */
 .hotfix-footer {
-  padding: 5rem 0 3rem !important;
+  padding: 100px 0 3rem !important;
   background: linear-gradient(135deg, #2C2416 0%, #1F1A11 100%) !important;
   color: white !important;
   position: relative !important;

@@ -2,7 +2,7 @@
 
 .hotfix-history-section {
   background: #FFFCF8 !important; /* Cream pearl */
-  padding: 80px 0 !important;
+  padding: 100px 0 !important;
   position: relative !important;
 
   /* 🔥 CRITICAL: Full-width breakout to prevent black bars */
@@ -33,7 +33,7 @@
 }
 
 .hotfix-history-title {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
   color: #6B4E3D !important; /* Warm walnut */
   margin-bottom: 1.5rem !important;
