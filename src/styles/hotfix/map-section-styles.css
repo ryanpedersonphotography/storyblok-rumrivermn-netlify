@@ -19,7 +19,7 @@
   min-height: 100vh !important;
 }
 
-/* Left Panel - Location Information */
+/* Right Panel - Location Information */
 .hotfix-map-info {
   padding: 80px 2rem !important;
   display: flex !important;
@@ -28,6 +28,7 @@
   background: #FFFCF8 !important; /* Cream pearl */
   color: #6B4E3D !important; /* Warm walnut */
   position: relative !important;
+  order: 2 !important; /* Move to right side */
 }
 
 /* Section Header Styling */
@@ -119,11 +120,12 @@
   font-size: 1rem !important;
 }
 
-/* Right Panel - Interactive Map */
+/* Left Panel - Interactive Map */
 .hotfix-map-embed {
   position: relative !important;
   overflow: hidden !important;
   background: #7A8B7F !important; /* Sage green */
+  order: 1 !important; /* Move to left side */
 }
 
 /* Hero-style Overlay on Map */
@@ -154,7 +156,7 @@
 .hotfix-map-overlay {
   position: absolute !important;
   bottom: 2rem !important;
-  right: 2rem !important;
+  left: 2rem !important;
   z-index: 2 !important;
   display: flex !important;
   gap: 1rem !important;
@@ -229,7 +231,7 @@
   
   .hotfix-map-overlay {
     bottom: 1rem !important;
-    right: 1rem !important;
+    left: 1rem !important;
     flex-direction: column !important;
   }
   
