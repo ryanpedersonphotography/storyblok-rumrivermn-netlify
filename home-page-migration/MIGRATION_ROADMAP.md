@@ -82,8 +82,46 @@ git status
 ```
 
 #### 2. Storyblok Schema Creation (NEW STEP)
+
+**✨ RECOMMENDED: API-Based Schema Creation (Fastest)**
+```javascript
+// Create schema via Management API (see Phase 6 example)
+// 1. Create a script in /tmp/create-[component]-schema.mjs
+// 2. Define component schema with all fields
+// 3. POST to Management API: /v1/spaces/${SPACE_ID}/components/
+// 4. Script also adds block to home story automatically
+
+// Benefits:
+// - Faster than manual UI creation
+// - Consistent field naming
+// - Automatic documentation
+// - Can be version controlled
+
+// Example structure:
+const componentData = {
+  name: 'component_name',
+  display_name: 'Component Name',
+  schema: {
+    field_name: {
+      type: 'text',        // or 'textarea', 'asset', 'bloks', etc.
+      pos: 0,
+      translatable: true,  // or false
+      description: 'Field description',
+      display_name: 'Field Label',
+      default_value: 'Default text'
+    }
+  },
+  is_root: false,
+  is_nestable: true,
+  component_group_uuid: null
+};
+
+// Run: node /tmp/create-[component]-schema.mjs
+```
+
+**Alternative: Manual UI Creation**
 ```bash
-# BEFORE writing any code, create Storyblok schema
+# If API approach has issues, use manual UI creation:
 # 1. Navigate to Storyblok Block Library
 # 2. Create new block with kebab-case name (e.g., "hero-section")
 # 3. Add all required fields (match component data needs)
@@ -1094,3 +1132,196 @@ git push origin main --force-with-lease
 ```
 
 This roadmap ensures systematic migration with validation at each step, maintaining perfect design fidelity throughout the process.
+
+---
+
+## 📚 Appendix: API-Based Schema & Content Workflow
+
+### Complete Workflow (Recommended for All Phases)
+
+This workflow creates the Storyblok schema AND adds the block to the home story entirely via API - no manual UI steps required!
+
+**Step 1: Create Component Schema**
+
+```javascript
+// /tmp/create-[component]-schema.mjs
+import https from 'https';
+
+const SPACE_ID = '288003424841711';
+const MANAGEMENT_TOKEN = process.env.STORYBLOK_PERSONAL_ACCESS_TOKEN;
+
+const componentData = {
+  name: 'component_name',           // kebab-case
+  display_name: 'Component Name',   // Human-readable
+  schema: {
+    field_name: {
+      type: 'text',                 // text, textarea, asset, bloks, number, boolean
+      pos: 0,                       // Field order
+      translatable: true,           // Content translation support
+      description: 'Field help text',
+      display_name: 'Field Label',
+      default_value: 'Default text'
+    }
+    // ... add more fields
+  },
+  is_root: false,
+  is_nestable: true,
+  component_group_uuid: null
+};
+
+const payload = JSON.stringify({ component: componentData });
+
+const options = {
+  hostname: 'mapi.storyblok.com',
+  path: `/v1/spaces/${SPACE_ID}/components/`,
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': Buffer.byteLength(payload),
+    'Authorization': MANAGEMENT_TOKEN
+  }
+};
+
+const req = https.request(options, (res) => {
+  let data = '';
+  res.on('data', (chunk) => { data += chunk; });
+  res.on('end', () => {
+    if (res.statusCode === 201) {
+      const component = JSON.parse(data).component;
+      console.log('✅ Component created!');
+      console.log(`ID: ${component.id}`);
+    } else {
+      console.log('❌ Error:', data);
+    }
+  });
+});
+
+req.write(payload);
+req.end();
+```
+
+**Step 2: Add Block to Home Story**
+
+```javascript
+// /tmp/add-[component]-to-home.mjs
+import https from 'https';
+
+const SPACE_ID = '288003424841711';
+const MANAGEMENT_TOKEN = process.env.STORYBLOK_PERSONAL_ACCESS_TOKEN;
+const STORY_ID = '104455170476316'; // home story ID
+
+// Fetch current story
+function fetchStory() {
+  return new Promise((resolve, reject) => {
+    https.get({
+      hostname: 'mapi.storyblok.com',
+      path: `/v1/spaces/${SPACE_ID}/stories/${STORY_ID}`,
+      headers: { 'Authorization': MANAGEMENT_TOKEN }
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        if (res.statusCode === 200) {
+          resolve(JSON.parse(data).story);
+        } else {
+          reject(new Error(`Failed: ${data}`));
+        }
+      });
+    });
+  });
+}
+
+// Update story with new block
+function updateStory(story) {
+  return new Promise((resolve, reject) => {
+    const newBlock = {
+      _uid: `component-${Date.now()}`,
+      component: 'component_name',
+      field_name: 'field value',
+      // ... add all field values
+    };
+
+    story.content.body = story.content.body || [];
+    story.content.body.push(newBlock);
+
+    const payload = JSON.stringify({
+      story: story,
+      publish: 0  // 0 = draft, 1 = publish
+    });
+
+    const req = https.request({
+      hostname: 'mapi.storyblok.com',
+      path: `/v1/spaces/${SPACE_ID}/stories/${STORY_ID}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload),
+        'Authorization': MANAGEMENT_TOKEN
+      }
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        if (res.statusCode === 200) {
+          console.log('✅ Story updated!');
+          resolve();
+        } else {
+          console.log('❌ Error:', data);
+          reject(new Error(data));
+        }
+      });
+    });
+
+    req.write(payload);
+    req.end();
+  });
+}
+
+// Execute
+fetchStory()
+  .then(updateStory)
+  .then(() => console.log('Done!'))
+  .catch(console.error);
+```
+
+**Step 3: Run Scripts**
+
+```bash
+# Create schema
+node /tmp/create-[component]-schema.mjs
+
+# Add to home story
+node /tmp/add-[component]-to-home.mjs
+
+# Verify in Visual Editor
+open https://localhost:9999/home-live
+```
+
+### Benefits of API Approach
+
+✅ **Faster** - No manual UI clicking
+✅ **Consistent** - Same field structure every time
+✅ **Documented** - Scripts serve as documentation
+✅ **Repeatable** - Easy to recreate if needed
+✅ **Automated** - Can be integrated into build scripts
+
+### Field Type Reference
+
+Common field types for schema:
+- `text` - Single line text input
+- `textarea` - Multi-line text input
+- `asset` - Image/file upload
+- `bloks` - Nested blocks (use with `component_whitelist`)
+- `number` - Numeric input
+- `boolean` - Checkbox
+- `option` - Dropdown select
+- `markdown` - Markdown editor
+- `richtext` - Rich text editor
+
+### Example: Phase 6 Brand Social Proof
+
+See complete working example in:
+- `/tmp/create-brand-social-proof-schema.mjs`
+- `/tmp/add-brand-social-proof-to-home.mjs`
+
+This created Component ID `104822131262843` and added it to the home story in under 30 seconds!
