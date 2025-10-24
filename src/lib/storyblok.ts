@@ -1,19 +1,27 @@
-const REGION = (process.env.STORYBLOK_REGION || "eu") as "us" | "eu";
-const TOKEN =
-  process.env.NEXT_PUBLIC_STORYBLOK_TOKEN ||
-  process.env.STORYBLOK_ACCESS_TOKEN ||
-  process.env.STORYBLOK_PUBLIC_TOKEN ||
-  process.env.STORYBLOK_PREVIEW_TOKEN;
+import { storyblokInit, apiPlugin, getStoryblokApi as getSbApi } from '@storyblok/react/rsc'
+import Page from '@/components/storyblok/Page'
+import HeroEditor from '@/components/storyblok/HeroEditor'
+import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEditor'
 
-export async function fetchStory(slug: string, version: "draft" | "published" = "published") {
-  const baseUrl = REGION === "eu" ? "https://api.eu.storyblok.com" : "https://api-us.storyblok.com";
-  const url = `${baseUrl}/v2/cdn/stories/${slug}?token=${TOKEN}&version=${version}&cv=${Date.now()}`;
-  
-  const response = await fetch(url, { cache: 'no-store' });
-  
-  if (!response.ok) {
-    throw new Error(`Storyblok API Error: ${response.status} ${await response.text()}`);
-  }
-  
-  return response.json();
+// Initialize Storyblok with component registration
+storyblokInit({
+  accessToken: process.env.STORYBLOK_PUBLIC_TOKEN || process.env.STORYBLOK_ACCESS_TOKEN,
+  use: [apiPlugin],
+  apiOptions: { region: process.env.STORYBLOK_REGION || 'eu' },
+  components: {
+    page: Page,
+    home_hero_section: HeroEditor,
+    alternating_blocks_section: AlternatingBlocksEditor,
+  },
+})
+
+// Export API helper
+export function getStoryblokApi() {
+  return getSbApi()
+}
+
+// Fetch story using the SDK
+export async function fetchStory(slug: string, version: 'draft' | 'published') {
+  const { data } = await getStoryblokApi().get(`cdn/stories/${slug}`, { version })
+  return data.story
 }

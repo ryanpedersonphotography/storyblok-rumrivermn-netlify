@@ -44,16 +44,20 @@
 ## PHASE 1 — Draft Mode Route
 
 ### API Route Creation
-- [ ] Create `src/app/api/preview/route.ts`
-- [ ] Implement GET handler with:
-  - [ ] Validate `?secret` parameter against `STORYBLOK_PREVIEW_SECRET`
-  - [ ] Call `draftMode().enable()`
-  - [ ] Redirect to `slug` parameter or `/home-live`
+- [x] Create `src/app/api/preview/route.ts`
+- [x] Implement GET handler with:
+  - [x] Validate `?secret` parameter against `STORYBLOK_PREVIEW_SECRET`
+  - [x] Call `draftMode().enable()`
+  - [x] Redirect to `slug` parameter or `/home-live`
 
 ### Sanity Check
-- [ ] ✅ Hitting `/api/preview?secret=<uuid>&slug=/home-live` sets draft cookie
-- [ ] ✅ Route redirects correctly to specified slug
-- [ ] ✅ Invalid secret returns 401 status
+- [x] ✅ Hitting `/api/preview?secret=<uuid>&slug=/home-live` sets draft cookie
+- [x] ✅ Route redirects correctly to specified slug  
+- [x] ✅ Invalid secret returns 401 status
+
+### Testing Results
+- **Valid secret**: `HTTP 307` + `__prerender_bypass` cookie + redirect to `/home-live`
+- **Invalid secret**: `HTTP 401 Unauthorized` with no cookie
 
 ---
 
@@ -81,22 +85,22 @@
 ## PHASE 3 — Live-Editing Route `/home-live`
 
 ### Route Implementation
-- [ ] Create `src/app/home-live/page.tsx` (RSC wrapper)
-- [ ] Implement story fetching:
-  - [ ] Use `draftMode()` to determine version: `draft` vs `published`
-  - [ ] Fetch story by slug using appropriate token
-  - [ ] Pass `content.body` to client child component
-- [ ] Create client child component for blok mapping
+- [x] Create `src/app/home-live/page.tsx` (RSC wrapper)
+- [x] Implement story fetching:
+  - [x] Use `draftMode()` to determine version: `draft` vs `published`
+  - [x] Fetch story by slug using appropriate token
+  - [x] Pass `content.body` to client child component
+- [x] Create client child component for blok mapping
 
 ### Editor Components
-- [ ] Update `HeroEditor`:
-  - [ ] Accept only `{ blok }` prop
-  - [ ] Render directly from `blok` fields
-  - [ ] Add `{...storyblokEditable(blok)}` spread
-- [ ] Update `AlternatingBlocksEditor`:
-  - [ ] Accept only `{ blok }` prop
-  - [ ] Render directly from `blok` fields
-  - [ ] Add `{...storyblokEditable(blok)}` spread
+- [x] Update `HeroEditor`:
+  - [x] Accept only `{ blok }` prop
+  - [x] Render directly from `blok` fields
+  - [x] Add `{...storyblokEditable(blok)}` spread
+- [x] Update `AlternatingBlocksEditor`:
+  - [x] Accept only `{ blok }` prop
+  - [x] Render directly from `blok` fields
+  - [x] Add `{...storyblokEditable(blok)}` spread
 
 ### Sanity Check
 - [ ] ✅ `/home-live` loads and displays content
