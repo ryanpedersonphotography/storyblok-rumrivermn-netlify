@@ -14,6 +14,7 @@
   width: 100vw !important;
   max-width: none !important;
   max-inline-size: none !important;
+  margin: 0 !important;
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
 }

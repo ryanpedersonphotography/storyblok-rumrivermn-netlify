@@ -4,6 +4,29 @@
  */
 
 /* ============================================================================
+   LAYOUT RESETS - Remove spacing above hero and below footer
+   ============================================================================ */
+
+/* Remove ALL default browser spacing */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100vw !important;
+}
+
+/* Remove all default margins and padding from home-live page */
+.home-live-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure hero section starts at the very top */
+.home-live-container > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ============================================================================
    COLOR PALETTE - Primary Brand Colors
    ============================================================================ */
 
