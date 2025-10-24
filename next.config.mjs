@@ -9,6 +9,28 @@ const nextConfig = {
 		STORYBLOK_REGION: process.env.STORYBLOK_REGION,
 		STORYBLOK_IS_PREVIEW: process.env.STORYBLOK_IS_PREVIEW,
 	},
+	// Disable caching for Visual Editor routes
+	async headers() {
+		return [
+			{
+				source: '/home-live',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+					},
+					{
+						key: 'Pragma',
+						value: 'no-cache',
+					},
+					{
+						key: 'Expires',
+						value: '0',
+					},
+				],
+			},
+		];
+	},
 };
 
 export default nextConfig;

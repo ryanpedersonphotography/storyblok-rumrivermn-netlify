@@ -2,6 +2,10 @@ import { draftMode } from 'next/headers'
 import { fetchStory } from '@/lib/storyblok'
 import ClientBridge from './ClientBridge'
 
+// Disable caching for Visual Editor route
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function HomeLivePage() {
   const { isEnabled } = await draftMode()
   const story = await fetchStory('home', isEnabled ? 'draft' : 'published')
