@@ -202,13 +202,8 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
                           className="hotfix-history-image"
                           loading="lazy"
                         />
-                        {/* Gradient Overlay */}
+                        {/* Subtle Gradient Overlay */}
                         <div className="hotfix-history-gradient" />
-
-                        {/* Year Badge */}
-                        <div className="hotfix-year-badge">
-                          <span>{data.year}</span>
-                        </div>
                       </div>
 
                       {/* Content */}
@@ -227,18 +222,38 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
             </div>
           </div>
 
-          {/* Progress Indicators */}
-          <div className="hotfix-carousel-dots">
-            {scrollSnaps.map((_, index) => (
-              <button
-                key={index}
-                className={`hotfix-carousel-dot ${
-                  index === selectedIndex ? 'active' : ''
-                }`}
-                onClick={() => scrollTo(index)}
-                aria-label={`Go to slide ${index + 1}`}
+          {/* Timeline Navigation - Sliding Window */}
+          <div className="hotfix-timeline-container">
+            <div className="hotfix-timeline-track">
+              <div 
+                className="hotfix-timeline-progress" 
+                style={{ width: '50%', left: '25%' }}
               />
-            ))}
+              {scrollSnaps.map((_, index) => {
+                const data = historicalData[index] || historicalData[0];
+                const isActive = index === selectedIndex;
+                const distance = Math.abs(index - selectedIndex);
+                const isInWindow = distance <= 5; // Only render dots within 5 positions
+                
+                if (!isInWindow) return null;
+                
+                // Calculate position relative to the visible window
+                const relativePosition = ((index - selectedIndex + 5) / 10) * 100;
+                
+                return (
+                  <button
+                    key={index}
+                    className={`hotfix-timeline-marker ${isActive ? 'active' : ''}`}
+                    onClick={() => scrollTo(index)}
+                    aria-label={`Go to ${data.year}`}
+                    style={{ left: `${relativePosition}%` }}
+                  >
+                    <span className="hotfix-timeline-year">{data.year}</span>
+                    <span className="hotfix-timeline-dot" />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -285,63 +300,85 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
         .hotfix-carousel-container {
           position: relative;
           margin-top: 3rem;
+          padding: 3rem 5rem 0;
         }
 
-        /* Navigation Buttons */
+        /* Navigation Buttons - Outside Cards */
         .hotfix-carousel-nav {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255, 255, 255, 0.95);
-          border: none;
-          width: 56px;
-          height: 56px;
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(139, 115, 85, 0.1);
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           z-index: 10;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
           transition: all 0.3s ease;
-          color: #2c2c2c;
+          color: #8b7355;
+          opacity: 0.5;
+        }
+
+        .hotfix-carousel-container:hover .hotfix-carousel-nav {
+          opacity: 1;
         }
 
         .hotfix-carousel-nav:hover {
-          background: white;
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-          transform: translateY(-50%) scale(1.05);
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          transform: translateY(-50%) scale(1.1);
+          color: #9D6B7B;
         }
 
         .hotfix-carousel-nav.prev {
-          left: -28px;
+          left: 1rem;
         }
 
         .hotfix-carousel-nav.next {
-          right: -28px;
+          right: 1rem;
         }
 
-        /* Autoplay Toggle */
+        /* Autoplay Toggle - Small and Subtle */
         .hotfix-autoplay-toggle {
           position: absolute;
-          top: 1rem;
-          right: 1rem;
-          background: rgba(255, 255, 255, 0.95);
-          border: none;
-          padding: 0.5rem;
+          top: -2rem;
+          right: 5rem;
+          background: rgba(255, 255, 255, 0.5);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          padding: 0.25rem;
           border-radius: 50%;
           cursor: pointer;
           z-index: 10;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
           transition: all 0.3s ease;
+          opacity: 0.3;
+          width: 28px;
+          height: 28px;
+        }
+
+        .hotfix-carousel-container:hover .hotfix-autoplay-toggle {
+          opacity: 0.6;
         }
 
         .hotfix-autoplay-toggle:hover {
-          background: white;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          background: rgba(255, 255, 255, 0.8);
+          opacity: 1;
+        }
+        
+        .hotfix-autoplay-toggle svg {
+          width: 12px;
+          height: 12px;
+          color: #8b7355;
         }
 
         /* Embla Carousel */
@@ -356,50 +393,47 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         .hotfix-embla-slide {
           flex: 0 0 calc(33.333% - 0.667rem);
-          min-width: 0;
+          min-width: 320px;
           max-width: 380px;
         }
 
-        /* History Card - Testimonial Style */
+
+        /* History Card - Polaroid Style */
         .hotfix-history-card {
-          background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(20px) saturate(1.2);
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          background: #fafaf8;
+          border-radius: 2px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           height: 100%;
           display: flex;
           flex-direction: column;
           position: relative;
+          padding: 0.75rem 0.75rem 1.25rem;
+          transform: rotate(-0.5deg);
+        }
+
+        .hotfix-embla-slide:nth-child(even) .hotfix-history-card {
+          transform: rotate(0.5deg);
+        }
+
+        .hotfix-embla-slide:nth-child(3n) .hotfix-history-card {
+          transform: rotate(-0.3deg);
         }
 
         .hotfix-history-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          transform: rotate(0deg) translateY(-8px);
+          box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.12);
         }
 
-        /* Card Underline Animation */
-        .hotfix-history-card::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 3px;
-          background: #E4C896;
-          transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .hotfix-history-card:hover::after {
-          width: 100%;
-        }
-
-        /* Image with 5:4 aspect ratio */
+        /* Image with 5:4 aspect ratio - Polaroid Border */
         .hotfix-history-image-wrapper {
           position: relative;
           aspect-ratio: 5 / 4;
           overflow: hidden;
+          background: white;
+          border: 1px solid #f0f0f0;
+          box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+          width: 100%;
         }
 
         .hotfix-history-image {
@@ -407,49 +441,35 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           height: 100%;
           object-fit: cover;
           transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          filter: brightness(0.98) contrast(1.02);
         }
 
         .hotfix-history-card:hover .hotfix-history-image {
-          transform: scale(1.1);
+          transform: scale(1.05);
+          filter: brightness(1) contrast(1.05);
         }
 
         .hotfix-history-gradient {
           position: absolute;
           inset: 0;
           background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.6) 0%,
-            rgba(0, 0, 0, 0.3) 40%,
-            transparent 100%
+            to bottom,
+            transparent 0%,
+            transparent 60%,
+            rgba(0, 0, 0, 0.05) 100%
           );
           pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.4s ease;
         }
 
-        /* Year Badge */
-        .hotfix-year-badge {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
-          background: rgba(157, 107, 123, 0.95);
-          color: white;
-          padding: 0.5rem 1rem;
-          border-radius: 20px;
-          font-weight: 600;
-          font-size: 0.875rem;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-          z-index: 2;
-          transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        .hotfix-history-card:hover .hotfix-history-gradient {
+          opacity: 1;
         }
 
-        .hotfix-history-card:hover .hotfix-year-badge {
-          transform: scale(1.05);
-          background: rgba(228, 200, 150, 0.95);
-          color: #6B4E3D;
-        }
-
-        /* Card Content */
+        /* Card Content - Polaroid Caption */
         .hotfix-history-card-content {
-          padding: 1.5rem;
+          padding: 1rem 0.5rem 0.5rem;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -459,45 +479,133 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
         }
 
         .hotfix-history-card-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 1.125rem;
+          font-family: 'Courier New', monospace;
+          font-size: 0.95rem;
           font-weight: 600;
-          color: #9D6B7B;
-          margin-bottom: 0.5rem;
-          line-height: 1.3;
+          color: #3a3a3a;
+          margin-bottom: 0.4rem;
+          line-height: 1.2;
+          transition: color 0.3s ease;
+          letter-spacing: -0.02em;
+        }
+
+        .hotfix-history-card:hover .hotfix-history-card-title {
+          color: #8b7355;
         }
 
         .hotfix-history-card-description {
-          font-size: 0.875rem;
-          color: #6B4E3D;
-          line-height: 1.6;
+          font-family: 'Courier New', monospace;
+          font-size: 0.8rem;
+          color: #666;
+          line-height: 1.3;
           flex: 1;
-          opacity: 0.9;
+          font-weight: 400;
+          opacity: 0.8;
         }
 
-        /* Progress Dots */
-        .hotfix-carousel-dots {
+        /* Timeline Navigation */
+        .hotfix-timeline-container {
+          margin-top: 3rem;
+          padding: 3rem 0 2rem;
+          position: relative;
+          overflow: visible;
+        }
+
+        .hotfix-timeline-track {
+          position: relative;
+          height: 2px;
+          background: rgba(139, 115, 85, 0.2);
+          border-radius: 2px;
+          margin: 0 auto;
+          max-width: 80%;
+        }
+
+        .hotfix-timeline-progress {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          background: linear-gradient(90deg, #8b7355 0%, #9D6B7B 100%);
+          border-radius: 2px;
+          opacity: 0.6;
+        }
+
+        .hotfix-timeline-marker {
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
+          align-items: center;
           gap: 0.5rem;
-          margin-top: 2rem;
+          transition: all 0.3s ease;
+          z-index: 1;
+        }
+        
+        .hotfix-timeline-marker.active {
+          z-index: 10;
         }
 
-        .hotfix-carousel-dot {
+        .hotfix-timeline-year {
+          font-size: 0.7rem;
+          font-weight: 500;
+          color: #8b7355;
+          opacity: 0.5;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          white-space: nowrap;
+          position: absolute;
+          bottom: 100%;
+          margin-bottom: 0.5rem;
+          background: white;
+          padding: 0.2rem 0.4rem;
+          border-radius: 4px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Active year is centered and prominent */
+        .hotfix-timeline-marker.active .hotfix-timeline-year {
+          opacity: 1;
+          font-weight: 700;
+          font-size: 1rem;
+          color: #9D6B7B;
+          transform: translateY(-5px) scale(1.2);
+          padding: 0.35rem 0.75rem;
+          box-shadow: 0 4px 12px rgba(157, 107, 123, 0.2);
+          background: linear-gradient(to bottom, white, #fafaf8);
+          margin-bottom: 0.8rem;
+        }
+
+        .hotfix-timeline-dot {
           width: 10px;
           height: 10px;
           border-radius: 50%;
           background: #ddd;
-          border: none;
-          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease;
-          padding: 0;
+          position: relative;
         }
 
-        .hotfix-carousel-dot.active {
+        .hotfix-timeline-marker:hover .hotfix-timeline-dot {
+          width: 12px;
+          height: 12px;
           background: #8b7355;
-          width: 32px;
-          border-radius: 5px;
+        }
+        
+        .hotfix-timeline-marker.active .hotfix-timeline-dot {
+          width: 16px;
+          height: 16px;
+          background: #9D6B7B;
+          box-shadow: 0 4px 12px rgba(157, 107, 123, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .hotfix-timeline-marker:hover .hotfix-timeline-year {
+          opacity: 1;
+          transform: translateY(0) scale(1.05);
         }
 
         /* Responsive: 2 slides on tablet */
@@ -510,17 +618,17 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
             font-size: 2rem;
           }
 
+          .hotfix-carousel-container {
+            padding: 2.5rem 3rem 0;
+          }
+
           .hotfix-carousel-nav {
-            width: 48px;
-            height: 48px;
+            width: 36px;
+            height: 36px;
           }
 
-          .hotfix-carousel-nav.prev {
-            left: -24px;
-          }
-
-          .hotfix-carousel-nav.next {
-            right: -24px;
+          .hotfix-autoplay-toggle {
+            right: 3rem;
           }
         }
 
@@ -559,12 +667,6 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
             right: 0.5rem;
           }
 
-          .hotfix-year-badge {
-            top: 0.75rem;
-            right: 0.75rem;
-            padding: 0.375rem 0.75rem;
-            font-size: 0.8125rem;
-          }
 
           .hotfix-history-card-content {
             padding: 1.25rem;
@@ -576,6 +678,32 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
           .hotfix-history-card-description {
             font-size: 0.875rem;
+          }
+
+          /* Timeline on mobile */
+          .hotfix-timeline-container {
+            margin-top: 2rem;
+            padding: 1.5rem 0;
+          }
+
+          .hotfix-timeline-year {
+            font-size: 0.625rem;
+            padding: 0.2rem 0.4rem;
+          }
+
+          .hotfix-timeline-marker.visible .hotfix-timeline-year {
+            opacity: 0.5;
+          }
+
+          .hotfix-timeline-dot {
+            width: 8px;
+            height: 8px;
+          }
+
+          .hotfix-timeline-marker:hover .hotfix-timeline-dot,
+          .hotfix-timeline-marker.active .hotfix-timeline-dot {
+            width: 12px;
+            height: 12px;
           }
         }
       `}</style>

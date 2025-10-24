@@ -39,23 +39,12 @@ export default function WeddingGalleryModal({
   // are prepared for future Phase 2 enhancements but not yet used in rendering.
   // See FUTURE_IDEAS.md for implementation details.
 
-  // Early return if modal shouldn't be shown
-  if (!isOpen || !wedding) return null
-
-  // Prepare gallery images
-  const galleryImages = wedding.gallery_photos?.map((photo, index) => ({
-    src: photo.filename || photo,
-    alt: photo.alt || `${wedding.title || 'Wedding'} photo ${index + 1}`,
-    width: 800,
-    height: 600
-  })) || []
-
-  // Show "Coming Soon" if no images yet
-  const hasImages = galleryImages.length > 0
-
   // Close modal on ESC key and handle body scroll
-  // This useEffect only runs when we know we're actually showing the modal
+  // IMPORTANT: This useEffect must run before any conditional returns to comply with React's Rules of Hooks
   useEffect(() => {
+    // Guard clause: only run side effects when modal is actually open
+    if (!isOpen) return
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose()
@@ -70,7 +59,22 @@ export default function WeddingGalleryModal({
       document.removeEventListener('keydown', handleEscape)
       document.body.style.overflow = ''
     }
-  }, [onClose])
+  }, [isOpen, onClose])
+
+  // Early return if modal shouldn't be shown
+  // IMPORTANT: This must come AFTER all hooks to comply with React's Rules of Hooks
+  if (!isOpen || !wedding) return null
+
+  // Prepare gallery images
+  const galleryImages = wedding.gallery_photos?.map((photo, index) => ({
+    src: photo.filename || photo,
+    alt: photo.alt || `${wedding.title || 'Wedding'} photo ${index + 1}`,
+    width: 800,
+    height: 600
+  })) || []
+
+  // Show "Coming Soon" if no images yet
+  const hasImages = galleryImages.length > 0
 
   // Show "Coming Soon" modal if no images loaded yet
   if (!hasImages) {
