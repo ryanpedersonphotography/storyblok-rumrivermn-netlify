@@ -9,7 +9,7 @@ interface PageProps {
 
 export default function Page({ blok }: PageProps) {
   return (
-    <div {...storyblokEditable(blok)}>
+    <div {...storyblokEditable(blok)} key={blok._uid}>
       {(blok.body || []).map((nestedBlok: any) => (
         <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
       ))}
