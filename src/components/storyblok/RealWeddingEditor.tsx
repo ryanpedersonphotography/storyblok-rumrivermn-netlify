@@ -100,23 +100,42 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
               </aside>
             )}
           </div>
-
-          {/* Wedding Gallery Section */}
-          {galleryPhotos.length > 0 && (
-            <div className="hotfix-wedding-gallery-section">
-              <div className="hotfix-gallery-header">
-                <div className="hotfix-script-accent">Gallery</div>
-                <h2 className="hotfix-section-title">Wedding Photos</h2>
-                <p className="hotfix-section-lead">{galleryPhotos.length} beautiful moments captured</p>
-              </div>
-
-              <div className="hotfix-masonry-wrapper">
-                <MasonryGallery images={galleryPhotos} columns={3} initialLoad={12} />
-              </div>
-            </div>
-          )}
         </div>
       </section>
+
+      {/* Wedding Gallery Section - Full Width White Background */}
+      {galleryPhotos.length > 0 && (
+        <section className="hotfix-gallery-fullwidth">
+          <div className="hotfix-gallery-content-container">
+            <div className="hotfix-gallery-header">
+              <div className="hotfix-script-accent">Gallery</div>
+              <h2 className="hotfix-section-title">Wedding Photos</h2>
+              <p className="hotfix-section-lead">{galleryPhotos.length} beautiful moments captured</p>
+            </div>
+
+            <div className="hotfix-masonry-wrapper">
+              <MasonryGallery images={galleryPhotos} columns={3} initialLoad={12} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="hotfix-wedding-footer">
+        <div className="hotfix-footer-content">
+          <div className="hotfix-footer-brand">
+            <h3 className="hotfix-footer-title">Rum River Wedding Barn</h3>
+            <p className="hotfix-footer-tagline">Where Dreams Begin</p>
+          </div>
+          <div className="hotfix-footer-contact">
+            <p>📍 Hillman, Minnesota</p>
+            <p>📞 612-801-0546</p>
+          </div>
+          <div className="hotfix-footer-copyright">
+            <p>© {new Date().getFullYear()} Rum River Wedding Barn. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
 
       <style jsx>{`
         .real-wedding-page {
@@ -240,9 +259,17 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
           color: #555;
         }
 
-        /* Gallery Section */
-        .hotfix-wedding-gallery-section {
-          margin-top: 3rem;
+        /* Gallery Section - Full Width White Background */
+        .hotfix-gallery-fullwidth {
+          width: 100%;
+          background: #fff;
+          padding: 5rem 0;
+        }
+
+        .hotfix-gallery-content-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 2rem;
         }
 
         .hotfix-gallery-header {
@@ -274,6 +301,60 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
           margin-top: 2rem;
         }
 
+        /* Footer */
+        .hotfix-wedding-footer {
+          width: 100%;
+          background: #2c2c2c;
+          color: #fff;
+          padding: 3rem 2rem 2rem;
+        }
+
+        .hotfix-footer-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .hotfix-footer-brand {
+          margin-bottom: 2rem;
+        }
+
+        .hotfix-footer-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .hotfix-footer-tagline {
+          font-family: 'Dancing Script', cursive;
+          font-size: 1.25rem;
+          color: #8b7355;
+        }
+
+        .hotfix-footer-contact {
+          margin-bottom: 2rem;
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+        }
+
+        .hotfix-footer-contact p {
+          font-size: 1rem;
+          margin: 0;
+        }
+
+        .hotfix-footer-copyright {
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hotfix-footer-copyright p {
+          font-size: 0.875rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin: 0;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
           .hotfix-content-wrapper {
@@ -282,6 +363,10 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
 
           .wedding-vendors-box {
             position: static;
+          }
+
+          .hotfix-gallery-content-container {
+            padding: 0 1.5rem;
           }
         }
 
@@ -296,6 +381,27 @@ export default function RealWeddingEditor({ blok }: RealWeddingEditorProps) {
 
           .hotfix-section-title {
             font-size: 2rem;
+          }
+
+          .hotfix-gallery-fullwidth {
+            padding: 3rem 0;
+          }
+
+          .hotfix-gallery-content-container {
+            padding: 0 1rem;
+          }
+
+          .hotfix-footer-contact {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .hotfix-footer-title {
+            font-size: 1.5rem;
+          }
+
+          .hotfix-wedding-footer {
+            padding: 2rem 1rem 1.5rem;
           }
         }
       `}</style>
