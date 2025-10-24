@@ -12,6 +12,7 @@ import '@/styles/hotfix/schedule-form-styles.css';
 import '@/styles/hotfix/map-section-styles.css';
 import '@/styles/hotfix/footer-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
+import NavbarHotfix from '@/components/hotfix/NavbarHotfix';
 
 export const metadata = {
 	title: 'Create Next App',
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
 					<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 				</head>
 				<body>
+					<NavbarHotfix />
 					{children}
 				</body>
 			</html>
