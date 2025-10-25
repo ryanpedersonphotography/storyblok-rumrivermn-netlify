@@ -83,24 +83,34 @@
 }
 
 /* Position each item around the circle */
+/* Left side items - Icon on right, text aligned right */
 .hotfix-location-item:nth-child(1) {
   top: 10% !important;
   left: 5% !important;
-}
-
-.hotfix-location-item:nth-child(2) {
-  top: 10% !important;
-  right: 5% !important;
+  flex-direction: row-reverse !important;
+  text-align: right !important;
 }
 
 .hotfix-location-item:nth-child(3) {
   bottom: 10% !important;
   left: 5% !important;
+  flex-direction: row-reverse !important;
+  text-align: right !important;
+}
+
+/* Right side items - Icon on left, text aligned left */
+.hotfix-location-item:nth-child(2) {
+  top: 10% !important;
+  right: 5% !important;
+  flex-direction: row !important;
+  text-align: left !important;
 }
 
 .hotfix-location-item:nth-child(4) {
   bottom: 10% !important;
   right: 5% !important;
+  flex-direction: row !important;
+  text-align: left !important;
 }
 
 .hotfix-location-item:hover {
@@ -129,6 +139,7 @@
 
 .hotfix-location-text {
   flex: 1 !important;
+  text-align: inherit !important;
 }
 
 .hotfix-location-text h4 {
@@ -138,6 +149,7 @@
   font-size: 1.1rem !important;
   font-weight: 600 !important;
   line-height: 1.3 !important;
+  text-align: inherit !important;
 }
 
 .hotfix-location-text p {
@@ -147,6 +159,7 @@
   margin: 0 !important;
   font-family: 'Montserrat', sans-serif !important;
   font-size: 0.9rem !important;
+  text-align: inherit !important;
 }
 
 /* Right Panel - Interactive Map */
