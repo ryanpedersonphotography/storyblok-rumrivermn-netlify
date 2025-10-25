@@ -14,16 +14,18 @@
 ## 📋 Table of Contents
 
 1. [Design Principles](#design-principles)
-2. [Color System](#color-system)
-3. [Typography](#typography)
-4. [Spacing System](#spacing-system)
-5. [Layout & Grid](#layout--grid)
-6. [Shadows & Depth](#shadows--depth)
-7. [Border Radius](#border-radius)
-8. [Animation](#animation)
-9. [Component Patterns](#component-patterns)
-10. [Responsive Design](#responsive-design)
-11. [Usage Guidelines](#usage-guidelines)
+2. [Accessibility & WCAG Compliance](#accessibility--wcag-compliance)
+3. [Color System](#color-system)
+4. [Typography](#typography)
+5. [Spacing System](#spacing-system)
+6. [Layout & Grid](#layout--grid)
+7. [Elevation & Depth](#elevation--depth)
+8. [Border Radius](#border-radius)
+9. [Animation & Motion](#animation--motion)
+10. [Focus Management](#focus-management)
+11. [Component Patterns](#component-patterns)
+12. [Responsive Design](#responsive-design)
+13. [Usage Guidelines](#usage-guidelines)
 
 ---
 
@@ -42,6 +44,65 @@
 - **Style**: Romantic wedding barn with rustic elegance
 - **Mood**: Warm, welcoming, natural, timeless
 - **Target Audience**: Couples planning intimate weddings
+
+---
+
+## ♿ Accessibility & WCAG Compliance
+
+> **Commitment**: This design system enforces WCAG 2.2 Level AA as the baseline standard.
+
+### Compliance Level
+
+**Target**: WCAG 2.2 Level AA (mandatory)
+**Aspirational**: Level AAA where feasible without compromising brand
+
+### Key Requirements
+
+#### Color Contrast
+- **Normal text** (< 18pt): **4.5:1 minimum** (WCAG 1.4.3)
+- **Large text** (≥ 18pt, or ≥ 14pt bold): **3:1 minimum**
+- **UI components**: **3:1 minimum** (WCAG 1.4.11)
+- **Focus indicators**: **3:1 minimum** against adjacent colors
+
+📖 **Full details**: [docs/accessibility/CONTRAST.md](./docs/accessibility/CONTRAST.md)
+
+#### Keyboard Navigation
+- All interactive elements must be keyboard accessible
+- Visible focus indicators on all focusable elements (WCAG 2.4.7)
+- Logical tab order matching visual layout
+- Skip links for main content
+
+📖 **Full details**: [docs/accessibility/FOCUS.md](./docs/accessibility/FOCUS.md)
+
+#### Motion Sensitivity
+- Respect `prefers-reduced-motion: reduce` (WCAG 2.3.3)
+- No auto-playing animations without user control (WCAG 2.2.2)
+- Essential motion only (loading indicators)
+
+📖 **Full details**: [docs/accessibility/MOTION.md](./docs/accessibility/MOTION.md)
+
+### Testing Requirements
+
+Every component must pass:
+- ✅ Automated testing (pa11y-ci, axe-core)
+- ✅ Manual keyboard navigation
+- ✅ Screen reader testing
+- ✅ Color contrast verification
+- ✅ Reduced motion testing
+
+### Quick Reference
+
+**Always Safe for Text:**
+- `--color-text-dark` on light backgrounds (**13.8:1** - AAA)
+- `--color-text-primary` on light backgrounds (**6.9:1** - AAA)
+- `--color-white` on dark backgrounds (**12.3:1** - AAA)
+
+**Large Text Only (≥18pt):**
+- `--color-dusty-rose` on light backgrounds (**4.2:1** - AA large)
+
+**Never for Text:**
+- `--color-champagne-gold` on light backgrounds (fails)
+- `--color-sage-green` on light backgrounds (fails)
 
 ---
 
@@ -574,9 +635,44 @@ gap: var(--gap-xl);
 
 ---
 
-## 🌑 Shadows & Depth
+## 🌑 Elevation & Depth
 
-### Box Shadows
+### Elevation Scale (Recommended)
+
+Use the elevation scale for semantic, consistent depth across all components.
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `--elevation-0` | none | Flat elements, no depth |
+| `--elevation-1` | 0 1px 2px rgba(0,0,0,0.08) | **Cards at rest** - subtle lift |
+| `--elevation-2` | 0 4px 10px rgba(0,0,0,0.12) | **Hover states** - medium depth |
+| `--elevation-3` | 0 12px 32px rgba(0,0,0,0.18) | **Modals, dropdowns** - high depth |
+
+**Why use elevation tokens?**
+- ✅ Semantic meaning (elevation-2 = hover, not "medium shadow")
+- ✅ Consistent depth hierarchy
+- ✅ Easier to maintain and update
+- ✅ Aligns with Material Design principles
+
+**Usage:**
+```css
+.card {
+  box-shadow: var(--elevation-1);
+  transition: box-shadow var(--duration-normal) var(--ease-material);
+}
+
+.card:hover {
+  box-shadow: var(--elevation-2);
+}
+
+.modal {
+  box-shadow: var(--elevation-3);
+}
+```
+
+### Box Shadows (Legacy)
+
+These shadows are still available for specific use cases, but prefer elevation tokens above.
 
 | Token | Value | Use Case |
 |-------|-------|----------|
@@ -635,7 +731,9 @@ text-shadow: var(--text-shadow-md);
 
 ---
 
-## ⚡ Animation
+## ⚡ Animation & Motion
+
+> **Accessibility Requirement**: All animations must respect `prefers-reduced-motion: reduce`
 
 ### Duration Tokens
 
@@ -659,12 +757,41 @@ text-shadow: var(--text-shadow-md);
 | `--ease-material` | cubic-bezier(0.4,0,0.2,1) | **Material Design** |
 | `--ease-bounce` | cubic-bezier(0.25,0.46,0.45,0.94) | Gallery cards |
 
-**Standard Transition**:
+### Reduced Motion Compliance
+
+**All animations are automatically disabled** when users enable `prefers-reduced-motion: reduce` via `globals.css`:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+**What this means for developers:**
+- ✅ All CSS transitions are automatically disabled
+- ✅ All CSS animations are automatically disabled
+- ✅ Smooth scrolling is automatically disabled
+- ✅ No additional code needed in components
+
+📖 **Full policy**: [docs/accessibility/MOTION.md](./docs/accessibility/MOTION.md)
+
+### Standard Transition
+
 ```css
 transition: all var(--duration-normal) var(--ease-material);
 ```
 
-**Hover Effect**:
+**Note**: Automatically respects reduced motion (becomes instant)
+
+### Hover Effect (Accessible)
+
 ```css
 .card {
   transition: transform var(--duration-normal) var(--ease-material),
@@ -673,9 +800,86 @@ transition: all var(--duration-normal) var(--ease-material);
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--elevation-2);
+}
+
+/* Automatically handled by globals.css:
+   - Reduced motion users: No transform, instant shadow change
+   - Normal motion users: Smooth transition
+*/
+```
+
+---
+
+## ⌨️ Focus Management
+
+> **Accessibility Requirement**: All interactive elements must have visible focus indicators (WCAG 2.4.7)
+
+### Focus Ring Standards
+
+**Global focus style** applied automatically to all interactive elements:
+
+```css
+:focus-visible {
+  outline: 3px solid var(--focus-ring);  /* #6B4E3D */
+  outline-offset: 3px;
 }
 ```
+
+### Focus Tokens
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `--focus-ring` | #6B4E3D | Focus indicator color (warm walnut) |
+| `--focus-ring-width` | 3px | Outline thickness |
+| `--focus-ring-offset` | 3px | Space between element and outline |
+| `--focus-ring-style` | solid | Outline style |
+
+### Contrast Compliance
+
+Focus ring meets **WCAG 2.2 Level AA** (3:1 minimum) on all surfaces:
+
+| Surface | Contrast | Pass |
+|---------|----------|------|
+| Cream Pearl | 6.9:1 | ✅ AAA |
+| White | 7.2:1 | ✅ AAA |
+| Blush Pink | 6.1:1 | ✅ AAA |
+| Warm Cream | 6.6:1 | ✅ AAA |
+
+### Usage
+
+**Automatic (no code needed):**
+All standard interactive elements automatically receive focus styling:
+- Links (`<a>`)
+- Buttons (`<button>`)
+- Form inputs (`<input>`, `<select>`, `<textarea>`)
+- Custom buttons (`[role="button"]`)
+- Focusable elements (`[tabindex]`)
+
+**Custom elements:**
+```css
+.custom-interactive-element {
+  /* Focus automatically applied via globals.css */
+  /* Optionally add additional visual feedback */
+}
+
+.custom-interactive-element:focus-visible {
+  /* Global outline + custom effect */
+  box-shadow: 0 0 0 6px rgba(107, 78, 61, 0.15);
+}
+```
+
+### Focus Visible vs Focus
+
+**✅ Use `:focus-visible`** (implemented globally)
+- Shows focus **only** when user navigates with keyboard
+- Hides focus when user clicks with mouse (better UX)
+
+**❌ Don't use `:focus`**
+- Shows focus for **all** interactions (mouse + keyboard)
+- Confuses mouse users with unexpected blue ring
+
+📖 **Full policy**: [docs/accessibility/FOCUS.md](./docs/accessibility/FOCUS.md)
 
 ---
 
@@ -794,99 +998,156 @@ Used at the top of most sections:
 
 ## 📱 Responsive Design
 
-### Mobile-First vs Desktop-First
+### Mobile-First Approach (Recommended)
 
-**This site uses Desktop-First approach:**
+> **New Standard**: All new components should use **mobile-first** approach with `min-width` media queries.
+
+**Why mobile-first?**
+- ✅ Better performance (mobile styles load first, progressive enhancement)
+- ✅ Fewer overrides (smaller CSS bundle)
+- ✅ Aligns with modern web development best practices
+- ✅ Easier to maintain
+
+**Mobile-first pattern:**
 
 ```css
-/* Desktop styles (default) */
+/* Mobile styles (default - smallest screens) */
 .element {
-  font-size: var(--font-size-6xl);
+  font-size: var(--font-size-4xl);  /* 2rem mobile */
+  padding: 1rem;
 }
 
-/* Tablet */
-@media (max-width: 768px) {
+/* Tablet and up */
+@media (min-width: 768px) {
   .element {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-5xl);  /* 2.5rem tablet */
+    padding: 1.5rem;
   }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+/* Desktop and up */
+@media (min-width: 1024px) {
   .element {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-6xl);  /* 3rem desktop */
+    padding: 2rem;
   }
 }
 ```
 
-### Responsive Typography
+### Legacy Desktop-First Code
 
-Titles should scale down on smaller screens:
+**Note**: Existing components use desktop-first (`max-width`). This is maintained for consistency but **should not be used for new code**.
 
 ```css
-/* Hero Title - Responsive */
+/* ❌ Legacy pattern (don't use for new code) */
+.section-title {
+  font-size: var(--font-size-6xl);  /* Desktop default */
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: var(--font-size-5xl);  /* Tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: var(--font-size-4xl);  /* Mobile */
+  }
+}
+```
+
+### Responsive Typography (Mobile-First)
+
+**Hero Title** - Using fluid `clamp()` (best practice):
+
+```css
 .hero-title {
+  /* Fluid scaling from 3rem (mobile) to 5.5rem (desktop) */
   font-size: var(--font-size-hero);  /* clamp(3rem, 8vw, 5.5rem) */
 }
+```
 
-/* Section Title - Manual scaling */
+**Section Title** - Manual breakpoints:
+
+```css
+/* Mobile (default) */
 .section-title {
-  font-size: var(--font-size-6xl);  /* 3rem desktop */
+  font-size: var(--font-size-4xl);  /* 2rem - mobile */
 }
 
-@media (max-width: 768px) {
+/* Tablet and up */
+@media (min-width: 768px) {
   .section-title {
-    font-size: var(--font-size-5xl);  /* 2.5rem tablet */
+    font-size: var(--font-size-5xl);  /* 2.5rem */
   }
 }
 
-@media (max-width: 480px) {
+/* Desktop and up */
+@media (min-width: 1024px) {
   .section-title {
-    font-size: var(--font-size-4xl);  /* 2rem mobile */
+    font-size: var(--font-size-6xl);  /* 3rem */
   }
 }
 ```
 
-### Responsive Spacing
-
-Section padding should scale:
+### Responsive Spacing (Mobile-First)
 
 ```css
+/* Mobile (default) */
 .section {
-  padding: 100px 0;  /* Desktop */
+  padding: 60px 0;
 }
 
-@media (max-width: 768px) {
+/* Tablet and up */
+@media (min-width: 768px) {
   .section {
-    padding: 80px 0;  /* Tablet */
+    padding: 80px 0;
   }
 }
 
-@media (max-width: 480px) {
+/* Desktop and up */
+@media (min-width: 1024px) {
   .section {
-    padding: 60px 0;  /* Mobile */
+    padding: 100px 0;
   }
 }
 ```
 
-### Responsive Grid
-
-Grids should collapse to single column:
+### Responsive Grid (Mobile-First)
 
 ```css
+/* Mobile (default) - single column */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;  /* Desktop */
-  gap: var(--gap-2xl);
+  grid-template-columns: 1fr;
+  gap: var(--gap-xl);
 }
 
-@media (max-width: 768px) {
+/* Tablet and up - two columns */
+@media (min-width: 768px) {
   .grid {
-    grid-template-columns: 1fr;  /* Single column */
-    gap: var(--gap-xl);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-2xl);
+  }
+}
+
+/* Desktop and up - three columns */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 ```
+
+### Breakpoints Reference
+
+| Breakpoint | Width | Query | Use Case |
+|------------|-------|-------|----------|
+| Mobile | < 768px | *default* | Small phones |
+| Tablet | ≥ 768px | `@media (min-width: 768px)` | Tablets, large phones |
+| Laptop | ≥ 1024px | `@media (min-width: 1024px)` | Standard desktop |
+| Desktop | ≥ 1280px | `@media (min-width: 1280px)` | Large screens |
 
 ---
 

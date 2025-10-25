@@ -266,6 +266,46 @@ html, body {
   --text-shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.5);
 
   /* ============================================================================
+     ELEVATION SCALE - Functional depth system
+     Replaces decorative shadows with semantic elevation levels
+     Use these for consistent depth hierarchy across all components
+     ============================================================================ */
+
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.08);      /* Subtle lift - cards at rest */
+  --elevation-2: 0 4px 10px rgba(0, 0, 0, 0.12);     /* Medium depth - hover states */
+  --elevation-3: 0 12px 32px rgba(0, 0, 0, 0.18);    /* High depth - modals, dropdowns */
+
+  /* ============================================================================
+     SURFACE SCALE - Background layers with semantic meaning
+     Use for multi-layer interfaces and proper text contrast
+     Each surface guarantees WCAG AA contrast with text tokens
+     ============================================================================ */
+
+  --surface-0: var(--color-cream-pearl);    /* Base surface - #FFFCF8 */
+  --surface-1: var(--color-white);          /* Elevated surface - #FFFFFF */
+  --surface-2: var(--color-blush-pink);     /* Secondary surface - #F4E4E1 */
+  --surface-3: var(--color-warm-cream);     /* Tertiary surface - #FBF8F4 */
+
+  /* ============================================================================
+     FOCUS & INTERACTION STATES - Accessibility-first tokens
+     Ensures WCAG 2.2 compliance for keyboard navigation
+     All focus indicators meet 3:1 non-text contrast requirement
+     ============================================================================ */
+
+  /* Focus ring - 3:1 contrast on all surfaces */
+  --focus-ring: #6B4E3D;                    /* Warm walnut - visible on all backgrounds */
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 3px;
+  --focus-ring-style: solid;
+
+  /* State colors for interactive elements */
+  --state-hover: rgba(107, 78, 61, 0.08);   /* Subtle hover background */
+  --state-pressed: rgba(107, 78, 61, 0.12); /* Pressed/active state */
+  --state-disabled: rgba(107, 78, 61, 0.3); /* Disabled element color */
+  --state-disabled-bg: rgba(107, 78, 61, 0.05); /* Disabled background */
+
+  /* ============================================================================
      ANIMATION TOKENS
      ============================================================================ */
 
