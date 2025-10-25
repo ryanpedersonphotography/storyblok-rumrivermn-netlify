@@ -1,7 +1,6 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { useEffect, useRef } from 'react';
 
 interface LocationItemProps {
   _uid: string;
@@ -92,34 +91,6 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
 export default function MapSectionEditor({ blok }: MapSectionProps) {
   // Show all location items (address, access, airport, accommodations)
   const filteredLocationItems = blok.location_items || [];
-  const mapEmbedRef = useRef<HTMLDivElement>(null);
-
-  // Add overlay to hide Google Maps place card
-  useEffect(() => {
-    if (!mapEmbedRef.current) return;
-
-    // Create overlay div to cover place card
-    const overlay = document.createElement('div');
-    overlay.style.position = 'absolute';
-    overlay.style.bottom = '70px';
-    overlay.style.left = '15px';
-    overlay.style.width = '360px';
-    overlay.style.height = '160px';
-    overlay.style.backgroundColor = 'rgba(122, 139, 127, 0.98)';
-    overlay.style.borderRadius = '8px';
-    overlay.style.zIndex = '15';
-    overlay.style.pointerEvents = 'none';
-    overlay.className = 'place-card-cover';
-
-    mapEmbedRef.current.appendChild(overlay);
-
-    // Cleanup on unmount
-    return () => {
-      if (mapEmbedRef.current && overlay.parentNode === mapEmbedRef.current) {
-        mapEmbedRef.current.removeChild(overlay);
-      }
-    };
-  }, []);
 
   return (
     <section
@@ -153,7 +124,7 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
           </div>
 
           {/* Right Panel - Interactive Map */}
-          <div className="hotfix-map-embed" ref={mapEmbedRef}>
+          <div className="hotfix-map-embed">
             <iframe
               src={blok.map_embed_url || 'https://www.google.com/maps?q=45.8936111,-93.7851842&hl=en&z=14&output=embed'}
               loading="lazy"
