@@ -102,7 +102,34 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
 
 export default function MapSectionEditor({ blok }: MapSectionProps) {
   // Show all location items (address, access, airport, accommodations)
-  const filteredLocationItems = blok.location_items || [];
+  const currentItems = blok.location_items || [];
+
+  // Add 2 new items for balanced 6-item layout
+  const parkingItem: LocationItemProps = {
+    _uid: 'temp_parking',
+    component: 'location_item',
+    icon_type: 'parking',
+    title: 'Ample Parking',
+    content: 'Free on-site parking for 150+ vehicles'
+  };
+
+  const yearRoundItem: LocationItemProps = {
+    _uid: 'temp_yearround',
+    component: 'location_item',
+    icon_type: 'calendar',
+    title: 'Open Year-Round',
+    content: 'Available for weddings and events in every season'
+  };
+
+  // Reorder: Address, Parking, Airport, Easy Access, Year-Round, Accommodations
+  const filteredLocationItems = currentItems.length >= 4 ? [
+    currentItems[0], // Address
+    parkingItem,     // NEW - Position 2 (Middle Left)
+    currentItems[2], // Nearest Airport
+    currentItems[1], // Easy Access From
+    yearRoundItem,   // NEW - Position 5 (Middle Right)
+    currentItems[3], // Accommodations
+  ] : currentItems;
 
   return (
     <section
