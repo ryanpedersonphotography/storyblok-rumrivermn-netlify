@@ -11,6 +11,7 @@ import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectio
 import FooterEditor from '@/components/storyblok/FooterEditor'
 import RealWeddingEditor from '@/components/storyblok/RealWeddingEditor'
 import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEditor'
+import SpacesEditor from '@/components/storyblok/SpacesEditor'
 
 // Initialize Storyblok with component registration
 // Use PREVIEW token for draft content access
@@ -34,6 +35,7 @@ storyblokInit({
     footer_section: FooterEditor,
     real_wedding: RealWeddingEditor,
     featured_weddings_section: FeaturedWeddingsEditor,
+    spaces_section: SpacesEditor,
   },
 })
 

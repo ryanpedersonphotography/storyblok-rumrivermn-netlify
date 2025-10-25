@@ -11,6 +11,7 @@ import '@/styles/hotfix/history-carousel-styles.css';
 import '@/styles/hotfix/schedule-form-styles.css';
 import '@/styles/hotfix/map-section-styles.css';
 import '@/styles/hotfix/footer-styles.css';
+import '@/styles/hotfix/spaces-styles.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 import NavbarHotfix from '@/components/hotfix/NavbarHotfix';
 
