@@ -89,10 +89,8 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
 }
 
 export default function MapSectionEditor({ blok }: MapSectionProps) {
-  // Filter out airport and accommodations items
-  const filteredLocationItems = blok.location_items?.filter(
-    (item) => item.icon_type !== 'airport' && item.icon_type !== 'accommodations'
-  ) || [];
+  // Show all location items (address, access, airport, accommodations)
+  const filteredLocationItems = blok.location_items || [];
 
   return (
     <section
