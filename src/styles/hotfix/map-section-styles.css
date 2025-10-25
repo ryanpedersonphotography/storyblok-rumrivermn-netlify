@@ -2,38 +2,20 @@
 
 .hotfix-map-section {
   background: white !important;
-  padding: 0 !important;
-  min-height: 100vh !important;
-
-  /* 🔥 CRITICAL: Full-width breakout to prevent black bars */
-  width: 100vw !important;
-  max-width: none !important;
-  max-inline-size: none !important;
-  margin-left: calc(-50vw + 50%) !important;
-  margin-right: calc(-50vw + 50%) !important;
+  padding: 80px 0 !important;
+  min-height: auto !important;
 }
 
 .hotfix-map-container {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  min-height: 100vh !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
 }
 
-/* Left Panel - Location Information */
-.hotfix-map-info {
-  padding: 80px 2rem !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  background: #FFFCF8 !important; /* Cream pearl */
-  color: #6B4E3D !important; /* Warm walnut */
-  position: relative !important;
-}
-
-/* Section Header Styling */
-.hotfix-map-header {
+/* Section Header - Full Width Like Other Sections */
+.hotfix-map-section-header {
   text-align: center !important;
-  margin-bottom: 3rem !important;
+  margin-bottom: 4rem !important;
 }
 
 .hotfix-script-accent {
@@ -43,25 +25,43 @@
   margin-bottom: 1rem !important;
 }
 
-.hotfix-map-title {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 3rem !important;
+.hotfix-map-section-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(2.5rem, 5vw, 3.5rem) !important;
   color: #6B4E3D !important; /* Warm walnut */
   margin-bottom: 1.5rem !important;
   line-height: 1.2 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
 }
 
-.hotfix-map-lead {
+.hotfix-map-section-lead {
   font-size: 1.25rem !important;
   line-height: 1.7 !important;
   color: #6B4E3D !important; /* Warm walnut */
   opacity: 0.8 !important;
-  margin-bottom: 3rem !important;
   max-width: 600px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin: 0 auto !important;
   font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Content Grid */
+.hotfix-map-content-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 3rem !important;
+  align-items: center !important;
+}
+
+/* Left Panel - Location Information */
+.hotfix-map-info {
+  padding: 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  background: #FFFCF8 !important; /* Cream pearl */
+  color: #6B4E3D !important; /* Warm walnut */
+  position: relative !important;
+  border-radius: 20px !important;
 }
 
 /* Location Details */
@@ -124,6 +124,9 @@
   position: relative !important;
   overflow: hidden !important;
   background: #7A8B7F !important; /* Sage green */
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Hero-style Overlay on Map */
@@ -209,67 +212,81 @@
 
 /* Mobile Responsive Design */
 @media (max-width: 1024px) {
-  .hotfix-map-container {
+  .hotfix-map-content-grid {
     grid-template-columns: 1fr !important;
     min-height: auto !important;
   }
-  
+
   .hotfix-map-info {
     padding: 60px 40px !important;
     min-height: 70vh !important;
   }
-  
-  .hotfix-map-title {
+
+  .hotfix-map-section-title {
     font-size: 2.5rem !important;
   }
-  
+
   .hotfix-map-embed {
     min-height: 500px !important;
   }
-  
+
   .hotfix-map-overlay {
     bottom: 1rem !important;
     right: 1rem !important;
     flex-direction: column !important;
   }
-  
+
   .hotfix-map-action-btn {
     justify-content: center !important;
   }
 }
 
 @media (max-width: 768px) {
+  .hotfix-map-section {
+    padding: 60px 0 !important;
+  }
+
+  .hotfix-map-section-header {
+    margin-bottom: 3rem !important;
+  }
+
   .hotfix-map-info {
     padding: 40px 20px !important;
     text-align: center !important;
   }
-  
-  .hotfix-map-title {
+
+  .hotfix-map-section-title {
     font-size: 2rem !important;
   }
-  
+
   .hotfix-location-details {
     gap: 1.5rem !important;
   }
-  
+
   .hotfix-location-item {
     gap: 1rem !important;
   }
-  
+
   .hotfix-location-icon {
     width: 45px !important;
     height: 45px !important;
   }
-  
+
   .hotfix-location-text h4 {
     font-size: 1.125rem !important;
   }
-  
+
   .hotfix-location-text p {
     font-size: 0.9rem !important;
   }
-  
+
   .hotfix-map-embed {
     min-height: 400px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-map-section {
+    padding: 60px 0 !important;
   }
 }

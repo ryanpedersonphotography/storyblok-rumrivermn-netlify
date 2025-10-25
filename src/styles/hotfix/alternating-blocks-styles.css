@@ -146,27 +146,33 @@
     gap: 40px !important;
     margin-bottom: 80px !important;
   }
-  
+
   .hotfix-block-item.reverse {
     direction: ltr !important;
   }
-  
+
   .hotfix-block-content {
     padding: 20px !important;
   }
-  
+
   .hotfix-block-content h3 {
     font-size: 2rem !important;
   }
-  
+
   .hotfix-block-content .hotfix-number {
     font-size: 2.5rem !important;
   }
-  
+
   .hotfix-alternating-blocks .hotfix-section-title {
     font-size: 2.5rem !important;
   }
-  
+
+  .hotfix-alternating-blocks {
+    padding: 80px 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
   .hotfix-alternating-blocks {
     padding: 60px 0 !important;
   }

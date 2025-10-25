@@ -34,8 +34,8 @@
 
 /* Spaces Section Styles - light Classic Black Tie minimal parallax smooth comfortable classic */
 .spaces-section {
-  background: #FFFFFF;
-  padding: 50px 0 100px 0;
+  background: #E8E8EA;
+  padding: 100px 0;
   transition: background 0.6s ease;
 }
 
@@ -47,7 +47,7 @@
 
 .section-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
 .script-accent {
@@ -120,9 +120,9 @@
 
 .venue-main-image {
   position: relative;
-  border-radius: 0;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -219,19 +219,29 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .spaces-section {
+    padding: 80px 0;
+  }
+
   .content-wrapper {
     padding: 0 20px;
   }
-  
+
   .spaces-content {
     grid-template-columns: 1fr !important;
   }
-  
+
   .venue-features {
     grid-template-columns: 1fr;
   }
-  
+
   .venue-main-image img {
     height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .spaces-section {
+    padding: 60px 0;
   }
 }

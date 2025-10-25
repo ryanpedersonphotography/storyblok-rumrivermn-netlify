@@ -253,10 +253,6 @@
 
 /* Mobile Responsive */
 @media (max-width: 1024px) {
-  .hotfix-history-section {
-    padding: 60px 0 !important;
-  }
-
   .hotfix-history-title {
     font-size: 2.5rem !important;
   }
@@ -285,7 +281,7 @@
 
 @media (max-width: 768px) {
   .hotfix-history-section {
-    padding: 40px 0 !important;
+    padding: 80px 0 !important;
   }
 
   .hotfix-history-content {
@@ -328,5 +324,11 @@
   .hotfix-year-badge span {
     font-size: 0.75rem !important;
     padding: 0.375rem 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hotfix-history-section {
+    padding: 60px 0 !important;
   }
 }
