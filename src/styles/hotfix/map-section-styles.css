@@ -158,8 +158,8 @@
   position: relative !important;
   overflow: hidden !important;
   background: #7A8B7F !important; /* Sage green */
-  width: 500px !important;
-  height: 500px !important;
+  width: 650px !important;
+  height: 650px !important;
   border-radius: 50% !important;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
   z-index: 1 !important;
