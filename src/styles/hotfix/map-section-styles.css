@@ -82,32 +82,48 @@
   transition: all 0.3s ease !important;
 }
 
-/* Position each item around the circle */
+/* Position each item around the circle - 6 items total */
 /* Left side items - Icon on right, text aligned right */
 .hotfix-location-item:nth-child(1) {
-  top: 10% !important;
+  top: 5% !important;
   left: 5% !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
+.hotfix-location-item:nth-child(2) {
+  top: 50% !important;
+  left: 2% !important;
+  transform: translateY(-50%) !important;
+  flex-direction: row-reverse !important;
+  text-align: right !important;
+}
+
 .hotfix-location-item:nth-child(3) {
-  bottom: 10% !important;
+  bottom: 5% !important;
   left: 5% !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
 /* Right side items - Icon on left, text aligned left */
-.hotfix-location-item:nth-child(2) {
-  top: 10% !important;
+.hotfix-location-item:nth-child(4) {
+  top: 5% !important;
   right: 5% !important;
   flex-direction: row !important;
   text-align: left !important;
 }
 
-.hotfix-location-item:nth-child(4) {
-  bottom: 10% !important;
+.hotfix-location-item:nth-child(5) {
+  top: 50% !important;
+  right: 2% !important;
+  transform: translateY(-50%) !important;
+  flex-direction: row !important;
+  text-align: left !important;
+}
+
+.hotfix-location-item:nth-child(6) {
+  bottom: 5% !important;
   right: 5% !important;
   flex-direction: row !important;
   text-align: left !important;
@@ -115,6 +131,12 @@
 
 .hotfix-location-item:hover {
   transform: translateY(-4px) !important;
+}
+
+/* Keep middle items centered on hover */
+.hotfix-location-item:nth-child(2):hover,
+.hotfix-location-item:nth-child(5):hover {
+  transform: translateY(-50%) translateY(-4px) !important;
 }
 
 .hotfix-location-icon {
@@ -265,11 +287,14 @@
   .hotfix-location-item:nth-child(1),
   .hotfix-location-item:nth-child(2),
   .hotfix-location-item:nth-child(3),
-  .hotfix-location-item:nth-child(4) {
+  .hotfix-location-item:nth-child(4),
+  .hotfix-location-item:nth-child(5),
+  .hotfix-location-item:nth-child(6) {
     top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
+    transform: none !important;
   }
 
   .hotfix-map-section-title {
