@@ -44,102 +44,73 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Content Grid - Centered Map with Surrounding Items */
+/* Content Grid - 3 Column Layout with CSS Grid */
 .hotfix-map-content-grid {
-  position: relative !important;
-  display: flex !important;
-  justify-content: center !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  gap: 3rem !important;
   align-items: center !important;
-  min-height: 600px !important;
   padding: 4rem 0 !important;
 }
 
 /* Left Panel - Location Information */
 .hotfix-map-info {
-  position: absolute !important;
-  width: 100% !important;
-  height: 100% !important;
-  pointer-events: none !important;
+  display: contents !important;
 }
 
-/* Location Details - Positioned Around Circle */
+/* Location Details - Split into left and right columns */
 .hotfix-location-details {
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
+  display: contents !important;
 }
 
+/* Left Column - Items 1, 2, 3 */
+.hotfix-location-item:nth-child(1),
+.hotfix-location-item:nth-child(2),
+.hotfix-location-item:nth-child(3) {
+  grid-column: 1 !important;
+  justify-self: end !important;
+}
+
+/* Center Column - Map (will be positioned separately) */
+
+/* Right Column - Items 4, 5, 6 */
+.hotfix-location-item:nth-child(4),
+.hotfix-location-item:nth-child(5),
+.hotfix-location-item:nth-child(6) {
+  grid-column: 3 !important;
+  justify-self: start !important;
+}
+
+/* Common location item styling */
 .hotfix-location-item {
-  position: absolute !important;
   display: flex !important;
   align-items: center !important;
   gap: 1rem !important;
-  color: #6B4E3D !important; /* Warm walnut */
-  pointer-events: auto !important;
-  max-width: 280px !important;
-  padding: 1.5rem !important;
+  color: #6B4E3D !important;
+  max-width: 320px !important;
+  padding: 1rem !important;
   background: transparent !important;
   transition: all 0.3s ease !important;
-  z-index: 10 !important;
 }
 
-/* Position each item around the circle - 6 items total */
-/* Uniform spacing: 12% vertical gaps, 3% horizontal from edges */
-
-/* Left side items - Icon on right, text aligned right */
-.hotfix-location-item:nth-child(1) {
-  top: 12% !important;
-  left: 3% !important;
-  flex-direction: row-reverse !important;
-  text-align: right !important;
-}
-
-.hotfix-location-item:nth-child(2) {
-  top: 50% !important;
-  left: 3% !important;
-  transform: translateY(-50%) !important;
-  flex-direction: row-reverse !important;
-  text-align: right !important;
-}
-
+/* Left side items - Icon on right, text right-aligned */
+.hotfix-location-item:nth-child(1),
+.hotfix-location-item:nth-child(2),
 .hotfix-location-item:nth-child(3) {
-  bottom: 12% !important;
-  left: 3% !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
-/* Right side items - Icon on left, text aligned left */
-.hotfix-location-item:nth-child(4) {
-  top: 12% !important;
-  right: 3% !important;
-  flex-direction: row !important;
-  text-align: left !important;
-}
-
-.hotfix-location-item:nth-child(5) {
-  top: 50% !important;
-  right: 3% !important;
-  transform: translateY(-50%) !important;
-  flex-direction: row !important;
-  text-align: left !important;
-}
-
+/* Right side items - Icon on left, text left-aligned */
+.hotfix-location-item:nth-child(4),
+.hotfix-location-item:nth-child(5),
 .hotfix-location-item:nth-child(6) {
-  bottom: 12% !important;
-  right: 3% !important;
   flex-direction: row !important;
   text-align: left !important;
 }
 
 .hotfix-location-item:hover {
   transform: translateY(-4px) !important;
-}
-
-/* Keep middle items centered on hover */
-.hotfix-location-item:nth-child(2):hover,
-.hotfix-location-item:nth-child(5):hover {
-  transform: translateY(-50%) translateY(-4px) !important;
 }
 
 .hotfix-location-icon {
@@ -187,8 +158,10 @@
   text-align: inherit !important;
 }
 
-/* Right Panel - Interactive Map */
+/* Center Panel - Interactive Map */
 .hotfix-map-embed {
+  grid-column: 2 !important;
+  grid-row: 1 / -1 !important;
   position: relative !important;
   overflow: hidden !important;
   background: #7A8B7F !important; /* Sage green */
@@ -196,7 +169,8 @@
   height: 650px !important;
   border-radius: 50% !important;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
-  z-index: 0 !important;
+  align-self: center !important;
+  justify-self: center !important;
 }
 
 .hotfix-map-embed iframe {
@@ -261,30 +235,23 @@
 /* Mobile Responsive Design */
 @media (max-width: 1024px) {
   .hotfix-map-content-grid {
-    flex-direction: column !important;
-    min-height: auto !important;
-    gap: 3rem !important;
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
   }
 
   .hotfix-map-info {
-    position: static !important;
-    width: auto !important;
-    height: auto !important;
-    pointer-events: auto !important;
+    display: block !important;
   }
 
   .hotfix-location-details {
-    position: static !important;
-    width: auto !important;
-    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 1.5rem !important;
   }
 
   .hotfix-location-item {
-    position: static !important;
     max-width: 100% !important;
+    justify-self: stretch !important;
   }
 
   .hotfix-location-item:nth-child(1),
@@ -293,11 +260,9 @@
   .hotfix-location-item:nth-child(4),
   .hotfix-location-item:nth-child(5),
   .hotfix-location-item:nth-child(6) {
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
+    grid-column: 1 !important;
+    flex-direction: row !important;
+    text-align: left !important;
   }
 
   .hotfix-map-section-title {
@@ -305,8 +270,11 @@
   }
 
   .hotfix-map-embed {
+    grid-column: 1 !important;
+    grid-row: auto !important;
     width: 400px !important;
     height: 400px !important;
+    margin: 0 auto !important;
   }
 
   .hotfix-map-overlay {
