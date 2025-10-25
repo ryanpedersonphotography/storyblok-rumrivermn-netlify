@@ -1,7 +1,37 @@
+/* 📦 Design Tokens - Rum River Experience Section */
+:root {
+  /* Theme Variables */
+  --theme-mode: light;
+  --section-bg: var(--warm-cream, #FEF7ED);
+  --text-color: var(--charcoal, #2C2C2C);
+
+  /* Color Palette - Using design tokens */
+  --primary-color: var(--warm-walnut, #6B4E3D);
+  --secondary-color: var(--warm-cream, #FFFCF8);
+  --accent-color: var(--sage-green, #7A8B7F);
+  --dusty-rose: var(--dusty-rose, #9D6B7B);
+
+  /* Icon Styling - Champagne Gold to Dusty Rose Gradient */
+  --icon-size: 50px;
+  --icon-gradient-start: #E4C896; /* Champagne gold */
+  --icon-gradient-end: #9D6B7B; /* Dusty rose */
+  --icon-color: white;
+
+  /* Visual Style */
+  --border-radius: 20px;
+  --box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  --padding: 2rem;
+  --gap: 3rem;
+
+  /* Animation Properties */
+  --animation-duration: 0.3s;
+  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* RUM RIVER EXPERIENCE SECTION STYLES */
 
 .rum-river-experience {
-  background: #FFFCF8 !important; /* cream-pearl - matches historical photos */
+  background: var(--secondary-color) !important;
   padding: 100px 0 !important;
   position: relative !important;
   overflow: hidden !important;
@@ -53,47 +83,74 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Features Grid */
+/* Features Grid - Location Component Style */
 .experience-features {
   display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 2rem !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: var(--gap) !important;
 }
 
 .experience-feature {
   display: flex !important;
-  flex-direction: column !important;
-  gap: 0.75rem !important;
+  align-items: flex-start !important;
+  gap: 1rem !important;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+  transition: all var(--animation-duration) var(--animation-easing) !important;
+  cursor: pointer !important;
 }
 
+.experience-feature:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Circular Icon Container with Gradient Background */
 .feature-icon {
-  margin-bottom: 0.5rem !important;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, var(--icon-gradient-start), var(--icon-gradient-end)) !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  transition: all var(--animation-duration) var(--animation-easing) !important;
+}
+
+.experience-feature:hover .feature-icon {
+  transform: scale(1.1) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .feature-icon .icon-svg {
-  width: 2.5rem !important;
-  height: 2.5rem !important;
-  color: #9D6B7B !important; /* dusty-rose */
+  width: 24px !important;
+  height: 24px !important;
+  color: var(--icon-color) !important;
   stroke-width: 1.5 !important;
+}
+
+/* Feature Text Content */
+.feature-text {
+  flex: 1 !important;
 }
 
 .feature-text h3.feature-title {
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 1.125rem !important;
-  color: #6B4E3D !important; /* warm-walnut */
-  margin: 0 0 0.5rem 0 !important;
+  font-size: 1.1rem !important;
   font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  margin: 0 0 0.5rem 0 !important;
 }
 
 .feature-text p.feature-description {
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 1rem !important;
-  line-height: 1.6 !important;
-  color: #6B4E3D !important; /* warm-walnut */
-  opacity: 0.75 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  color: var(--text-color) !important;
+  opacity: 0.8 !important;
   margin: 0 !important;
 }
 

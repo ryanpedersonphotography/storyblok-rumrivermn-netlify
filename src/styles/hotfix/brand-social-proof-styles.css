@@ -11,11 +11,11 @@
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
 
-  /* Glassomorphic background */
+  /* Glassomorphic background - darkened for better contrast */
   background: linear-gradient(
     135deg,
-    rgba(122, 139, 127, 0.4) 0%,
-    rgba(107, 78, 61, 0.5) 100%
+    rgba(122, 139, 127, 0.7) 0%,
+    rgba(107, 78, 61, 0.8) 100%
   ) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
