@@ -84,48 +84,50 @@
 }
 
 /* Position each item around the circle - 6 items total */
+/* Uniform spacing: 12% vertical gaps, 3% horizontal from edges */
+
 /* Left side items - Icon on right, text aligned right */
 .hotfix-location-item:nth-child(1) {
-  top: 8% !important;
-  left: 2% !important;
+  top: 12% !important;
+  left: 3% !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
 .hotfix-location-item:nth-child(2) {
   top: 50% !important;
-  left: -2% !important;
+  left: 3% !important;
   transform: translateY(-50%) !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
 .hotfix-location-item:nth-child(3) {
-  bottom: 8% !important;
-  left: 2% !important;
+  bottom: 12% !important;
+  left: 3% !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
 }
 
 /* Right side items - Icon on left, text aligned left */
 .hotfix-location-item:nth-child(4) {
-  top: 8% !important;
-  right: 2% !important;
+  top: 12% !important;
+  right: 3% !important;
   flex-direction: row !important;
   text-align: left !important;
 }
 
 .hotfix-location-item:nth-child(5) {
   top: 50% !important;
-  right: -2% !important;
+  right: 3% !important;
   transform: translateY(-50%) !important;
   flex-direction: row !important;
   text-align: left !important;
 }
 
 .hotfix-location-item:nth-child(6) {
-  bottom: 8% !important;
-  right: 2% !important;
+  bottom: 12% !important;
+  right: 3% !important;
   flex-direction: row !important;
   text-align: left !important;
 }
