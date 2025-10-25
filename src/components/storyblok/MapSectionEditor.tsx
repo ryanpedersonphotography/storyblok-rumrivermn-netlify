@@ -104,31 +104,48 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
   // Show all location items (address, access, airport, accommodations)
   const currentItems = blok.location_items || [];
 
+  // Helper function to trim content to exactly 2 lines
+  const trimContent = (iconType: string, originalContent: string): string => {
+    const contentMap: { [key: string]: string } = {
+      'address': '42618 78th Street\\nHillman, MN 56338',
+      'access': '45 min from Minneapolis\\n30 min from St. Cloud',
+      'airport': 'MSP International\\n55 miles (1 hour)',
+      'accommodations': 'Partner hotels nearby\\nGroup rates available'
+    };
+    return contentMap[iconType] || originalContent;
+  };
+
   // Add 2 new items for balanced 6-item layout
   const parkingItem: LocationItemProps = {
     _uid: 'temp_parking',
     component: 'location_item',
     icon_type: 'parking',
-    title: 'Ample Parking',
-    content: 'Free on-site parking\\nfor all guests'
+    title: 'Free Parking',
+    content: 'On-site parking\\nfor 150+ vehicles'
   };
 
   const yearRoundItem: LocationItemProps = {
     _uid: 'temp_yearround',
     component: 'location_item',
     icon_type: 'calendar',
-    title: 'Year-Round Venue',
-    content: 'Beautiful weddings\\nin every season'
+    title: 'Year-Round',
+    content: 'All seasons\\navailable'
   };
 
+  // Trim existing items and reorder
+  const trimmedItems = currentItems.map(item => ({
+    ...item,
+    content: trimContent(item.icon_type || '', item.content || '')
+  }));
+
   // Reorder: Address, Parking, Airport, Easy Access, Year-Round, Accommodations
-  const filteredLocationItems = currentItems.length >= 4 ? [
-    currentItems[0], // Address
+  const filteredLocationItems = trimmedItems.length >= 4 ? [
+    trimmedItems[0], // Address
     parkingItem,     // NEW - Position 2 (Middle Left)
-    currentItems[2], // Nearest Airport
-    currentItems[1], // Easy Access From
+    trimmedItems[2], // Nearest Airport
+    trimmedItems[1], // Easy Access From
     yearRoundItem,   // NEW - Position 5 (Middle Right)
-    currentItems[3], // Accommodations
+    trimmedItems[3], // Accommodations
   ] : currentItems;
 
   return (
