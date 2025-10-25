@@ -80,6 +80,7 @@
   padding: 1.5rem !important;
   background: transparent !important;
   transition: all 0.3s ease !important;
+  z-index: 10 !important;
 }
 
 /* Position each item around the circle - 6 items total */
@@ -193,7 +194,7 @@
   height: 650px !important;
   border-radius: 50% !important;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
-  z-index: 1 !important;
+  z-index: 0 !important;
 }
 
 .hotfix-map-embed iframe {
