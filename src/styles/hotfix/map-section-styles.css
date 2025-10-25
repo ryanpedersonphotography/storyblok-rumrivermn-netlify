@@ -58,7 +58,7 @@
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  background: #FFFCF8 !important; /* Cream pearl */
+  background: transparent !important;
   color: #6B4E3D !important; /* Warm walnut */
   position: relative !important;
   border-radius: 20px !important;
@@ -73,7 +73,7 @@
 
 .hotfix-location-item {
   display: flex !important;
-  align-items: flex-start !important;
+  align-items: center !important;
   gap: 1.5rem !important;
   color: #6B4E3D !important; /* Warm walnut */
 }
