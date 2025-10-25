@@ -19,6 +19,59 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Handle smooth scrolling for anchor links with custom animation
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1)
+      const targetElement = document.getElementById(targetId)
+      
+      if (targetElement) {
+        // Use the same custom scroll animation as the hero scroll indicator
+        // Temporarily disable smooth scroll behavior to prevent conflicts
+        const htmlElement = document.documentElement
+        const originalScrollBehavior = htmlElement.style.scrollBehavior
+        htmlElement.style.scrollBehavior = 'auto'
+
+        // Calculate scroll target position
+        const targetPosition = targetElement.offsetTop
+        const start = window.pageYOffset
+        const distance = targetPosition - start
+        const startTime = performance.now()
+        const duration = 850 // 0.85 seconds - same as hero scroll
+
+        // Smooth ease-out-quad for buttery smooth motion
+        const easeOutQuad = (t: number) => {
+          return t * (2 - t)
+        }
+
+        const animateScroll = (currentTime: number) => {
+          const elapsed = currentTime - startTime
+          const progress = Math.min(elapsed / duration, 1)
+          const easeProgress = easeOutQuad(progress)
+
+          window.scrollTo({
+            top: start + distance * easeProgress,
+            behavior: 'auto'
+          })
+
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll)
+          } else {
+            // Restore original scroll behavior
+            htmlElement.style.scrollBehavior = originalScrollBehavior
+          }
+        }
+
+        requestAnimationFrame(animateScroll)
+      }
+    }
+    
+    // Close mobile menu if open
+    setIsMenuOpen(false)
+  }
+
   return (
     <>
       <nav className={`hotfix-navbar ${isScrolled ? 'scrolled' : ''}`}>
@@ -38,10 +91,20 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
                 key={item.href}
                 href={item.href}
                 className="hotfix-navbar-link"
+                onClick={(e) => handleAnchorClick(e, item.href)}
               >
                 {item.label}
               </a>
             ))}
+            {data.show_cta && (
+              <a
+                href={data.cta.url}
+                className="hotfix-navbar-cta"
+                onClick={(e) => handleAnchorClick(e, data.cta.url)}
+              >
+                {data.cta.label}
+              </a>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -78,11 +141,20 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
             key={item.href}
             href={item.href}
             className="hotfix-navbar-link"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={(e) => handleAnchorClick(e, item.href)}
           >
             {item.label}
           </a>
         ))}
+        {data.show_cta && (
+          <a
+            href={data.cta.url}
+            className="hotfix-navbar-cta-mobile"
+            onClick={(e) => handleAnchorClick(e, data.cta.url)}
+          >
+            {data.cta.label}
+          </a>
+        )}
       </div>
 
       {/* Overlay backdrop for mobile menu */}

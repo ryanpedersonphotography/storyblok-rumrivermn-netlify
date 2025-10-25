@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { storyblokEditable } from '@storyblok/react/rsc';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -70,18 +70,20 @@ const historicalData = [
 ];
 
 export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const autoplay = Autoplay({
     delay: 5000,
     stopOnInteraction: false,
-    playOnInit: true,
+    playOnInit: false, // Don't start until visible
   });
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: 'start',
+      align: 'center',
       skipSnaps: false,
       dragFree: false,
       slidesToScroll: 1,
@@ -93,16 +95,40 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+    if (emblaApi) {
+      emblaApi.scrollPrev();
+      // Auto-pause when user interacts
+      const autoplayInstance = emblaApi.plugins()?.autoplay;
+      if (autoplayInstance?.isPlaying()) {
+        autoplayInstance.stop();
+        setIsPlaying(false);
+      }
+    }
   }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    if (emblaApi) {
+      emblaApi.scrollNext();
+      // Auto-pause when user interacts
+      const autoplayInstance = emblaApi.plugins()?.autoplay;
+      if (autoplayInstance?.isPlaying()) {
+        autoplayInstance.stop();
+        setIsPlaying(false);
+      }
+    }
   }, [emblaApi]);
 
   const scrollTo = useCallback(
     (index: number) => {
-      if (emblaApi) emblaApi.scrollTo(index);
+      if (emblaApi) {
+        emblaApi.scrollTo(index);
+        // Auto-pause when user interacts
+        const autoplayInstance = emblaApi.plugins()?.autoplay;
+        if (autoplayInstance?.isPlaying()) {
+          autoplayInstance.stop();
+          setIsPlaying(false);
+        }
+      }
     },
     [emblaApi]
   );
@@ -134,8 +160,42 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
     emblaApi.on('select', onSelect);
   }, [emblaApi, onInit, onSelect]);
 
+  // Intersection Observer - start autoplay when section is visible
+  useEffect(() => {
+    if (!emblaApi || hasStarted) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasStarted) {
+            // Section is visible, start autoplay
+            const autoplayInstance = emblaApi.plugins()?.autoplay;
+            if (autoplayInstance) {
+              autoplayInstance.play();
+              setIsPlaying(true);
+              setHasStarted(true);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [emblaApi, hasStarted]);
+
   return (
     <section
+      id="history"
+      ref={sectionRef}
       className="hotfix-history-section"
       {...storyblokEditable(blok)}
       data-discover="true"
@@ -147,11 +207,79 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
             {blok.script_accent || 'Through the Years'}
           </div>
           <h2 className="hotfix-history-title">
-            {blok.section_title || 'Historical Photo Gallery'}
+            {blok.section_title || 'Journey Through Our History'}
           </h2>
           <p className="hotfix-history-lead">
             {blok.lead_text || 'Authentic photographs from the Selmer family archives spanning 100+ years'}
           </p>
+        </div>
+
+        {/* Timeline Navigation */}
+        <div className="hotfix-timeline-container">
+          <div className="hotfix-timeline-track">
+            {/* Progress bar - centered for sliding window approach */}
+            <div 
+              className="hotfix-timeline-progress" 
+              style={{ width: '50%', left: '25%' }}
+            />
+            
+            {/* SLIDING WINDOW APPROACH (Currently Active):
+                Only shows 10-11 dots at a time, centered on current position.
+                Timeline slides as you navigate through history.
+                Pros: Cleaner, less cluttered, focuses on nearby years
+                Cons: Loses context of full historical scope */}
+            {scrollSnaps.map((_, index) => {
+              const data = historicalData[index] || historicalData[0];
+              const isActive = index === selectedIndex;
+              const distance = Math.abs(index - selectedIndex);
+              const isInWindow = distance <= 5; // Only render dots within 5 positions
+              
+              if (!isInWindow) return null;
+              
+              // Calculate position relative to the visible window
+              const relativePosition = ((index - selectedIndex + 5) / 10) * 100;
+              
+              return (
+                <button
+                  key={index}
+                  className={`hotfix-timeline-marker ${isActive ? 'active' : ''}`}
+                  onClick={() => scrollTo(index)}
+                  aria-label={`Go to ${data.year}`}
+                  style={{ left: `${relativePosition}%` }}
+                >
+                  <span className="hotfix-timeline-year">{data.year}</span>
+                  <span className="hotfix-timeline-dot" />
+                </button>
+              );
+            })}
+            
+            {/* FULL TIMELINE APPROACH (Commented Out):
+                Shows all 31 dots at once for full historical context.
+                Only displays year labels for nearby items to prevent overlap.
+                Pros: See entire timeline journey, understand scope of history
+                Cons: Many dots can look busy on smaller screens
+                
+            {scrollSnaps.map((_, index) => {
+              const data = historicalData[index] || historicalData[0];
+              const isActive = index === selectedIndex;
+              const distance = Math.abs(index - selectedIndex);
+              const showYear = distance <= 2; // Only show year labels for current and 2 on each side
+              
+              return (
+                <button
+                  key={index}
+                  className={`hotfix-timeline-marker ${isActive ? 'active' : ''}`}
+                  onClick={() => scrollTo(index)}
+                  aria-label={`Go to ${data.year}`}
+                  style={{ left: `${(index / (scrollSnaps.length - 1)) * 100}%` }}
+                >
+                  {showYear && <span className="hotfix-timeline-year">{data.year}</span>}
+                  <span className="hotfix-timeline-dot" />
+                </button>
+              );
+            })}
+            */}
+          </div>
         </div>
 
         {/* Carousel Container */}
@@ -187,11 +315,12 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
             <div className="hotfix-embla-container">
               {historyImages.map((imageUrl, index) => {
                 const data = historicalData[index] || historicalData[0];
+                const isCenter = index === selectedIndex;
 
                 return (
                   <div
                     key={index}
-                    className="hotfix-embla-slide"
+                    className={`hotfix-embla-slide ${isCenter ? 'center-slide' : ''}`}
                   >
                     <div className="hotfix-history-card">
                       {/* Image with 5:4 aspect ratio */}
@@ -217,40 +346,6 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Timeline Navigation - Sliding Window */}
-          <div className="hotfix-timeline-container">
-            <div className="hotfix-timeline-track">
-              <div 
-                className="hotfix-timeline-progress" 
-                style={{ width: '50%', left: '25%' }}
-              />
-              {scrollSnaps.map((_, index) => {
-                const data = historicalData[index] || historicalData[0];
-                const isActive = index === selectedIndex;
-                const distance = Math.abs(index - selectedIndex);
-                const isInWindow = distance <= 5; // Only render dots within 5 positions
-                
-                if (!isInWindow) return null;
-                
-                // Calculate position relative to the visible window
-                const relativePosition = ((index - selectedIndex + 5) / 10) * 100;
-                
-                return (
-                  <button
-                    key={index}
-                    className={`hotfix-timeline-marker ${isActive ? 'active' : ''}`}
-                    onClick={() => scrollTo(index)}
-                    aria-label={`Go to ${data.year}`}
-                    style={{ left: `${relativePosition}%` }}
-                  >
-                    <span className="hotfix-timeline-year">{data.year}</span>
-                    <span className="hotfix-timeline-dot" />
-                  </button>
                 );
               })}
             </div>
@@ -299,49 +394,51 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
         /* Carousel Container */
         .hotfix-carousel-container {
           position: relative;
-          margin-top: 3rem;
-          padding: 3rem 5rem 0;
+          padding: 2rem 2rem 0;
         }
 
-        /* Navigation Buttons - Outside Cards */
+        /* Navigation Buttons - Minimal, No Background */
         .hotfix-carousel-nav {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(139, 115, 85, 0.1);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+          background: none;
+          border: none;
+          width: auto;
+          height: auto;
+          padding: 0.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           z-index: 10;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
           transition: all 0.3s ease;
           color: #8b7355;
-          opacity: 0.5;
+          opacity: 0.4;
         }
 
         .hotfix-carousel-container:hover .hotfix-carousel-nav {
-          opacity: 1;
+          opacity: 0.8;
         }
 
         .hotfix-carousel-nav:hover {
-          background: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          transform: translateY(-50%) scale(1.1);
+          transform: translateY(-50%) scale(1.2);
           color: #9D6B7B;
+          opacity: 1;
+        }
+        
+        .hotfix-carousel-nav svg {
+          width: 24px;
+          height: 24px;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .hotfix-carousel-nav.prev {
-          left: 1rem;
+          left: -1.5rem;
         }
 
         .hotfix-carousel-nav.next {
-          right: 1rem;
+          right: -1.5rem;
         }
 
         /* Autoplay Toggle - Small and Subtle */
@@ -388,14 +485,27 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         .hotfix-embla-container {
           display: flex;
-          gap: 1rem;
+          gap: 1.5rem;
         }
 
         .hotfix-embla-slide {
-          flex: 0 0 calc(33.333% - 0.667rem);
+          flex: 0 0 calc(33.333% - 1rem);
           min-width: 320px;
           max-width: 380px;
+          transition: opacity 0.4s ease, transform 0.4s ease;
+          opacity: 0.6;
         }
+        
+        /* Center card is fully visible and slightly elevated */
+        .hotfix-embla-slide.center-slide {
+          opacity: 1;
+          transform: translateY(-4px);
+        }
+        
+        .hotfix-embla-slide.center-slide .hotfix-history-card {
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.12);
+        }
+        
 
 
         /* History Card - Polaroid Style */
@@ -505,8 +615,9 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
         /* Timeline Navigation */
         .hotfix-timeline-container {
-          margin-top: 3rem;
-          padding: 3rem 0 2rem;
+          margin-top: 2rem;
+          margin-bottom: 3rem;
+          padding: 2rem 0;
           position: relative;
           overflow: visible;
         }
@@ -527,6 +638,8 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           background: linear-gradient(90deg, #8b7355 0%, #9D6B7B 100%);
           border-radius: 2px;
           opacity: 0.6;
+          /* Currently using sliding window (width/left set inline)
+             For full timeline approach, use: left: 0; transition: width 0.5s; */
         }
 
         .hotfix-timeline-marker {
@@ -639,7 +752,13 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
           }
 
           .hotfix-embla-slide {
-            flex: 0 0 100%;
+            flex: 0 0 90%;
+            opacity: 0.9;
+          }
+          
+          .hotfix-embla-slide.center-slide {
+            opacity: 1;
+            flex: 0 0 90%;
           }
 
           .hotfix-embla-container {
@@ -682,7 +801,8 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
 
           /* Timeline on mobile */
           .hotfix-timeline-container {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
             padding: 1.5rem 0;
           }
 

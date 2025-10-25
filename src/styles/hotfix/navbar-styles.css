@@ -250,18 +250,61 @@
 .hotfix-navbar-cta {
   background: linear-gradient(135deg, #9D6B7B 0%, #6B4E3D 100%) !important;
   color: white !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 6px !important;
-  font-size: 0.875rem !important;
-  font-weight: 500 !important;
   text-decoration: none !important;
+  padding: 0.625rem 1.25rem !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
   transition: all 0.3s ease !important;
-  white-space: nowrap !important;
+  border: 2px solid transparent !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 4px 12px rgba(157, 107, 123, 0.3) !important;
 }
 
 .hotfix-navbar-cta:hover {
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(157, 107, 123, 0.3) !important;
+  background: transparent !important;
+  color: #9D6B7B !important;
+  border-color: #9D6B7B !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(157, 107, 123, 0.4) !important;
+  text-decoration: none !important;
+}
+
+.hotfix-navbar.scrolled .hotfix-navbar-cta {
+  background: linear-gradient(135deg, #9D6B7B 0%, #6B4E3D 100%) !important;
   color: white !important;
+  border-color: transparent !important;
+}
+
+.hotfix-navbar.scrolled .hotfix-navbar-cta:hover {
+  background: transparent !important;
+  color: #9D6B7B !important;
+  border-color: #9D6B7B !important;
+}
+
+/* Mobile CTA button */
+.hotfix-navbar-cta-mobile {
+  background: linear-gradient(135deg, #9D6B7B 0%, #6B4E3D 100%) !important;
+  color: white !important;
+  text-decoration: none !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+  margin-top: 1rem !important;
+  display: block !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+.hotfix-navbar-cta-mobile:hover {
+  background: linear-gradient(135deg, #8A5D6C 0%, #5A3E31 100%) !important;
+  transform: translateY(-2px) !important;
   text-decoration: none !important;
 }

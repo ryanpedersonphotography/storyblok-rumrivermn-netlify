@@ -1,0 +1,174 @@
+/* RUM RIVER EXPERIENCE SECTION STYLES */
+
+.rum-river-experience {
+  background: #FFFCF8 !important; /* cream-pearl - matches historical photos */
+  padding: 100px 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.experience-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4rem !important;
+  align-items: center !important;
+}
+
+/* Left Panel - Content */
+.experience-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3rem !important;
+}
+
+.experience-header {
+  text-align: left !important;
+}
+
+.experience-script {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: #9D6B7B !important; /* dusty-rose */
+  margin: 0 0 1rem 0 !important;
+}
+
+.experience-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem !important;
+  color: #6B4E3D !important; /* warm-walnut */
+  margin: 0 0 1.5rem 0 !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+}
+
+.experience-description {
+  font-size: 1.125rem !important;
+  line-height: 1.8 !important;
+  color: #6B4E3D !important; /* warm-walnut */
+  opacity: 0.85 !important;
+  margin: 0 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Features Grid */
+.experience-features {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem !important;
+}
+
+.experience-feature {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}
+
+.feature-icon {
+  margin-bottom: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.feature-icon .icon-svg {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  color: #9D6B7B !important; /* dusty-rose */
+  stroke-width: 1.5 !important;
+}
+
+.feature-text h3.feature-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1.125rem !important;
+  color: #6B4E3D !important; /* warm-walnut */
+  margin: 0 0 0.5rem 0 !important;
+  font-weight: 600 !important;
+}
+
+.feature-text p.feature-description {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: #6B4E3D !important; /* warm-walnut */
+  opacity: 0.75 !important;
+  margin: 0 !important;
+}
+
+/* Right Panel - Image */
+.experience-image {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
+  aspect-ratio: 4 / 5 !important;
+}
+
+.experience-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.6s ease !important;
+}
+
+.experience-image:hover .experience-img {
+  transform: scale(1.05) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .experience-container {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  .experience-title {
+    font-size: 2.5rem !important;
+  }
+
+  .experience-image {
+    order: -1 !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .rum-river-experience {
+    padding: 80px 0 !important;
+  }
+
+  .experience-features {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .experience-title {
+    font-size: 2rem !important;
+  }
+
+  .experience-script {
+    font-size: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .rum-river-experience {
+    padding: 60px 0 !important;
+  }
+
+  .experience-container {
+    padding: 0 1rem !important;
+    gap: 2rem !important;
+  }
+
+  .experience-title {
+    font-size: 1.75rem !important;
+  }
+
+  .experience-description {
+    font-size: 1rem !important;
+  }
+}

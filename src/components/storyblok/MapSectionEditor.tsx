@@ -89,6 +89,11 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
 }
 
 export default function MapSectionEditor({ blok }: MapSectionProps) {
+  // Filter out airport and accommodations items
+  const filteredLocationItems = blok.location_items?.filter(
+    (item) => item.icon_type !== 'airport' && item.icon_type !== 'accommodations'
+  ) || [];
+
   return (
     <section
       className="hotfix-map-section"
@@ -96,60 +101,64 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
       data-discover="true"
     >
       <div className="hotfix-map-container">
-        {/* Left Panel - Location Information */}
-        <div className="hotfix-map-info">
-          <div className="hotfix-map-header">
-            <div className="hotfix-script-accent">
-              {blok.script_accent || 'Interactive Location'}
-            </div>
-            <h2 className="hotfix-map-title">
-              {blok.section_title || 'Find Your Way to Forever'}
-            </h2>
-            <p className="hotfix-map-lead">
-              {blok.lead_text || 'Discover our beautiful venue nestled in the heart of Minnesota, where your love story will unfold in perfect harmony with nature.'}
-            </p>
+        {/* Section Header - Full Width */}
+        <div className="hotfix-map-section-header">
+          <div className="hotfix-script-accent">
+            {blok.script_accent || 'Interactive Location'}
           </div>
-
-          <div className="hotfix-location-details">
-            {blok.location_items?.map((item) => (
-              <LocationItem blok={item} key={item._uid} />
-            ))}
-          </div>
+          <h2 className="hotfix-map-section-title">
+            {blok.section_title || 'Find Your Way to Forever'}
+          </h2>
+          <p className="hotfix-map-section-lead">
+            {blok.lead_text || 'Nestled in the heart of Minnesota, where your love story unfolds in perfect harmony.'}
+          </p>
         </div>
 
-        {/* Right Panel - Interactive Map */}
-        <div className="hotfix-map-embed">
-          <iframe
-            src={blok.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2817.8985775673544!2d-93.7851842!3d45.8936111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b39b1c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2s42618%2078th%20St%2C%20Hillman%2C%20MN%2056338!5e0!3m2!1sen!2sus!4v1704067200000!5m2!1sen!2sus'}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
-          />
+        {/* Content Grid */}
+        <div className="hotfix-map-content-grid">
+          {/* Left Panel - Location Information */}
+          <div className="hotfix-map-info">
+            <div className="hotfix-location-details">
+              {filteredLocationItems.map((item) => (
+                <LocationItem blok={item} key={item._uid} />
+              ))}
+            </div>
+          </div>
 
-          <div className="hotfix-map-overlay">
-            <a
-              href={blok.directions_url || 'https://www.google.com/maps/dir//42618+78th+Street,+Hillman,+MN+56338'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hotfix-map-action-btn"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-              </svg>
-              Get Directions
-            </a>
-            <a
-              href={blok.full_map_url || 'https://www.google.com/maps/place/42618+78th+St,+Hillman,+MN+56338'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hotfix-map-action-btn"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-              </svg>
-              Full Map
-            </a>
+          {/* Right Panel - Interactive Map */}
+          <div className="hotfix-map-embed">
+            <iframe
+              src={blok.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2817.8985775673544!2d-93.7851842!3d45.8936111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b39b1c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2s42618%2078th%20St%2C%20Hillman%2C%20MN%2056338!5e0!3m2!1sen!2sus!4v1704067200000!5m2!1sen!2sus'}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
+            />
+
+            <div className="hotfix-map-overlay">
+              <a
+                href={blok.directions_url || 'https://www.google.com/maps/dir//42618+78th+Street,+Hillman,+MN+56338'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hotfix-map-action-btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                Get Directions
+              </a>
+              <a
+                href={blok.full_map_url || 'https://www.google.com/maps/place/42618+78th+St,+Hillman,+MN+56338'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hotfix-map-action-btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                </svg>
+                Full Map
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -79,7 +79,7 @@
 /* Individual Brand Logo Styling */
 .hotfix-brand-logo {
   color: rgba(255, 255, 255, 0.95) !important;
-  font-size: 0.9rem !important; /* 14.4px - slightly larger */
+  font-size: 0.875rem !important;
   letter-spacing: 2.5px !important;
   text-transform: uppercase !important;
   font-family: 'Montserrat', sans-serif !important;

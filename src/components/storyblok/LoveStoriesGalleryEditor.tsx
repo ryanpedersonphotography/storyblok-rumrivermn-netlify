@@ -102,7 +102,7 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
   // Cards will display using gallery_item data, modal opens once weddings load
 
   return (
-    <section className="hotfix-love-stories-gallery" {...storyblokEditable(blok)}>
+    <section id="gallery" className="hotfix-love-stories-gallery" {...storyblokEditable(blok)}>
       <div className="hotfix-love-stories-content">
         <div className="hotfix-love-stories-header">
           <div className="hotfix-script-accent">

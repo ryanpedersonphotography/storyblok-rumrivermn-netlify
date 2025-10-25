@@ -6,15 +6,18 @@ import { StoryblokComponent, loadStoryblokBridge, storyblokInit } from '@storybl
 import Page from '@/components/storyblok/Page'
 import HeroEditor from '@/components/storyblok/HeroEditor'
 import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEditor'
+import RumRiverExperienceEditor from '@/components/storyblok/RumRiverExperienceEditor'
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
 import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
+import FAQAccordionEditor from '@/components/storyblok/FAQAccordionEditor'
 import FooterEditor from '@/components/storyblok/FooterEditor'
 import RealWeddingEditor from '@/components/storyblok/RealWeddingEditor'
 import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEditor'
+import SpacesEditor from '@/components/storyblok/SpacesEditor'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -24,6 +27,7 @@ storyblokInit({
     page: Page,
     home_hero_section: HeroEditor,
     alternating_blocks_section: AlternatingBlocksEditor,
+    rum_river_experience: RumRiverExperienceEditor,
     love_stories_gallery: LoveStoriesGalleryEditor,
     brand_social_proof: BrandSocialProofEditor,
     testimonials_section: TestimonialsEditor,
@@ -33,9 +37,11 @@ storyblokInit({
     schedule_form: ScheduleFormEditor,
     map_section: MapSectionEditor,
     location_item: LocationItem,
+    faq_accordion: FAQAccordionEditor,
     footer_section: FooterEditor,
     real_wedding: RealWeddingEditor,
     featured_weddings_section: FeaturedWeddingsEditor,
+    spaces_section: SpacesEditor,
   },
 })
 
