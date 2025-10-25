@@ -104,15 +104,25 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
   // Show all location items (address, access, airport, accommodations)
   const currentItems = blok.location_items || [];
 
-  // Helper function to trim content to exactly 2 lines
+  // Helper function to trim content and titles to 2 words max
   const trimContent = (iconType: string, originalContent: string): string => {
     const contentMap: { [key: string]: string } = {
       'address': '42618 78th Street\\nHillman, MN 56338',
-      'access': '45 min from Minneapolis\\n30 min from St. Cloud',
-      'airport': 'MSP International\\n55 miles (1 hour)',
-      'accommodations': 'Partner hotels nearby\\nGroup rates available'
+      'access': '45 min from\\nMinneapolis',
+      'airport': 'MSP International\\n55 miles away',
+      'accommodations': 'Partner hotels\\nGroup rates'
     };
     return contentMap[iconType] || originalContent;
+  };
+
+  const trimTitle = (iconType: string, originalTitle: string): string => {
+    const titleMap: { [key: string]: string } = {
+      'address': 'Address',
+      'access': 'Easy Access',
+      'airport': 'Nearest Airport',
+      'accommodations': 'Accommodations'
+    };
+    return titleMap[iconType] || originalTitle;
   };
 
   // Add 2 new items for balanced 6-item layout
@@ -121,7 +131,7 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
     component: 'location_item',
     icon_type: 'parking',
     title: 'Free Parking',
-    content: 'On-site parking\\nfor 150+ vehicles'
+    content: 'On-site parking\\n150+ vehicles'
   };
 
   const yearRoundItem: LocationItemProps = {
@@ -132,9 +142,10 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
     content: 'All seasons\\navailable'
   };
 
-  // Trim existing items and reorder
+  // Trim existing items titles and content, then reorder
   const trimmedItems = currentItems.map(item => ({
     ...item,
+    title: trimTitle(item.icon_type || '', item.title || ''),
     content: trimContent(item.icon_type || '', item.content || '')
   }));
 
