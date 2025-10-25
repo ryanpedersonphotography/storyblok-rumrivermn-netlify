@@ -5,27 +5,197 @@
 > Every color, size, spacing value, and design pattern must be documented here.
 > When in doubt, reference this document. If it's not here, it shouldn't be used.
 
-**Last Updated**: 2025-01-25
-**Version**: 1.0.0
+**Last Updated**: 2025-10-25
+**Version**: 2.0.0 (Phase 2: DTCG + OKLCH)
 **Status**: 🟢 Active
 
 ---
 
 ## 📋 Table of Contents
 
-1. [Design Principles](#design-principles)
-2. [Accessibility & WCAG Compliance](#accessibility--wcag-compliance)
-3. [Color System](#color-system)
-4. [Typography](#typography)
-5. [Spacing System](#spacing-system)
-6. [Layout & Grid](#layout--grid)
-7. [Elevation & Depth](#elevation--depth)
-8. [Border Radius](#border-radius)
-9. [Animation & Motion](#animation--motion)
-10. [Focus Management](#focus-management)
-11. [Component Patterns](#component-patterns)
-12. [Responsive Design](#responsive-design)
-13. [Usage Guidelines](#usage-guidelines)
+1. [Design Token System (DTCG)](#design-token-system-dtcg)
+2. [Color Space (OKLCH)](#color-space-oklch)
+3. [Design Principles](#design-principles)
+4. [Accessibility & WCAG Compliance](#accessibility--wcag-compliance)
+5. [Color System](#color-system)
+6. [Typography](#typography)
+7. [Spacing System](#spacing-system)
+8. [Layout & Grid](#layout--grid)
+9. [Elevation & Depth](#elevation--depth)
+10. [Border Radius](#border-radius)
+11. [Animation & Motion](#animation--motion)
+12. [Focus Management](#focus-management)
+13. [Component Patterns](#component-patterns)
+14. [Responsive Design](#responsive-design)
+15. [Usage Guidelines](#usage-guidelines)
+
+---
+
+## 🎛️ Design Token System (DTCG)
+
+> **New in Phase 2**: Our design system now uses the W3C Design Tokens Community Group (DTCG) format.
+
+### What Are Design Tokens?
+
+Design tokens are the atomic values of our design system - colors, typography, spacing, etc. - stored in a platform-agnostic JSON format that can be transformed into CSS, JavaScript, iOS, Android, or any other platform.
+
+### DTCG Format
+
+Our tokens are stored in [`tokens/design-tokens.json`](./tokens/design-tokens.json) following the [W3C DTCG specification](https://design-tokens.github.io/community-group/format/).
+
+**Example:**
+```json
+{
+  "color": {
+    "brand": {
+      "walnut": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37)",
+        "$description": "Primary brand color - warm brown",
+        "hex-fallback": "#6B4E3D"
+      }
+    }
+  }
+}
+```
+
+### Token Generation Workflow
+
+1. **Edit**: Modify `tokens/design-tokens.json`
+2. **Build**: Run `npm run tokens:build`
+3. **Output**: CSS custom properties generated at `src/styles/tokens/tokens.css`
+4. **Watch**: Use `npm run tokens:watch` for live rebuilding during development
+
+**Build Script:**
+```bash
+npm run tokens:build
+```
+
+This uses [Style Dictionary](https://amzn.github.io/style-dictionary/) v4 to transform DTCG JSON into CSS.
+
+### Token Categories
+
+| Category | Tokens | Purpose |
+|----------|--------|---------|
+| **Color** | `color.brand.*`, `color.neutral.*` | Brand and neutral color palette |
+| **Typography** | `typography.family.*`, `typography.size.*` | Font stacks and sizes |
+| **Spacing** | `space.xs` to `space.5xl` | Margin, padding, gaps |
+| **Radius** | `radius.none` to `radius.full` | Border radius values |
+| **Elevation** | `elevation.0` to `elevation.3` | Box shadows for depth |
+| **Duration** | `duration.fast` to `duration.entrance` | Animation timings |
+| **Focus** | `focus.width`, `focus.offset` | Focus indicator styling |
+
+### Benefits
+
+✅ **Single Source of Truth** - All design values in one JSON file
+✅ **Platform Agnostic** - Generate tokens for any platform
+✅ **Type Safety** - JSON schema validation
+✅ **Semantic Naming** - Token names describe purpose, not appearance
+✅ **Easy Updates** - Change once, update everywhere
+✅ **Automation** - CI/CD integration for token generation
+
+### Token Usage in CSS
+
+```css
+.button {
+  background: var(--color-roles-primary-default);
+  color: var(--color-roles-text-light);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-family: var(--typography-family-sans);
+  box-shadow: var(--elevation-1);
+}
+```
+
+### Future: Multi-Platform Support
+
+With DTCG tokens, we can easily generate:
+- **iOS**: Swift code with UIColor definitions
+- **Android**: XML resources
+- **React Native**: JavaScript constants
+- **Figma**: Sync design tokens bidirectionally
+
+---
+
+## 🌈 Color Space (OKLCH)
+
+> **New in Phase 2**: Our colors use the OKLCH color space with sRGB fallbacks for maximum compatibility.
+
+### What is OKLCH?
+
+**OKLCH** (Lightness, Chroma, Hue) is a perceptually uniform color space designed for humans:
+- **L** (Lightness): 0% (black) to 100% (white)
+- **C** (Chroma): 0 (gray) to 0.4+ (vivid)
+- **H** (Hue): 0-360 degrees around the color wheel
+
+### Why OKLCH?
+
+✅ **Perceptually Uniform** - Equal steps look equally different
+✅ **Wide Gamut** - Access to modern display colors beyond sRGB
+✅ **Predictable** - Adjusting lightness doesn't shift hue
+✅ **Future-Proof** - Native browser support (Chrome 111+, Safari 15.4+, Firefox 113+)
+
+### sRGB Fallbacks
+
+For older browsers, we provide hex color fallbacks:
+
+```css
+:root {
+  /* sRGB Fallback (older browsers) */
+  --color-brand-walnut: #6B4E3D;
+}
+
+@supports (color: oklch(0% 0 0)) {
+  :root {
+    /* OKLCH (modern browsers) */
+    --color-brand-walnut: oklch(53% 0.08 37);
+  }
+}
+```
+
+### Progressive Enhancement
+
+- **Old browsers** (pre-2023): Use sRGB hex colors
+- **Modern browsers** (2023+): Use OKLCH with wider gamut
+- **No breaking changes**: Site works everywhere, looks better on modern displays
+
+### OKLCH Color Examples
+
+| Color | OKLCH | Hex Fallback | Description |
+|-------|-------|--------------|-------------|
+| **Warm Walnut** | `oklch(53% 0.08 37)` | `#6B4E3D` | Primary brand brown |
+| **Dusty Rose** | `oklch(65% 0.06 10)` | `#9D6B7B` | Secondary brand rose |
+| **Cream Pearl** | `oklch(98% 0.01 70)` | `#FFFCF8` | Background cream |
+| **Text Dark** | `oklch(35% 0.03 50)` | `#2C2416` | High-contrast text |
+
+### Converting Colors
+
+**From Hex to OKLCH:**
+Use [OKLCH Color Picker](https://oklch.com/) or [Color.js](https://colorjs.io/apps/convert/)
+
+**Example:**
+- Input: `#6B4E3D`
+- Output: `oklch(53% 0.08 37)`
+
+### Testing OKLCH Support
+
+```javascript
+// Check if browser supports OKLCH
+const supportsOKLCH = CSS.supports('color', 'oklch(0% 0 0)');
+console.log('OKLCH supported:', supportsOKLCH);
+```
+
+### Browser Support
+
+| Browser | Version | Support |
+|---------|---------|---------|
+| **Chrome** | 111+ | ✅ |
+| **Safari** | 15.4+ | ✅ |
+| **Firefox** | 113+ | ✅ |
+| **Edge** | 111+ | ✅ |
+| **Older browsers** | All | ✅ (sRGB fallback) |
+
+**Coverage**: 90%+ of global users (2024 data)
 
 ---
 
