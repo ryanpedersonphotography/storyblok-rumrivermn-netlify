@@ -1,93 +1,99 @@
 /* ============================================================================
-   GLOBAL ICON SYSTEM - Champagne Gold to Dusty Rose Gradient
-   Applied to all content icons on home page (excluding footer navigation)
+   GLOBAL ICON SYSTEM - Simple Dusty Rose Icons
+   Applied to all Heroicons on home page (excluding footer navigation)
    ============================================================================ */
 
 /* 📦 Design Tokens for Icon System */
 :root {
-  /* Icon Gradient - Champagne Gold to Dusty Rose */
-  --icon-gradient-start: #E4C896; /* Champagne gold */
-  --icon-gradient-end: #9D6B7B; /* Dusty rose */
-  --icon-gradient: linear-gradient(135deg, var(--icon-gradient-start) 0%, var(--icon-gradient-end) 100%);
+  /* Icon Color - Dusty Rose */
+  --icon-color: #9D6B7B; /* Dusty rose */
+  --icon-color-hover: #B47A8E; /* Lighter dusty rose on hover */
 
   /* Icon Sizes */
-  --icon-size-sm: 24px;
-  --icon-size-md: 32px;
-  --icon-size-lg: 48px;
-  --icon-size-xl: 50px;
+  --icon-size-sm: 20px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 28px;
+  --icon-size-xl: 32px;
 
-  /* Icon Colors */
-  --icon-color-on-gradient: white;
-
-  /* Icon Shadows */
-  --icon-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-  --icon-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
-  --icon-shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.3);
+  /* Icon Stroke */
+  --icon-stroke-width: 1.5;
+  --icon-stroke-width-thin: 1;
 
   /* Icon Transitions */
   --icon-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ============================================================================
-   ICON CONTAINER STYLES
-   Circular gradient backgrounds for content icons
+   BASE ICON STYLING
+   Thin stroke dusty rose icons with transparent background
    ============================================================================ */
 
-/* Base Icon Container - Used in Map Section, Rum River Experience, Pricing */
+/* All Heroicons - Simple transparent style */
 .icon-container,
 .hotfix-location-icon,
 .feature-icon,
-.check-icon {
-  border-radius: 50%;
-  background: var(--icon-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-color-on-gradient);
-  flex-shrink: 0;
-  box-shadow: var(--icon-shadow-md);
-  transition: var(--icon-transition);
+.check-icon,
+.hotfix-icon,
+.icon-svg {
+  color: var(--icon-color) !important;
+  stroke: var(--icon-color) !important;
+  stroke-width: var(--icon-stroke-width) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: var(--icon-transition) !important;
+  flex-shrink: 0 !important;
 }
 
-/* Hover States */
+/* Hover States - Subtle color brightening */
 .hotfix-location-item:hover .hotfix-location-icon,
+.hotfix-location-item:hover .hotfix-icon,
 .experience-feature:hover .feature-icon,
+.experience-feature:hover .icon-svg,
 .feature-item:hover .check-icon {
-  transform: scale(1.1);
-  box-shadow: var(--icon-shadow-lg);
+  color: var(--icon-color-hover) !important;
+  stroke: var(--icon-color-hover) !important;
+  transform: scale(1.05) !important;
 }
 
 /* ============================================================================
    ICON SIZE VARIANTS
    ============================================================================ */
 
-/* Small Icons (24px) - Used in pricing check marks */
+/* Small Icons (20px) - Used in pricing check marks */
 .check-icon {
-  width: var(--icon-size-sm);
-  height: var(--icon-size-sm);
-  min-width: var(--icon-size-sm);
-  min-height: var(--icon-size-sm);
-  padding: 4px;
+  width: var(--icon-size-sm) !important;
+  height: var(--icon-size-sm) !important;
+  min-width: var(--icon-size-sm) !important;
+  min-height: var(--icon-size-sm) !important;
 }
 
-/* Large Icons (48-50px) - Used in Map & Experience sections */
-.hotfix-location-icon,
-.feature-icon {
-  width: var(--icon-size-xl);
-  height: var(--icon-size-xl);
+/* Medium Icons (24px) - Default size */
+.hotfix-icon,
+.icon-svg {
+  width: var(--icon-size-md) !important;
+  height: var(--icon-size-md) !important;
 }
 
-/* ============================================================================
-   SVG ICON STYLING
-   White stroke icons on gradient backgrounds
-   ============================================================================ */
-
+/* Large Icons (28-32px) - Used in Map & Experience sections */
 .hotfix-location-icon .hotfix-icon,
 .feature-icon .icon-svg {
-  width: 24px;
-  height: 24px;
-  color: var(--icon-color-on-gradient);
-  stroke-width: 1.5;
+  width: var(--icon-size-lg) !important;
+  height: var(--icon-size-lg) !important;
+}
+
+/* Remove any container styling */
+.hotfix-location-icon,
+.feature-icon {
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* ============================================================================
@@ -99,16 +105,18 @@
  * ✅ Map Section (.hotfix-location-icon)
  * ✅ Rum River Experience (.feature-icon)
  * ✅ Pricing Section (.check-icon)
+ * ✅ All Heroicons on home page
  *
  * DOES NOT APPLY TO:
  * ❌ Footer navigation icons
- * ❌ Carousel navigation buttons (ChevronLeft, ChevronRight, Play, Pause)
- * ❌ Other functional UI controls
+ * ❌ Carousel navigation buttons (functional UI controls)
+ * ❌ Other non-Heroicon elements
  *
- * GRADIENT COLORS:
- * Start: #E4C896 (Champagne Gold)
- * End: #9D6B7B (Dusty Rose)
- * Angle: 135deg (diagonal top-left to bottom-right)
+ * STYLE PROPERTIES:
+ * Color: #9D6B7B (Dusty Rose)
+ * Stroke Width: 1.5px (thin stroke)
+ * Background: Transparent (no circular container)
+ * Hover: Slight scale (1.05) + lighter color
  *
  * EXAMPLES:
  *
@@ -116,12 +124,15 @@
  *    <div class="hotfix-location-icon">
  *      <svg class="hotfix-icon">...</svg>
  *    </div>
+ *    Result: 28px dusty rose outline icon, no background
  *
  * 2. Feature Icon (Experience Section):
  *    <div class="feature-icon">
  *      <SparklesIcon className="icon-svg" />
  *    </div>
+ *    Result: 28px dusty rose Heroicon, no background
  *
  * 3. Check Mark (Pricing Section):
  *    <Check className="check-icon" />
+ *    Result: 20px dusty rose check mark, no background
  */

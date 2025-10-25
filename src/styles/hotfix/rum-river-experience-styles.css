@@ -11,11 +11,9 @@
   --accent-color: var(--sage-green, #7A8B7F);
   --dusty-rose: var(--dusty-rose, #9D6B7B);
 
-  /* Icon Styling - Champagne Gold to Dusty Rose Gradient */
-  --icon-size: 50px;
-  --icon-gradient-start: #E4C896; /* Champagne gold */
-  --icon-gradient-end: #9D6B7B; /* Dusty rose */
-  --icon-color: white;
+  /* Icon Styling - Simple Dusty Rose */
+  --icon-size: 28px;
+  --icon-color: #9D6B7B; /* Dusty rose */
 
   /* Visual Style */
   --border-radius: 20px;
@@ -106,28 +104,18 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Circular Icon Container with Gradient Background */
+/* Simple Icon Container - No Background */
 .feature-icon {
-  width: var(--icon-size) !important;
-  height: var(--icon-size) !important;
-  border-radius: 50% !important;
-  background: linear-gradient(135deg, var(--icon-gradient-start), var(--icon-gradient-end)) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
   transition: all var(--animation-duration) var(--animation-easing) !important;
 }
 
-.experience-feature:hover .feature-icon {
-  transform: scale(1.1) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
 .feature-icon .icon-svg {
-  width: 24px !important;
-  height: 24px !important;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
   color: var(--icon-color) !important;
   stroke-width: 1.5 !important;
 }

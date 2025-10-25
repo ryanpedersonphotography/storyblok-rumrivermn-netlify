@@ -79,27 +79,23 @@
 }
 
 .hotfix-location-icon {
-  width: 50px !important;
-  height: 50px !important;
-  background: linear-gradient(135deg, #E4C896 0%, #9D6B7B 100%) !important; /* Champagne gold to dusty rose */
-  border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: white !important;
   flex-shrink: 0 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
   transition: all 0.3s ease !important;
 }
 
-.hotfix-location-item:hover .hotfix-location-icon {
-  transform: scale(1.1) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) !important;
+.hotfix-location-icon .hotfix-icon {
+  width: 28px !important;
+  height: 28px !important;
+  color: #9D6B7B !important; /* Dusty rose */
+  stroke-width: 1.5 !important;
 }
 
-.hotfix-location-icon .hotfix-icon {
-  width: 24px !important;
-  height: 24px !important;
+.hotfix-location-item:hover .hotfix-icon {
+  color: #B47A8E !important; /* Lighter dusty rose */
+  transform: scale(1.05) !important;
 }
 
 .hotfix-location-text h4 {
