@@ -93,7 +93,7 @@
 
 .hotfix-location-item:nth-child(2) {
   top: 50% !important;
-  left: 2% !important;
+  left: 0% !important;
   transform: translateY(-50%) !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
@@ -116,7 +116,7 @@
 
 .hotfix-location-item:nth-child(5) {
   top: 50% !important;
-  right: 2% !important;
+  right: 0% !important;
   transform: translateY(-50%) !important;
   flex-direction: row !important;
   text-align: left !important;
