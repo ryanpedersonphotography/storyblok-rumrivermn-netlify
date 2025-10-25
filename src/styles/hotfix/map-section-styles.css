@@ -200,12 +200,7 @@
 
 /* Floating Action Buttons */
 .hotfix-map-overlay {
-  position: absolute !important;
-  bottom: 2rem !important;
-  right: 2rem !important;
-  z-index: 2 !important;
-  display: flex !important;
-  gap: 1rem !important;
+  display: none !important;
 }
 
 .hotfix-map-action-btn {
