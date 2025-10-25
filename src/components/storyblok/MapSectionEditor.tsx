@@ -110,15 +110,15 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
     component: 'location_item',
     icon_type: 'parking',
     title: 'Ample Parking',
-    content: 'Free on-site parking for 150+ vehicles'
+    content: 'Free on-site parking\\nfor all guests'
   };
 
   const yearRoundItem: LocationItemProps = {
     _uid: 'temp_yearround',
     component: 'location_item',
     icon_type: 'calendar',
-    title: 'Open Year-Round',
-    content: 'Available for weddings and events in every season'
+    title: 'Year-Round Venue',
+    content: 'Beautiful weddings\\nin every season'
   };
 
   // Reorder: Address, Parking, Airport, Easy Access, Year-Round, Accommodations
