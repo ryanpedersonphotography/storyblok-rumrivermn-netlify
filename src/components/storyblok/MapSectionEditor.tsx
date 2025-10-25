@@ -155,7 +155,7 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
           {/* Right Panel - Interactive Map */}
           <div className="hotfix-map-embed" ref={mapEmbedRef}>
             <iframe
-              src={blok.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2817.8985775673544!2d-93.7851842!3d45.8936111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b39b1c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2s42618%2078th%20St%2C%20Hillman%2C%20MN%2056338!5e0!3m2!1sen!2sus!4v1704067200000!5m2!1sen!2sus'}
+              src={blok.map_embed_url || 'https://www.google.com/maps?q=45.8936111,-93.7851842&hl=en&z=14&output=embed'}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
