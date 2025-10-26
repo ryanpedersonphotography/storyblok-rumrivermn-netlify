@@ -69,8 +69,7 @@ export function MapSection() {
             <div className="hotfix-script-accent">Interactive Location</div>
             <h2 className="hotfix-map-title">Find Your Way to Forever</h2>
             <p className="hotfix-map-lead">
-              Discover our beautiful venue nestled in the heart of Minnesota, 
-              where your love story will unfold in perfect harmony with nature.
+              Discover our beautiful venue nestled in the heart of Minnesota.
             </p>
           </div>
           
