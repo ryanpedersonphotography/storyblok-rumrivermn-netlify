@@ -50,10 +50,11 @@
   --map-size: 650px;
   --flush-offset: -12px; /* negative = overlap with circle */
   grid-template-columns: 1fr min-content 1fr !important;
-  grid-template-rows: 1fr 1fr 1fr !important;
+  grid-template-rows: repeat(3, calc(var(--map-size) / 3)) !important; /* exact thirds */
+  height: var(--map-size) !important; /* match circle height */
   column-gap: 0 !important;
-  row-gap: 2rem !important;
-  align-items: center !important;
+  row-gap: 0 !important; /* zero gap for flush vertical alignment */
+  align-content: center !important;
   justify-content: center !important;
   padding: 4rem 0 !important;
 }
@@ -71,53 +72,71 @@
 }
 
 /* Left Column - Items 1, 2, 3 with flush offset */
-.hotfix-location-item:nth-of-type(-n+3) {
+/* Using nth-child with class filter to avoid counting the map div */
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(-n+3) {
   grid-column: 1 !important;
   justify-self: end !important;
   flex-direction: row-reverse !important;
   text-align: right !important;
   transform: translateX(var(--flush-offset)) !important;
+  align-self: center !important; /* default for middle row */
 }
 
-.hotfix-location-item:nth-of-type(1) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(1) {
   grid-row: 1 !important;
+  align-self: start !important; /* flush with circle top */
+  padding-top: 0 !important; /* remove padding for optical touch */
+  padding-bottom: 0 !important;
 }
 
-.hotfix-location-item:nth-of-type(2) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(2) {
   grid-row: 2 !important;
+  /* align-self: center inherited from parent rule */
 }
 
-.hotfix-location-item:nth-of-type(3) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(3) {
   grid-row: 3 !important;
+  align-self: end !important; /* flush with circle bottom */
+  padding-top: 0 !important; /* remove padding for optical touch */
+  padding-bottom: 0 !important;
 }
 
 /* Right Column - Items 4, 5, 6 with flush offset */
-.hotfix-location-item:nth-of-type(n+4) {
+/* Map div is nth-child(4), so items 4-6 become nth-child(5-7) */
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(n+5) {
   grid-column: 3 !important;
   justify-self: start !important;
   flex-direction: row !important;
   text-align: left !important;
   transform: translateX(calc(var(--flush-offset) * -1)) !important;
+  align-self: center !important; /* default for middle row */
 }
 
-.hotfix-location-item:nth-of-type(4) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(5) {
   grid-row: 1 !important;
+  align-self: start !important; /* flush with circle top */
+  padding-top: 0 !important; /* remove padding for optical touch */
+  padding-bottom: 0 !important;
 }
 
-.hotfix-location-item:nth-of-type(5) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(6) {
   grid-row: 2 !important;
+  /* align-self: center inherited from parent rule */
 }
 
-.hotfix-location-item:nth-of-type(6) {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(7) {
   grid-row: 3 !important;
+  align-self: end !important; /* flush with circle bottom */
+  padding-top: 0 !important; /* remove padding for optical touch */
+  padding-bottom: 0 !important;
 }
 
 /* Hover states - preserve horizontal offset while lifting */
-.hotfix-location-item:nth-of-type(-n+3):hover {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(-n+3):hover {
   transform: translateX(var(--flush-offset)) translateY(-4px) !important;
 }
 
-.hotfix-location-item:nth-of-type(n+4):hover {
+.hotfix-map-content-grid > .hotfix-location-item:nth-child(n+5):hover {
   transform: translateX(calc(var(--flush-offset) * -1)) translateY(-4px) !important;
 }
 
@@ -260,17 +279,18 @@
   }
 
   /* Reset transforms on mobile */
-  .hotfix-location-item:nth-of-type(-n+3),
-  .hotfix-location-item:nth-of-type(n+4) {
+  .hotfix-map-content-grid > .hotfix-location-item:nth-child(-n+3),
+  .hotfix-map-content-grid > .hotfix-location-item:nth-child(n+5) {
     grid-column: 1 !important;
     justify-self: center !important;
     flex-direction: row !important;
     text-align: left !important;
     transform: none !important;
+    padding: 0.5rem 0 !important; /* restore padding on mobile */
   }
 
-  .hotfix-location-item:nth-of-type(-n+3):hover,
-  .hotfix-location-item:nth-of-type(n+4):hover {
+  .hotfix-map-content-grid > .hotfix-location-item:nth-child(-n+3):hover,
+  .hotfix-map-content-grid > .hotfix-location-item:nth-child(n+5):hover {
     transform: translateY(-4px) !important;
   }
 
