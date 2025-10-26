@@ -179,18 +179,14 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
           </p>
         </div>
 
-        {/* Content Grid */}
+        {/* Content Grid - Direct children for proper grid placement */}
         <div className="hotfix-map-content-grid">
-          {/* Left Panel - Location Information */}
-          <div className="hotfix-map-info">
-            <div className="hotfix-location-details">
-              {filteredLocationItems.map((item) => (
-                <LocationItem blok={item} key={item._uid} />
-              ))}
-            </div>
-          </div>
+          {/* Items 1-3: Left column */}
+          {filteredLocationItems.slice(0, 3).map((item) => (
+            <LocationItem blok={item} key={item._uid} />
+          ))}
 
-          {/* Right Panel - Interactive Map */}
+          {/* Circular Map - Center column, spans 3 rows */}
           <div className="hotfix-map-embed">
             <iframe
               src={blok.map_embed_url || 'https://www.google.com/maps?q=45.8936111,-93.7851842&hl=en&z=14&output=embed'}
@@ -198,33 +194,12 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
               referrerPolicy="no-referrer-when-downgrade"
               title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
             />
-
-            <div className="hotfix-map-overlay">
-              <a
-                href={blok.directions_url || 'https://www.google.com/maps/dir//42618+78th+Street,+Hillman,+MN+56338'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hotfix-map-action-btn"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                </svg>
-                Get Directions
-              </a>
-              <a
-                href={blok.full_map_url || 'https://www.google.com/maps/place/42618+78th+St,+Hillman,+MN+56338'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hotfix-map-action-btn"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-                </svg>
-                Full Map
-              </a>
-            </div>
           </div>
+
+          {/* Items 4-6: Right column */}
+          {filteredLocationItems.slice(3, 6).map((item) => (
+            <LocationItem blok={item} key={item._uid} />
+          ))}
         </div>
       </div>
     </section>

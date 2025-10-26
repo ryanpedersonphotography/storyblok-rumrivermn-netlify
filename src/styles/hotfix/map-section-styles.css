@@ -44,24 +44,17 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Content Grid - 3 columns x 3 rows */
+/* Content Grid - 3 columns x 3 rows, flush to circle */
 .hotfix-map-content-grid {
   display: grid !important;
-  grid-template-columns: 1fr auto 1fr !important;
-  grid-template-rows: auto auto auto !important;
-  gap: 3rem !important;
+  --map-size: 650px;
+  grid-template-columns: 1fr var(--map-size) 1fr !important;
+  grid-template-rows: 1fr 1fr 1fr !important;
+  column-gap: 0 !important;
+  row-gap: 2rem !important;
   align-items: center !important;
+  justify-items: center !important;
   padding: 4rem 0 !important;
-}
-
-/* Left Panel - Location Information */
-.hotfix-map-info {
-  display: contents !important;
-}
-
-/* Location Details - Split into left and right columns */
-.hotfix-location-details {
-  display: contents !important;
 }
 
 /* Common location item styling */
@@ -71,13 +64,13 @@
   gap: 1rem !important;
   color: #6B4E3D !important;
   max-width: 320px !important;
-  padding: 1rem !important;
+  padding: 0.5rem 0 !important;
   background: transparent !important;
   transition: all 0.3s ease !important;
 }
 
 /* Left Column - Items 1, 2, 3 in rows 1, 2, 3 */
-.hotfix-location-item:nth-child(1) {
+.hotfix-location-item:nth-of-type(1) {
   grid-column: 1 !important;
   grid-row: 1 !important;
   justify-self: end !important;
@@ -85,7 +78,7 @@
   text-align: right !important;
 }
 
-.hotfix-location-item:nth-child(2) {
+.hotfix-location-item:nth-of-type(2) {
   grid-column: 1 !important;
   grid-row: 2 !important;
   justify-self: end !important;
@@ -93,7 +86,7 @@
   text-align: right !important;
 }
 
-.hotfix-location-item:nth-child(3) {
+.hotfix-location-item:nth-of-type(3) {
   grid-column: 1 !important;
   grid-row: 3 !important;
   justify-self: end !important;
@@ -102,7 +95,7 @@
 }
 
 /* Right Column - Items 4, 5, 6 in rows 1, 2, 3 */
-.hotfix-location-item:nth-child(4) {
+.hotfix-location-item:nth-of-type(4) {
   grid-column: 3 !important;
   grid-row: 1 !important;
   justify-self: start !important;
@@ -110,7 +103,7 @@
   text-align: left !important;
 }
 
-.hotfix-location-item:nth-child(5) {
+.hotfix-location-item:nth-of-type(5) {
   grid-column: 3 !important;
   grid-row: 2 !important;
   justify-self: start !important;
@@ -118,7 +111,7 @@
   text-align: left !important;
 }
 
-.hotfix-location-item:nth-child(6) {
+.hotfix-location-item:nth-of-type(6) {
   grid-column: 3 !important;
   grid-row: 3 !important;
   justify-self: start !important;
@@ -179,22 +172,20 @@
 .hotfix-map-embed {
   grid-column: 2 !important;
   grid-row: 1 / 4 !important;
-  position: relative !important;
-  overflow: hidden !important;
-  background: #7A8B7F !important; /* Sage green */
-  width: 650px !important;
-  height: 650px !important;
+  width: var(--map-size) !important;
+  height: var(--map-size) !important;
   border-radius: 50% !important;
+  overflow: hidden !important;
+  place-self: center !important;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
-  align-self: center !important;
-  justify-self: center !important;
 }
 
 .hotfix-map-embed iframe {
   width: 100% !important;
   height: 100% !important;
-  border: none !important;
+  border: 0 !important;
   display: block !important;
+  border-radius: 50% !important;
 }
 
 /* Floating Action Buttons */
@@ -253,55 +244,35 @@
 @media (max-width: 1024px) {
   .hotfix-map-content-grid {
     grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    grid-template-rows: auto auto !important;
+    row-gap: 2rem !important;
   }
 
-  .hotfix-map-info {
-    display: block !important;
-  }
-
-  .hotfix-location-details {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1.5rem !important;
+  .hotfix-map-embed {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    --map-size: 400px;
+    margin-inline: auto !important;
   }
 
   .hotfix-location-item {
     max-width: 100% !important;
-    justify-self: stretch !important;
   }
 
-  .hotfix-location-item:nth-child(1),
-  .hotfix-location-item:nth-child(2),
-  .hotfix-location-item:nth-child(3),
-  .hotfix-location-item:nth-child(4),
-  .hotfix-location-item:nth-child(5),
-  .hotfix-location-item:nth-child(6) {
+  .hotfix-location-item:nth-of-type(1),
+  .hotfix-location-item:nth-of-type(2),
+  .hotfix-location-item:nth-of-type(3),
+  .hotfix-location-item:nth-of-type(4),
+  .hotfix-location-item:nth-of-type(5),
+  .hotfix-location-item:nth-of-type(6) {
     grid-column: 1 !important;
+    justify-self: center !important;
     flex-direction: row !important;
     text-align: left !important;
   }
 
   .hotfix-map-section-title {
     font-size: 2.5rem !important;
-  }
-
-  .hotfix-map-embed {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    width: 400px !important;
-    height: 400px !important;
-    margin: 0 auto !important;
-  }
-
-  .hotfix-map-overlay {
-    bottom: 1rem !important;
-    right: 1rem !important;
-    flex-direction: column !important;
-  }
-
-  .hotfix-map-action-btn {
-    justify-content: center !important;
   }
 }
 
