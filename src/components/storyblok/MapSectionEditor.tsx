@@ -55,6 +55,18 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
           </svg>
         );
+      case 'parking':
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125v-3.5m-9.75 0H15m-7.5 0h3m-3.75 0h.375c.621 0 1.125-.504 1.125-1.125V9.75c0-.621-.504-1.125-1.125-1.125H6.75a1.125 1.125 0 0 0-1.125 1.125v1.125c0 .621.504 1.125 1.125 1.125Zm10.5-11.25h.375c.621 0 1.125.504 1.125 1.125v7.5c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125v-7.5c0-.621.504-1.125 1.125-1.125h9.75Z" />
+          </svg>
+        );
+      case 'calendar':
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+          </svg>
+        );
       default:
         return (
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon">
@@ -89,6 +101,64 @@ function LocationItem({ blok }: { blok: LocationItemProps }) {
 }
 
 export default function MapSectionEditor({ blok }: MapSectionProps) {
+  // Show all location items (address, access, airport, accommodations)
+  const currentItems = blok.location_items || [];
+
+  // Helper function to trim content and titles to 2 words max
+  const trimContent = (iconType: string, originalContent: string): string => {
+    const contentMap: { [key: string]: string } = {
+      'address': '42618 78th Street\\nHillman, MN 56338',
+      'access': '45 min from\\nMinneapolis',
+      'airport': 'MSP International\\n55 miles away',
+      'accommodations': 'Partner hotels\\nGroup rates'
+    };
+    return contentMap[iconType] || originalContent;
+  };
+
+  const trimTitle = (iconType: string, originalTitle: string): string => {
+    const titleMap: { [key: string]: string } = {
+      'address': 'Address',
+      'access': 'Easy Access',
+      'airport': 'Nearest Airport',
+      'accommodations': 'Accommodations'
+    };
+    return titleMap[iconType] || originalTitle;
+  };
+
+  // Add 2 new items for balanced 6-item layout
+  const parkingItem: LocationItemProps = {
+    _uid: 'temp_parking',
+    component: 'location_item',
+    icon_type: 'parking',
+    title: 'Free Parking',
+    content: 'On-site parking\\n150+ vehicles'
+  };
+
+  const yearRoundItem: LocationItemProps = {
+    _uid: 'temp_yearround',
+    component: 'location_item',
+    icon_type: 'calendar',
+    title: 'Year-Round',
+    content: 'All seasons\\navailable'
+  };
+
+  // Trim existing items titles and content, then reorder
+  const trimmedItems = currentItems.map(item => ({
+    ...item,
+    title: trimTitle(item.icon_type || '', item.title || ''),
+    content: trimContent(item.icon_type || '', item.content || '')
+  }));
+
+  // Reorder: Address, Parking, Airport, Easy Access, Year-Round, Accommodations
+  const filteredLocationItems = trimmedItems.length >= 4 ? [
+    trimmedItems[0], // Address
+    parkingItem,     // NEW - Position 2 (Middle Left)
+    trimmedItems[2], // Nearest Airport
+    trimmedItems[1], // Easy Access From
+    yearRoundItem,   // NEW - Position 5 (Middle Right)
+    trimmedItems[3], // Accommodations
+  ] : currentItems;
+
   return (
     <section
       className="hotfix-map-section"
@@ -96,61 +166,40 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
       data-discover="true"
     >
       <div className="hotfix-map-container">
-        {/* Left Panel - Location Information */}
-        <div className="hotfix-map-info">
-          <div className="hotfix-map-header">
-            <div className="hotfix-script-accent">
-              {blok.script_accent || 'Interactive Location'}
-            </div>
-            <h2 className="hotfix-map-title">
-              {blok.section_title || 'Find Your Way to Forever'}
-            </h2>
-            <p className="hotfix-map-lead">
-              {blok.lead_text || 'Discover our beautiful venue nestled in the heart of Minnesota, where your love story will unfold in perfect harmony with nature.'}
-            </p>
+        {/* Section Header - Full Width */}
+        <div className="hotfix-map-section-header">
+          <div className="hotfix-script-accent">
+            {blok.script_accent || 'Interactive Location'}
           </div>
-
-          <div className="hotfix-location-details">
-            {blok.location_items?.map((item) => (
-              <LocationItem blok={item} key={item._uid} />
-            ))}
-          </div>
+          <h2 className="hotfix-map-section-title">
+            {blok.section_title || 'Find Your Way to Forever'}
+          </h2>
+          <p className="hotfix-map-section-lead">
+            {blok.lead_text || 'Nestled in the heart of Minnesota, where your love story unfolds in perfect harmony.'}
+          </p>
         </div>
 
-        {/* Right Panel - Interactive Map */}
-        <div className="hotfix-map-embed">
-          <iframe
-            src={blok.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2817.8985775673544!2d-93.7851842!3d45.8936111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52b39b1c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2s42618%2078th%20St%2C%20Hillman%2C%20MN%2056338!5e0!3m2!1sen!2sus!4v1704067200000!5m2!1sen!2sus'}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
-          />
+        {/* Content Grid - Direct children for proper grid placement */}
+        <div className="hotfix-map-content-grid">
+          {/* Items 1-3: Left column */}
+          {filteredLocationItems.slice(0, 3).map((item) => (
+            <LocationItem blok={item} key={item._uid} />
+          ))}
 
-          <div className="hotfix-map-overlay">
-            <a
-              href={blok.directions_url || 'https://www.google.com/maps/dir//42618+78th+Street,+Hillman,+MN+56338'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hotfix-map-action-btn"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-              </svg>
-              Get Directions
-            </a>
-            <a
-              href={blok.full_map_url || 'https://www.google.com/maps/place/42618+78th+St,+Hillman,+MN+56338'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hotfix-map-action-btn"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="hotfix-icon-sm">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-              </svg>
-              Full Map
-            </a>
+          {/* Circular Map - Center column, spans 3 rows */}
+          <div className="hotfix-map-embed">
+            <iframe
+              src={blok.map_embed_url || 'https://www.google.com/maps?q=45.8936111,-93.7851842&hl=en&z=14&output=embed'}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Rum River Barn Location - 42618 78th Street, Hillman, MN 56338"
+            />
           </div>
+
+          {/* Items 4-6: Right column */}
+          {filteredLocationItems.slice(3, 6).map((item) => (
+            <LocationItem blok={item} key={item._uid} />
+          ))}
         </div>
       </div>
     </section>

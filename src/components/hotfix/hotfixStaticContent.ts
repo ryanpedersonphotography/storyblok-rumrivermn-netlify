@@ -5,14 +5,13 @@ export const hotfixNavbar = {
   style_variant: "transparent",   // "solid" | "transparent" | "sticky"
   tone: "default" as const,
   show_cta: true,
-  cta: { url: "/schedule-tour", label: "Schedule Tour" },
+  cta: { url: "#contact", label: "Schedule Tour" },
   items: [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Venue", href: "/venue" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Packages", href: "/packages" },
-    { label: "Contact", href: "/contact" },
+    { label: "Venue", href: "#venue" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "History", href: "#history" },
+    { label: "Packages", href: "#packages" },
+    { label: "Contact", href: "#contact" },
   ] as HotfixNavItem[],
 }
 

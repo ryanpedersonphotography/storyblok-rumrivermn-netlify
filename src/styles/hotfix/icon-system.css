@@ -1,0 +1,139 @@
+/* ============================================================================
+   GLOBAL ICON SYSTEM - Simple Dusty Rose Icons
+   Applied to all Heroicons on home page (excluding footer navigation)
+   ============================================================================ */
+
+/* 📦 Design Tokens for Icon System - Fully Tokenized */
+:root {
+  /* Icon Colors - from theme tokens */
+  --icon-color: var(--theme-accent-rose);
+  --icon-color-hover: color-mix(in srgb, var(--theme-accent-rose) 82%, var(--theme-text-on-dark) 18%);
+  --icon-muted: var(--theme-text-muted);
+
+  /* Icon Sizes */
+  --icon-size-sm: 20px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 28px;
+  --icon-size-xl: 32px;
+
+  /* Icon Stroke */
+  --icon-stroke-width: 1.5;
+  --icon-stroke-width-thin: 1;
+
+  /* Icon Transitions */
+  --icon-transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+/* ============================================================================
+   BASE ICON STYLING
+   Thin stroke dusty rose icons with transparent background
+   ============================================================================ */
+
+/* All Heroicons - Simple transparent style */
+.icon-container,
+.hotfix-location-icon,
+.feature-icon,
+.check-icon,
+.hotfix-icon,
+.icon-svg {
+  color: var(--icon-color) !important;
+  stroke: var(--icon-color) !important;
+  stroke-width: var(--icon-stroke-width) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: var(--icon-transition) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hover States - Subtle color brightening */
+.hotfix-location-item:hover .hotfix-location-icon,
+.hotfix-location-item:hover .hotfix-icon,
+.experience-feature:hover .feature-icon,
+.experience-feature:hover .icon-svg,
+.feature-item:hover .check-icon {
+  color: var(--icon-color-hover) !important;
+  stroke: var(--icon-color-hover) !important;
+  transform: scale(1.05) !important;
+}
+
+/* ============================================================================
+   ICON SIZE VARIANTS
+   ============================================================================ */
+
+/* Small Icons (20px) - Used in pricing check marks */
+.check-icon {
+  width: var(--icon-size-sm) !important;
+  height: var(--icon-size-sm) !important;
+  min-width: var(--icon-size-sm) !important;
+  min-height: var(--icon-size-sm) !important;
+}
+
+/* Medium Icons (24px) - Default size */
+.hotfix-icon,
+.icon-svg {
+  width: var(--icon-size-md) !important;
+  height: var(--icon-size-md) !important;
+}
+
+/* Large Icons (28-32px) - Used in Map & Experience sections */
+.hotfix-location-icon .hotfix-icon,
+.feature-icon .icon-svg {
+  width: var(--icon-size-lg) !important;
+  height: var(--icon-size-lg) !important;
+}
+
+/* Remove any container styling */
+.hotfix-location-icon,
+.feature-icon {
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ============================================================================
+   USAGE NOTES
+   ============================================================================ */
+
+/*
+ * APPLIES TO:
+ * ✅ Map Section (.hotfix-location-icon)
+ * ✅ Rum River Experience (.feature-icon)
+ * ✅ Pricing Section (.check-icon)
+ * ✅ All Heroicons on home page
+ *
+ * DOES NOT APPLY TO:
+ * ❌ Footer navigation icons
+ * ❌ Carousel navigation buttons (functional UI controls)
+ * ❌ Other non-Heroicon elements
+ *
+ * STYLE PROPERTIES:
+ * Color: #9D6B7B (Dusty Rose)
+ * Stroke Width: 1.5px (thin stroke)
+ * Background: Transparent (no circular container)
+ * Hover: Slight scale (1.05) + lighter color
+ *
+ * EXAMPLES:
+ *
+ * 1. Location Pin Icon (Map Section):
+ *    <div class="hotfix-location-icon">
+ *      <svg class="hotfix-icon">...</svg>
+ *    </div>
+ *    Result: 28px dusty rose outline icon, no background
+ *
+ * 2. Feature Icon (Experience Section):
+ *    <div class="feature-icon">
+ *      <SparklesIcon className="icon-svg" />
+ *    </div>
+ *    Result: 28px dusty rose Heroicon, no background
+ *
+ * 3. Check Mark (Pricing Section):
+ *    <Check className="check-icon" />
+ *    Result: 20px dusty rose check mark, no background
+ */

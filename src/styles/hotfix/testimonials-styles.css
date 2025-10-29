@@ -1,7 +1,7 @@
 /* TESTIMONIALS SECTION STYLES - Extracted from hotfix-site.css */
 
 .hotfix-social-proof {
-  background: #F4E4E1 !important; /* Same blush pink as love stories */
+  background: var(--theme-bg-secondary, #F4E4E1) !important;
   padding: 100px 0 !important;
   min-height: 100vh !important;
 
@@ -28,7 +28,7 @@
 .hotfix-social-proof-header .hotfix-script-accent {
   font-family: 'Dancing Script', cursive !important;
   font-size: 1.75rem !important;
-  color: #9D6B7B !important;
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   margin-bottom: 1rem !important;
   display: block !important;
 }
@@ -36,14 +36,14 @@
 .hotfix-social-proof-header .hotfix-social-section-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
-  color: #6B4E3D !important;
+  color: var(--theme-text-primary, #6B4E3D) !important;
   margin: 0 0 1.5rem 0 !important;
 }
 
 .hotfix-social-proof-header .hotfix-social-lead {
   font-size: 1.25rem !important;
   line-height: 1.7 !important;
-  color: #2C2416 !important;
+  color: var(--theme-text-secondary, #2C2416) !important;
   opacity: 0.9 !important;
   max-width: 600px !important;
   margin: 0 auto !important;
@@ -60,12 +60,13 @@
 
 /* HOTFIX: Testimonial Card */
 .hotfix-testimonial-card {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background: color-mix(in srgb, var(--theme-bg-card, #FFFFFF) 85%, transparent) !important;
   backdrop-filter: blur(20px) saturate(1.2) !important;
   padding: 2.5rem !important;
   border-radius: 12px !important;
   text-align: center !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: var(--theme-shadow-sm, 0 4px 20px rgba(0, 0, 0, 0.08)) !important;
+  border: 1px solid var(--theme-border-subtle, transparent) !important;
   transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   position: relative !important;
   overflow: hidden !important;
@@ -76,7 +77,8 @@
 
 .hotfix-testimonial-card:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: var(--theme-shadow-md, 0 20px 40px rgba(0, 0, 0, 0.15)) !important;
+  border-color: var(--theme-border-medium, rgba(0, 0, 0, 0.12)) !important;
 }
 
 /* HOTFIX: Card Underline Animation */
@@ -86,7 +88,7 @@
   left: 0 !important;
   width: 0 !important;
   height: 3px !important;
-  background: #E4C896 !important; /* champagne gold */
+  background: var(--theme-accent-gold, #E4C896) !important;
   transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
@@ -99,7 +101,7 @@
   font-family: 'Playfair Display', serif !important;
   font-size: 1.125rem !important;
   line-height: 1.6 !important;
-  color: #6B4E3D !important;
+  color: var(--theme-text-primary, #6B4E3D) !important;
   font-style: italic !important;
   margin: 0 0 2rem 0 !important;
   position: relative !important;
@@ -118,7 +120,7 @@
 .hotfix-star {
   width: 20px !important;
   height: 20px !important;
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   transition: all 0.3s ease !important;
 }
 
@@ -153,7 +155,7 @@
 .hotfix-avatar-overlay {
   position: absolute !important;
   inset: 0 !important;
-  background: radial-gradient(circle at center, rgba(228, 200, 150, 0.3) 0%, transparent 70%) !important;
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--theme-accent-gold, #E4C896) 30%, transparent) 0%, transparent 70%) !important;
   opacity: 0 !important;
   transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   border-radius: 50% !important;
@@ -168,13 +170,13 @@
   font-family: 'Playfair Display', serif !important;
   font-size: 1.125rem !important;
   font-weight: 600 !important;
-  color: #9D6B7B !important;
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   margin-bottom: 0.5rem !important;
 }
 
 /* HOTFIX: Gallery CTA */
 .hotfix-wedding-gallery-cta {
-  color: #9D6B7B !important;
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   opacity: 0 !important;
   font-size: 0.875rem !important;
   font-weight: 500 !important;
@@ -216,5 +218,117 @@
 
   .hotfix-social-proof-header .hotfix-social-section-title {
     font-size: 2rem !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"])
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .hotfix-social-proof {
+  background: var(--theme-bg-primary, #1A1410) !important;
+}
+
+html[data-theme="dark"] .hotfix-social-proof-header .hotfix-script-accent {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .hotfix-social-proof-header .hotfix-social-section-title {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .hotfix-social-proof-header .hotfix-social-lead {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .hotfix-testimonial-card {
+  background: var(--theme-bg-card, #3D2F22) !important;
+  border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08)) !important;
+  box-shadow: var(--theme-shadow-dark-sm, 0 4px 20px rgba(0, 0, 0, 0.4)) !important;
+}
+
+html[data-theme="dark"] .hotfix-testimonial-card:hover {
+  box-shadow: var(--theme-shadow-dark-md, 0 20px 40px rgba(0, 0, 0, 0.6)) !important;
+  border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+}
+
+html[data-theme="dark"] .hotfix-testimonial-card blockquote {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .hotfix-star {
+  color: var(--theme-accent-gold, #F0D9A8) !important;
+}
+
+html[data-theme="dark"] .hotfix-couple-name {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .hotfix-wedding-gallery-cta {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .hotfix-card-underline {
+  background: var(--theme-accent-gold, #F0D9A8) !important;
+}
+
+html[data-theme="dark"] .hotfix-avatar-overlay {
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 30%, transparent) 0%, transparent 70%) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hotfix-social-proof {
+    background: var(--theme-bg-primary, #1A1410) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-social-proof-header .hotfix-script-accent {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-social-proof-header .hotfix-social-section-title {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-social-proof-header .hotfix-social-lead {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-testimonial-card {
+    background: var(--theme-bg-card, #3D2F22) !important;
+    border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08)) !important;
+    box-shadow: var(--theme-shadow-dark-sm, 0 4px 20px rgba(0, 0, 0, 0.4)) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-testimonial-card:hover {
+    box-shadow: var(--theme-shadow-dark-md, 0 20px 40px rgba(0, 0, 0, 0.6)) !important;
+    border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-testimonial-card blockquote {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-star {
+    color: var(--theme-accent-gold, #F0D9A8) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-couple-name {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-wedding-gallery-cta {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-card-underline {
+    background: var(--theme-accent-gold, #F0D9A8) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-avatar-overlay {
+    background: radial-gradient(circle at center, color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 30%, transparent) 0%, transparent 70%) !important;
   }
 }

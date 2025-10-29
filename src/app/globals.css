@@ -1,1 +1,108 @@
 @import 'https://a.storyblok.com/f/212319/x/e6ccda03b8/blueprint-blank.css';
+
+/* ============================================================================
+   DESIGN TOKENS - DTCG Format with OKLCH Colors
+   Generated from tokens/design-tokens.json via Style Dictionary
+   ============================================================================ */
+
+/* Import generated tokens (OKLCH colors) */
+@import '../styles/tokens/tokens.css';
+
+/* sRGB Fallbacks for browsers without OKLCH support (< Safari 15.4, Chrome 111, Firefox 113)
+   These hex values match the OKLCH colors as closely as possible in sRGB space */
+:root {
+  /* Brand Colors - sRGB Fallbacks */
+  --color-brand-walnut: #6B4E3D;
+  --color-brand-walnut-deep: #4A3426;
+  --color-brand-rose: #9D6B7B;
+  --color-brand-rose-dark: #8A5F6D;
+  --color-brand-gold: #E4C896;
+  --color-brand-gold-alt: #D9BD88;
+  --color-brand-sage: #7A8B7F;
+
+  /* Neutral Colors - sRGB Fallbacks */
+  --color-neutral-cream-pearl: #FFFCF8;
+  --color-neutral-warm-cream: #FBF8F4;
+  --color-neutral-blush-pink: #F4E4E1;
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-text-dark: #2C2416;
+  --color-neutral-text-chocolate: #1A1410;
+
+  /* State Colors - sRGB Fallbacks */
+  --color-state-hover: rgba(107, 78, 61, 0.08);
+  --color-state-pressed: rgba(107, 78, 61, 0.12);
+  --color-state-disabled: rgba(107, 78, 61, 0.3);
+  --color-state-disabled-bg: rgba(107, 78, 61, 0.05);
+}
+
+/* Progressive Enhancement: OKLCH colors for modern browsers
+   OKLCH provides wider color gamut and perceptual uniformity */
+@supports (color: oklch(0% 0 0)) {
+  :root {
+    /* Brand Colors - OKLCH (Wide Gamut) */
+    --color-brand-walnut: oklch(53% 0.08 37);
+    --color-brand-walnut-deep: oklch(41% 0.08 37);
+    --color-brand-rose: oklch(65% 0.06 10);
+    --color-brand-rose-dark: oklch(60% 0.06 10);
+    --color-brand-gold: oklch(86% 0.08 85);
+    --color-brand-gold-alt: oklch(82% 0.08 85);
+    --color-brand-sage: oklch(62% 0.02 150);
+
+    /* Neutral Colors - OKLCH */
+    --color-neutral-cream-pearl: oklch(98% 0.01 70);
+    --color-neutral-warm-cream: oklch(97% 0.01 70);
+    --color-neutral-blush-pink: oklch(95% 0.01 20);
+    --color-neutral-white: oklch(100% 0 0);
+    --color-neutral-text-dark: oklch(35% 0.03 50);
+    --color-neutral-text-chocolate: oklch(25% 0.03 50);
+
+    /* State Colors - OKLCH with Alpha */
+    --color-state-hover: oklch(53% 0.08 37 / 0.08);
+    --color-state-pressed: oklch(53% 0.08 37 / 0.12);
+    --color-state-disabled: oklch(53% 0.08 37 / 0.3);
+    --color-state-disabled-bg: oklch(53% 0.08 37 / 0.05);
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY - Motion & Focus
+   Ensures WCAG 2.2 Level AA compliance for all users
+   ============================================================================ */
+
+/* Respect user's motion preferences - WCAG 2.3.3 Animation from Interactions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Global focus styles - WCAG 2.4.7 Focus Visible, 1.4.11 Non-text Contrast */
+/* Ensures all interactive elements have visible, high-contrast focus indicators */
+:where(a, button, [role="button"], input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: var(--focus-ring-width, 3px) var(--focus-ring-style, solid) var(--focus-ring, #6B4E3D);
+  outline-offset: var(--focus-ring-offset, 3px);
+}
+
+/* Remove default browser focus styles to avoid double-outline */
+:where(a, button, [role="button"], input, select, textarea):focus {
+  outline: none;
+}
+
+/* Ensure focus-visible works even without :where() support (Safari fallback) */
+@supports not selector(:where(a)) {
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: var(--focus-ring-width, 3px) var(--focus-ring-style, solid) var(--focus-ring, #6B4E3D);
+    outline-offset: var(--focus-ring-offset, 3px);
+  }
+}

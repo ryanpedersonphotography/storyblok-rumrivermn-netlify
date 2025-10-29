@@ -1,0 +1,431 @@
+/* ============================================================================
+   PRICING SECTION - Wedding Packages & Investment
+   Design System: Romantic barn wedding theme with elegant pricing cards
+   ============================================================================ */
+
+.pricing-section {
+  background: var(--color-bg-primary);
+  padding: var(--padding-5xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 252, 248, 0.95) 0%, 
+    rgba(251, 248, 244, 0.98) 50%,
+    rgba(244, 228, 225, 0.92) 100%);
+  z-index: 1;
+}
+
+.pricing-section .content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--padding-xl);
+}
+
+/* ============================================================================
+   SECTION HEADER
+   ============================================================================ */
+
+.pricing-section .section-header {
+  text-align: center;
+  margin-bottom: var(--margin-4xl);
+}
+
+.pricing-section .script-accent {
+  font-family: var(--font-script);
+  font-size: var(--font-size-2xl);
+  color: var(--color-dusty-rose);
+  margin-bottom: var(--margin-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.pricing-section .section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--color-text-primary);
+  margin-bottom: var(--margin-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.pricing-section .hero-pricing-line {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  color: var(--color-warm-walnut);
+  margin-bottom: var(--margin-lg);
+  font-weight: var(--font-weight-medium);
+  background: linear-gradient(90deg, 
+    var(--color-dusty-rose) 0%, 
+    var(--color-champagne-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-section .lead {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================================================
+   PRICING GRID
+   ============================================================================ */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--gap-xl);
+  margin-bottom: var(--margin-4xl);
+}
+
+.pricing-card {
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--padding-2xl);
+  position: relative;
+  box-shadow: var(--shadow-romantic);
+  border: 2px solid var(--color-border-light);
+  transition: all var(--duration-normal) var(--ease-material);
+  color: var(--color-text-secondary);
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-gold);
+  border-color: var(--color-border-gold);
+}
+
+.pricing-card.popular {
+  border-color: var(--color-dusty-rose);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(244, 228, 225, 0.3) 100%);
+  transform: scale(1.05);
+}
+
+.pricing-card.popular:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+/* ============================================================================
+   POPULAR BADGE
+   ============================================================================ */
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-gold);
+  color: var(--theme-bg-primary, #1A1410);
+  padding: var(--padding-sm) var(--padding-lg);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  box-shadow: var(--shadow-md);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ============================================================================
+   PRICING HEADER
+   ============================================================================ */
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: var(--margin-xl);
+  padding-bottom: var(--padding-lg);
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.package-name {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--margin-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pricing-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.weekend-price {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-4xl);
+  color: var(--color-dusty-rose);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.price-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.weekday-price {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  margin-top: var(--margin-sm);
+}
+
+.weekday-price .price {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  color: var(--color-accent-gold);
+  font-weight: var(--font-weight-semibold);
+}
+
+.weekday-price .label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ============================================================================
+   FEATURES LIST
+   ============================================================================ */
+
+.features-list {
+  margin-bottom: var(--margin-xl);
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  margin-bottom: var(--margin-md);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  color: var(--theme-accent-rose, #9D6B7B);
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-item:hover .check-icon {
+  color: var(--theme-accent-rose-dark, #C999AA);
+  transform: scale(1.05);
+}
+
+/* ============================================================================
+   PRICING ACTIONS
+   ============================================================================ */
+
+.pricing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.cta-button {
+  background: var(--gradient-form);
+  color: var(--theme-text-on-dark, #FFF8E7);
+  border: none;
+  padding: var(--padding-md) var(--padding-xl);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-material);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.cta-button.primary {
+  background: var(--gradient-gold);
+}
+
+.cta-button.secondary {
+  background: var(--gradient-form);
+}
+
+.link-button {
+  background: transparent;
+  color: var(--color-dusty-rose);
+  border: 2px solid var(--color-dusty-rose);
+  padding: var(--padding-sm) var(--padding-lg);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-material);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.link-button:hover {
+  background: var(--color-dusty-rose);
+  color: var(--theme-text-on-dark, #FFF8E7);
+}
+
+/* ============================================================================
+   DARK MODE
+   ============================================================================ */
+
+html[data-theme="dark"] .pricing-section::before {
+  background: linear-gradient(135deg,
+    rgba(26, 20, 16, 0.95) 0%,
+    rgba(44, 36, 22, 0.98) 50%,
+    rgba(61, 47, 34, 0.92) 100%);
+}
+
+html[data-theme="dark"] .pricing-card {
+  background: var(--theme-bg-card, #3D2F22) !important;
+  border-color: var(--theme-border-medium, rgba(255,255,255,0.12)) !important;
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .pricing-card:hover {
+  border-color: var(--theme-accent-gold, #F0D9A8) !important;
+}
+
+html[data-theme="dark"] .pricing-card.popular {
+  background: linear-gradient(135deg,
+    rgba(61, 47, 34, 1) 0%,
+    rgba(77, 59, 45, 0.8) 100%) !important;
+  border-color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pricing-section::before {
+    background: linear-gradient(135deg,
+      rgba(26, 20, 16, 0.95) 0%,
+      rgba(44, 36, 22, 0.98) 50%,
+      rgba(61, 47, 34, 0.92) 100%);
+  }
+
+  :root:not([data-theme="light"]) .pricing-card {
+    background: var(--theme-bg-card, #3D2F22) !important;
+    border-color: var(--theme-border-medium, rgba(255,255,255,0.12)) !important;
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .pricing-card:hover {
+    border-color: var(--theme-accent-gold, #F0D9A8) !important;
+  }
+
+  :root:not([data-theme="light"]) .pricing-card.popular {
+    background: linear-gradient(135deg,
+      rgba(61, 47, 34, 1) 0%,
+      rgba(77, 59, 45, 0.8) 100%) !important;
+    border-color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+}
+
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .pricing-section {
+    padding: var(--padding-3xl) 0;
+  }
+
+  .pricing-section .content-wrapper {
+    padding: 0 var(--padding-lg);
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-lg);
+  }
+
+  .pricing-card.popular {
+    transform: none;
+  }
+
+  .pricing-card.popular:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-card {
+    padding: var(--padding-lg);
+  }
+
+  .popular-badge {
+    font-size: var(--font-size-xs);
+    padding: var(--padding-xs) var(--padding-md);
+  }
+
+  .weekend-price {
+    font-size: var(--font-size-3xl);
+  }
+
+  .hero-pricing-line {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ============================================================================
+   ANIMATION ENHANCEMENTS
+   ============================================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pricing-card {
+  animation: fadeInUp var(--duration-entrance) var(--ease-material);
+}
+
+.pricing-card:nth-child(1) { animation-delay: 0.1s; }
+.pricing-card:nth-child(2) { animation-delay: 0.2s; }
+.pricing-card:nth-child(3) { animation-delay: 0.3s; }

@@ -1,4 +1,4 @@
-/* BRAND SOCIAL PROOF SECTION STYLES - Glassomorphic Design */
+/* BRAND SOCIAL PROOF SECTION STYLES - Fully Tokenized */
 
 .hotfix-brand-quote-section {
   padding: 50px 0 !important;
@@ -11,24 +11,17 @@
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
 
-  /* Glassomorphic background */
-  background: linear-gradient(
-    135deg,
-    rgba(122, 139, 127, 0.4) 0%,
-    rgba(107, 78, 61, 0.5) 100%
-  ) !important;
+  /* Tokenized glassomorphic background */
+  background: var(--theme-bg-secondary, #F4E4E1) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
 
-  /* Subtle borders for glass effect */
-  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  /* Tokenized borders */
+  border-top: 1px solid var(--theme-border-subtle, rgba(0, 0, 0, 0.08)) !important;
+  border-bottom: 1px solid var(--theme-border-subtle, rgba(0, 0, 0, 0.08)) !important;
 
-  /* Soft shadow for depth */
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1) !important;
+  /* Tokenized shadow */
+  box-shadow: var(--theme-shadow-lg, 0 8px 32px rgba(0, 0, 0, 0.12)) !important;
 }
 
 /* Soft gradient overlay for depth */
@@ -38,9 +31,9 @@
   inset: 0 !important;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.05) 0%,
+    color-mix(in srgb, var(--theme-text-on-dark, #FFF8E7) 5%, transparent) 0%,
     transparent 50%,
-    rgba(0, 0, 0, 0.05) 100%
+    color-mix(in srgb, var(--theme-text-primary, #6B4E3D) 5%, transparent) 100%
   ) !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -78,39 +71,39 @@
 
 /* Individual Brand Logo Styling */
 .hotfix-brand-logo {
-  color: rgba(255, 255, 255, 0.95) !important;
-  font-size: 0.9rem !important; /* 14.4px - slightly larger */
+  color: var(--theme-text-primary, #6B4E3D) !important;
+  font-size: 0.875rem !important;
   letter-spacing: 2.5px !important;
   text-transform: uppercase !important;
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
   cursor: default !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 .hotfix-brand-logo:hover {
-  color: #E4C896 !important; /* Champagne gold on hover */
+  color: var(--theme-accent-gold, #E4C896) !important;
   transform: translateY(-2px) scale(1.05) !important;
-  text-shadow: 0 4px 12px rgba(228, 200, 150, 0.4) !important;
+  text-shadow: 0 4px 12px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 40%, transparent) !important;
 }
 
 /* Quote Text Styling */
 .hotfix-brand-quote-text {
   font-size: 1.875rem !important; /* 30px - compact but readable */
-  color: rgba(255, 255, 255, 0.98) !important;
+  color: var(--theme-text-primary, #6B4E3D) !important;
   max-width: 850px !important;
   margin: 0 auto !important;
-  line-height: 1.6 !important; /* Improved line height for readability */
+  line-height: 1.6 !important;
   font-family: 'Playfair Display', serif !important;
   font-weight: 400 !important;
   text-align: center !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Highlighted Text within Quote */
 .hotfix-brand-quote-text .hotfix-highlight {
-  color: #E4C896 !important; /* Champagne gold accent */
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   font-style: italic !important;
   font-weight: 500 !important;
   transition: all 0.3s ease !important;
@@ -118,8 +111,74 @@
 }
 
 .hotfix-brand-quote-text .hotfix-highlight:hover {
-  color: #FFFCF8 !important; /* Cream pearl on hover */
-  text-shadow: 0 2px 16px rgba(228, 200, 150, 0.6) !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
+  text-shadow: 0 2px 16px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 60%, transparent) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"]) - tokenized
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .hotfix-brand-quote-section {
+  background: var(--theme-bg-secondary) !important;
+  border-top-color: var(--theme-border-medium) !important;
+  border-bottom-color: var(--theme-border-medium) !important;
+}
+
+html[data-theme="dark"] .hotfix-brand-logo {
+  color: var(--theme-text-on-dark) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+html[data-theme="dark"] .hotfix-brand-logo:hover {
+  color: var(--theme-accent-gold) !important;
+}
+
+html[data-theme="dark"] .hotfix-brand-quote-text {
+  color: var(--theme-text-on-dark) !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+html[data-theme="dark"] .hotfix-brand-quote-text .hotfix-highlight {
+  color: var(--theme-accent-rose) !important;
+}
+
+html[data-theme="dark"] .hotfix-brand-quote-text .hotfix-highlight:hover {
+  color: var(--theme-accent-gold) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark) - tokenized
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hotfix-brand-quote-section {
+    background: var(--theme-bg-secondary) !important;
+    border-top-color: var(--theme-border-medium) !important;
+    border-bottom-color: var(--theme-border-medium) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-brand-logo {
+    color: var(--theme-text-on-dark) !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-brand-logo:hover {
+    color: var(--theme-accent-gold) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-brand-quote-text {
+    color: var(--theme-text-on-dark) !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-brand-quote-text .hotfix-highlight {
+    color: var(--theme-accent-rose) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-brand-quote-text .hotfix-highlight:hover {
+    color: var(--theme-accent-gold) !important;
+  }
 }
 
 /* Responsive Design for Brand Quote Section */

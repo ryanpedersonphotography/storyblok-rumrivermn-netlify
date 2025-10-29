@@ -2,7 +2,7 @@
 
 .hotfix-alternating-blocks {
   background: linear-gradient(135deg, rgba(74, 52, 38, 1) 0%, rgba(45, 58, 47, 1) 100%) !important;
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   padding: 100px 0 !important;
   /* Override global Storyblok CSS constraints for full-width */
   width: 100vw !important;
@@ -13,13 +13,13 @@
 }
 
 .hotfix-alternating-blocks .hotfix-section-header {
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   text-align: center !important;
   margin-bottom: 4rem !important;
 }
 
 .hotfix-alternating-blocks .hotfix-section-title {
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
   margin-bottom: 1.5rem !important;
@@ -28,7 +28,7 @@
 }
 
 .hotfix-alternating-blocks .hotfix-script-accent {
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   font-family: 'Dancing Script', cursive !important;
   font-size: 1.75rem !important;
   margin-bottom: 1rem !important;
@@ -89,7 +89,7 @@
 
 .hotfix-block-content .hotfix-number {
   font-size: 3rem !important;
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   opacity: 0.5 !important;
   font-weight: 500 !important;
   line-height: 1 !important;
@@ -101,7 +101,7 @@
   font-size: 2.5rem !important;
   margin-bottom: 25px !important;
   font-family: 'Playfair Display', serif !important;
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   line-height: 1.2 !important;
   font-weight: 400 !important;
 }
@@ -114,9 +114,20 @@
 }
 
 .hotfix-block-content .hotfix-block-lead {
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   font-weight: 400 !important;
   margin-bottom: 2rem !important;
+}
+
+/* DARK MODE */
+html[data-theme="dark"] .hotfix-alternating-blocks {
+  background: linear-gradient(135deg, rgba(26, 20, 16, 0.98) 0%, rgba(31, 26, 17, 0.95) 100%) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hotfix-alternating-blocks {
+    background: linear-gradient(135deg, rgba(26, 20, 16, 0.98) 0%, rgba(31, 26, 17, 0.95) 100%) !important;
+  }
 }
 
 .hotfix-block-image {

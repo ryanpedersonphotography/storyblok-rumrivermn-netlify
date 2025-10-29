@@ -148,7 +148,7 @@
    GRADIENT ANIMATIONS
    ============================================================================ */
 
-/* Gradient underline animation */
+/* Gradient underline animation - tokenized */
 .hotfix-gradient-underline::after {
   content: '' !important;
   position: absolute !important;
@@ -156,13 +156,40 @@
   left: 50% !important;
   width: 0 !important;
   height: 2px !important;
-  background: linear-gradient(90deg, #9D6B7B 0%, #E4C896 100%) !important;
+  background: linear-gradient(90deg, var(--theme-accent-rose) 0%, var(--theme-accent-gold) 100%) !important;
   transition: all 0.3s ease !important;
   transform: translateX(-50%) !important;
 }
 
 .hotfix-gradient-underline:hover::after {
   width: 100% !important;
+}
+
+/* Gold divider pulse - tokenized */
+.gold-divider {
+  position: relative !important;
+  height: 4px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--theme-accent-gold) 50%, transparent) 0%,
+    var(--theme-accent-gold) 50%,
+    color-mix(in srgb, var(--theme-accent-gold) 50%, transparent) 100%) !important;
+  overflow: visible !important;
+}
+
+.gold-divider::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: inherit !important;
+  filter: blur(2px) !important;
+  opacity: 0.65 !important;
+  animation: goldPulse 2200ms ease-in-out infinite !important;
+}
+
+@keyframes goldPulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.85; }
 }
 
 /* ============================================================================

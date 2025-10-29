@@ -5,10 +5,17 @@
   "scripts": {
     "dev": "next dev --experimental-https -p 9999",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 6666",
+    "lint": "next lint",
+    "tokens:build": "node scripts/build-tokens.js",
+    "tokens:watch": "nodemon --watch tokens/ --exec npm run tokens:build",
+    "test:contrast": "node scripts/test-contrast.js",
+    "test:a11y": "start-server-and-test start http://localhost:6666 pa11y-ci",
+    "ci:a11y": "pa11y-ci",
+    "lighthouse": "lighthouse http://localhost:6666 --only-categories=accessibility --output=html --output-path=./lighthouse-report.html"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@storyblok/react": "4.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
@@ -23,10 +30,18 @@
     "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.0",
+    "@axe-core/playwright": "^4.11.0",
     "@eslint/eslintrc": "^3",
     "@netlify/plugin-nextjs": "^5.10.6",
+    "@playwright/test": "^1.56.1",
     "@types/react": "19.2.2",
     "eslint": "^9",
-    "eslint-config-next": "15.3.0"
+    "eslint-config-next": "15.3.0",
+    "lighthouse": "^12.8.2",
+    "pa11y-ci": "^4.0.1",
+    "playwright": "^1.56.1",
+    "start-server-and-test": "^2.1.2",
+    "style-dictionary": "^4.4.0"
   }
 }

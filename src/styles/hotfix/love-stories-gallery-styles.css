@@ -1,7 +1,7 @@
 /* LOVE STORIES GALLERY SECTION STYLES - Extracted from hotfix-site.css */
 
 .hotfix-love-stories-gallery {
-  background: #F4E4E1 !important; /* blush-pink */
+  background: var(--theme-bg-primary, #FFFCF8) !important;
   padding: 100px 0 !important;
   min-height: 100vh !important;
   /* Override global Storyblok CSS constraints for full-width */
@@ -30,21 +30,21 @@
 .hotfix-love-stories-header .hotfix-script-accent {
   font-family: 'Dancing Script', cursive !important;
   font-size: 1.75rem !important;
-  color: #9D6B7B !important; /* dusty-rose */
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   margin-bottom: 1rem !important;
 }
 
 .hotfix-love-stories-header .hotfix-love-section-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
-  color: #6B4E3D !important; /* warm-walnut */
+  color: var(--theme-text-primary, #6B4E3D) !important;
   margin: 0 0 1.5rem 0 !important;
 }
 
 .hotfix-love-stories-header .hotfix-love-lead {
   font-size: 1.25rem !important;
   line-height: 1.7 !important;
-  color: #2C2416 !important; /* text-dark */
+  color: var(--theme-text-secondary, #6B4E3D) !important;
   opacity: 0.9 !important;
   max-width: 600px !important;
   margin: 1.5rem auto 0 !important;
@@ -79,9 +79,9 @@
   text-decoration: none !important;
   border-radius: 12px !important;
   backdrop-filter: blur(2px) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
+  background: color-mix(in srgb, var(--theme-bg-card, #FFFFFF) 5%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--theme-border-subtle, rgba(0, 0, 0, 0.08)) 50%, transparent) !important;
+  box-shadow: var(--theme-shadow-lg, 0 25px 50px rgba(0, 0, 0, 0.3)) !important;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
@@ -92,18 +92,18 @@
   transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
-/* HOTFIX: Gallery Hover Overlay */
+/* HOTFIX: Gallery Hover Overlay with color-mix() */
 .hotfix-gallery-overlay {
   position: absolute !important;
   inset: 0 !important;
   background: linear-gradient(
-    135deg, 
-    rgba(107, 78, 61, 0.4) 0%,
-    rgba(157, 107, 123, 0.3) 50%,
-    rgba(212, 165, 116, 0.2) 100%
+    135deg,
+    color-mix(in srgb, var(--theme-text-primary, #6B4E3D) 40%, transparent) 0%,
+    color-mix(in srgb, var(--theme-accent-rose, #9D6B7B) 30%, transparent) 50%,
+    color-mix(in srgb, var(--theme-accent-gold, #E4C896) 20%, transparent) 100%
   ) !important;
   backdrop-filter: blur(3px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid color-mix(in srgb, var(--theme-border-subtle, rgba(255, 255, 255, 0.15)) 50%, transparent) !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-end !important;
@@ -114,8 +114,8 @@
 
 .hotfix-gallery-item:hover {
   transform: translateY(-8px) !important;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: var(--theme-shadow-lg, 0 30px 60px rgba(0, 0, 0, 0.4)) !important;
+  border-color: color-mix(in srgb, var(--theme-border-medium, rgba(255, 255, 255, 0.3)) 70%, transparent) !important;
 }
 
 .hotfix-gallery-item:hover .hotfix-gallery-overlay {
@@ -135,67 +135,10 @@
   width: 100% !important;
   height: 100% !important;
   background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.3) 50%, 
-    transparent 100%
-  ) !important;
-  transition: left 0.8s ease-in-out !important;
-  z-index: 10 !important;
-  border-radius: 12px !important;
-}
-
-.hotfix-gallery-item:hover::before {
-  left: 100% !important;
-}
-
-/* HOTFIX: Overlay Text Content */
-.hotfix-gallery-couple-names {
-  font-family: 'Dancing Script', cursive !important;
-  font-size: 1.75rem !important;
-  color: white !important;
-  margin-bottom: 0.5rem !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(2px) !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-.hotfix-gallery-season {
-  font-family: 'Playfair Display', serif !important;
-  font-size: 1rem !important;
-  color: #E4C896 !important; /* champagne-gold */
-  margin-bottom: 0.25rem !important;
-  font-weight: 500 !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-.hotfix-gallery-details {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 0.875rem !important;
-  color: rgba(255, 255, 255, 0.95) !important;
-  font-weight: 400 !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
-  backdrop-filter: blur(1px) !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-/* Shimmer effect on hover */
-.hotfix-gallery-item::before {
-  content: '' !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: -100% !important;
-  width: 100% !important;
-  height: 100% !important;
-  background: linear-gradient(
     90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
+    transparent 0%,
+    color-mix(in srgb, var(--theme-text-on-dark, #FFF8E7) 30%, transparent) 50%,
+    transparent 100%
   ) !important;
   transition: left 0.8s ease-in-out !important;
   z-index: 10 !important;
@@ -207,31 +150,132 @@
   left: 100% !important;
 }
 
+/* HOTFIX: Overlay Text Content with Tokens */
+.hotfix-gallery-couple-names {
+  font-family: 'Dancing Script', cursive !important;
+  font-size: 1.75rem !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(2px) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.hotfix-gallery-season {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1rem !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
+  margin-bottom: 0.25rem !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.hotfix-gallery-details {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.875rem !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
+  opacity: 0.95 !important;
+  font-weight: 400 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(1px) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"])
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .hotfix-love-stories-gallery {
+  background: var(--theme-bg-primary, #1A1410) !important;
+}
+
+html[data-theme="dark"] .hotfix-love-stories-header .hotfix-script-accent {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .hotfix-love-stories-header .hotfix-love-section-title,
+html[data-theme="dark"] .hotfix-love-stories-header .hotfix-love-lead {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .hotfix-gallery-item {
+  background: color-mix(in srgb, var(--theme-bg-card, #3D2F22) 15%, transparent) !important;
+  border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+}
+
+html[data-theme="dark"] .hotfix-gallery-item:hover {
+  border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.25)) !important;
+  box-shadow: var(--theme-shadow-dark-lg, 0 30px 60px rgba(0, 0, 0, 0.6)) !important;
+}
+
+/* Deepen overlay in dark mode to 0.92+ for text legibility */
+html[data-theme="dark"] .hotfix-gallery-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 8, 6, 0.94) 0%,
+    rgba(26, 20, 16, 0.93) 50%,
+    rgba(15, 12, 10, 0.92) 100%
+  ) !important;
+  border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.18)) !important;
+}
+
+html[data-theme="dark"] .hotfix-gallery-season {
+  color: var(--theme-accent-gold, #F0D9A8) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hotfix-love-stories-gallery {
+    background: var(--theme-bg-primary, #1A1410) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-love-stories-header .hotfix-script-accent {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-love-stories-header .hotfix-love-section-title,
+  :root:not([data-theme="light"]) .hotfix-love-stories-header .hotfix-love-lead {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-gallery-item {
+    background: color-mix(in srgb, var(--theme-bg-card, #3D2F22) 15%, transparent) !important;
+    border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-gallery-item:hover {
+    border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.25)) !important;
+    box-shadow: var(--theme-shadow-dark-lg, 0 30px 60px rgba(0, 0, 0, 0.6)) !important;
+  }
+
+  /* Deepen overlay in auto dark mode to 0.92+ for text legibility */
+  :root:not([data-theme="light"]) .hotfix-gallery-overlay {
+    background: linear-gradient(
+      135deg,
+      rgba(10, 8, 6, 0.94) 0%,
+      rgba(26, 20, 16, 0.93) 50%,
+      rgba(15, 12, 10, 0.92) 100%
+    ) !important;
+    border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.18)) !important;
+  }
+
+  :root:not([data-theme="light"]) .hotfix-gallery-season {
+    color: var(--theme-accent-gold, #F0D9A8) !important;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hotfix-gallery-item:nth-child(1),
   .hotfix-gallery-item:nth-child(6) {
     grid-column: span 1 !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .hotfix-wedding-gallery {
-    grid-template-columns: 1fr !important;
-    grid-auto-rows: 300px !important;
-    gap: 16px !important;
-  }
-  
-  .hotfix-gallery-overlay {
-    padding: 1.5rem !important;
-  }
-  
-  .hotfix-gallery-couple-names {
-    font-size: 1.5rem !important;
-  }
-  
-  .hotfix-love-stories-header .hotfix-love-section-title {
-    font-size: 2.5rem !important;
   }
 }
 

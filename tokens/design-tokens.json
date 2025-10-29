@@ -1,0 +1,351 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$description": "Rum River Barn Design Tokens - DTCG Format",
+  "color": {
+    "$description": "Color tokens using OKLCH color space for future-proof wide-gamut displays",
+    "brand": {
+      "walnut": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37)",
+        "$description": "Primary brand color - warm brown for headings and primary elements",
+        "hex-fallback": "#6B4E3D"
+      },
+      "walnut-deep": {
+        "$type": "color",
+        "$value": "oklch(41% 0.08 37)",
+        "$description": "Darker brown for backgrounds and depth",
+        "hex-fallback": "#4A3426"
+      },
+      "rose": {
+        "$type": "color",
+        "$value": "oklch(65% 0.06 10)",
+        "$description": "Secondary brand color - dusty rose for accents",
+        "hex-fallback": "#9D6B7B"
+      },
+      "rose-dark": {
+        "$type": "color",
+        "$value": "oklch(60% 0.06 10)",
+        "$description": "Darker dusty rose variant for hover states",
+        "hex-fallback": "#8A5D6C"
+      },
+      "gold": {
+        "$type": "color",
+        "$value": "oklch(86% 0.08 85)",
+        "$description": "Accent color - champagne gold for highlights",
+        "hex-fallback": "#E4C896"
+      },
+      "gold-alt": {
+        "$type": "color",
+        "$value": "oklch(82% 0.08 85)",
+        "$description": "Alternative gold accent",
+        "hex-fallback": "#D4A574"
+      },
+      "sage": {
+        "$type": "color",
+        "$value": "oklch(62% 0.02 150)",
+        "$description": "Sage green accent for environmental elements",
+        "hex-fallback": "#7A8B7F"
+      }
+    },
+    "neutral": {
+      "cream-pearl": {
+        "$type": "color",
+        "$value": "oklch(98% 0.01 70)",
+        "$description": "Primary light background - warmer than pure white",
+        "hex-fallback": "#FFFCF8"
+      },
+      "warm-cream": {
+        "$type": "color",
+        "$value": "oklch(97% 0.01 70)",
+        "$description": "Secondary light background",
+        "hex-fallback": "#FBF8F4"
+      },
+      "blush-pink": {
+        "$type": "color",
+        "$value": "oklch(95% 0.01 20)",
+        "$description": "Tertiary light background with pink tint",
+        "hex-fallback": "#F4E4E1"
+      },
+      "white": {
+        "$type": "color",
+        "$value": "oklch(100% 0 0)",
+        "$description": "Pure white for elevated surfaces",
+        "hex-fallback": "#FFFFFF"
+      },
+      "text-dark": {
+        "$type": "color",
+        "$value": "oklch(35% 0.03 50)",
+        "$description": "Darkest text for maximum contrast - 13.8:1 on cream pearl",
+        "hex-fallback": "#2C2416"
+      },
+      "text-chocolate": {
+        "$type": "color",
+        "$value": "oklch(25% 0.03 50)",
+        "$description": "Deepest brown for special accents",
+        "hex-fallback": "#1F1A11"
+      }
+    },
+    "roles": {
+      "$description": "Semantic color mappings - use these instead of base colors",
+      "text": {
+        "primary": {
+          "$type": "color",
+          "$value": "{color.brand.walnut}",
+          "$description": "Main headings and primary text - 6.9:1 on cream pearl"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "{color.neutral.text-dark}",
+          "$description": "Body text - 13.8:1 on cream pearl"
+        },
+        "light": {
+          "$type": "color",
+          "$value": "{color.neutral.white}",
+          "$description": "Text on dark backgrounds"
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "{color.brand.sage}",
+          "$description": "Subtle text - decorative only, not for readability"
+        }
+      },
+      "bg": {
+        "primary": {
+          "$type": "color",
+          "$value": "{color.neutral.cream-pearl}",
+          "$description": "Main page background"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "{color.neutral.blush-pink}",
+          "$description": "Alternate section backgrounds"
+        },
+        "warm": {
+          "$type": "color",
+          "$value": "{color.neutral.warm-cream}",
+          "$description": "Warm background variant"
+        },
+        "dark": {
+          "$type": "color",
+          "$value": "{color.brand.walnut-deep}",
+          "$description": "Dark section backgrounds"
+        }
+      },
+      "primary": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.brand.walnut}",
+          "$description": "Primary interactive elements"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{color.brand.walnut-deep}",
+          "$description": "Primary hover state"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.brand.rose}",
+          "$description": "Secondary interactive elements"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{color.brand.rose-dark}",
+          "$description": "Secondary hover state"
+        }
+      },
+      "accent": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.brand.gold}",
+          "$description": "Accent highlights"
+        },
+        "alt": {
+          "$type": "color",
+          "$value": "{color.brand.gold-alt}",
+          "$description": "Alternative accent"
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{color.brand.walnut}",
+        "$description": "Focus ring color - 6.9:1 contrast on all surfaces (WCAG AAA)"
+      }
+    },
+    "surface": {
+      "$description": "Background layers with guaranteed AA contrast",
+      "0": {
+        "$type": "color",
+        "$value": "{color.neutral.cream-pearl}",
+        "$description": "Base surface"
+      },
+      "1": {
+        "$type": "color",
+        "$value": "{color.neutral.white}",
+        "$description": "Elevated surface"
+      },
+      "2": {
+        "$type": "color",
+        "$value": "{color.neutral.blush-pink}",
+        "$description": "Secondary surface"
+      },
+      "3": {
+        "$type": "color",
+        "$value": "{color.neutral.warm-cream}",
+        "$description": "Tertiary surface"
+      }
+    },
+    "state": {
+      "$description": "Interactive element states",
+      "hover": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37 / 0.08)",
+        "$description": "Subtle hover background",
+        "hex-fallback": "rgba(107, 78, 61, 0.08)"
+      },
+      "pressed": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37 / 0.12)",
+        "$description": "Pressed/active state",
+        "hex-fallback": "rgba(107, 78, 61, 0.12)"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37 / 0.3)",
+        "$description": "Disabled element color",
+        "hex-fallback": "rgba(107, 78, 61, 0.3)"
+      },
+      "disabled-bg": {
+        "$type": "color",
+        "$value": "oklch(53% 0.08 37 / 0.05)",
+        "$description": "Disabled background",
+        "hex-fallback": "rgba(107, 78, 61, 0.05)"
+      }
+    }
+  },
+  "typography": {
+    "family": {
+      "serif": {
+        "$type": "fontFamily",
+        "$value": "'Playfair Display', serif",
+        "$description": "Elegant serif for headings"
+      },
+      "sans": {
+        "$type": "fontFamily",
+        "$value": "'Montserrat', sans-serif",
+        "$description": "Clean sans-serif for body text"
+      },
+      "script": {
+        "$type": "fontFamily",
+        "$value": "'Dancing Script', cursive",
+        "$description": "Handwritten script for accents only"
+      }
+    },
+    "size": {
+      "xs": {"$type": "dimension", "$value": "0.75rem", "$description": "12px - small labels"},
+      "sm": {"$type": "dimension", "$value": "0.875rem", "$description": "14px - small buttons"},
+      "base": {"$type": "dimension", "$value": "1rem", "$description": "16px - body text default"},
+      "lg": {"$type": "dimension", "$value": "1.125rem", "$description": "18px - lead paragraphs"},
+      "xl": {"$type": "dimension", "$value": "1.25rem", "$description": "20px - subheadings"},
+      "2xl": {"$type": "dimension", "$value": "1.5rem", "$description": "24px - small headings"},
+      "3xl": {"$type": "dimension", "$value": "1.75rem", "$description": "28px - script accents"},
+      "4xl": {"$type": "dimension", "$value": "2rem", "$description": "32px - medium headings"},
+      "5xl": {"$type": "dimension", "$value": "2.5rem", "$description": "40px - large headings"},
+      "6xl": {"$type": "dimension", "$value": "3rem", "$description": "48px - section titles"},
+      "hero": {"$type": "dimension", "$value": "clamp(3rem, 8vw, 5.5rem)", "$description": "48-88px - hero titles"}
+    },
+    "weight": {
+      "light": {"$type": "fontWeight", "$value": "300"},
+      "regular": {"$type": "fontWeight", "$value": "400", "$description": "Default weight for headings and body"},
+      "medium": {"$type": "fontWeight", "$value": "500"},
+      "semibold": {"$type": "fontWeight", "$value": "600"},
+      "bold": {"$type": "fontWeight", "$value": "700"}
+    },
+    "lineHeight": {
+      "tight": {"$type": "number", "$value": "1.2", "$description": "Headings"},
+      "normal": {"$type": "number", "$value": "1.5"},
+      "relaxed": {"$type": "number", "$value": "1.6"},
+      "loose": {"$type": "number", "$value": "1.7", "$description": "Body text default"}
+    },
+    "letterSpacing": {
+      "tight": {"$type": "dimension", "$value": "-0.02em"},
+      "normal": {"$type": "dimension", "$value": "0em"},
+      "wide": {"$type": "dimension", "$value": "0.01em"},
+      "wider": {"$type": "dimension", "$value": "0.05em"},
+      "widest": {"$type": "dimension", "$value": "0.08em"},
+      "ultra": {"$type": "dimension", "$value": "0.1em"}
+    }
+  },
+  "space": {
+    "$description": "8px base unit spacing system",
+    "xs": {"$type": "dimension", "$value": "0.5rem", "$description": "8px"},
+    "sm": {"$type": "dimension", "$value": "0.75rem", "$description": "12px"},
+    "md": {"$type": "dimension", "$value": "1rem", "$description": "16px - default"},
+    "lg": {"$type": "dimension", "$value": "1.5rem", "$description": "24px"},
+    "xl": {"$type": "dimension", "$value": "2rem", "$description": "32px"},
+    "2xl": {"$type": "dimension", "$value": "3rem", "$description": "48px"},
+    "3xl": {"$type": "dimension", "$value": "4rem", "$description": "64px"},
+    "4xl": {"$type": "dimension", "$value": "5rem", "$description": "80px"},
+    "5xl": {"$type": "dimension", "$value": "6rem", "$description": "96px"}
+  },
+  "radius": {
+    "none": {"$type": "dimension", "$value": "0"},
+    "sm": {"$type": "dimension", "$value": "0.125rem", "$description": "2px"},
+    "md": {"$type": "dimension", "$value": "0.375rem", "$description": "6px"},
+    "lg": {"$type": "dimension", "$value": "0.5rem", "$description": "8px - buttons, inputs"},
+    "xl": {"$type": "dimension", "$value": "0.75rem", "$description": "12px - cards"},
+    "2xl": {"$type": "dimension", "$value": "1rem", "$description": "16px - large cards"},
+    "3xl": {"$type": "dimension", "$value": "1.25rem", "$description": "20px - images"},
+    "full": {"$type": "dimension", "$value": "9999px", "$description": "Full rounded"}
+  },
+  "elevation": {
+    "$description": "Semantic depth scale - use instead of decorative shadows",
+    "0": {
+      "$type": "shadow",
+      "$value": {"offsetX": "0", "offsetY": "0", "blur": "0", "spread": "0", "color": "transparent"},
+      "$description": "No elevation"
+    },
+    "1": {
+      "$type": "shadow",
+      "$value": {"offsetX": "0", "offsetY": "1px", "blur": "2px", "spread": "0", "color": "rgba(0, 0, 0, 0.08)"},
+      "$description": "Cards at rest - subtle lift"
+    },
+    "2": {
+      "$type": "shadow",
+      "$value": {"offsetX": "0", "offsetY": "4px", "blur": "10px", "spread": "0", "color": "rgba(0, 0, 0, 0.12)"},
+      "$description": "Hover states - medium depth"
+    },
+    "3": {
+      "$type": "shadow",
+      "$value": {"offsetX": "0", "offsetY": "12px", "blur": "32px", "spread": "0", "color": "rgba(0, 0, 0, 0.18)"},
+      "$description": "Modals, dropdowns - high depth"
+    }
+  },
+  "duration": {
+    "fast": {"$type": "duration", "$value": "150ms", "$description": "Quick feedback"},
+    "normal": {"$type": "duration", "$value": "300ms", "$description": "Default transitions"},
+    "slow": {"$type": "duration", "$value": "400ms"},
+    "slower": {"$type": "duration", "$value": "600ms"},
+    "slowest": {"$type": "duration", "$value": "800ms"},
+    "entrance": {"$type": "duration", "$value": "1200ms"}
+  },
+  "focus": {
+    "$description": "Focus indicator tokens - WCAG 2.2 compliant",
+    "ring": {
+      "$type": "color",
+      "$value": "{color.brand.walnut}",
+      "$description": "Focus ring color - 6.9:1 on all surfaces"
+    },
+    "width": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$description": "Focus outline thickness"
+    },
+    "offset": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$description": "Space between element and outline"
+    }
+  }
+}

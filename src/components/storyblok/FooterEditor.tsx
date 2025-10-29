@@ -74,8 +74,7 @@ export default function FooterEditor({ blok }: FooterProps) {
                   rel="noopener noreferrer"
                   aria-label="Follow us on Facebook"
                 >
-                  <Facebook className="hotfix-social-icon" size={18} />
-                  Facebook
+                  <Facebook className="hotfix-social-icon" size={20} />
                 </a>
               )}
               {blok.instagram_url && (
@@ -86,8 +85,7 @@ export default function FooterEditor({ blok }: FooterProps) {
                   rel="noopener noreferrer"
                   aria-label="Follow us on Instagram"
                 >
-                  <Instagram className="hotfix-social-icon" size={18} />
-                  Instagram
+                  <Instagram className="hotfix-social-icon" size={20} />
                 </a>
               )}
             </div>

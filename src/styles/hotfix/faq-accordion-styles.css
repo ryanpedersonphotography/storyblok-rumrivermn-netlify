@@ -1,7 +1,7 @@
 /* FAQ ACCORDION SECTION STYLES - Minimalist Clean Variant */
 
 .faq-accordion-section {
-  background: #F4E4E1 !important; /* blush-pink - matches love stories gallery */
+  background: var(--theme-bg-secondary, #F4E4E1) !important;
   padding: 100px 0 !important;
   position: relative !important;
 }
@@ -21,17 +21,17 @@
 .faq-script {
   font-family: 'Dancing Script', cursive !important;
   font-size: 1.75rem !important;
-  color: #9D6B7B !important; /* dusty-rose */
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   margin-bottom: 1rem !important;
 }
 
 .faq-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
-  color: #6B4E3D !important; /* warm-walnut */
+  color: var(--theme-text-primary, #6B4E3D) !important;
   margin-bottom: 0 !important;
   line-height: 1.2 !important;
-  font-weight: 700 !important;
+  font-weight: 400 !important;
 }
 
 /* FAQ Items Container */
@@ -43,7 +43,7 @@
 /* Individual FAQ Item */
 .faq-item {
   background: transparent !important;
-  border-bottom: 2px solid #F4E4E1 !important;
+  border-bottom: 2px solid var(--theme-border-subtle, rgba(0,0,0,0.08)) !important;
   border-radius: 0 !important;
   margin-bottom: 0 !important;
   transition: all 0.3s ease !important;
@@ -67,7 +67,7 @@
 .faq-question h3 {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 1.25rem !important;
-  color: #4A3426 !important;
+  color: var(--theme-text-primary, #4A3426) !important;
   font-weight: 500 !important;
   margin: 0 !important;
   line-height: 1.4 !important;
@@ -77,7 +77,7 @@
 /* Toggle Arrow */
 .faq-toggle {
   font-size: 1.5rem !important;
-  color: #9D6B7B !important; /* dusty-rose */
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   font-weight: 300 !important;
   transition: transform 0.3s ease !important;
   flex-shrink: 0 !important;
@@ -111,7 +111,7 @@
   font-family: 'Montserrat', sans-serif !important;
   font-size: 1rem !important;
   line-height: 1.8 !important;
-  color: #666 !important;
+  color: var(--theme-text-secondary, #666) !important;
   margin: 0 !important;
 }
 
@@ -167,5 +167,82 @@
 
   .faq-answer p {
     font-size: 0.95rem !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"])
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .faq-accordion-section {
+  background: var(--theme-bg-secondary, #2C2416) !important;
+}
+
+html[data-theme="dark"] .faq-script {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .faq-title {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .faq-item {
+  border-bottom-color: var(--theme-border-subtle, rgba(255,255,255,0.08)) !important;
+}
+
+html[data-theme="dark"] .faq-question h3 {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .faq-toggle {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .faq-answer p {
+  color: var(--theme-text-secondary, #E8D4BC) !important;
+}
+
+/* Focus state for keyboard navigation */
+html[data-theme="dark"] .faq-question:focus-visible {
+  outline: 2px solid var(--theme-accent-gold, #F0D9A8) !important;
+  outline-offset: 2px !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .faq-accordion-section {
+    background: var(--theme-bg-secondary, #2C2416) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-script {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-title {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-item {
+    border-bottom-color: var(--theme-border-subtle, rgba(255,255,255,0.08)) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-question h3 {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-toggle {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-answer p {
+    color: var(--theme-text-secondary, #E8D4BC) !important;
+  }
+
+  :root:not([data-theme="light"]) .faq-question:focus-visible {
+    outline: 2px solid var(--theme-accent-gold, #F0D9A8) !important;
+    outline-offset: 2px !important;
   }
 }

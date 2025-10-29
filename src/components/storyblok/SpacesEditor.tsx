@@ -57,7 +57,9 @@ export default function SpacesEditor({ blok }: SpacesEditorProps) {
       description: 'A comfortable retreat for the groom and groomsmen.',
       features: [
         { label: 'Capacity', value: 'Up to 6 people' },
-        { label: 'Atmosphere', value: 'Relaxed and private' }
+        { label: 'Atmosphere', value: 'Relaxed and private' },
+        { label: 'Amenities', value: 'Comfortable seating' },
+        { label: 'Access', value: 'Separate entrance' }
       ]
     },
     pavilion: {
@@ -69,7 +71,9 @@ export default function SpacesEditor({ blok }: SpacesEditorProps) {
       description: 'An enchanting outdoor space perfect for ceremonies or cocktail hours.',
       features: [
         { label: 'Setting', value: 'Outdoor garden' },
-        { label: 'Use', value: 'Ceremonies, cocktails' }
+        { label: 'Use', value: 'Ceremonies, cocktails' },
+        { label: 'Atmosphere', value: 'Natural beauty' },
+        { label: 'Capacity', value: 'Up to 200 guests' }
       ]
     }
   }
@@ -93,6 +97,7 @@ export default function SpacesEditor({ blok }: SpacesEditorProps) {
 
   return (
     <section 
+      id="venue"
       className="spaces-section" 
       {...storyblokEditable(blok)}
       data-discover="true"

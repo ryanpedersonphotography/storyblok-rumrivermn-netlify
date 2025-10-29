@@ -1,0 +1,31 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 2000,
+    "chromeLaunchConfig": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage"
+      ]
+    },
+    "runners": ["axe", "htmlcs"],
+    "includeNotices": false,
+    "includeWarnings": true,
+    "screenCapture": "./pa11y-screenshots/{{url}}.png",
+    "actions": [],
+    "hideElements": ".storyblok-bridge",
+    "rules": []
+  },
+  "urls": [
+    {
+      "url": "http://localhost:6666",
+      "screenCapture": "./pa11y-screenshots/home.png"
+    },
+    {
+      "url": "http://localhost:6666/beta",
+      "screenCapture": "./pa11y-screenshots/beta.png"
+    }
+  ]
+}
