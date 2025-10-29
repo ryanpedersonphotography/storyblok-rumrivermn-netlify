@@ -1,0 +1,162 @@
+/* THEME TOGGLE STYLES - Elegant romantic wedding barn aesthetic */
+
+.theme-toggle {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  color: var(--theme-text-primary, #F5E6D3) !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+/* Hover effect */
+.theme-toggle:hover {
+  background: color-mix(in srgb, var(--theme-accent-gold, #E4C896) 15%, transparent) !important;
+  border-color: var(--theme-accent-gold, #E4C896) !important;
+  transform: rotate(15deg) scale(1.05) !important;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 40%, transparent) !important;
+}
+
+/* Active/pressed state */
+.theme-toggle:active {
+  transform: rotate(15deg) scale(0.95) !important;
+}
+
+/* Theme toggle icon */
+.theme-toggle-icon {
+  width: 20px !important;
+  height: 20px !important;
+  stroke-width: 2.5 !important;
+  animation: fadeInRotate 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  color: inherit !important;
+}
+
+/* Auto mode badge */
+.theme-toggle-auto-badge {
+  position: absolute !important;
+  bottom: -2px !important;
+  right: -2px !important;
+  width: 14px !important;
+  height: 14px !important;
+  background: linear-gradient(135deg, #E4C896 0%, #D4A574 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  color: #6B4E3D !important;
+  font-family: 'Montserrat', sans-serif !important;
+  letter-spacing: 0 !important;
+  animation: pulseBadge 2s ease-in-out infinite !important;
+}
+
+/* Scrolled navbar state */
+.hotfix-navbar.scrolled .theme-toggle {
+  border-color: rgba(107, 78, 61, 0.2) !important;
+  color: #6B4E3D !important;
+}
+
+.hotfix-navbar.scrolled .theme-toggle:hover {
+  background: rgba(228, 200, 150, 0.1) !important;
+  border-color: #E4C896 !important;
+  color: #6B4E3D !important;
+}
+
+.hotfix-navbar.scrolled .theme-toggle-auto-badge {
+  border-color: #FFFFFF !important;
+}
+
+/* Fade in rotate animation for icon changes */
+@keyframes fadeInRotate {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Pulse animation for auto badge */
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+/* Focus state for accessibility */
+.theme-toggle:focus {
+  outline: 2px solid var(--theme-accent-gold, #E4C896) !important;
+  outline-offset: 2px !important;
+}
+
+/* Remove default button styles */
+.theme-toggle::-moz-focus-inner {
+  border: 0 !important;
+}
+
+/* Dark mode adjustments */
+html[data-theme="dark"] .theme-toggle {
+  border-color: rgba(240, 213, 168, 0.3) !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: color-mix(in srgb, var(--theme-accent-gold, #E4C896) 15%, transparent) !important;
+  border-color: var(--theme-accent-gold, #E4C896) !important;
+}
+
+html[data-theme="dark"] .theme-toggle-auto-badge {
+  background: linear-gradient(135deg, var(--theme-accent-gold, #F0D9A8) 0%, #E0C090 100%) !important;
+  border-color: var(--theme-bg-primary, #1A1410) !important;
+  color: var(--theme-bg-primary, #1A1410) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .theme-toggle {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .theme-toggle-icon {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .theme-toggle-auto-badge {
+    width: 12px !important;
+    height: 12px !important;
+    font-size: 7px !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle-icon,
+  .theme-toggle-auto-badge {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .theme-toggle:hover {
+    transform: none !important;
+  }
+}

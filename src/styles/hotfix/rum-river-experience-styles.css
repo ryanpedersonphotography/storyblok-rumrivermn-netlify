@@ -1,23 +1,23 @@
 /* 📦 Design Tokens - Rum River Experience Section */
 :root {
-  /* Theme Variables */
+  /* Theme Variables - Using global theme tokens */
   --theme-mode: light;
-  --section-bg: var(--warm-cream, #FEF7ED);
-  --text-color: var(--charcoal, #2C2C2C);
+  --section-bg: var(--theme-bg-secondary, #FEF7ED);
+  --text-color: var(--theme-text-primary, #2C2C2C);
 
-  /* Color Palette - Using design tokens */
-  --primary-color: var(--warm-walnut, #6B4E3D);
-  --secondary-color: var(--warm-cream, #FFFCF8);
-  --accent-color: var(--sage-green, #7A8B7F);
-  --dusty-rose: var(--dusty-rose, #9D6B7B);
+  /* Color Palette - Using theme tokens */
+  --primary-color: var(--theme-text-primary, #6B4E3D);
+  --secondary-color: var(--theme-bg-primary, #FFFCF8);
+  --accent-color: var(--theme-accent-sage, #7A8B7F);
+  --dusty-rose: var(--theme-accent-rose, #9D6B7B);
 
-  /* Icon Styling - Simple Dusty Rose */
+  /* Icon Styling - Using theme tokens */
   --icon-size: 28px;
-  --icon-color: #9D6B7B; /* Dusty rose */
+  --icon-color: var(--theme-accent-rose, #9D6B7B);
 
   /* Visual Style */
   --border-radius: 20px;
-  --box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  --box-shadow: var(--theme-shadow-lg, 0 25px 50px rgba(0, 0, 0, 0.15));
   --padding: 2rem;
   --gap: 3rem;
 
@@ -29,10 +29,31 @@
 /* RUM RIVER EXPERIENCE SECTION STYLES */
 
 .rum-river-experience {
-  background: var(--secondary-color) !important;
+  background: var(--theme-bg-primary, #FFFCF8) !important;
   padding: 100px 0 !important;
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important;
+}
+
+/* Gold thread divider for visual separation from next section */
+.rum-river-experience::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--theme-accent-gold, #E4C896) 50%, transparent) 15%,
+    var(--theme-accent-gold, #E4C896) 50%,
+    color-mix(in srgb, var(--theme-accent-gold, #E4C896) 50%, transparent) 85%,
+    transparent 100%
+  ) !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.3s ease !important;
+  z-index: 10 !important;
 }
 
 .experience-container {
@@ -59,14 +80,14 @@
 .experience-script {
   font-family: 'Dancing Script', cursive !important;
   font-size: 1.75rem !important;
-  color: #9D6B7B !important; /* dusty-rose */
+  color: var(--theme-accent-rose, #9D6B7B) !important;
   margin: 0 0 1rem 0 !important;
 }
 
 .experience-title {
   font-family: 'Playfair Display', serif !important;
   font-size: 3rem !important;
-  color: #6B4E3D !important; /* warm-walnut */
+  color: var(--theme-text-primary, #6B4E3D) !important;
   margin: 0 0 1.5rem 0 !important;
   line-height: 1.2 !important;
   font-weight: 400 !important;
@@ -75,7 +96,7 @@
 .experience-description {
   font-size: 1.125rem !important;
   line-height: 1.8 !important;
-  color: #6B4E3D !important; /* warm-walnut */
+  color: var(--theme-text-primary, #6B4E3D) !important;
   opacity: 0.85 !important;
   margin: 0 !important;
   font-family: 'Montserrat', sans-serif !important;
@@ -94,14 +115,16 @@
   gap: 1rem !important;
   padding: 1rem !important;
   border-radius: 12px !important;
-  background: rgba(0, 0, 0, 0.02) !important;
+  background: var(--theme-bg-card, rgba(0, 0, 0, 0.02)) !important;
+  border: 1px solid var(--theme-border-subtle, transparent) !important;
   transition: all var(--animation-duration) var(--animation-easing) !important;
   cursor: pointer !important;
 }
 
 .experience-feature:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: var(--theme-shadow-sm, 0 8px 16px rgba(0, 0, 0, 0.08)) !important;
+  border-color: var(--theme-border-medium, rgba(0, 0, 0, 0.08)) !important;
 }
 
 /* Simple Icon Container - No Background */
@@ -215,5 +238,119 @@
 
   .experience-description {
     font-size: 1rem !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"])
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .rum-river-experience {
+  background: var(--theme-bg-primary, #1A1410) !important;
+}
+
+/* Enhance gold divider visibility in dark mode */
+html[data-theme="dark"] .rum-river-experience::after {
+  opacity: 0.8 !important;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 40%, transparent) !important;
+}
+
+/* Add gentle vignette to bottom of section in dark mode for depth */
+html[data-theme="dark"] .rum-river-experience::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 200px !important;
+  background: radial-gradient(
+    ellipse at bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--theme-bg-secondary, #2C2416) 15%, transparent) 100%
+  ) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+html[data-theme="dark"] .experience-title,
+html[data-theme="dark"] .experience-description,
+html[data-theme="dark"] .feature-text h3.feature-title,
+html[data-theme="dark"] .feature-text p.feature-description {
+  color: var(--theme-text-primary, #F5E6D3) !important;
+}
+
+html[data-theme="dark"] .experience-script {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+html[data-theme="dark"] .experience-feature {
+  background: var(--theme-bg-card, #3D2F22) !important;
+  border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08)) !important;
+}
+
+html[data-theme="dark"] .experience-feature:hover {
+  border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+  box-shadow: var(--theme-shadow-dark-sm, 0 8px 16px rgba(0, 0, 0, 0.4)) !important;
+}
+
+html[data-theme="dark"] .feature-icon .icon-svg {
+  color: var(--theme-accent-rose, #D89BAE) !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .rum-river-experience {
+    background: var(--theme-bg-primary, #1A1410) !important;
+  }
+
+  /* Enhance gold divider visibility in auto dark mode */
+  :root:not([data-theme="light"]) .rum-river-experience::after {
+    opacity: 0.8 !important;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 40%, transparent) !important;
+  }
+
+  /* Add gentle vignette to bottom of section in auto dark mode */
+  :root:not([data-theme="light"]) .rum-river-experience::before {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 200px !important;
+    background: radial-gradient(
+      ellipse at bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--theme-bg-secondary, #2C2416) 15%, transparent) 100%
+    ) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  :root:not([data-theme="light"]) .experience-title,
+  :root:not([data-theme="light"]) .experience-description,
+  :root:not([data-theme="light"]) .feature-text h3.feature-title,
+  :root:not([data-theme="light"]) .feature-text p.feature-description {
+    color: var(--theme-text-primary, #F5E6D3) !important;
+  }
+
+  :root:not([data-theme="light"]) .experience-script {
+    color: var(--theme-accent-rose, #D89BAE) !important;
+  }
+
+  :root:not([data-theme="light"]) .experience-feature {
+    background: var(--theme-bg-card, #3D2F22) !important;
+    border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08)) !important;
+  }
+
+  :root:not([data-theme="light"]) .experience-feature:hover {
+    border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12)) !important;
+    box-shadow: var(--theme-shadow-dark-sm, 0 8px 16px rgba(0, 0, 0, 0.4)) !important;
+  }
+
+  :root:not([data-theme="light"]) .feature-icon .icon-svg {
+    color: var(--theme-accent-rose, #D89BAE) !important;
   }
 }

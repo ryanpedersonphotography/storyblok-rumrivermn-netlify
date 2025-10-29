@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { hotfixNavbar, type HotfixNavItem } from './hotfixStaticContent'
+import ThemeToggle from '../ThemeToggle'
 
 type Props = { data?: typeof hotfixNavbar }
 
@@ -96,6 +97,7 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
             {data.show_cta && (
               <a
                 href={data.cta.url}
@@ -110,6 +112,7 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
           {/* Mobile Menu Button */}
           <button
             className="hotfix-navbar-mobile-btn"
+            data-testid="nav-mobile-toggle"
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open mobile menu"
           >
@@ -123,7 +126,7 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div className={`hotfix-navbar-mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+      <div className={`hotfix-navbar-mobile-menu ${isMenuOpen ? 'open' : ''}`} data-testid="nav-mobile-drawer">
         <button
           className="hotfix-navbar-mobile-close"
           onClick={() => setIsMenuOpen(false)}
@@ -146,6 +149,9 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
             {item.label}
           </a>
         ))}
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
+          <ThemeToggle />
+        </div>
         {data.show_cta && (
           <a
             href={data.cta.url}

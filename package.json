@@ -34,11 +34,13 @@
     "@axe-core/playwright": "^4.11.0",
     "@eslint/eslintrc": "^3",
     "@netlify/plugin-nextjs": "^5.10.6",
+    "@playwright/test": "^1.56.1",
     "@types/react": "19.2.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
     "lighthouse": "^12.8.2",
     "pa11y-ci": "^4.0.1",
+    "playwright": "^1.56.1",
     "start-server-and-test": "^2.1.2",
     "style-dictionary": "^4.4.0"
   }

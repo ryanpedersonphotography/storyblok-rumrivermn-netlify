@@ -11,7 +11,7 @@ footer {
 .hotfix-footer {
   padding: 3rem 0 2rem !important;
   background: linear-gradient(135deg, #2C2416 0%, #1F1A11 100%) !important;
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   width: 100% !important;
   margin: 0 !important;
   margin-left: 0 !important;
@@ -60,7 +60,7 @@ footer {
 /* Section Titles - All Centered */
 .hotfix-footer-title,
 .hotfix-footer-section-title {
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   margin: 0 0 1.25rem 0 !important;
   font-size: 1.25rem !important;
   font-family: 'Playfair Display', serif !important;
@@ -81,14 +81,14 @@ footer {
   transform: translateX(-50%) !important;
   width: 40px !important;
   height: 2px !important;
-  background: #E4C896 !important;
+  background: var(--theme-accent-gold, #E4C896) !important;
 }
 
 /* Footer Description Text */
 .hotfix-footer-description {
   line-height: 1.8 !important;
   font-family: 'Montserrat', sans-serif !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--theme-text-secondary, #E8D4BC) !important;
   margin: 0 0 1.5rem 0 !important;
   font-size: 1rem !important;
   font-style: italic !important;
@@ -111,7 +111,7 @@ footer {
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.75rem !important;
-  color: #E4C896 !important;
+  color: var(--theme-accent-gold, #E4C896) !important;
   text-decoration: none !important;
   font-family: 'Montserrat', sans-serif !important;
   padding: 0.5rem 0 !important;
@@ -121,7 +121,7 @@ footer {
 }
 
 .hotfix-phone-link:hover {
-  color: white !important;
+  color: var(--theme-text-on-dark, #FFF8E7) !important;
   transform: translateX(3px) !important;
 }
 
@@ -157,9 +157,20 @@ footer {
 }
 
 .hotfix-social-link:hover {
-  background: #E4C896 !important;
-  color: #2C2416 !important;
+  background: var(--theme-accent-gold, #E4C896) !important;
+  color: var(--theme-bg-secondary, #2C2416) !important;
   transform: translateY(-3px) !important;
+}
+
+/* DARK MODE */
+html[data-theme="dark"] .hotfix-footer {
+  background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-dark-section, #0F0C0A) 100%) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hotfix-footer {
+    background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-dark-section, #0F0C0A) 100%) !important;
+  }
 }
 
 /* Social Icons */

@@ -3,11 +3,12 @@
    Applied to all Heroicons on home page (excluding footer navigation)
    ============================================================================ */
 
-/* 📦 Design Tokens for Icon System */
+/* 📦 Design Tokens for Icon System - Fully Tokenized */
 :root {
-  /* Icon Color - Dusty Rose */
-  --icon-color: #9D6B7B; /* Dusty rose */
-  --icon-color-hover: #B47A8E; /* Lighter dusty rose on hover */
+  /* Icon Colors - from theme tokens */
+  --icon-color: var(--theme-accent-rose);
+  --icon-color-hover: color-mix(in srgb, var(--theme-accent-rose) 82%, var(--theme-text-on-dark) 18%);
+  --icon-muted: var(--theme-text-muted);
 
   /* Icon Sizes */
   --icon-size-sm: 20px;
@@ -20,7 +21,7 @@
   --icon-stroke-width-thin: 1;
 
   /* Icon Transitions */
-  --icon-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --icon-transition: color 0.15s ease, opacity 0.15s ease;
 }
 
 /* ============================================================================

@@ -1,0 +1,117 @@
+/* ============================================================================
+   UNIVERSAL MEDIA DARKENING SYSTEM
+   Tokenized overlay + filter system for dark mode imagery
+   ============================================================================ */
+
+/* ============================================
+   UNIVERSAL MEDIA FILTER (img, video)
+   Applies subtle darkening filter to all media
+   ============================================ */
+html[data-theme="dark"] img:not([data-no-darken]),
+html[data-theme="dark"] video:not([data-no-darken]) {
+  filter:
+    brightness(var(--media-filter-brightness, 0.88))
+    contrast(var(--media-filter-contrast, 1.06))
+    saturate(var(--media-filter-saturate, 1.02));
+  transition: filter .2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) img:not([data-no-darken]),
+  :root:not([data-theme="light"]) video:not([data-no-darken]) {
+    filter:
+      brightness(var(--media-filter-brightness, 0.88))
+      contrast(var(--media-filter-contrast, 1.06))
+      saturate(var(--media-filter-saturate, 1.02));
+    transition: filter .2s ease;
+  }
+}
+
+/* ============================================
+   OVERLAY FOR IMAGE-BACKED CONTAINERS
+   Use when a block has bg-image or contains media with text on top.
+   Add class `.auto-media-darken` to that container.
+   ============================================ */
+.auto-media-darken {
+  position: relative;
+  isolation: isolate; /* overlay sits above background, below content */
+}
+
+.auto-media-darken::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0; /* light mode: no darken */
+  transition: opacity .2s ease, background .2s ease;
+  z-index: 0;
+}
+
+html[data-theme="dark"] .auto-media-darken::after {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) var(--media-darken-alpha-default, 0.28), transparent) 0%,
+    color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) calc(var(--media-darken-alpha-default, 0.28) + 0.06), transparent) 60%,
+    color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) calc(var(--media-darken-alpha-default, 0.28) + 0.08), transparent) 100%
+  );
+  opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .auto-media-darken::after {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) var(--media-darken-alpha-default, 0.28), transparent) 0%,
+      color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) calc(var(--media-darken-alpha-default, 0.28) + 0.06), transparent) 60%,
+      color-mix(in srgb, var(--media-darken-tint, rgba(10,8,6,1)) calc(var(--media-darken-alpha-default, 0.28) + 0.08), transparent) 100%
+    );
+    opacity: 1;
+  }
+}
+
+/* Raise content above overlay */
+.auto-media-darken > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   STRENGTH VARIANTS (opt-in on a container)
+   ============================================ */
+.auto-media-darken[data-strength="strong"]::after {
+  --media-darken-alpha-default: var(--media-darken-alpha-strong, 0.40);
+}
+
+.auto-media-darken[data-strength="min"]::after {
+  --media-darken-alpha-default: var(--media-darken-alpha-min, 0.18);
+}
+
+/* ============================================
+   EXCLUSIONS / SPECIAL CASES
+   ============================================ */
+/* Don't darken brand logos, vector-only zones, or transparent marks */
+.logo,
+.press-logo img,
+img[alt*="logo" i],
+img[alt*="Logo" i],
+svg,
+picture img[loading="lazy"][decoding="async"] {
+  filter: none !important;
+}
+
+/* Explicit opt-out: add attribute to any img/video/container */
+[data-no-darken],
+.no-media-darken,
+.no-media-darken * {
+  filter: none !important;
+}
+
+.no-media-darken.auto-media-darken::after {
+  opacity: 0 !important;
+}
+
+/* Brand social proof section - exclude logos */
+.hotfix-brand-logo,
+.hotfix-brand-logo img {
+  filter: none !important;
+}

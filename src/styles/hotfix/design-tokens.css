@@ -85,6 +85,16 @@ html, body {
   --color-bg-warm: var(--color-warm-cream);
   --color-bg-dark: var(--color-deep-brown);
 
+  /* === NAVIGATION COLORS === */
+  --nav-hover-bg: color-mix(in srgb, var(--theme-accent-gold, #E4C896) 12%, white);
+  --nav-hover-bg-dark: color-mix(in srgb, var(--theme-bg-card, #3D2F22) 65%, transparent);
+
+  /* === ICON COLORS === */
+  --icon-color: var(--theme-accent-rose, #9D6B7B);
+  --icon-color-muted: color-mix(in srgb, var(--theme-text-secondary, #666) 70%, transparent);
+  --icon-color-strong: var(--theme-accent-gold, #E4C896);
+  --icon-bg-contrast: color-mix(in srgb, var(--theme-bg-card, #FFFFFF) 12%, white);
+
   /* ============================================================================
      RGBA VARIANTS FOR TRANSPARENCY
      ============================================================================ */
@@ -392,3 +402,110 @@ html, body {
 .shadow-romantic { box-shadow: var(--shadow-romantic); }
 .shadow-gold { box-shadow: var(--shadow-gold); }
 .shadow-form { box-shadow: var(--shadow-form); }
+
+/* ============================================================================
+   DARK MODE THEME - Romantic Evening Wedding Barn
+   ============================================================================ */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Backgrounds - Warm browns for romantic evening ambiance */
+  --theme-bg-primary: #1A1410;        /* Deep warm walnut - like evening barn interior */
+  --theme-bg-secondary: #2C2416;      /* Rich chocolate with rose undertones */
+  --theme-bg-warm: #251E1A;           /* Section background alternative */
+  --theme-bg-card: #3D2F22;           /* Elevated surfaces - warm brown */
+  --theme-bg-dark-section: #0F0C0A;   /* Nearly black with warm undertones */
+
+  /* Text Colors - Warm creams for elegant readability */
+  --theme-text-primary: #F5E6D3;      /* Warm champagne cream */
+  --theme-text-secondary: #E8D4BC;    /* Soft cream */
+  --theme-text-on-dark: #FFF8E7;      /* Champagne glow for dark sections */
+  --theme-text-muted: #C4B5A6;        /* Warm gray with beige tint */
+
+  /* Accent Colors - Brighter for visibility on dark backgrounds */
+  --theme-accent-gold: #F0D9A8;       /* Brighter champagne - pops on dark */
+  --theme-accent-gold-alt: #E4C896;   /* Standard champagne gold */
+  --theme-accent-rose: #D89BAE;       /* Vibrant dusty rose - more saturated */
+  --theme-accent-rose-dark: #C999AA;  /* Lighter rose for hovers */
+  --theme-accent-sage: #A8BFA8;       /* Soft sage - visible but elegant */
+
+  /* Borders - Warm and subtle */
+  --theme-border-subtle: rgba(255, 255, 255, 0.08);
+  --theme-border-medium: rgba(255, 255, 255, 0.12);
+  --theme-border-strong: rgba(240, 217, 168, 0.20);
+  --theme-border-focus: #F0D9A8;
+
+  /* Shadows - Deep but with warm undertones */
+  --theme-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.50);
+  --theme-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.60);
+  --theme-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.70);
+  --theme-shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.80);
+  --theme-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.85);
+  --theme-shadow-gold: 0 8px 25px rgba(240, 217, 168, 0.18);
+  --theme-shadow-romantic: 0 4px 20px rgba(216, 155, 174, 0.22);
+
+  /* Overlays - Warm brown tones */
+  --theme-overlay-dark: rgba(15, 12, 10, 0.75);
+  --theme-overlay-light: rgba(61, 47, 34, 0.65);
+
+  /* Gradients - Warm browns that complement images */
+  --theme-gradient-hero: linear-gradient(135deg,
+    rgba(26, 20, 16, 0.92) 0%,
+    rgba(15, 12, 10, 0.88) 100%
+  );
+  --theme-gradient-cta: linear-gradient(135deg, #F0D9A8 0%, #E4C896 100%);
+
+  /* Apply dark theme to body */
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+}
+
+/* AUTO MODE - System Preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --theme-bg-primary: #1A1410;
+    --theme-bg-secondary: #2C2416;
+    --theme-bg-warm: #251E1A;
+    --theme-bg-card: #3D2F22;
+    --theme-bg-dark-section: #0F0C0A;
+
+    --theme-text-primary: #F5E6D3;
+    --theme-text-secondary: #E8D4BC;
+    --theme-text-on-dark: #FFF8E7;
+    --theme-text-muted: #C4B5A6;
+
+    --theme-accent-gold: #F0D9A8;
+    --theme-accent-gold-alt: #E4C896;
+    --theme-accent-rose: #D89BAE;
+    --theme-accent-rose-dark: #C999AA;
+    --theme-accent-sage: #A8BFA8;
+
+    --theme-border-subtle: rgba(255, 255, 255, 0.08);
+    --theme-border-medium: rgba(255, 255, 255, 0.12);
+    --theme-border-strong: rgba(240, 217, 168, 0.20);
+    --theme-border-focus: #F0D9A8;
+
+    --theme-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.50);
+    --theme-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.60);
+    --theme-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.70);
+    --theme-shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.80);
+    --theme-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.85);
+    --theme-shadow-gold: 0 8px 25px rgba(240, 217, 168, 0.18);
+    --theme-shadow-romantic: 0 4px 20px rgba(216, 155, 174, 0.22);
+
+    --theme-overlay-dark: rgba(15, 12, 10, 0.75);
+    --theme-overlay-light: rgba(61, 47, 34, 0.65);
+
+    --theme-gradient-hero: linear-gradient(135deg,
+      rgba(26, 20, 16, 0.92) 0%,
+      rgba(15, 12, 10, 0.88) 100%
+    );
+    --theme-gradient-cta: linear-gradient(135deg, #F0D9A8 0%, #E4C896 100%);
+
+    background-color: var(--theme-bg-primary);
+    color: var(--theme-text-primary);
+  }
+}
