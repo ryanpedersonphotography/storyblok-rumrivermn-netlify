@@ -121,12 +121,24 @@
 
 /* DARK MODE */
 html[data-theme="dark"] .hotfix-alternating-blocks {
-  background: linear-gradient(135deg, rgba(26, 20, 16, 0.98) 0%, rgba(31, 26, 17, 0.95) 100%) !important;
+  background: var(--grad-section-soft) !important;
+}
+
+/* Alternating row tint with rose veil */
+html[data-theme="dark"] .hotfix-block-item:nth-child(even) {
+  background: linear-gradient(90deg, transparent, var(--rose-veil-8) 50%, transparent) !important;
+  padding: 2rem 0 !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-alternating-blocks {
-    background: linear-gradient(135deg, rgba(26, 20, 16, 0.98) 0%, rgba(31, 26, 17, 0.95) 100%) !important;
+    background: var(--grad-section-soft) !important;
+  }
+
+  /* Alternating row tint with rose veil */
+  :root:not([data-theme="light"]) .hotfix-block-item:nth-child(even) {
+    background: linear-gradient(90deg, transparent, var(--rose-veil-8) 50%, transparent) !important;
+    padding: 2rem 0 !important;
   }
 }
 

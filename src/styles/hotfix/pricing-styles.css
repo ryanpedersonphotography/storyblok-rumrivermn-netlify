@@ -311,51 +311,49 @@
    ============================================================================ */
 
 html[data-theme="dark"] .pricing-section::before {
-  background: linear-gradient(135deg,
-    rgba(26, 20, 16, 0.95) 0%,
-    rgba(44, 36, 22, 0.98) 50%,
-    rgba(61, 47, 34, 0.92) 100%);
+  background: var(--grad-section-soft);
 }
 
 html[data-theme="dark"] .pricing-card {
-  background: var(--theme-bg-card, #3D2F22) !important;
-  border-color: var(--theme-border-medium, rgba(255,255,255,0.12)) !important;
-  color: var(--theme-text-primary, #F5E6D3) !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--theme-shadow-lg) !important;
+  color: var(--theme-text-primary) !important;
 }
 
 html[data-theme="dark"] .pricing-card:hover {
   border-color: var(--theme-accent-gold, #F0D9A8) !important;
+  box-shadow: var(--theme-shadow-xl) !important;
 }
 
 html[data-theme="dark"] .pricing-card.popular {
-  background: linear-gradient(135deg,
-    rgba(61, 47, 34, 1) 0%,
-    rgba(77, 59, 45, 0.8) 100%) !important;
+  background: var(--glass-bg) !important;
   border-color: var(--theme-accent-rose, #D89BAE) !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .pricing-section::before {
-    background: linear-gradient(135deg,
-      rgba(26, 20, 16, 0.95) 0%,
-      rgba(44, 36, 22, 0.98) 50%,
-      rgba(61, 47, 34, 0.92) 100%);
+    background: var(--grad-section-soft);
   }
 
   :root:not([data-theme="light"]) .pricing-card {
-    background: var(--theme-bg-card, #3D2F22) !important;
-    border-color: var(--theme-border-medium, rgba(255,255,255,0.12)) !important;
-    color: var(--theme-text-primary, #F5E6D3) !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--theme-shadow-lg) !important;
+    color: var(--theme-text-primary) !important;
   }
 
   :root:not([data-theme="light"]) .pricing-card:hover {
     border-color: var(--theme-accent-gold, #F0D9A8) !important;
+    box-shadow: var(--theme-shadow-xl) !important;
   }
 
   :root:not([data-theme="light"]) .pricing-card.popular {
-    background: linear-gradient(135deg,
-      rgba(61, 47, 34, 1) 0%,
-      rgba(77, 59, 45, 0.8) 100%) !important;
+    background: var(--glass-bg) !important;
     border-color: var(--theme-accent-rose, #D89BAE) !important;
   }
 }

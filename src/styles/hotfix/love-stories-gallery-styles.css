@@ -1,7 +1,8 @@
 /* LOVE STORIES GALLERY SECTION STYLES - Extracted from hotfix-site.css */
 
 .hotfix-love-stories-gallery {
-  background: var(--theme-bg-primary, #FFFCF8) !important;
+  /* Rose-tinted romantic background - 8% rose accent mixed with surface */
+  background: color-mix(in srgb, var(--theme-bg-primary, #FFFCF8) 92%, var(--theme-accent-rose, #9D6B7B) 8%) !important;
   padding: 100px 0 !important;
   min-height: 100vh !important;
   /* Override global Storyblok CSS constraints for full-width */
@@ -190,7 +191,8 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .hotfix-love-stories-gallery {
-  background: var(--theme-bg-primary, #1A1410) !important;
+  /* Rose-tinted dark background - using romantic tonal ladder token */
+  background: var(--rose-veil-8) !important;
 }
 
 html[data-theme="dark"] .hotfix-love-stories-header .hotfix-script-accent {
@@ -233,7 +235,8 @@ html[data-theme="dark"] .hotfix-gallery-season {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-love-stories-gallery {
-    background: var(--theme-bg-primary, #1A1410) !important;
+    /* Rose-tinted dark background - using romantic tonal ladder token */
+    background: var(--rose-veil-8) !important;
   }
 
   :root:not([data-theme="light"]) .hotfix-love-stories-header .hotfix-script-accent {

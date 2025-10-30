@@ -277,7 +277,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .hotfix-map-section {
-  background: var(--theme-bg-primary, #1A1410) !important;
+  background: var(--surface-2) !important;
 }
 
 html[data-theme="dark"] .hotfix-map-section-title,
@@ -310,7 +310,7 @@ html[data-theme="dark"] .hotfix-map-embed::after {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-map-section {
-    background: var(--theme-bg-primary, #1A1410) !important;
+    background: var(--surface-2) !important;
   }
 
   :root:not([data-theme="light"]) .hotfix-map-section-title,

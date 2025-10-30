@@ -246,7 +246,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .rum-river-experience {
-  background: var(--theme-bg-primary, #1A1410) !important;
+  background: var(--surface-3) !important;
 }
 
 /* Enhance gold divider visibility in dark mode */
@@ -303,7 +303,7 @@ html[data-theme="dark"] .feature-icon .icon-svg {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .rum-river-experience {
-    background: var(--theme-bg-primary, #1A1410) !important;
+    background: var(--surface-3) !important;
   }
 
   /* Enhance gold divider visibility in auto dark mode */

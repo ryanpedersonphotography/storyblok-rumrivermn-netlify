@@ -348,9 +348,11 @@
 
 /* DARK MODE: navbar remains dark when scrolled */
 html[data-theme="dark"] .hotfix-navbar.scrolled {
-  background: color-mix(in srgb, var(--theme-bg-primary) 90%, transparent) !important;
-  border-bottom: 1px solid var(--theme-border-subtle) !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35) !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: var(--theme-shadow-lg) !important;
 }
 
 html[data-theme="dark"] .hotfix-navbar.scrolled .hotfix-navbar-link,
@@ -363,9 +365,11 @@ html[data-theme="dark"] .hotfix-navbar.scrolled .theme-toggle {
 /* AUTO MODE: OS Preference (prefers-color-scheme: dark) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-navbar.scrolled {
-    background: color-mix(in srgb, var(--theme-bg-primary) 90%, transparent) !important;
-    border-bottom: 1px solid var(--theme-border-subtle) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35) !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    box-shadow: var(--theme-shadow-lg) !important;
   }
 
   :root:not([data-theme="light"]) .hotfix-navbar.scrolled .hotfix-navbar-link,

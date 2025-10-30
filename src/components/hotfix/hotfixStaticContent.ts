@@ -4,7 +4,7 @@ export const hotfixNavbar = {
   logoText: "Rum River Barn",     // text logo - no image
   style_variant: "transparent",   // "solid" | "transparent" | "sticky"
   tone: "default" as const,
-  show_cta: true,
+  show_cta: false,
   cta: { url: "#contact", label: "Schedule Tour" },
   items: [
     { label: "Venue", href: "#venue" },

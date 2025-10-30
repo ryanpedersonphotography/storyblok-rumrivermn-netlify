@@ -186,7 +186,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .hotfix-schedule-tour {
-  background: linear-gradient(135deg, var(--theme-bg-dark-section, #0F0C0A) 0%, var(--theme-bg-secondary, #2C2416) 100%) !important;
+  background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-1) 100%) !important;
 }
 
 html[data-theme="dark"] .hotfix-tour-form {
@@ -225,7 +225,7 @@ html[data-theme="dark"] .hotfix-form-textarea:focus {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-schedule-tour {
-    background: linear-gradient(135deg, var(--theme-bg-dark-section, #0F0C0A) 0%, var(--theme-bg-secondary, #2C2416) 100%) !important;
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-1) 100%) !important;
   }
 
   :root:not([data-theme="light"]) .hotfix-tour-form {

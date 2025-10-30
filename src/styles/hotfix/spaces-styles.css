@@ -267,7 +267,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .spaces-section {
-  background: var(--theme-bg-secondary, #2C2416) !important;
+  background: var(--surface-4) !important;
 }
 
 html[data-theme="dark"] .script-accent {
@@ -351,7 +351,7 @@ html[data-theme="dark"] .venue-feature p {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .spaces-section {
-    background: var(--theme-bg-secondary, #2C2416) !important;
+    background: var(--surface-4) !important;
   }
 
   :root:not([data-theme="light"]) .script-accent {

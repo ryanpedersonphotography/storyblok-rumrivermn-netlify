@@ -226,7 +226,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] .hotfix-social-proof {
-  background: var(--theme-bg-primary, #1A1410) !important;
+  background: var(--surface-2) !important;
 }
 
 html[data-theme="dark"] .hotfix-social-proof-header .hotfix-script-accent {
@@ -282,7 +282,7 @@ html[data-theme="dark"] .hotfix-avatar-overlay {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-social-proof {
-    background: var(--theme-bg-primary, #1A1410) !important;
+    background: var(--surface-2) !important;
   }
 
   :root:not([data-theme="light"]) .hotfix-social-proof-header .hotfix-script-accent {

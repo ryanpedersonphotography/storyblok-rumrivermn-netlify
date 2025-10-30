@@ -47,6 +47,51 @@ html[data-theme="dark"] {
 
   background-color: var(--theme-bg-primary);
   color: var(--theme-text-primary);
+
+  /* === ROMANTIC DARK TONAL LADDER (2025) ==================================== */
+  /* Anchors from your warm-walnut primaries; OKLCH keeps perceived steps even. */
+  /* Baselines (from your tokens): --theme-bg-primary (#1A1410),
+     --theme-bg-secondary (#2C2416), --theme-bg-card (#3D2F22),
+     accents: --theme-accent-rose, --theme-accent-sage, --theme-accent-gold. */
+
+  /* 1) Tonal Surfaces: lightness steps for section pacing */
+  /* Warm walnut anchors in OKLCH. Approximate conversions chosen for perceptual ramps. */
+  --walnut-900: oklch(0.18 0.03 65); /* ~#0F0C0A region: your darkest warm */
+  --walnut-850: oklch(0.20 0.03 65);
+  --walnut-800: oklch(0.22 0.03 65); /* ≈ --theme-bg-primary */
+  --walnut-750: oklch(0.25 0.035 65);
+  --walnut-700: oklch(0.28 0.04 65); /* ≈ --theme-bg-secondary */
+  --walnut-650: oklch(0.31 0.04 65); /* subtle lift for "brightest dark" sections */
+
+  /* Semantic surfaces (use these for sections, not raw colors) */
+  --surface-0: var(--walnut-900); /* Near-black warm (dividers/footer endcaps)    */
+  --surface-1: var(--walnut-800); /* Primary dark                                 */
+  --surface-2: var(--walnut-750); /* Slightly brighter                            */
+  --surface-3: var(--walnut-700); /* Medium dark                                  */
+  --surface-4: var(--walnut-650); /* Brightest dark surface                       */
+
+  /* 2) Accent Veils (very low-chroma wash for variety without glare) */
+  --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--theme-accent-rose) 8%);
+  --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--theme-accent-sage) 8%);
+  --gold-veil-6: color-mix(in oklch, var(--surface-1) 94%, var(--theme-accent-gold) 6%);
+
+  /* 3) Unifying gradients (replace bespoke ones) */
+  --grad-section-soft: linear-gradient(180deg,
+    color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
+    var(--surface-1) 100%);
+  --grad-section-deep: linear-gradient(180deg,
+    var(--surface-1) 0%,
+    var(--surface-0) 100%);
+
+  /* 4) Glassmorphism: restrained defaults for cards/nav */
+  --glass-bg: color-mix(in oklch, var(--surface-1) 80%, white 20%); /* ~20% milk */
+  --glass-border: color-mix(in oklch, var(--theme-border-strong) 60%, transparent);
+  --glass-blur: 12px;
+  --glass-sat: 1.12;
+
+  /* 5) Hairline separators (avoid heavy lines in dark) */
+  --hairline-1: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  --hairline-2: linear-gradient(180deg, rgba(240,217,168,0.25), rgba(240,217,168,0.05)); /* gold */
 }
 
 /* Auto: follow system — works when data-theme is NOT forced to light */
@@ -93,5 +138,109 @@ html[data-theme="dark"] {
 
     background-color: var(--theme-bg-primary);
     color: var(--theme-text-primary);
+
+    /* === ROMANTIC DARK TONAL LADDER (2025) - Auto Mirror ==================================== */
+    --walnut-900: oklch(0.18 0.03 65);
+    --walnut-850: oklch(0.20 0.03 65);
+    --walnut-800: oklch(0.22 0.03 65);
+    --walnut-750: oklch(0.25 0.035 65);
+    --walnut-700: oklch(0.28 0.04 65);
+    --walnut-650: oklch(0.31 0.04 65);
+
+    --surface-0: var(--walnut-900);
+    --surface-1: var(--walnut-800);
+    --surface-2: var(--walnut-750);
+    --surface-3: var(--walnut-700);
+    --surface-4: var(--walnut-650);
+
+    --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--theme-accent-rose) 8%);
+    --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--theme-accent-sage) 8%);
+    --gold-veil-6: color-mix(in oklch, var(--surface-1) 94%, var(--theme-accent-gold) 6%);
+
+    --grad-section-soft: linear-gradient(180deg,
+      color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
+      var(--surface-1) 100%);
+    --grad-section-deep: linear-gradient(180deg,
+      var(--surface-1) 0%,
+      var(--surface-0) 100%);
+
+    --glass-bg: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+    --glass-border: color-mix(in oklch, var(--theme-border-strong) 60%, transparent);
+    --glass-blur: 12px;
+    --glass-sat: 1.12;
+
+    --hairline-1: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+    --hairline-2: linear-gradient(180deg, rgba(240,217,168,0.25), rgba(240,217,168,0.05));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES - Tonal Ladder System
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Card with glassmorphism treatment */
+html[data-theme="dark"] .card-dark {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--theme-shadow-lg);
+  color: var(--theme-text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card-dark {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--theme-shadow-lg);
+    color: var(--theme-text-primary);
+  }
+}
+
+/* Section edge vignette */
+html[data-theme="dark"] .section-edge {
+  position: relative;
+}
+
+html[data-theme="dark"] .section-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 24px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.25));
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .section-edge {
+    position: relative;
+  }
+
+  :root:not([data-theme="light"]) .section-edge::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 24px;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.25));
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* Focus & contrast guardrails */
+html[data-theme="dark"] :where(button, input, select, textarea, .card-dark):focus-visible {
+  outline-color: var(--theme-border-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :where(button, input, select, textarea, .card-dark):focus-visible {
+    outline-color: var(--theme-border-focus);
+    outline-offset: 3px;
   }
 }

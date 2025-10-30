@@ -57,19 +57,13 @@
 
 /* DARK MODE: Much darker overlay for evening ambiance */
 html[data-theme="dark"] .hotfix-hero-romantic::after {
-  background: linear-gradient(135deg,
-    rgba(10, 8, 6, 0.95) 0%,
-    rgba(26, 20, 16, 0.92) 50%,
-    rgba(15, 12, 10, 0.94) 100%) !important;
+  background: var(--grad-section-deep) !important;
 }
 
 /* Also work in Auto (system dark) when not forcing light */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-hero-romantic::after {
-    background: linear-gradient(135deg,
-      rgba(10, 8, 6, 0.95) 0%,
-      rgba(26, 20, 16, 0.92) 50%,
-      rgba(15, 12, 10, 0.94) 100%) !important;
+    background: var(--grad-section-deep) !important;
   }
 }
 

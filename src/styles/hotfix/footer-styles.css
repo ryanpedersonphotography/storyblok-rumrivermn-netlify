@@ -164,12 +164,12 @@ footer {
 
 /* DARK MODE */
 html[data-theme="dark"] .hotfix-footer {
-  background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-dark-section, #0F0C0A) 100%) !important;
+  background: var(--grad-section-deep) !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hotfix-footer {
-    background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-dark-section, #0F0C0A) 100%) !important;
+    background: var(--grad-section-deep) !important;
   }
 }
 
