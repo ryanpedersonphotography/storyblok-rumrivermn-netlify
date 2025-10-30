@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  color: var(--theme-text-on-dark);
+  color: var(--theme-text-on-dark, #FFF8E7);
   background-color: #2c241a; /* Fallback */
 }
 
@@ -73,7 +73,7 @@ html[data-theme="dark"] .hero::after {
   max-width: 800px;
   padding: 0 2rem;
   animation: fadeInUp 1.2s ease-out;
-  color: var(--theme-text-on-dark);
+  color: var(--theme-text-on-dark, #FFF8E7);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -84,7 +84,7 @@ html[data-theme="dark"] .hero::after {
 .hero__kicker {
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
-  color: var(--theme-accent-gold);
+  color: var(--theme-accent-gold, #E4C896);
   margin-bottom: 1rem;
   font-weight: 400;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -98,13 +98,14 @@ html[data-theme="dark"] .hero::after {
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 2rem;
+  color: var(--theme-text-on-dark, #FFF8E7);
   text-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 
 /* Title accent (gold highlight) */
 .hero__title--accent {
   display: inline-block;
-  color: var(--theme-accent-gold);
+  color: var(--theme-accent-gold, #E4C896);
   background: linear-gradient(
     135deg,
     var(--theme-accent-rose) 0%,
@@ -126,6 +127,7 @@ html[data-theme="dark"] .hero::after {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  color: var(--theme-text-on-dark, #FFF8E7);
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
@@ -153,7 +155,7 @@ html[data-theme="dark"] .hero::after {
   transition: all 0.2s ease;
   box-shadow: var(--theme-shadow-lg);
   background: linear-gradient(135deg, var(--theme-accent-rose) 0%, var(--theme-accent-gold) 100%);
-  color: var(--theme-text-on-dark);
+  color: var(--theme-text-on-dark, #FFF8E7);
   letter-spacing: 0.02em;
   font-family: 'Montserrat', sans-serif;
 }
@@ -184,7 +186,7 @@ html[data-theme="dark"] .hero::after {
 .hero__scroll-text {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--theme-text-on-dark);
+  color: var(--theme-text-on-dark, #FFF8E7);
   margin-bottom: 0.5rem;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   letter-spacing: 0.05em;
@@ -194,7 +196,7 @@ html[data-theme="dark"] .hero::after {
 
 .hero__scroll-arrow {
   font-size: 1.5rem;
-  color: var(--theme-accent-gold);
+  color: var(--theme-accent-gold, #E4C896);
   animation: bounceArrow 2s infinite;
 }
 
