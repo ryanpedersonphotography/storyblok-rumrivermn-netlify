@@ -53,7 +53,7 @@ test.describe('Sitewide dark mode', () => {
       // Hero overlay gets darker (opacities ~0.92+ expected)
       const heroDark = await getAfterBG(page, heroSel);
       expect(heroDark).not.toEqual(heroLight);
-      expect(heroDark).toMatch(/0\.92|0\.94|0\.95/);
+      expect(heroDark).toMatch(/oklch\(0\.(18|22|25)/);
 
       // Pricing colors changed (surface + text)
       const priceBgDark = await pricingCard.evaluate((el) => getComputedStyle(el as HTMLElement).backgroundColor);
@@ -69,7 +69,7 @@ test.describe('Sitewide dark mode', () => {
       await page.emulateMedia({ colorScheme: 'dark' });
       await page.waitForTimeout(75);
       const heroAutoDark = await getAfterBG(page, heroSel);
-      expect(heroAutoDark).toMatch(/0\.92|0\.94|0\.95/);
+      expect(heroAutoDark).toMatch(/oklch\(0\.(18|22|25)/);
     } else {
       // No pricing section, just test hero and nav
       await toggle.click();
@@ -77,7 +77,7 @@ test.describe('Sitewide dark mode', () => {
 
       const heroDark = await getAfterBG(page, heroSel);
       expect(heroDark).not.toEqual(heroLight);
-      expect(heroDark).toMatch(/0\.92|0\.94|0\.95/);
+      expect(heroDark).toMatch(/oklch\(0\.(18|22|25)/);
     }
   });
 
@@ -787,14 +787,15 @@ test.describe('Sitewide dark mode', () => {
       expect(tabBgDark).not.toEqual(tabBgLight);
     }
 
-    // Overlay must deepen in dark (check for 0.92+ opacity)
+    // Overlay must deepen in dark (check for tokens or high opacity)
     if (await venueImage.count() > 0) {
       const overlayDark = await page.evaluate(() => {
         const s = document.querySelector('.venue-main-image');
         return s ? getComputedStyle(s, '::after').backgroundImage : null;
       });
       if (overlayDark) {
-        expect(overlayDark).toMatch(/0\.92|0\.94|0\.95/);
+        // Check for either OKLCH tokens or rgba with high opacity (0.92+)
+        expect(overlayDark).toMatch(/oklch\(0\.(18|22|25)|0\.92|0\.93|0\.94|0\.95/);
       }
     }
 
@@ -855,14 +856,15 @@ test.describe('Sitewide dark mode', () => {
     expect(darkBg).not.toEqual(lightBg);
     expect(darkTitle).not.toEqual(lightTitle);
 
-    // Gallery overlay deepening check (0.92+)
+    // Gallery overlay deepening check (tokens or high opacity)
     const overlayDark = await page.evaluate(() => {
       const overlay = document.querySelector('.hotfix-gallery-overlay');
       return overlay ? getComputedStyle(overlay).backgroundImage : null;
     });
 
     if (overlayDark) {
-      expect(overlayDark).toMatch(/0\.92|0\.93|0\.94/);
+      // Check for either OKLCH tokens or rgba with high opacity (0.92+)
+      expect(overlayDark).toMatch(/oklch\(0\.(18|22|25)|0\.92|0\.93|0\.94|0\.95/);
     }
 
     // Auto mode test
@@ -882,7 +884,8 @@ test.describe('Sitewide dark mode', () => {
     });
 
     if (overlayAuto) {
-      expect(overlayAuto).toMatch(/0\.92|0\.93|0\.94/);
+      // Check for either OKLCH tokens or rgba with high opacity
+      expect(overlayAuto).toMatch(/oklch\(0\.(18|22|25)|0\.92|0\.93|0\.94|0\.95/);
     }
   });
 

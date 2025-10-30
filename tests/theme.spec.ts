@@ -13,7 +13,6 @@ test.describe('Theme toggle + dark tokens', () => {
     await page.goto(ORIGIN, { waitUntil: 'networkidle' });
 
     const html = page.locator('html');
-    const hero = page.locator('.hotfix-hero-romantic');
     const toggle = page.locator('.theme-toggle').first();
 
     // Auto = no attribute
@@ -36,8 +35,8 @@ test.describe('Theme toggle + dark tokens', () => {
     });
     expect(darkBG).toContain('linear-gradient');
     expect(darkBG).not.toEqual(lightBG);
-    // crude but effective: look for higher opacities (0.92+)
-    expect(darkBG).toMatch(/0\.92|0\.94|0\.95/);
+    // Check for new OKLCH tonal ladder tokens (--grad-section-deep)
+    expect(darkBG).toMatch(/oklch\(0\.(18|22|25)/); // surface-0 or surface-1
 
     // Click again - back to AUTO (no attribute)
     await toggle.click();
@@ -52,6 +51,6 @@ test.describe('Theme toggle + dark tokens', () => {
       const el = document.querySelector('.hotfix-hero-romantic') as HTMLElement;
       return getComputedStyle(el, '::after').backgroundImage;
     });
-    expect(autoDarkBG).toMatch(/0\.92|0\.94|0\.95/);
+    expect(autoDarkBG).toMatch(/oklch\(0\.(18|22|25)/);
   });
 });
