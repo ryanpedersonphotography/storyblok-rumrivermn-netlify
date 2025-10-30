@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════════════
+   GOLD DIVIDER STYLES - STANDALONE CSS
+   Date: 2025-10-30
+   Purpose: Permanent backup of the gold gradient divider effect
+
+   All values are HARDCODED (no CSS custom properties/tokens)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   THE GOLD DIVIDER - Core Effect
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Light Mode Gold Divider */
+.rum-river-experience::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+
+  /* Horizontal gradient: transparent → 50% gold → full gold → 50% gold → transparent */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(228, 200, 150, 0.5) 15%,    /* #E4C896 at 50% opacity */
+    #E4C896 50%,                       /* Full gold - Theme accent gold */
+    rgba(228, 200, 150, 0.5) 85%,    /* #E4C896 at 50% opacity */
+    transparent 100%
+  );
+
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Dark Mode Gold Divider - Enhanced with glow */
+@media (prefers-color-scheme: dark) {
+  .rum-river-experience::after {
+    opacity: 0.8; /* Slightly more visible in dark mode */
+
+    /* Golden glow effect around the divider */
+    box-shadow: 0 0 20px rgba(240, 217, 168, 0.4); /* #F0D9A8 at 40% opacity */
+
+    /* Brighter gold gradient for dark mode */
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(240, 217, 168, 0.5) 15%,    /* #F0D9A8 at 50% opacity */
+      #F0D9A8 50%,                       /* Full bright gold */
+      rgba(240, 217, 168, 0.5) 85%,    /* #F0D9A8 at 50% opacity */
+      transparent 100%
+    );
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION CONTAINER SETUP
+   Required for the ::after pseudo-element to work
+   ═══════════════════════════════════════════════════════════════ */
+
+.rum-river-experience {
+  position: relative; /* Required for ::after positioning */
+  overflow: visible;  /* Allow divider to extend beyond bounds */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ADDITIONAL DARK MODE ENHANCEMENTS (Optional)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Subtle vignette at bottom of section for added depth */
+@media (prefers-color-scheme: dark) {
+  .rum-river-experience::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: radial-gradient(
+      ellipse at bottom,
+      transparent 0%,
+      rgba(44, 36, 22, 0.15) 100% /* #2C2416 (theme-bg-secondary) at 15% */
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COLOR REFERENCE
+   ═══════════════════════════════════════════════════════════════ */
+
+/*
+  LIGHT MODE GOLD: #E4C896 (Theme Accent Gold)
+    - RGB: rgb(228, 200, 150)
+    - HSL: hsl(38, 58%, 74%)
+    - OKLCH: oklch(86% 0.08 85)
+
+  DARK MODE GOLD: #F0D9A8 (Theme Accent Gold - Brightened)
+    - RGB: rgb(240, 217, 168)
+    - HSL: hsl(41, 69%, 80%)
+    - OKLCH: oklch(89% 0.09 85)
+
+  GRADIENT STRUCTURE:
+    0%   - Fully transparent
+    15%  - 50% gold (fade in)
+    50%  - 100% gold (peak)
+    85%  - 50% gold (fade out)
+    100% - Fully transparent
+
+  DIVIDER SPECS:
+    - Height: 4px
+    - Position: 2px below section bottom
+    - Opacity: 0.7 (light), 0.8 (dark)
+    - Glow: 20px blur, 40% opacity (dark mode only)
+*/

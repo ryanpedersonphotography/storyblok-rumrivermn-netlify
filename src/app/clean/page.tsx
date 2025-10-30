@@ -16,7 +16,6 @@ import Experience from '@/components/clean/Experience';
 import Gallery from '@/components/clean/Gallery';
 import BrandProof from '@/components/clean/BrandProof';
 import Testimonials from '@/components/clean/Testimonials';
-import HistoryCarousel from '@/components/clean/HistoryCarousel';
 import ScheduleForm from '@/components/clean/ScheduleForm';
 import Map from '@/components/clean/Map';
 import FAQ from '@/components/clean/FAQ';
@@ -39,7 +38,6 @@ export default function CleanPage() {
       <Gallery />
       <BrandProof />
       <Testimonials />
-      <HistoryCarousel />
       <ScheduleForm />
       <Map />
       <FAQ />

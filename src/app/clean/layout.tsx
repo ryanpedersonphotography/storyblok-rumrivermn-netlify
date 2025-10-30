@@ -11,7 +11,6 @@ import '@/styles/semantic/experience.css';
 import '@/styles/semantic/gallery.css';
 import '@/styles/semantic/brand-proof.css';
 import '@/styles/semantic/testimonials.css';
-import '@/styles/semantic/history-carousel.css';
 import '@/styles/semantic/schedule-form.css';
 import '@/styles/semantic/map.css';
 import '@/styles/semantic/faq.css';
