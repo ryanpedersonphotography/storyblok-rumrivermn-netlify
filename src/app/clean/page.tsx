@@ -10,6 +10,18 @@
 
 import Navbar from '@/components/clean/Navbar';
 import Hero from '@/components/clean/Hero';
+import AlternatingBlocks from '@/components/clean/AlternatingBlocks';
+import Spaces from '@/components/clean/Spaces';
+import Experience from '@/components/clean/Experience';
+import Gallery from '@/components/clean/Gallery';
+import BrandProof from '@/components/clean/BrandProof';
+import Testimonials from '@/components/clean/Testimonials';
+import HistoryCarousel from '@/components/clean/HistoryCarousel';
+import ScheduleForm from '@/components/clean/ScheduleForm';
+import Map from '@/components/clean/Map';
+import FAQ from '@/components/clean/FAQ';
+import Pricing from '@/components/clean/Pricing';
+import Footer from '@/components/clean/Footer';
 
 export const metadata = {
   title: 'Rum River Barn - Clean Version',
@@ -21,41 +33,18 @@ export default function CleanPage() {
     <>
       <Navbar />
       <Hero />
-
-      {/* Sections will be added incrementally:
-        - Spaces
-        - Alternating Blocks
-        - Love Stories Gallery
-        - Brand Social Proof
-        - Testimonials
-        - History Carousel
-        - Rum River Experience
-        - Pricing
-        - Schedule Form
-        - Map Section
-        - Footer
-      */}
-
-      <div style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-        <h2>🚧 Clean Version In Progress</h2>
-        <p style={{ marginTop: '1rem', color: '#666' }}>
-          This is the clean CSS implementation. More sections coming soon!
-        </p>
-        <a
-          href="/"
-          style={{
-            display: 'inline-block',
-            marginTop: '1.5rem',
-            padding: '0.75rem 1.5rem',
-            background: '#6B4E3D',
-            color: 'white',
-            textDecoration: 'none',
-            borderRadius: '4px'
-          }}
-        >
-          ← Back to Original Version
-        </a>
-      </div>
+      <Spaces />
+      <AlternatingBlocks />
+      <Experience />
+      <Gallery />
+      <BrandProof />
+      <Testimonials />
+      <HistoryCarousel />
+      <ScheduleForm />
+      <Map />
+      <FAQ />
+      <Pricing />
+      <Footer />
     </>
   );
 }

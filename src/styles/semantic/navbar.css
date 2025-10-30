@@ -86,7 +86,9 @@
 }
 
 .navbar__logo-text {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -218,14 +220,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--theme-text-on-dark, #FFF8E7) 30%, transparent);
   border-radius: 8px;
-  padding: 0.5rem;
   color: var(--theme-text-on-dark, #FFF8E7);
   cursor: pointer;
-  transition: background 0.15s ease;
-  backdrop-filter: blur(8px);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 @media (min-width: 900px) {
@@ -241,7 +243,9 @@
 }
 
 .navbar__mobile-toggle:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--theme-accent-rose, #9D6B7B) 10%, transparent);
+  border-color: var(--theme-accent-rose, #9D6B7B);
+  color: var(--theme-accent-rose, #9D6B7B);
 }
 
 /* ═══════════════════════════════════════════════════════════════
