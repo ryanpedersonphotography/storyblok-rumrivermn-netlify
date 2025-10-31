@@ -38,6 +38,7 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
     <Section
       align="center"
       container="wrapper"
+      divider="thread-gold"
       variant={[
         'content-wrapper-compat',     // Match Spaces .content-wrapper exactly
         'alternating-blocks-luxe',  // Background/padding/tone settings
