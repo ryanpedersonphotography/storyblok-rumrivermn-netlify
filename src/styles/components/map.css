@@ -1,48 +1,5 @@
-/* MAP SECTION STYLES - Extracted from hotfix-site.css */
-
-[data-clean-root] .map-section {
-  background: var(--theme-bg-primary, #FFFCF8);
-  padding: 80px 0;
-  min-height: auto;
-}
-
-[data-clean-root] .map-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Section Header - Full Width Like Other Sections */
-[data-clean-root] .map-section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-[data-clean-root] .script-accent {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.75rem;
-  color: var(--theme-accent-rose, #9D6B7B);
-  margin-bottom: 1rem;
-}
-
-[data-clean-root] .map-section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  color: var(--theme-text-primary, #6B4E3D);
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-[data-clean-root] .map-section-lead {
-  font-size: 1.25rem;
-  line-height: 1.7;
-  color: var(--theme-text-primary, #6B4E3D);
-  opacity: 0.8;
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: 'Montserrat', sans-serif;
-}
+/* MAP SECTION STYLES - Extracted from hotfix-site.css
+   MIGRATED: Wrapper and header styles removed - now using unified Section component */
 
 /* Content Grid - 3 columns x 3 rows, flush to circle */
 [data-clean-root] .map-content-grid {
@@ -276,31 +233,25 @@
    DARK MODE - Forced (html[data-theme="dark"])
    ════════════════════════════════════════════════════════════════ */
 
-html[data-theme="dark"] [data-clean-root] .map-section {
-  background: var(--surface-2);
-}
-
-html[data-theme="dark"] [data-clean-root] .map-section-title,
-html[data-theme="dark"] [data-clean-root] .map-section-lead,
-html[data-theme="dark"] [data-clean-root] .location-item,
-html[data-theme="dark"] [data-clean-root] .location-text h4,
-html[data-theme="dark"] [data-clean-root] .location-text p {
+html[data-theme="dark"] [data-clean-root] .map-section .location-item,
+html[data-theme="dark"] [data-clean-root] .map-section .location-text h4,
+html[data-theme="dark"] [data-clean-root] .map-section .location-text p {
   color: var(--theme-text-primary, #F5E6D3);
 }
 
-html[data-theme="dark"] [data-clean-root] .map-action-btn {
+html[data-theme="dark"] [data-clean-root] .map-section .map-action-btn {
   background: var(--theme-bg-card, #3D2F22);
   border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12));
   color: var(--theme-text-primary, #F5E6D3);
 }
 
-html[data-theme="dark"] [data-clean-root] .map-action-btn:hover {
+html[data-theme="dark"] [data-clean-root] .map-section .map-action-btn:hover {
   background: var(--theme-accent-gold, #F0D9A8);
   color: var(--theme-bg-primary, #1A1410);
   border-color: var(--theme-accent-gold, #F0D9A8);
 }
 
-html[data-theme="dark"] [data-clean-root] .map-embed::after {
+html[data-theme="dark"] [data-clean-root] .map-section .map-embed::after {
   background: color-mix(in srgb, var(--theme-bg-primary, #1A1410) 50%, transparent);
 }
 
@@ -309,31 +260,25 @@ html[data-theme="dark"] [data-clean-root] .map-embed::after {
    ════════════════════════════════════════════════════════════════ */
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .map-section {
-    background: var(--surface-2);
-  }
-
-  :root:not([data-theme="light"]) [data-clean-root] .map-section-title,
-  :root:not([data-theme="light"]) [data-clean-root] .map-section-lead,
-  :root:not([data-theme="light"]) [data-clean-root] .location-item,
-  :root:not([data-theme="light"]) [data-clean-root] .location-text h4,
-  :root:not([data-theme="light"]) [data-clean-root] .location-text p {
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .location-item,
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .location-text h4,
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .location-text p {
     color: var(--theme-text-primary, #F5E6D3);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .map-action-btn {
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .map-action-btn {
     background: var(--theme-bg-card, #3D2F22);
     border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12));
     color: var(--theme-text-primary, #F5E6D3);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .map-action-btn:hover {
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .map-action-btn:hover {
     background: var(--theme-accent-gold, #F0D9A8);
     color: var(--theme-bg-primary, #1A1410);
     border-color: var(--theme-accent-gold, #F0D9A8);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .map-embed::after {
+  :root:not([data-theme="light"]) [data-clean-root] .map-section .map-embed::after {
     background: color-mix(in srgb, var(--theme-bg-primary, #1A1410) 50%, transparent);
   }
 }
@@ -372,24 +317,9 @@ html[data-theme="dark"] [data-clean-root] .map-embed::after {
   [data-clean-root] .map-content-grid > .location-item:nth-child(n+5):hover {
     transform: translateY(-4px);
   }
-
-  [data-clean-root] .map-section-title {
-    font-size: 2.5rem;
-  }
 }
 
 @media (max-width: 768px) {
-  [data-clean-root] .map-section {
-    padding: 60px 0;
-  }
-
-  [data-clean-root] .map-section-header {
-    margin-bottom: 3rem;
-  }
-
-  [data-clean-root] .map-section-title {
-    font-size: 2rem;
-  }
 
   [data-clean-root] .location-item {
     gap: 1rem;
@@ -411,10 +341,6 @@ html[data-theme="dark"] [data-clean-root] .map-embed::after {
 }
 
 @media (max-width: 480px) {
-  [data-clean-root] .map-section {
-    padding: 60px 0;
-  }
-
   [data-clean-root] .map-embed {
     width: 300px;
     height: 300px;

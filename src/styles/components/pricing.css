@@ -26,7 +26,6 @@
   font-size: clamp(1.5rem, 3.5vw, 2rem);
   color: var(--price-accent, var(--accent-gold, #E4C896));
   margin-bottom: .75rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
 
 [data-clean-root] .pricing-section .section-title {
@@ -35,7 +34,6 @@
   line-height: 1.1; letter-spacing: -0.02em;
   margin: 0 0 .75rem;
   color: var(--pricing-text, #2B2B2B);
-  text-shadow: 0 3px 8px rgba(0,0,0,.12);
 }
 
 [data-clean-root] .pricing-section .hero-pricing-line {
@@ -194,6 +192,148 @@
   }
   [data-clean-root] .pricing-card:hover {
     transform: none;
+  }
+}
+
+/* ============================================================================
+   DARK MODE - Glassmorphism cards and gold veil
+   ============================================================================ */
+
+/* Dark mode (explicit) */
+html[data-theme="dark"] [data-clean-root] .pricing-section {
+  background: var(--grad-section-soft);
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-section .section-title,
+html[data-theme="dark"] [data-clean-root] .pricing-section .lead,
+html[data-theme="dark"] [data-clean-root] .pricing-card .package-name,
+html[data-theme="dark"] [data-clean-root] .pricing-card .weekend-price .amount,
+html[data-theme="dark"] [data-clean-root] .pricing-card .weekday-price .amount {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-section .script-accent {
+  color: var(--accent-gold);
+}
+
+/* Glassmorphism cards */
+html[data-theme="dark"] [data-clean-root] .pricing-card {
+  background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+  backdrop-filter: blur(12px) saturate(1.12);
+  border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+  box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-card:hover {
+  border-color: color-mix(in oklch, var(--accent-gold) 50%, transparent);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.70);
+}
+
+/* Popular card with gold veil */
+html[data-theme="dark"] [data-clean-root] .pricing-card.popular {
+  background: color-mix(in oklch, var(--surface-2) 85%, var(--accent-gold) 15%);
+  backdrop-filter: blur(14px) saturate(1.15);
+  border-color: color-mix(in oklch, var(--accent-gold) 60%, transparent);
+  box-shadow:
+    0 0 40px color-mix(in oklch, var(--accent-gold) 20%, transparent),
+    0 24px 70px rgba(0, 0, 0, 0.65);
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-card.popular:hover {
+  border-color: color-mix(in oklch, var(--accent-gold) 75%, transparent);
+  box-shadow:
+    0 0 50px color-mix(in oklch, var(--accent-gold) 30%, transparent),
+    0 28px 80px rgba(0, 0, 0, 0.75);
+}
+
+/* Check icons */
+html[data-theme="dark"] [data-clean-root] .pricing-card .check-icon {
+  color: var(--accent-gold);
+}
+
+/* CTA buttons in dark mode */
+html[data-theme="dark"] [data-clean-root] .pricing-card .cta-button.primary {
+  background: var(--accent-gold);
+  color: var(--surface-0);
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-card .cta-button.secondary {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+html[data-theme="dark"] [data-clean-root] .pricing-card .cta-button.secondary:hover {
+  background: color-mix(in oklch, var(--accent-gold) 20%, transparent);
+  color: var(--text-primary);
+}
+
+/* Dark mode (auto - OS preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-section {
+    background: var(--grad-section-soft);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-section .section-title,
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-section .lead,
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .package-name,
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .weekend-price .amount,
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .weekday-price .amount {
+    color: var(--text-primary);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-section .script-accent {
+    color: var(--accent-gold);
+  }
+
+  /* Glassmorphism cards */
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card {
+    background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+    backdrop-filter: blur(12px) saturate(1.12);
+    border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+    box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card:hover {
+    border-color: color-mix(in oklch, var(--accent-gold) 50%, transparent);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.70);
+  }
+
+  /* Popular card with gold veil */
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card.popular {
+    background: color-mix(in oklch, var(--surface-2) 85%, var(--accent-gold) 15%);
+    backdrop-filter: blur(14px) saturate(1.15);
+    border-color: color-mix(in oklch, var(--accent-gold) 60%, transparent);
+    box-shadow:
+      0 0 40px color-mix(in oklch, var(--accent-gold) 20%, transparent),
+      0 24px 70px rgba(0, 0, 0, 0.65);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card.popular:hover {
+    border-color: color-mix(in oklch, var(--accent-gold) 75%, transparent);
+    box-shadow:
+      0 0 50px color-mix(in oklch, var(--accent-gold) 30%, transparent),
+      0 28px 80px rgba(0, 0, 0, 0.75);
+  }
+
+  /* Check icons */
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .check-icon {
+    color: var(--accent-gold);
+  }
+
+  /* CTA buttons in auto dark mode */
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .cta-button.primary {
+    background: var(--accent-gold);
+    color: var(--surface-0);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .cta-button.secondary {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .pricing-card .cta-button.secondary:hover {
+    background: color-mix(in oklch, var(--accent-gold) 20%, transparent);
+    color: var(--text-primary);
   }
 }
 

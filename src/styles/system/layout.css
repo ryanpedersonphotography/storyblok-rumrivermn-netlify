@@ -1,0 +1,150 @@
+/* src/styles/system/layout.css
+   Load this AFTER all component CSS. Scopes to [data-clean-root].
+   Unifies containers + creates a consistent left rail across sections. */
+
+@layer tokens, utilities, overrides;
+
+/* -------------------- TOKENS -------------------- */
+@layer tokens {
+  :root {
+    --page-max: 1200px;                 /* unified content width */
+    --page-wide: 1400px;                /* wide grids (gallery/pricing/maps) */
+    --gutter: clamp(16px, 4vw, 64px);   /* page side padding */
+    --prose-max: 68ch;                  /* readable text width */
+    --rail-offset: calc((100% - var(--page-max)) / 2 + var(--gutter));
+  }
+}
+
+/* -------------------- UTILITIES -------------------- */
+@layer utilities {
+  /* Standard content containers */
+  [data-clean-root] .container {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  [data-clean-root] .container--wide {
+    max-width: var(--page-wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Full-bleed wrapper utility (use on section wrapper when needed) */
+  [data-clean-root] .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: none;
+  }
+
+  /* Left-rail: lock left-aligned content to the same visual edge as .container */
+  [data-clean-root] .left-rail {
+    max-width: var(--prose-max);
+    text-align: left;
+  }
+  @media (min-width: 900px) {
+    [data-clean-root] .left-rail {
+      margin-left: var(--rail-offset);
+      margin-right: auto;
+      padding-inline: 0;
+    }
+  }
+  @media (max-width: 899px) {
+    [data-clean-root] .left-rail {
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* Optional helper for left-aligned button rows under left-rail headers */
+  [data-clean-root] .left-rail .button-row,
+  [data-clean-root] [data-align="left"] .button-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* Nice vertical rhythm for stacked children */
+  [data-clean-root] .stack > * + * {
+    margin-block-start: var(--stack-space, 1rem);
+  }
+}
+
+/* -------------------- OVERRIDES (NO MARKUP CHANGES) -------------------- */
+@layer overrides {
+  /* 1) Unify header blocks (keeps center by default; opt into left via data-align="left") */
+  [data-clean-root] .section-header,
+  [data-clean-root] .experience-header,
+  [data-clean-root] .gallery-header,
+  [data-clean-root] .map-header,
+  [data-clean-root] .faq-header,
+  [data-clean-root] .pricing-section .section-header,
+  [data-clean-root] .alternating-blocks__section-header,
+  [data-clean-root] .form-header {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Switch to left-rail with a data attribute (add in Storyblok or JSX) */
+  [data-clean-root] [data-align="left"] {
+    text-align: left;
+  }
+  @media (min-width: 900px) {
+    [data-clean-root] [data-align="left"] {
+      max-width: var(--prose-max);
+      margin-left: var(--rail-offset);
+      margin-right: auto;
+      padding-inline: 0;
+    }
+  }
+  @media (max-width: 899px) {
+    [data-clean-root] [data-align="left"] {
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* 2) Unify core containers that were using 1280/1200/1400 + mixed paddings */
+  [data-clean-root] .navbar__container,
+  [data-clean-root] .footer-content,
+  [data-clean-root] .brand-quote-content,
+  [data-clean-root] .alternating-blocks__container,
+  [data-clean-root] .form-container {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* 3) Wide grids align to the same gutters */
+  [data-clean-root] .venue-grid,
+  [data-clean-root] .gallery-grid,
+  [data-clean-root] .pricing-grid,
+  [data-clean-root] .experience-grid,
+  [data-clean-root] .map-container {
+    max-width: var(--page-wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  /* 4) Prose measure + rag control on left-aligned sections */
+  [data-clean-root] [data-align="left"] :where(p, .lead) {
+    max-width: 65ch;
+  }
+
+  /* 5) Prevent tiny padding discrepancies from drifting the rail */
+  @media (max-width: 768px) {
+    [data-clean-root] .section-header,
+    [data-clean-root] .experience-header,
+    [data-clean-root] .gallery-header,
+    [data-clean-root] .map-header,
+    [data-clean-root] .faq-header,
+    [data-clean-root] .pricing-section .section-header,
+    [data-clean-root] .alternating-blocks__section-header,
+    [data-clean-root] .form-header {
+      padding-inline: var(--gutter); /* normalize 1.5rem vs 2rem */
+    }
+  }
+}

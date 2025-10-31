@@ -2,6 +2,7 @@
  * Two-column layout with feature grid and image
  * Dependencies: experience.css
  * Storyblok-compatible with blok prop
+ * MIGRATED to unified Section component
  */
 
 'use client'
@@ -9,6 +10,7 @@
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
 import { SparklesIcon, HeartIcon, CheckBadgeIcon, HomeModernIcon } from '@heroicons/react/24/outline'
+import Section from '@/components/ui/Section'
 
 interface ExperienceStoryblok extends SbBlokData {
   title?: string
@@ -64,7 +66,16 @@ export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
   const description = blok.description || "At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story."
 
   return (
-    <section {...storyblokEditable(blok)} className="rum-river-experience" data-section="experience">
+    <Section
+      as="section"
+      align="center"
+      width="content"
+      paddingY="xl"
+      background="surface"
+      className="rum-river-experience"
+      data-section="experience"
+      {...storyblokEditable(blok)}
+    >
       <div className="experience-container">
         <div className="experience-content">
           <div className="experience-header">
@@ -99,6 +110,6 @@ export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
           />
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

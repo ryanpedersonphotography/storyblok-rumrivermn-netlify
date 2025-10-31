@@ -40,7 +40,7 @@ html[data-theme="dark"] [data-clean-root] .footer,
 [data-clean-root] .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 var(--gutter);
 }
 
 /* Main content - Flexbox layout */
@@ -231,7 +231,7 @@ html[data-theme="dark"] [data-clean-root] .footer,
 
   [data-clean-root] .footer-content {
     gap: 32px;
-    padding: 0 16px;
+    padding: 0 var(--gutter);
   }
 
   [data-clean-root] .footer-title,

@@ -1,6 +1,7 @@
 import { MapPinIcon, ClockIcon, PhoneIcon, EnvelopeIcon, HomeIcon, CakeIcon } from '@heroicons/react/24/outline'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
+import Section from '@/components/ui/Section'
 
 interface LocationStoryblok {
   icon?: string
@@ -66,61 +67,66 @@ export default function Map({ blok }: { blok: MapStoryblok }) {
   const mapEmbedUrl = blok.map_embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2810.5!2d-93.5!3d45.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDMwJzAwLjAiTiA5M8KwMzAnMDAuMCJX!5e0!3m2!1sen!2sus!4v1234567890'
 
   return (
-    <section {...storyblokEditable(blok)} className="map-section" data-section="map">
-        <div className="map-container">
-        <div className="map-section-header">
-          <span className="script-accent">{subtitle}</span>
-          <h2 className="map-section-title">{title}</h2>
-          <p className="map-section-lead">
-            {description}
-          </p>
+    <Section
+      as="section"
+      align="center"
+      width="content"
+      paddingY="lg"
+      background="surface"
+      header={{
+        scriptAccent: subtitle,
+        title: title,
+        lead: description,
+        align: 'center'
+      }}
+      className="map-section"
+      data-section="map"
+      {...storyblokEditable(blok)}
+    >
+      <div className="map-content-grid">
+        {locations.slice(0, 3).map((location, index) => {
+          const IconComponent = iconMap[location.icon || 'map'] || MapPinIcon
+          return (
+            <div key={index} className="location-item">
+              <div className="location-icon">
+                <IconComponent className="icon" />
+              </div>
+              <div className="location-text">
+                <h4>{location.title}</h4>
+                <p>{location.description}</p>
+              </div>
+            </div>
+          );
+        })}
+
+        <div className="map-embed">
+          <iframe
+            src={mapEmbedUrl}
+            width="650"
+            height="650"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Rum River Barn Location"
+          />
         </div>
 
-        <div className="map-content-grid">
-          {locations.slice(0, 3).map((location, index) => {
-            const IconComponent = iconMap[location.icon || 'map'] || MapPinIcon
-            return (
-              <div key={index} className="location-item">
-                <div className="location-icon">
-                  <IconComponent className="icon" />
-                </div>
-                <div className="location-text">
-                  <h4>{location.title}</h4>
-                  <p>{location.description}</p>
-                </div>
+        {locations.slice(3).map((location, index) => {
+          const IconComponent = iconMap[location.icon || 'map'] || MapPinIcon
+          return (
+            <div key={index + 3} className="location-item">
+              <div className="location-icon">
+                <IconComponent className="icon" />
               </div>
-            );
-          })}
-
-          <div className="map-embed">
-            <iframe
-              src={mapEmbedUrl}
-              width="650"
-              height="650"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Rum River Barn Location"
-            />
-          </div>
-
-          {locations.slice(3).map((location, index) => {
-            const IconComponent = iconMap[location.icon || 'map'] || MapPinIcon
-            return (
-              <div key={index + 3} className="location-item">
-                <div className="location-icon">
-                  <IconComponent className="icon" />
-                </div>
-                <div className="location-text">
-                  <h4>{location.title}</h4>
-                  <p>{location.description}</p>
-                </div>
+              <div className="location-text">
+                <h4>{location.title}</h4>
+                <p>{location.description}</p>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
-    </section>
+    </Section>
   );
 }

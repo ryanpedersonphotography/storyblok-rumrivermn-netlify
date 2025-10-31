@@ -49,19 +49,24 @@
   /* Base background */
   --hero-bg: #2c241a;
 
-  /* Text & accents on image */
-  --hero-text: var(--text-inverse, #FFF8E7);
-  --hero-accent: var(--accent-gold, #E4C896);
-  --hero-cta-text: var(--text-inverse, #FFF8E7);
-  --hero-cta-hover-text: var(--text-primary, #2C241A);
+  /* Text & accents - LIGHT THEME: Dark text on white gradient */
+  --hero-text: var(--text-primary, #6B4E3D);
+  --hero-accent: var(--accent-rose, #9D6B7B);
+  --hero-cta-text: var(--text-primary, #6B4E3D);
+  --hero-cta-hover-text: var(--text-inverse, #FFF8E7);
 
-  /* Overlay stops — matches your hotfix vibe, but tokenized */
-  --hero-overlay-start: rgba(44, 36, 22, 0.85);
-  --hero-overlay-mid:   rgba(107, 78, 61, 0.75);
-  --hero-overlay-end:   rgba(58, 74, 60, 0.80);
+  /* Overlay stops - LIGHT THEME: White gradient overlay for elegant look */
+  --hero-overlay-start: rgba(255, 255, 255, 0.88);
+  --hero-overlay-mid:   rgba(255, 248, 231, 0.85);
+  --hero-overlay-end:   rgba(244, 228, 225, 0.90);
 
   /* Parallax behavior (override in media queries if needed) */
   --hero-bg-attach: fixed;
+
+  /* Optional hero tint helpers (for variant flourishes) */
+  --hero-gold: #E4C896;
+  --hero-warm: #3A2D22;
+  --hero-rose: #9D6B7B;
 }
 
 /* === Hero tokens (dark) will be defined in main html[data-theme="dark"] block below === */
@@ -196,6 +201,32 @@
   --sticky-cta-shadow: 0 10px 26px rgba(0,0,0,0.25);
   --sticky-cta-border: transparent;
   --sticky-cta-z: 1000;
+
+  /* ===== Unified Button System ===== */
+  --btn-radius: 9999px;
+  --btn-pad-y: 0.9rem;
+  --btn-pad-x: 2.25rem;
+
+  --btn-fg-on-gold: #2C241A;
+  --btn-bg-gold: #E4C896;
+  --btn-bg-gold-hover: color-mix(in oklab, var(--btn-bg-gold) 88%, black 12%);
+
+  --btn-outline-fg: #FFF8E7;
+  --btn-outline-border: #E4C896;
+
+  /* Safety mat behind outline buttons on images */
+  --btn-outline-on-image-bg: rgba(0,0,0,.28);
+  --btn-outline-on-image-bg-hover: rgba(0,0,0,.36);
+
+  /* ===== Why Choose Section (Light) ===== */
+  --why-bg-start: #FFF8E7;      /* warm cream */
+  --why-bg-end:   #F4E4E1;      /* light rose beige */
+  --why-text:     #6B4E3D;      /* brand brown */
+  --why-text-soft:#7B5E4E;
+  --why-number:   #E4C896;      /* gold */
+  --why-card:     #FFFFFF;
+  --why-border:   rgba(0,0,0,.08);
+  --why-shadow:   0 12px 30px rgba(0,0,0,.10);
 }
 
 
@@ -225,9 +256,15 @@
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 400ms;
+
+  /* Border radius scale */
   --radius-sm: 6px;
   --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
 
   /* ===== Typography ===== */
@@ -282,6 +319,35 @@
   --theme-accent-sage: rgb(176 196 182); /* soft desaturated green */
   --theme-accent-gold: var(--accent-gold);
   --theme-shadow-dark-lg: 0 24px 70px rgba(0, 0, 0, 0.28); /* used on glass cards */
+
+  /* ===== Unified Section System Tokens ===== */
+  /* Rails & Content Widths */
+  --rail-gutter: var(--gutter, clamp(16px, 4vw, 64px)); /* inherits from layout.css */
+  --rail-prose: 65ch;                    /* readable text measure */
+  --rail-content: 1200px;                /* default content max */
+  --rail-wide: 1400px;                   /* wider grids (gallery/pricing) */
+
+  /* Vertical Rhythm (Section Padding Presets) */
+  --space-section-xs: 35px;
+  --space-section-sm: 50px;
+  --space-section-md: 60px;
+  --space-section-lg: 80px;
+  --space-section-xl: 100px;
+  --space-section-fluid: clamp(56px, 6vw, 96px);
+
+  /* Background Helpers */
+  --bg-surface: var(--theme-bg-primary, #FFFCF8);
+  --bg-tint-rose: color-mix(in srgb, var(--bg-surface) 92%, var(--theme-accent-rose, #9D6B7B) 8%);
+  --bg-tint-sage: color-mix(in srgb, var(--bg-surface) 92%, #7A8B7F 8%);
+  --bg-dark-grad: linear-gradient(135deg, #2C2416 0%, #3D2F22 100%);
+
+  /* Overlay Strengths */
+  --overlay-soft: linear-gradient(to top, rgba(0,0,0,.45) 0%, rgba(0,0,0,.2) 50%, transparent 80%);
+  --overlay-strong: linear-gradient(to top, rgba(0,0,0,.66) 0%, rgba(0,0,0,.35) 50%, transparent 80%);
+
+  /* Dividers */
+  --divider-hairline: color-mix(in srgb, var(--theme-border-subtle, rgba(0,0,0,.12)) 75%, transparent);
+  --divider-gold: var(--theme-accent-gold, #E4C896);
 }
 
 /* ---------- Dark mode (explicit) ----------------------------------------- */
@@ -313,6 +379,17 @@ html[data-theme="dark"] {
     var(--surface-1) 100%
   );
   --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+  /* Accent veils for variety (OKLCH color-mix) */
+  --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
+  --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
+  --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
+
+  /* Enhanced hairline divider with gold accent */
+  --hairline-2: linear-gradient(180deg,
+    color-mix(in oklch, var(--accent-gold) 25%, transparent),
+    rgba(240, 217, 168, 0.05)
+  );
 
   /* Legacy aliases (DARK) */
   --theme-bg-primary: var(--surface-1);
@@ -475,6 +552,19 @@ html[data-theme="dark"] {
   --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
   --sticky-cta-border: oklch(0.78 0.10 90);
   --sticky-cta-z: 100;
+
+  /* ===== Unified Button System (Dark) ===== */
+  --btn-outline-on-image-bg: rgba(0,0,0,.35);
+  --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
+
+  /* ===== Why Choose Section (Dark) ===== */
+  --why-bg-start: oklch(0.27 0.04 70);
+  --why-bg-end:   oklch(0.25 0.05 30);
+  --why-text:     #F5E6D3;
+  --why-text-soft:#E8D8C4;
+  --why-card:     oklch(0.28 0.03 70);
+  --why-border:   rgba(255,255,255,.14);
+  --why-shadow:   0 14px 36px rgba(0,0,0,.45);
 }
 
 /* ---------- Auto dark (OS preference) when you're not forcing a theme ---- */
@@ -504,6 +594,17 @@ html[data-theme="dark"] {
       var(--surface-1) 100%
     );
     --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+    /* Accent veils for variety (OKLCH color-mix) */
+    --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
+    --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
+    --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
+
+    /* Enhanced hairline divider with gold accent */
+    --hairline-2: linear-gradient(180deg,
+      color-mix(in oklch, var(--accent-gold) 25%, transparent),
+      rgba(240, 217, 168, 0.05)
+    );
 
     --theme-bg-primary: var(--surface-1);
     --theme-bg-secondary: var(--surface-3);
@@ -646,5 +747,18 @@ html[data-theme="dark"] {
     --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
     --sticky-cta-border: oklch(0.78 0.10 90);
     --sticky-cta-z: 100;
+
+    /* ===== Unified Button System (Auto Dark) ===== */
+    --btn-outline-on-image-bg: rgba(0,0,0,.35);
+    --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
+
+    /* ===== Why Choose Section (Auto Dark) ===== */
+    --why-bg-start: oklch(0.27 0.04 70);
+    --why-bg-end:   oklch(0.25 0.05 30);
+    --why-text:     #F5E6D3;
+    --why-text-soft:#E8D8C4;
+    --why-card:     oklch(0.28 0.03 70);
+    --why-border:   rgba(255,255,255,.14);
+    --why-shadow:   0 14px 36px rgba(0,0,0,.45);
   }
 }

@@ -15,9 +15,8 @@
 [data-clean-root] .hero {
   position: relative;
   min-height: 100vh;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  /* Removed 100vw hack - use scrollbar-gutter in globals.css instead */
+  width: 100%;
   max-width: none;
   display: flex;
   align-items: center;
@@ -73,7 +72,7 @@
   z-index: 10;
   text-align: center;
   max-width: 800px;
-  padding: 0 var(--space-xl, 2rem);
+  padding: 0 var(--gutter);
   color: var(--_text);
   animation: fadeInUp 1.2s ease-out;
 }
@@ -90,10 +89,11 @@
   color: var(--_accent);
   margin-bottom: var(--space-md, 1rem);
   font-weight: var(--weight-regular, 400);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  /* Light theme: no shadow needed on white background */
+  text-shadow: none;
 }
 
-/* Title & accent — stays white by default via token */
+/* Title & accent — dark text on light theme, white on dark theme via tokens */
 [data-clean-root] .hero-title {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: clamp(3rem, 8vw, 5.5rem);
@@ -102,11 +102,12 @@
   letter-spacing: -0.02em;
   margin-bottom: var(--space-xl, 2rem);
   color: var(--_text);
-  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  /* Light theme: subtle shadow for depth on white background */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 [data-clean-root] .hero-title-accent { color: var(--_accent); }
 
-/* Lead blurb — white by token */
+/* Lead blurb — dark on light, white on dark via token */
 [data-clean-root] .hero-lead {
   font-size: var(--size-xl, 1.25rem);
   line-height: var(--line-loose, 1.8);
@@ -116,7 +117,8 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  /* Light theme: subtle shadow */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 
 /* CTAs */
@@ -148,8 +150,9 @@
   border-radius: 9999px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(228, 200, 150, 0.2);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(157, 107, 123, 0.15);
+  /* Light theme: no shadow needed */
+  text-shadow: none;
 }
 [data-clean-root] .hero-cta-secondary:hover {
   background: color-mix(in srgb, var(--_accent) 90%, white 10%);
@@ -208,11 +211,11 @@
 
 /* Tablet/Mobile */
 @media (max-width: 1024px) {
-  [data-clean-root] .hero-content { padding: 0 var(--space-lg, 1.5rem); }
+  [data-clean-root] .hero-content { padding: 0 var(--gutter); }
   [data-clean-root] .hero-lead { font-size: var(--size-lg, 1.125rem); margin-bottom: var(--space-2xl, 2.5rem); }
 }
 @media (max-width: 768px) {
-  [data-clean-root] .hero-content { padding: 0 var(--space-md, 1rem); }
+  [data-clean-root] .hero-content { padding: 0 var(--gutter); }
   [data-clean-root] .hero-ctas { flex-direction: column; align-items: center; gap: var(--space-sm, 0.75rem); }
   [data-clean-root] .hero-cta { padding: var(--space-sm, .75rem) var(--space-xl, 2rem); font-size: calc(var(--size-sm, 0.875rem) * 0.95); }
   /* disable parallax on mobile for perf */
@@ -223,6 +226,98 @@
 [data-clean-root] .hero-cta:focus-visible {
   outline: var(--focus-width, 3px) solid var(--focus-ring, var(--hero-accent, #E4C896));
   outline-offset: var(--focus-offset, 3px);
+}
+
+/* ============================================================================
+   DARK MODE - Force white text and OKLCH overlay
+   ============================================================================ */
+
+/* Dark mode (explicit) */
+html[data-theme="dark"] [data-clean-root] .hero {
+  /* Ensure OKLCH overlay tokens are used */
+  --_overlay-start: var(--hero-overlay-start, oklch(0.18 0.03 65 / 0.92));
+  --_overlay-mid:   var(--hero-overlay-mid, oklch(0.22 0.05 80 / 0.88));
+  --_overlay-end:   var(--hero-overlay-end, oklch(0.26 0.04 70 / 0.90));
+
+  /* Force white text from tokens */
+  --_text: var(--hero-text, oklch(0.98 0.01 95));
+  --_accent: var(--hero-accent, oklch(0.78 0.10 90));
+  --_cta-text: var(--hero-cta-text, oklch(0.98 0.01 95));
+}
+
+/* Explicitly force white on all text elements with shadows for dark mode */
+html[data-theme="dark"] [data-clean-root] .hero-eyebrow {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] [data-clean-root] .hero-title {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+html[data-theme="dark"] [data-clean-root] .hero-lead {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] [data-clean-root] .hero-content {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+}
+
+html[data-theme="dark"] [data-clean-root] .hero-title-accent {
+  color: var(--hero-accent, oklch(0.78 0.10 90));
+}
+
+html[data-theme="dark"] [data-clean-root] .hero-cta-secondary {
+  color: var(--hero-cta-text, oklch(0.98 0.01 95));
+  border-color: var(--hero-accent, oklch(0.78 0.10 90));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Dark mode (auto - OS preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .hero {
+    /* Ensure OKLCH overlay tokens are used */
+    --_overlay-start: var(--hero-overlay-start, oklch(0.18 0.03 65 / 0.92));
+    --_overlay-mid:   var(--hero-overlay-mid, oklch(0.22 0.05 80 / 0.88));
+    --_overlay-end:   var(--hero-overlay-end, oklch(0.26 0.04 70 / 0.90));
+
+    /* Force white text from tokens */
+    --_text: var(--hero-text, oklch(0.98 0.01 95));
+    --_accent: var(--hero-accent, oklch(0.78 0.10 90));
+    --_cta-text: var(--hero-cta-text, oklch(0.98 0.01 95));
+  }
+
+  /* Explicitly force white on all text elements with shadows for dark mode */
+  :root:not([data-theme="light"]) [data-clean-root] .hero-eyebrow {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .hero-title {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .hero-lead {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .hero-content {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .hero-title-accent {
+    color: var(--hero-accent, oklch(0.78 0.10 90));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .hero-cta-secondary {
+    color: var(--hero-cta-text, oklch(0.98 0.01 95));
+    border-color: var(--hero-accent, oklch(0.78 0.10 90));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
 }
 
 } /* End @layer components */

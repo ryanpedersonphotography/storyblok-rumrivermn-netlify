@@ -1,8 +1,8 @@
 /* SCHEDULE FORM SECTION STYLES - Extracted from hotfix-site.css */
 
 [data-clean-root] .schedule-tour {
-  padding: 100px 0;
-  background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-card, #3D2F22) 100%);
+  padding: clamp(3.5rem, 6vw, 6rem) 0;
+  background: linear-gradient(135deg, var(--surface-0, #F4E4E1) 0%, var(--surface-2, #FFF8E7) 100%);
   position: relative;
   overflow: hidden;
 
@@ -35,7 +35,7 @@
 [data-clean-root] .form-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--gutter);
   position: relative;
   z-index: 1;
 }
@@ -43,31 +43,38 @@
 /* Form Header */
 [data-clean-root] .form-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 [data-clean-root] .form-script {
   font-family: 'Dancing Script', cursive;
-  font-size: 1.75rem;
+  font-size: clamp(1.5rem, 3.2vw, 1.75rem);
   color: var(--theme-accent-gold, #E4C896);
-  margin: 0 0 20px;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
 }
 
 [data-clean-root] .form-title {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: clamp(2.25rem, 4.8vw, 3rem);
   line-height: 1.2;
-  color: var(--theme-accent-gold, #E4C896);
-  margin: 0 0 15px;
-  letter-spacing: 2px;
+  color: var(--theme-text-primary, #6B4E3D);
+  margin: 0 0 0.75rem;
   font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 [data-clean-root] .form-description {
-  font-size: 1rem;
-  color: var(--theme-text-on-dark, #FFF8E7);
-  margin: 0;
-  line-height: 1.6;
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  color: var(--theme-text-secondary, #7B5E4E);
+  margin: 0 auto;
+  line-height: 1.7;
+  max-width: 48ch;
 }
 
 /* Form */
@@ -190,9 +197,11 @@ html[data-theme="dark"] [data-clean-root] .schedule-tour {
 }
 
 html[data-theme="dark"] [data-clean-root] .tour-form {
-  background: var(--theme-bg-card, #3D2F22);
-  border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
-  box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.6));
+  /* Glassmorphism card styling */
+  background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+  backdrop-filter: blur(12px) saturate(1.12);
+  border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+  box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
 }
 
 html[data-theme="dark"] [data-clean-root] .form-label {
@@ -229,9 +238,11 @@ html[data-clean-root] .form-textarea:focus {
   }
 
   :root:not([data-theme="light"]) [data-clean-root] .tour-form {
-    background: var(--theme-bg-card, #3D2F22);
-    border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
-    box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.6));
+    /* Glassmorphism card styling */
+    background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+    backdrop-filter: blur(12px) saturate(1.12);
+    border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+    box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
   }
 
   :root:not([data-theme="light"]) [data-clean-root] .form-label {
@@ -267,7 +278,7 @@ html[data-clean-root] .form-textarea:focus {
 
   [data-clean-root] .form-container {
     max-width: 100%;
-    padding: 0 40px;
+    padding: 0 var(--gutter);
   }
 
   [data-clean-root] .form-header {
@@ -299,7 +310,7 @@ html[data-clean-root] .form-textarea:focus {
   }
 
   [data-clean-root] .form-container {
-    padding: 0 16px;
+    padding: 0 var(--gutter);
   }
 
   [data-clean-root] .form-title {

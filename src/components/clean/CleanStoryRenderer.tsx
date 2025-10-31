@@ -35,6 +35,7 @@ import BrandProof from '@/components/clean/BrandProof'
 import Pricing from '@/components/clean/Pricing'
 import Gallery from '@/components/clean/Gallery'
 import Spaces from '@/components/clean/Spaces'
+import SpacesNew from '@/components/clean/SpacesNew'
 import ScheduleForm from '@/components/clean/ScheduleForm'
 import Map from '@/components/clean/Map'
 
@@ -60,6 +61,7 @@ function ensureInit() {
       schedule_form: ScheduleForm, // ✅ Clean with migrated CSS
       map_section: Map, // ✅ Clean with migrated CSS
       spaces_section: Spaces, // ✅ Clean with migrated CSS
+      spaces_section_new: SpacesNew, // ✅ Duplicate of Spaces for Section migration testing
       location_item: LocationItem, // Keep for nested items
 
       // Keep these as-is

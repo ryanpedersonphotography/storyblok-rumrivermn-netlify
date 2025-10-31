@@ -26,11 +26,20 @@
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RUM RIVER EXPERIENCE SECTION STYLES */
+/* ==========================================================================
+   RUM RIVER EXPERIENCE SECTION
+   - Now uses unified Section component for layout/padding/background
+   - This CSS only handles the two-column layout and internal styling
+   ========================================================================== */
 
+/* Section component handles:
+   - Background via background="surface"
+   - Padding via paddingY="xl" (100px)
+   - Container max-width and horizontal padding via Section rails
+*/
+
+/* Keep position relative for pseudo-elements (gold divider, dark mode vignette) */
 [data-clean-root] .rum-river-experience {
-  background: var(--theme-bg-primary, #FFFCF8);
-  padding: 100px 0;
   position: relative;
   overflow: visible;
 }
@@ -56,10 +65,8 @@
   z-index: 10;
 }
 
+/* Two-column grid layout - content left, image right */
 [data-clean-root] .experience-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -228,7 +235,7 @@
   }
 
   [data-clean-root] .experience-container {
-    padding: 0 1rem;
+    padding: 0 var(--gutter);
     gap: 2rem;
   }
 
@@ -246,7 +253,7 @@
    ════════════════════════════════════════════════════════════════ */
 
 html[data-theme="dark"] [data-clean-root] .rum-river-experience {
-  background: var(--surface-3, #4A3A2A);
+  background: var(--surface-2);
 }
 
 /* Enhance gold divider visibility in dark mode */
@@ -303,7 +310,7 @@ html[data-theme="dark"] [data-clean-root] .feature-icon .icon-svg {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) [data-clean-root] .rum-river-experience {
-    background: var(--surface-3, #4A3A2A);
+    background: var(--surface-2);
   }
 
   /* Enhance gold divider visibility in auto dark mode */

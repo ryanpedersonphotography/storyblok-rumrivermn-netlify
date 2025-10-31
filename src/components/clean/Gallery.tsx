@@ -1,6 +1,8 @@
 // FILE: src/components/clean/Gallery.tsx
 'use client'
 
+import Section from '@/components/ui/Section'
+
 type WeddingItem = {
   couple: string
   season: string
@@ -60,46 +62,50 @@ export default function Gallery({ blok }: { blok?: any } = {}) {
   const description = 'Every celebration tells a unique story of love, laughter, and happily ever after.'
 
   return (
-    <section
+    <Section
       id="gallery"
+      as="section"
+      align="center"
+      headerWidth="prose"
+      contentWidth="wide"
+      paddingY="lg"
+      background="surface"
+      header={{
+        scriptAccent: subtitle,
+        title: title,
+        lead: description,
+        align: 'center'
+      }}
       className="love-stories-gallery"
       data-section="gallery"
     >
-        <div className="love-stories-content">
-          <header className="love-stories-header">
-            <div className="script-accent">{subtitle}</div>
-            <h2 className="love-section-title">{title}</h2>
-            <p className="love-lead">{description}</p>
-          </header>
-
-          <div className="wedding-gallery">
-            {weddings.map((w, i) => (
-              <a
-                key={`${w.couple}-${i}`}
-                className="gallery-item"
-                href={w.href || '#'}
-                aria-label={`${w.couple}${w.season ? ` — ${w.season}` : ''}`}
-                data-testid="gallery-item"
-              >
-                <img
-                  src={w.image}
-                  alt={w.alt}
-                  width={800}
-                  height={800}
-                  loading="lazy"
-                  decoding="async"
-                  // basic sizes for the 4→1 column responsive grid
-                  sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 100vw"
-                />
-                <div className="gallery-overlay" aria-hidden="true">
-                  <div className="gallery-couple-names">{w.couple}</div>
-                  <div className="gallery-season">{w.season}</div>
-                  <div className="gallery-details"></div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="wedding-gallery">
+        {weddings.map((w, i) => (
+          <a
+            key={`${w.couple}-${i}`}
+            className="gallery-item"
+            href={w.href || '#'}
+            aria-label={`${w.couple}${w.season ? ` — ${w.season}` : ''}`}
+            data-testid="gallery-item"
+          >
+            <img
+              src={w.image}
+              alt={w.alt}
+              width={800}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              // basic sizes for the 4→1 column responsive grid
+              sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 100vw"
+            />
+            <div className="gallery-overlay" aria-hidden="true">
+              <div className="gallery-couple-names">{w.couple}</div>
+              <div className="gallery-season">{w.season}</div>
+              <div className="gallery-details"></div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </Section>
   )
 }

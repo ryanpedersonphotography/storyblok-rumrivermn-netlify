@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
-import Section from '@/components/ui/Section'
 
 interface VenueFeatureStoryblok {
   label?: string
@@ -27,7 +26,7 @@ interface SpacesStoryblok extends SbBlokData {
   pavilion?: VenueStoryblok
 }
 
-export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
+export default function SpacesNew({ blok }: { blok: SpacesStoryblok }) {
   const [activeVenue, setActiveVenue] = useState('barn')
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -133,37 +132,39 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
   }
 
   return (
-    <Section
+    <section
       {...storyblokEditable(blok)}
-      as="section"
       id="venue"
-      container="wrapper"
-      variant="content-wrapper-compat"
-      background="tint-rose"
-      paddingY="lg"
-      header={{
-        scriptAccent: subtitle,
-        title: title,
-        lead: description,
-        align: 'center'
-      }}
       className="spaces-section"
       data-discover="true"
-      data-section="spaces"
+      data-section="spaces-new"
     >
-      <div className="venue-tabs">
-        {Object.entries(venueData).map(([key, venue]) => (
-          <button
-            key={key}
-            className={`venue-tab ${activeVenue === key ? 'active' : ''}`}
-            onClick={() => handleVenueChange(key)}
-          >
-            {venue.title}
-          </button>
-        ))}
-      </div>
+      <div className="content-wrapper">
+        <div className="section-header">
+          <div className="script-accent">
+            {subtitle}
+          </div>
+          <h2 className="section-title">
+            {title}
+          </h2>
+          <p className="lead">
+            {description}
+          </p>
+        </div>
 
-      <div className="spaces-content layout-classic">
+        <div className="venue-tabs">
+          {Object.entries(venueData).map(([key, venue]) => (
+            <button
+              key={key}
+              className={`venue-tab ${activeVenue === key ? 'active' : ''}`}
+              onClick={() => handleVenueChange(key)}
+            >
+              {venue.title}
+            </button>
+          ))}
+        </div>
+
+        <div className="spaces-content layout-classic">
           <div className="venue-main-image">
             <img
               src={getVenueImages(venueData[activeVenue as keyof typeof venueData])[currentImageIndex]}
@@ -186,6 +187,7 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
             </div>
           </div>
         </div>
-    </Section>
+      </div>
+    </section>
   )
 }

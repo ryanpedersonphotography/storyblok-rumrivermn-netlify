@@ -1,94 +1,49 @@
 /* ==========================================================================
-   CLEAN ALTERNATING BLOCKS (scoped to /clean via [data-clean-root])
-   - Token-driven (no raw hex values)
-   - No !important, no hotfix classes
-   - Grid layout with alternating reverse pattern
+   WHY CHOOSE RUM RIVER BARN - ALTERNATING BLOCKS
+   - Now uses unified Section component for layout/header/spacing/background
+   - This CSS only handles the alternating blocks grid and card styling
    ========================================================================== */
 
 @layer components {
 
-[data-clean-root] .alternating-blocks {
-  background: linear-gradient(135deg, rgba(74, 52, 38, 1) 0%, rgba(45, 58, 47, 1) 100%);
-  color: #FFF8E7;
-  padding: 60px 0 61px;
-  width: 100%;
-  overflow: hidden;
-  margin: 0;
-}
+/* Section component handles:
+   - Background via data-bg="tint-rose"
+   - Padding via data-padding-y="fluid"
+   - Header rendering (.section__header, .section__script-accent, etc.)
+   - Container max-width and horizontal padding
+*/
 
-/* Dark mode override */
-html[data-theme="dark"] [data-clean-root] .alternating-blocks,
-:root[data-theme="dark"] [data-clean-root] .alternating-blocks {
-  background: var(--grad-section-soft, linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%));
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks {
-    background: var(--grad-section-soft, linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%));
-  }
-}
-
-/* Section Header */
-[data-clean-root] .alternating-blocks__section-header {
-  color: #FFF8E7;
-  text-align: center;
-  margin-bottom: 64px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 32px;
-  padding-right: 32px;
-}
-
-[data-clean-root] .alternating-blocks__section-title {
-  color: #FFF8E7;
-  font-family: var(--font-serif, 'Playfair Display', serif);
-  font-size: 48px;
-  margin-bottom: 24px;
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-[data-clean-root] .alternating-blocks__script-accent {
-  color: #E4C896;
-  font-family: var(--font-script, 'Dancing Script', cursive);
-  font-size: 28px;
-  margin-bottom: 16px;
-  font-weight: 400;
-}
-
-[data-clean-root] .alternating-blocks__lead {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 20px;
-  line-height: 1.7;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Content Wrapper */
-[data-clean-root] .alternating-blocks__content-wrapper {
-  max-width: none;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Blocks Container */
+/* Blocks Container - holds all the alternating block items */
 [data-clean-root] .alternating-blocks__container {
-  max-width: 1200px;
-  margin: 64px auto 0 auto;
-  padding-left: 32px;
-  padding-right: 32px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
 }
 
-/* Individual Block Item */
+/* Individual Block Item (Card) */
 [data-clean-root] .alternating-blocks__item {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
-  margin-bottom: 120px;
+  margin-bottom: clamp(3.5rem, 7vw, 7.5rem);
+  background: var(--why-card);
+  border: 1px solid var(--why-border);
+  border-radius: 16px;
+  box-shadow: var(--why-shadow);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  max-width: 90%; /* Allow zigzag alignment to be visible */
+}
+
+/* Alternating block alignment - zigzag layout */
+/* Odd blocks (1st, 3rd, 5th) align left */
+[data-clean-root] .alternating-blocks__item:nth-child(odd) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Even blocks (2nd, 4th, 6th) align right */
+[data-clean-root] .alternating-blocks__item:nth-child(even) {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 [data-clean-root] .alternating-blocks__item:last-child {
@@ -100,74 +55,66 @@ html[data-theme="dark"] [data-clean-root] .alternating-blocks,
   direction: rtl;
 }
 
-[data-clean-root] .alternating-blocks__item--reverse .alternating-blocks__content {
+[data-clean-root] .alternating-blocks__item--reverse .alternating-blocks__content,
+[data-clean-root] .alternating-blocks__item--reverse .alternating-blocks__image {
   direction: ltr;
-}
-
-/* Dark mode alternating row tint */
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__item:nth-child(even),
-:root[data-theme="dark"] [data-clean-root] .alternating-blocks__item:nth-child(even) {
-  background: linear-gradient(90deg, transparent, var(--rose-veil-8, rgba(217, 163, 175, 0.08)) 50%, transparent);
-  padding: 32px 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__item:nth-child(even) {
-    background: linear-gradient(90deg, transparent, var(--rose-veil-8, rgba(217, 163, 175, 0.08)) 50%, transparent);
-    padding: 32px 0;
-  }
 }
 
 /* Block Content */
 [data-clean-root] .alternating-blocks__content {
-  padding: 40px;
+  padding: clamp(1rem, 2vw, 1.5rem);
 }
 
 [data-clean-root] .alternating-blocks__number {
-  font-size: 48px;
-  color: #E4C896;
-  opacity: 0.5;
-  font-weight: 500;
-  line-height: 1;
-  margin-bottom: 20px;
   font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: var(--why-number);
+  line-height: 1;
+  margin-bottom: 1rem;
 }
 
 [data-clean-root] .alternating-blocks__title {
-  font-size: 40px;
-  margin-bottom: 25px;
   font-family: var(--font-serif, 'Playfair Display', serif);
-  color: #FFF8E7;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 600;
+  color: var(--why-text);
   line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+/* Lead text within block content */
+[data-clean-root] .alternating-blocks__lead {
+  color: var(--why-text-soft);
+  font-size: clamp(1rem, 2vw, 1.125rem);
   font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
 [data-clean-root] .alternating-blocks__paragraph {
-  font-size: 18px;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--why-text-soft);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
-[data-clean-root] .alternating-blocks__content .alternating-blocks__lead {
-  color: #E4C896;
-  font-weight: 400;
-  margin-bottom: 32px;
-  max-width: none;
+[data-clean-root] .alternating-blocks__paragraph:last-child {
+  margin-bottom: 0;
 }
 
 /* Block Image */
 [data-clean-root] .alternating-blocks__image {
   position: relative;
-  border-radius: 20px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
   transition: transform 600ms ease, box-shadow 600ms ease;
 }
 
 [data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
   transform: scale(1.02);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
 }
 
 [data-clean-root] .alternating-blocks__image img {
@@ -181,48 +128,94 @@ html[data-theme="dark"] [data-clean-root] .alternating-blocks__item:nth-child(ev
    Responsive Design
    ============================================================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   [data-clean-root] .alternating-blocks__item {
     grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 80px;
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  /* Reset alternating alignment on mobile - center all blocks */
+  [data-clean-root] .alternating-blocks__item:nth-child(odd),
+  [data-clean-root] .alternating-blocks__item:nth-child(even) {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   [data-clean-root] .alternating-blocks__item--reverse {
     direction: ltr;
   }
 
-  [data-clean-root] .alternating-blocks__content {
-    padding: 20px;
-  }
-
-  [data-clean-root] .alternating-blocks__title {
-    font-size: 32px;
-  }
-
-  [data-clean-root] .alternating-blocks__number {
-    font-size: 2.5rem;
-  }
-
-  [data-clean-root] .alternating-blocks__section-title {
-    font-size: 2.5rem;
-  }
-
-  [data-clean-root] .alternating-blocks {
-    padding: 80px 0;
+  [data-clean-root] .alternating-blocks__image {
+    order: -1;
   }
 }
 
 @media (max-width: 480px) {
-  [data-clean-root] .alternating-blocks {
-    padding: 60px 0;
+  [data-clean-root] .alternating-blocks__content {
+    padding: 0.5rem;
+  }
+
+  [data-clean-root] .alternating-blocks__image img {
+    height: 300px;
   }
 }
 
 /* Focus visibility for accessibility */
 [data-clean-root] .alternating-blocks__item:focus-visible {
-  outline: 3px solid #E4C896;
+  outline: 3px solid var(--focus-ring, var(--why-number));
   outline-offset: 3px;
+}
+
+/* ============================================================================
+   DARK MODE - Glassmorphism cards
+   ============================================================================ */
+
+/* Dark mode (explicit) */
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__title,
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__paragraph,
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__lead {
+  color: var(--why-text);
+}
+
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__number {
+  color: var(--why-number);
+}
+
+/* Glassmorphism cards */
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__item {
+  background: color-mix(in oklch, var(--surface-1) 75%, white 25%);
+  backdrop-filter: blur(12px) saturate(1.12);
+  border: 1px solid color-mix(in oklch, var(--accent-gold) 30%, transparent);
+  box-shadow: var(--why-shadow);
+}
+
+html[data-theme="dark"] [data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
+}
+
+/* Dark mode (auto - OS preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__title,
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__paragraph,
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__lead {
+    color: var(--why-text);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__number {
+    color: var(--why-number);
+  }
+
+  /* Glassmorphism cards */
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__item {
+    background: color-mix(in oklch, var(--surface-1) 75%, white 25%);
+    backdrop-filter: blur(12px) saturate(1.12);
+    border: 1px solid color-mix(in oklch, var(--accent-gold) 30%, transparent);
+    box-shadow: var(--why-shadow);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
+  }
 }
 
 } /* End @layer components */

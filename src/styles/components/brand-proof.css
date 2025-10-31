@@ -1,20 +1,14 @@
-/* BRAND SOCIAL PROOF SECTION STYLES - Fully Tokenized */
+/* BRAND SOCIAL PROOF SECTION STYLES - Fully Tokenized
+   MIGRATED: Padding, breakout, and background now handled by unified Section component
+   Keeping: Glassomorphic effects, borders, shadows */
 
 [data-clean-root] .brand-quote-section {
-  padding: 50px 0;
   position: relative;
   overflow: hidden;
 
-  /* Full-width breakout */
-  width: 100vw;
-  max-width: none;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-
-  /* Tokenized glassomorphic background */
-  background: var(--theme-bg-secondary, #F4E4E1);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  /* Tokenized glassomorphic effects */
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
 
   /* Tokenized borders */
   border-top: 1px solid var(--theme-border-subtle, rgba(0, 0, 0, 0.08));
@@ -57,7 +51,7 @@
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--gutter);
 }
 
 /* Brand Logos Container */
@@ -79,13 +73,11 @@
   font-weight: 600;
   transition: all 0.3s ease;
   cursor: default;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 [data-clean-root] .brand-logo:hover {
   color: var(--theme-accent-gold, #E4C896);
   transform: translateY(-2px) scale(1.05);
-  text-shadow: 0 4px 12px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 40%, transparent);
 }
 
 /* Quote Text Styling */
@@ -98,7 +90,6 @@
   font-family: 'Playfair Display', serif;
   font-weight: 400;
   text-align: center;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Highlighted Text within Quote */
@@ -112,7 +103,6 @@
 
 [data-clean-root] .brand-quote-text .highlight:hover {
   color: var(--theme-accent-gold, #E4C896);
-  text-shadow: 0 2px 16px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 60%, transparent);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -193,10 +183,6 @@ html[data-theme="dark"] [data-clean-root] .brand-quote-text .highlight:hover {
 }
 
 @media (max-width: 768px) {
-  [data-clean-root] .brand-quote-section {
-    padding: 60px 0;
-  }
-
   [data-clean-root] .brand-logos {
     gap: 30px;
     margin-bottom: 30px;
@@ -214,7 +200,7 @@ html[data-theme="dark"] [data-clean-root] .brand-quote-text .highlight:hover {
   }
 
   [data-clean-root] .brand-quote-content {
-    padding: 0 1rem;
+    padding: 0 var(--gutter);
   }
 }
 
