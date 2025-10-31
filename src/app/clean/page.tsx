@@ -1,48 +1,24 @@
-/**
- * Clean Version Route - Semantic CSS Implementation
- *
- * This route demonstrates the site with:
- * - Semantic class names (.navbar instead of .hotfix-navbar)
- * - Token-based styling (no hardcoded values)
- * - Zero !important declarations
- * - Proper CSS cascade management
- */
+// src/app/clean/page.tsx
+export const dynamic = 'force-dynamic'
 
-import Navbar from '@/components/clean/Navbar';
-import Hero from '@/components/clean/Hero';
-import AlternatingBlocks from '@/components/clean/AlternatingBlocks';
-import Spaces from '@/components/clean/Spaces';
-import Experience from '@/components/clean/Experience';
-import Gallery from '@/components/clean/Gallery';
-import BrandProof from '@/components/clean/BrandProof';
-import Testimonials from '@/components/clean/Testimonials';
-import ScheduleForm from '@/components/clean/ScheduleForm';
-import Map from '@/components/clean/Map';
-import FAQ from '@/components/clean/FAQ';
-import Pricing from '@/components/clean/Pricing';
-import Footer from '@/components/clean/Footer';
+async function fetchStory(slug: string) {
+  const token = process.env.NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN
+  if (!token) throw new Error('Missing NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN')
+  const version = process.env.NODE_ENV === 'production' ? 'published' : 'draft'
+  const url = `https://api.storyblok.com/v2/cdn/stories/${slug}?version=${version}&cv=${Date.now()}&token=${token}`
 
-export const metadata = {
-  title: 'Rum River Barn - Clean Version',
-  description: 'Wedding venue in Minnesota - Clean CSS implementation',
-};
+  const res = await fetch(url, { cache: 'no-store' })
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`Storyblok fetch failed (${res.status}): ${text}`)
+  }
+  const data = await res.json()
+  return data.story
+}
 
-export default function CleanPage() {
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <Spaces />
-      <AlternatingBlocks />
-      <Experience />
-      <Gallery />
-      <BrandProof />
-      <Testimonials />
-      <ScheduleForm />
-      <Map />
-      <FAQ />
-      <Pricing />
-      <Footer />
-    </>
-  );
+import CleanStoryRenderer from '@/components/clean/CleanStoryRenderer'
+
+export default async function CleanHomePage() {
+  const story = await fetchStory('home')
+  return <CleanStoryRenderer story={story} />
 }

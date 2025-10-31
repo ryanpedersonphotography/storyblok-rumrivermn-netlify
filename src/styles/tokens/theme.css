@@ -1,0 +1,220 @@
+/* ========================================================================== *
+   FILE: src/styles/tokens/theme.css
+   PURPOSE: Single source of truth for color/typography/spacing/motion tokens.
+            - Combined light + dark
+            - OKLCH first, with sRGB fallbacks
+            - Includes "legacy alias" variables to avoid breaking old code
+ * ========================================================================== */
+
+/* ---------- Base (light mode by default) ---------------------------------- */
+:root {
+  /* ===== Color Primitives (sRGB fallbacks) ===== */
+  /* Brand / palette anchor hex fallbacks */
+  --clr-walnut-900-rgb: 15 12 10;    /* #0F0C0A */
+  --clr-walnut-800-rgb: 26 20 16;    /* #1A1410 */
+  --clr-walnut-750-rgb: 35 27 20;    /* ~#231B14 (approx mid) */
+  --clr-walnut-700-rgb: 44 36 22;    /* #2C2416 */
+  --clr-walnut-650-rgb: 55 45 27;    /* ~#372D1B (approx) */
+
+  --clr-rose-rgb:        157 107 123; /* #9D6B7B */
+  --clr-rose-soft-rgb:   216 155 174; /* #D89BAE (light rose) */
+  --clr-gold-rgb:        240 217 168; /* #F0D9A8 */
+  --clr-cream-rgb:       244 228 225; /* #F4E4E1  (blush) */
+  --clr-walnut-text-rgb: 107 78 61;   /* #6B4E3D */
+  --clr-walnut-deep-rgb: 74 52 38;    /* #4A3426 */
+  --clr-white-rgb:       255 255 255; /* white */
+  --clr-black-rgb:       0 0 0;       /* black */
+
+  /* Preferred OKLCH variants (modern browsers) */
+  @supports (color: oklch(0.5 0 0)) {
+    --ok-walnut-900: oklch(0.18 0.03 65);
+    --ok-walnut-850: oklch(0.20 0.03 65);
+    --ok-walnut-800: oklch(0.22 0.03 65);
+    --ok-walnut-750: oklch(0.25 0.035 65);
+    --ok-walnut-700: oklch(0.28 0.040 65);
+    --ok-walnut-650: oklch(0.31 0.040 65);
+
+    --ok-rose-500: oklch(0.74 0.06 15);  /* tuned dusty rose */
+    --ok-rose-300: oklch(0.85 0.04 15);
+
+    --ok-gold-400: oklch(0.88 0.07 88);
+    --ok-cream-100: oklch(0.95 0.02 25);
+
+    --ok-text-walnut: oklch(0.62 0.05 55);
+    --ok-text-walnut-deep: oklch(0.52 0.05 55);
+  }
+
+  /* ===== Semantic Surfaces (LIGHT) ===== */
+  --surface-0: rgb(var(--clr-cream-rgb));            /* page soft background (blush) */
+  --surface-1: rgb(255 255 255);                     /* cards/contrast */
+  --surface-2: rgb(var(--clr-cream-rgb));            /* section background (FAQ light) */
+  --surface-3: rgb(250 246 242);                     /* subtle lift */
+  --surface-4: rgb(246 240 234);                     /* brightest light surface */
+
+  /* Text (LIGHT) */
+  --text-primary: rgb(var(--clr-walnut-text-rgb));   /* #6B4E3D */
+  --text-secondary: rgb(68 57 50);
+  --text-inverse: rgb(var(--clr-white-rgb));
+
+  /* Roles */
+  --accent-rose: rgb(var(--clr-rose-rgb));           /* #9D6B7B */
+  --accent-rose-soft: rgb(var(--clr-rose-soft-rgb)); /* #D89BAE */
+  --accent-gold: rgb(var(--clr-gold-rgb));
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.16);
+  --focus-ring: rgb(var(--clr-walnut-text-rgb));     /* subtle walnut focus */
+  --focus-width: 3px;
+  --focus-offset: 3px;
+
+  /* ===== Motion / Shadow / Radius ===== */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 400ms;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+
+  /* ===== Typography ===== */
+  --font-sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-script: "Dancing Script", "Brush Script MT", cursive;
+  --font-mono:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --size-sm:   0.875rem;
+  --size-base: 1rem;
+  --size-lg:   1.125rem;
+  --size-xl:   1.25rem;
+  --size-2xl:  1.5rem;
+  --size-3xl:  1.75rem;
+  --size-4xl:  2rem;
+  --size-5xl:  2.5rem;
+  --size-6xl:  3rem;
+  --line-tight: 1.2;
+  --line-normal: 1.5;
+  --line-loose: 1.8;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-light: 300;
+
+  /* ===== Spacing Scale ===== */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.25rem;
+  --space-xl:  2rem;
+  --space-2xl: 2.5rem;
+  --space-3xl: 3rem;
+  --space-4xl: 4rem;
+  --space-5xl: 6.25rem; /* 100px */
+
+  /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
+  --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
+  --grad-section-soft: linear-gradient(180deg, rgb(252 248 244) 0%, rgb(246 240 234) 100%);
+
+  /* ===== Legacy Aliases (to avoid breaking existing code) ===== */
+  --theme-bg-primary: var(--surface-1);
+  --theme-bg-secondary: var(--surface-2);
+  --theme-bg-card: var(--surface-1);
+  --theme-bg-dark-section: rgb(var(--clr-walnut-900-rgb));
+  --theme-text-primary: var(--text-primary);
+  --theme-text-secondary: var(--text-secondary);
+  --theme-border-subtle: var(--border-subtle);
+  --theme-border-medium: var(--border-medium);
+  --theme-border-focus: var(--accent-gold);
+  --theme-accent-rose: var(--accent-rose);
+  --theme-accent-sage: rgb(176 196 182); /* soft desaturated green */
+  --theme-accent-gold: var(--accent-gold);
+  --theme-shadow-dark-lg: 0 24px 70px rgba(0, 0, 0, 0.28); /* used on glass cards */
+}
+
+/* ---------- Dark mode (explicit) ----------------------------------------- */
+html[data-theme="dark"] {
+  /* Surfaces (DARK) */
+  --surface-0: rgb(var(--clr-walnut-900-rgb)); /* deepest */
+  --surface-1: rgb(var(--clr-walnut-800-rgb));
+  --surface-2: oklch(from var(--ok-walnut-750, rgb(var(--clr-walnut-750-rgb))) l c h);
+  --surface-3: rgb(var(--clr-walnut-700-rgb));
+  --surface-4: rgb(var(--clr-walnut-650-rgb));
+
+  /* Text (DARK) */
+  --text-primary: rgb(var(--clr-white-rgb));
+  --text-secondary: color-mix(in oklch, rgb(var(--clr-white-rgb)) 86%, rgb(var(--clr-gold-rgb)) 14%);
+  --text-inverse: rgb(var(--clr-walnut-800-rgb));
+
+  /* Roles (DARK) */
+  --accent-rose: rgb(var(--clr-rose-soft-rgb)); /* slightly brighter in dark */
+  --accent-rose-soft: rgb(var(--clr-rose-soft-rgb));
+  --accent-gold: rgb(var(--clr-gold-rgb));
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --focus-ring: var(--accent-gold);
+
+  /* Gradients / hairlines (DARK) */
+  --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
+  --grad-section-soft: linear-gradient(180deg,
+    color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
+    var(--surface-1) 100%
+  );
+  --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+  /* Legacy aliases (DARK) */
+  --theme-bg-primary: var(--surface-1);
+  --theme-bg-secondary: var(--surface-3);
+  --theme-bg-card: var(--surface-2);
+  --theme-bg-dark-section: var(--surface-0);
+  --theme-text-primary: var(--text-primary);
+  --theme-text-secondary: var(--text-secondary);
+  --theme-border-subtle: var(--border-subtle);
+  --theme-border-medium: var(--border-medium);
+  --theme-border-focus: var(--accent-gold);
+  --theme-accent-rose: var(--accent-rose);
+  --theme-accent-sage: rgb(182 204 190);
+  --theme-accent-gold: var(--accent-gold);
+  --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
+}
+
+/* ---------- Auto dark (OS preference) when you’re not forcing a theme ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Mirror the explicit dark values */
+    --surface-0: rgb(var(--clr-walnut-900-rgb));
+    --surface-1: rgb(var(--clr-walnut-800-rgb));
+    --surface-2: oklch(from var(--ok-walnut-750, rgb(var(--clr-walnut-750-rgb))) l c h);
+    --surface-3: rgb(var(--clr-walnut-700-rgb));
+    --surface-4: rgb(var(--clr-walnut-650-rgb));
+
+    --text-primary: rgb(var(--clr-white-rgb));
+    --text-secondary: color-mix(in oklch, rgb(var(--clr-white-rgb)) 86%, rgb(var(--clr-gold-rgb)) 14%);
+    --text-inverse: rgb(var(--clr-walnut-800-rgb));
+
+    --accent-rose: rgb(var(--clr-rose-soft-rgb));
+    --accent-rose-soft: rgb(var(--clr-rose-soft-rgb));
+    --accent-gold: rgb(var(--clr-gold-rgb));
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.16);
+    --focus-ring: var(--accent-gold);
+
+    --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
+    --grad-section-soft: linear-gradient(180deg,
+      color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
+      var(--surface-1) 100%
+    );
+    --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+    --theme-bg-primary: var(--surface-1);
+    --theme-bg-secondary: var(--surface-3);
+    --theme-bg-card: var(--surface-2);
+    --theme-bg-dark-section: var(--surface-0);
+    --theme-text-primary: var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-border-subtle: var(--border-subtle);
+    --theme-border-medium: var(--border-medium);
+    --theme-border-focus: var(--accent-gold);
+    --theme-accent-rose: var(--accent-rose);
+    --theme-accent-sage: rgb(182 204 190);
+    --theme-accent-gold: var(--accent-gold);
+    --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
+  }
+}

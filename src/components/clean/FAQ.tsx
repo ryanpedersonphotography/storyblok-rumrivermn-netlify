@@ -1,61 +1,134 @@
+// ===============================================================
+// FILE: src/components/clean/FAQ.tsx
+// Clean FAQ with robust Storyblok field handling + per-item fallbacks
+// ===============================================================
 'use client'
 
-import { useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { useEffect, useMemo, useState } from 'react'
+import { storyblokEditable } from '@storyblok/react'
+import { renderRichText } from '@storyblok/js'
 
-export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+type Blok = Record<string, any>
 
-  const faqs = [
-    {
-      question: 'What is included in your venue rental?',
-      answer: 'Our venue rental includes exclusive use of the barn and grounds for your event day, tables and chairs for up to 200 guests, setup and cleanup services, and access to our bridal suite and groom\'s quarters.'
-    },
-    {
-      question: 'Do you provide catering services?',
-      answer: 'Yes! We offer full catering services through our preferred vendors, or you\'re welcome to bring in your own licensed caterer. Our professional kitchen facilities can accommodate any culinary vision.'
-    },
-    {
-      question: 'What is your cancellation policy?',
-      answer: 'We require a non-refundable deposit to secure your date. Our full cancellation policy will be provided in your contract, and we recommend wedding insurance for peace of mind.'
-    },
-    {
-      question: 'Can we have our ceremony on-site?',
-      answer: 'Absolutely! We have beautiful ceremony locations both indoors and outdoors. Our scenic riverside setting provides a stunning backdrop for your vows.'
-    },
-    {
-      question: 'Is there parking available?',
-      answer: 'Yes, we provide ample free parking for all your guests on-site, including accessible parking spots near the entrance.'
+const FALLBACK_ITEMS = [
+  { _uid: '1', question: 'Can we bring our own vendors?', answer: 'Absolutely! Bring any caterer, photographer, florist, DJ, and more.' },
+  { _uid: '2', question: `What's included with the venue?`, answer: 'Exclusive use of the barn, suites, ceremony sites, tables/chairs for 200, parking, setup time, and day-of assistance.' },
+  { _uid: '3', question: 'Indoor & outdoor options?', answer: 'Yes—multiple ceremony sites, including garden pavilion, riverside clearing, and the barn.' },
+  { _uid: '4', question: 'Lodging nearby?', answer: 'Partner hotels and B&Bs with group rates; we can provide a recommended list.' },
+]
+
+function toHTML(value: any): string {
+  if (!value) return ''
+  if (typeof value === 'string') return value
+  try {
+    return renderRichText(value) as unknown as string
+  } catch {
+    // flatten to plain text if it’s not valid RichText
+    try {
+      return JSON.stringify(value)
+    } catch {
+      return ''
     }
-  ];
+  }
+}
+
+function firstArray(blok: Blok, keys: string[]): any[] | null {
+  for (const k of keys) {
+    const v = blok?.[k]
+    if (Array.isArray(v) && v.length) return v
+  }
+  // if an empty array exists under any candidate key, return it (so we don’t fall back wrongly)
+  for (const k of keys) {
+    if (Array.isArray(blok?.[k])) return []
+  }
+  return null
+}
+
+export default function FAQ({ blok }: { blok: Blok }) {
+  const [open, setOpen] = useState<Record<string, boolean>>({})
+
+  // Detect the list field Storyblok is actually using
+  const rawList =
+    firstArray(blok, ['faq_items', 'items', 'faqs', 'faq', 'accordion_items']) ??
+    FALLBACK_ITEMS
+
+  const items = useMemo(() => {
+    return (rawList.length ? rawList : FALLBACK_ITEMS).map((it: any, i: number) => {
+      const uid = it?._uid ?? String(i)
+      const question =
+        it?.question ?? it?.title ?? it?.heading ?? it?.label ?? 'Untitled question'
+
+      // Try common Storyblok answer fields (rich text or plain)
+      const rawAnswer =
+        it?.answer ??
+        it?.rich_text ??
+        it?.body ??
+        it?.text ??
+        it?.copy ??
+        it?.description ??
+        ''
+
+      let answerHTML = toHTML(rawAnswer)
+
+      // If answer missing/empty, provide a per-item fallback
+      if (!answerHTML || /^\s*$/.test(answerHTML)) {
+        const fb = FALLBACK_ITEMS[i % FALLBACK_ITEMS.length]
+        answerHTML = toHTML(fb.answer)
+      }
+
+      return { uid, question: String(question), answerHTML }
+    })
+  }, [rawList])
+
+  // Open first item for easy visual verification
+  useEffect(() => {
+    if (items[0]) setOpen((s) => ({ ...s, [items[0].uid]: true }))
+  }, [items])
+
+  const title = blok?.title || 'Frequently Asked Questions'
+  const subtitle = blok?.subtitle || 'Everything You Need to Know'
+  const toggle = (id: string) => setOpen((s) => ({ ...s, [id]: !s[id] }))
+
+  // Debug: uncomment while diagnosing field shapes
+  // useEffect(() => { console.log('[FAQ blok]', JSON.parse(JSON.stringify(blok))) }, [blok])
 
   return (
-    <section className="faq">
-      <div className="faq__container">
-        <div className="faq__header">
-          <span className="faq__script">Questions?</span>
-          <h2 className="faq__title">Frequently Asked Questions</h2>
+    <section {...storyblokEditable(blok)} className="faq-accordion">
+      <div className="faq-container">
+        <div className="faq-header">
+          <p className="faq-script">{subtitle}</p>
+          <h2 className="faq-title">{title}</h2>
         </div>
 
-        <div className="faq__items">
-          {faqs.map((faq, index) => (
-            <div key={index} className={`faq__item ${openIndex === index ? 'active' : ''}`}>
-              <div
-                className="faq__question"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              >
-                <h3>{faq.question}</h3>
-                <div className="faq__toggle">
-                  <ChevronDownIcon className="w-6 h-6" />
+        <div className="faq-list">
+          {items.map((it) => {
+            const isOpen = !!open[it.uid]
+            return (
+              <div key={it.uid} className={`faq-item ${isOpen ? 'is-open' : ''}`}>
+                <button
+                  type="button"
+                  className="faq-question"
+                  onClick={() => toggle(it.uid)}
+                  aria-expanded={isOpen}
+                  aria-controls={`answer-${it.uid}`}
+                >
+                  <h3>{it.question}</h3>
+                  <span className="faq-toggle" aria-hidden>↓</span>
+                </button>
+
+                <div
+                  id={`answer-${it.uid}`}
+                  className="faq-answer"
+                  role="region"
+                  aria-live="polite"
+                >
+                  <div className="faq-answer-body" dangerouslySetInnerHTML={{ __html: it.answerHTML }} />
                 </div>
               </div>
-              <div className="faq__answer">
-                <p>{faq.answer}</p>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
-  );
+  )
 }

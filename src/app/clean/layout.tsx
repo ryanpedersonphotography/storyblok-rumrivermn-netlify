@@ -1,26 +1,12 @@
-/**
- * Clean Version Layout
- * Imports only semantic CSS files (tokens already loaded by root layout)
- */
+// ==============================
+// File: src/app/clean/layout.tsx
+// IMPORTANT: Do NOT render <html> or <body> here (they live in app/layout.*)
+// Also import your clean CSS here.
+// ==============================
+import '@/styles/tokens/theme.css'
+import '@/styles/globals.css'
+import '@/styles/components/faq.css' // your clean FAQ CSS (adjust path if needed)
 
-import '@/styles/semantic/navbar.css';
-import '@/styles/semantic/hero.css';
-import '@/styles/semantic/alternating-blocks.css';
-import '@/styles/semantic/spaces.css';
-import '@/styles/semantic/experience.css';
-import '@/styles/semantic/gallery.css';
-import '@/styles/semantic/brand-proof.css';
-import '@/styles/semantic/testimonials.css';
-import '@/styles/semantic/schedule-form.css';
-import '@/styles/semantic/map.css';
-import '@/styles/semantic/faq.css';
-import '@/styles/semantic/pricing.css';
-import '@/styles/semantic/footer.css';
-
-export default function CleanLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function CleanLayout({ children }: { children: React.ReactNode }) {
+  return <div data-clean-root>{children}</div>
 }
