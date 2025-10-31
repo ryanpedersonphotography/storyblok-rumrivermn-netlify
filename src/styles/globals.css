@@ -8,7 +8,7 @@
 @layer base, components, utilities;
 
 /* ===== Component Imports ===== */
-@import './components/buttons.css';
+/* buttons.css imported in layout.js - removed duplicate import */
 
 @layer base {
   /* 1) Modern reset with low specificity */
@@ -72,7 +72,7 @@ a:hover { text-decoration: underline; }
 
 /* Reduced motion - global accessibility guard */
 @media (prefers-reduced-motion: reduce) {
-  [data-clean-root] * {
+  [data-clean-root="true"] * {
     animation: none !important;
     transition: none !important;
   }

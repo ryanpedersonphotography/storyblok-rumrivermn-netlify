@@ -1,7 +1,35 @@
-import '@/styles/tokens/theme.css';
-import './globals.css';
+// 1. TOKENS - Design tokens (OKLCH colors, surfaces, gradients, accent veils)
+import '@/styles/tokens/theme.css'
+
+// 2. UTILITIES - Section presets and layout utilities (@layer utilities)
+import '@/styles/system/section-presets.css'
+import '@/styles/system/layout.css'
+
+// 3. GLOBALS - Base styles
+import '@/styles/globals.css'
+
+// 4. COMPONENTS - Component-specific styles (@layer components)
+import '@/styles/components/buttons.css'
+import '@/styles/components/section.css'
+import '@/styles/components/section.variants.css'
+import '@/styles/components/section.wrapper.css'
+import '@/styles/components/navbar.css'
+import '@/styles/components/hero.css'
+import '@/styles/components/experience.css'
+import '@/styles/components/spaces.css'
+import '@/styles/components/spaces-new.css'
+import '@/styles/components/gallery.css'
+import '@/styles/components/alternating-blocks.css'
+import '@/styles/components/brand-proof.css'
+import '@/styles/components/pricing.css'
+import '@/styles/components/schedule-form.css'
+import '@/styles/components/map.css'
+import '@/styles/components/footer.css'
+import '@/styles/components/faq.css'
+
 import StoryblokProvider from '@/components/StoryblokProvider';
 import { playfairDisplay, montserrat, dancingScript } from './fonts';
+import Navbar from '@/components/clean/Navbar';
 
 export const metadata = {
 	title: 'Rum River Barn | Wedding Venue',
@@ -10,9 +38,9 @@ export const metadata = {
 
 /*
  * DEV SERVER: http://localhost:6666
- * HOTFIX COMPONENTS: Available at /beta route
- * - NavbarHotfix + HeroHotfix with romantic wedding theme
- * - Pixel-perfect fidelity to original design
+ * CLEAN ARCHITECTURE: All components migrated to clean tokenized system
+ * - All sections use clean design tokens and components
+ * - Responsive design with semantic styling
  */
 
 export default function RootLayout({ children }) {
@@ -39,8 +67,10 @@ export default function RootLayout({ children }) {
 					/>
 				</head>
 				<body>
-					{/* Navbar removed from root layout - each route renders its own */}
-					{children}
+					<div data-clean-root="true">
+						<Navbar />
+						{children}
+					</div>
 				</body>
 			</html>
 		</StoryblokProvider>

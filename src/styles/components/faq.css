@@ -11,18 +11,18 @@
    This file handles: FAQ list and accordion behavior */
 
 /* Items */
-[data-clean-root] .faq-accordion .faq-list {
+[data-clean-root="true"] .faq-accordion .faq-list {
   display: flex;
   flex-direction: column;
 }
 
-[data-clean-root] .faq-accordion .faq-item {
+[data-clean-root="true"] .faq-accordion .faq-item {
   background: transparent;
   border-bottom: 2px solid var(--border-subtle);
 }
 
 /* Question */
-[data-clean-root] .faq-accordion .faq-question {
+[data-clean-root="true"] .faq-accordion .faq-question {
   padding: var(--space-xl) 0; /* 2rem */
   cursor: pointer;
   display: flex;
@@ -34,7 +34,7 @@
   border: 0;
 }
 
-[data-clean-root] .faq-accordion .faq-question h3 {
+[data-clean-root="true"] .faq-accordion .faq-question h3 {
   font-family: var(--font-sans, system-ui, sans-serif);
   font-size: 1.25rem;
   color: var(--text-primary);
@@ -45,7 +45,7 @@
   text-align: left;
 }
 
-[data-clean-root] .faq-accordion .faq-toggle {
+[data-clean-root="true"] .faq-accordion .faq-toggle {
   font-size: 1.25rem;
   color: var(--accent-rose);
   font-weight: 300;
@@ -57,12 +57,12 @@
   place-items: center;
 }
 
-[data-clean-root] .faq-accordion .faq-item.is-open .faq-toggle {
+[data-clean-root="true"] .faq-accordion .faq-item.is-open .faq-toggle {
   transform: rotate(180deg);
 }
 
 /* Answer */
-[data-clean-root] .faq-accordion .faq-answer {
+[data-clean-root="true"] .faq-accordion .faq-answer {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -73,44 +73,44 @@
   padding: 0;
 }
 
-[data-clean-root] .faq-accordion .faq-item.is-open .faq-answer {
+[data-clean-root="true"] .faq-accordion .faq-item.is-open .faq-answer {
   max-height: 500px;
   opacity: 1;
   padding: 0 0 var(--space-xl) 0; /* 2rem */
 }
 
 /* For rich text coming from Storyblok */
-[data-clean-root] .faq-accordion .faq-answer-body {
+[data-clean-root="true"] .faq-accordion .faq-answer-body {
   font-family: var(--font-sans, system-ui, sans-serif);
   font-size: var(--size-base, 1rem);
   line-height: var(--line-loose, 1.8);
   color: var(--text-secondary);
 }
-[data-clean-root] .faq-accordion .faq-answer-body p { margin: 0 0 1em 0; }
+[data-clean-root="true"] .faq-accordion .faq-answer-body p { margin: 0 0 1em 0; }
 
 /* Dark mode */
-html[data-theme="dark"] [data-clean-root] .faq-accordion .faq-question h3 {
+html[data-theme="dark"] [data-clean-root="true"] .faq-accordion .faq-question h3 {
   color: var(--text-primary);
 }
-html[data-theme="dark"] [data-clean-root] .faq-accordion .faq-item {
+html[data-theme="dark"] [data-clean-root="true"] .faq-accordion .faq-item {
   border-bottom-color: var(--border-subtle);
 }
-html[data-clean-root] [data-clean-root] .faq-accordion .faq-answer-body {
+html[data-clean-root="true"] [data-clean-root="true"] .faq-accordion .faq-answer-body {
   color: var(--text-secondary);
 }
 
 /* Focus states */
-[data-clean-root] .faq-accordion .faq-question:focus-visible {
+[data-clean-root="true"] .faq-accordion .faq-question:focus-visible {
   outline: var(--focus-width, 3px) solid var(--focus-ring);
   outline-offset: var(--focus-offset, 3px);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  [data-clean-root] .faq-accordion .faq-question {
+  [data-clean-root="true"] .faq-accordion .faq-question {
     padding: var(--space-lg) 0; /* 1.25rem */
   }
-  [data-clean-root] .faq-accordion .faq-item.is-open .faq-answer {
+  [data-clean-root="true"] .faq-accordion .faq-item.is-open .faq-answer {
     padding-bottom: var(--space-lg);
   }
 }

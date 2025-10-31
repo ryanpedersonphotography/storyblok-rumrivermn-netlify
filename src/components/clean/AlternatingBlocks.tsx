@@ -26,8 +26,8 @@ interface AlternatingBlocksBlok {
 export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlok }) {
   // Fallback images to alternate between
   const fallbackImages = [
-    '/hotfix-assets/barn-interior-ceiling-beams-lighting.jpg',
-    '/hotfix-assets/property-field-wildflowers-natural.jpg',
+    '/images/barn-interior-ceiling-beams-lighting.jpg',
+    '/images/property-field-wildflowers-natural.jpg',
   ]
 
   console.log('[AlternatingBlocks] blok:', blok)
@@ -36,10 +36,11 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
 
   return (
     <Section
+      align="center"
       container="wrapper"
       variant={[
         'content-wrapper-compat',     // Match Spaces .content-wrapper exactly
-        'hotfix-alternating-blocks',  // Background/padding/tone settings
+        'alternating-blocks-luxe',  // Background/padding/tone settings
         'header-center-wide',         // Remove max-width constraint on header
         'lead-full-width',            // Remove 48ch constraint on lead text
         'box-sizing-content'          // Override box-sizing if needed
@@ -48,6 +49,7 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
         scriptAccent: blok.script_accent || 'Your Perfect Venue',
         title: blok.title || 'Why Choose Rum River Barn',
         lead: blok.description || 'Discover what makes our venue the perfect setting for your unforgettable celebration',
+        align: 'center'
       }}
       className="alternating-blocks"
       data-section="alternating-blocks"

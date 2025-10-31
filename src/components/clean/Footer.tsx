@@ -19,7 +19,7 @@ interface FooterBlok {
 export default function Footer({ blok }: { blok?: FooterBlok }) {
   const currentYear = new Date().getFullYear()
 
-  // Default values matching hotfix
+  // Default values for clean implementation
   const brandTitle = blok?.brand_title || 'Rum River Wedding Barn'
   const brandDescription = blok?.brand_description || "Where dreams come to life along Minnesota's scenic Rum River. Historic charm meets modern elegance for your perfect celebration."
   const address = blok?.address || '42618 78th Street, Hillman, MN 56338'

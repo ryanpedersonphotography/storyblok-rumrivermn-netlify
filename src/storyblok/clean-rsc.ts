@@ -12,9 +12,9 @@ function CleanPage({ blok }: { blok: any }) {
   const body = Array.isArray(blok?.body) ? blok.body : []
   return (
     <main>
-      {body.map((nested: any) => (
-        <StoryblokComponent blok={nested} key={nested._uid} />
-      ))}
+      {body.map((nested: any) => {
+        return <StoryblokComponent blok={nested} key={nested._uid} />
+      })}
     </main>
   )
 }

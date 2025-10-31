@@ -14,12 +14,12 @@
 */
 
 /* Blocks Container - holds all the alternating block items */
-[data-clean-root] .alternating-blocks__container {
+[data-clean-root="true"] .alternating-blocks__container {
   margin: clamp(2rem, 4vw, 3rem) auto 0;
 }
 
 /* Individual Block Item (Card) */
-[data-clean-root] .alternating-blocks__item {
+[data-clean-root="true"] .alternating-blocks__item {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(2rem, 5vw, 5rem);
@@ -35,37 +35,37 @@
 
 /* Alternating block alignment - zigzag layout */
 /* Odd blocks (1st, 3rd, 5th) align left */
-[data-clean-root] .alternating-blocks__item:nth-child(odd) {
+[data-clean-root="true"] .alternating-blocks__item:nth-child(odd) {
   margin-left: 0;
   margin-right: auto;
 }
 
 /* Even blocks (2nd, 4th, 6th) align right */
-[data-clean-root] .alternating-blocks__item:nth-child(even) {
+[data-clean-root="true"] .alternating-blocks__item:nth-child(even) {
   margin-left: auto;
   margin-right: 0;
 }
 
-[data-clean-root] .alternating-blocks__item:last-child {
+[data-clean-root="true"] .alternating-blocks__item:last-child {
   margin-bottom: 0;
 }
 
 /* Reverse layout for alternating pattern */
-[data-clean-root] .alternating-blocks__item--reverse {
+[data-clean-root="true"] .alternating-blocks__item--reverse {
   direction: rtl;
 }
 
-[data-clean-root] .alternating-blocks__item--reverse .alternating-blocks__content,
-[data-clean-root] .alternating-blocks__item--reverse .alternating-blocks__image {
+[data-clean-root="true"] .alternating-blocks__item--reverse .alternating-blocks__content,
+[data-clean-root="true"] .alternating-blocks__item--reverse .alternating-blocks__image {
   direction: ltr;
 }
 
 /* Block Content */
-[data-clean-root] .alternating-blocks__content {
+[data-clean-root="true"] .alternating-blocks__content {
   padding: clamp(1rem, 2vw, 1.5rem);
 }
 
-[data-clean-root] .alternating-blocks__number {
+[data-clean-root="true"] .alternating-blocks__number {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
@@ -74,7 +74,7 @@
   margin-bottom: 1rem;
 }
 
-[data-clean-root] .alternating-blocks__title {
+[data-clean-root="true"] .alternating-blocks__title {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 600;
@@ -84,7 +84,7 @@
 }
 
 /* Lead text within block content */
-[data-clean-root] .alternating-blocks__lead {
+[data-clean-root="true"] .alternating-blocks__lead {
   color: var(--why-text-soft);
   font-size: clamp(1rem, 2vw, 1.125rem);
   font-weight: 400;
@@ -92,19 +92,19 @@
   margin-bottom: 1rem;
 }
 
-[data-clean-root] .alternating-blocks__paragraph {
+[data-clean-root="true"] .alternating-blocks__paragraph {
   color: var(--why-text-soft);
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.7;
   margin-bottom: 1rem;
 }
 
-[data-clean-root] .alternating-blocks__paragraph:last-child {
+[data-clean-root="true"] .alternating-blocks__paragraph:last-child {
   margin-bottom: 0;
 }
 
 /* Block Image */
-[data-clean-root] .alternating-blocks__image {
+[data-clean-root="true"] .alternating-blocks__image {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -112,12 +112,12 @@
   transition: transform 600ms ease, box-shadow 600ms ease;
 }
 
-[data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
+[data-clean-root="true"] .alternating-blocks__item:hover .alternating-blocks__image {
   transform: scale(1.02);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
 }
 
-[data-clean-root] .alternating-blocks__image img {
+[data-clean-root="true"] .alternating-blocks__image img {
   width: 100%;
   height: 500px;
   object-fit: cover;
@@ -129,39 +129,39 @@
    ============================================================================ */
 
 @media (max-width: 900px) {
-  [data-clean-root] .alternating-blocks__item {
+  [data-clean-root="true"] .alternating-blocks__item {
     grid-template-columns: 1fr;
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   /* Reset alternating alignment on mobile - center all blocks */
-  [data-clean-root] .alternating-blocks__item:nth-child(odd),
-  [data-clean-root] .alternating-blocks__item:nth-child(even) {
+  [data-clean-root="true"] .alternating-blocks__item:nth-child(odd),
+  [data-clean-root="true"] .alternating-blocks__item:nth-child(even) {
     margin-left: auto;
     margin-right: auto;
   }
 
-  [data-clean-root] .alternating-blocks__item--reverse {
+  [data-clean-root="true"] .alternating-blocks__item--reverse {
     direction: ltr;
   }
 
-  [data-clean-root] .alternating-blocks__image {
+  [data-clean-root="true"] .alternating-blocks__image {
     order: -1;
   }
 }
 
 @media (max-width: 480px) {
-  [data-clean-root] .alternating-blocks__content {
+  [data-clean-root="true"] .alternating-blocks__content {
     padding: 0.5rem;
   }
 
-  [data-clean-root] .alternating-blocks__image img {
+  [data-clean-root="true"] .alternating-blocks__image img {
     height: 300px;
   }
 }
 
 /* Focus visibility for accessibility */
-[data-clean-root] .alternating-blocks__item:focus-visible {
+[data-clean-root="true"] .alternating-blocks__item:focus-visible {
   outline: 3px solid var(--focus-ring, var(--why-number));
   outline-offset: 3px;
 }
@@ -171,49 +171,49 @@
    ============================================================================ */
 
 /* Dark mode (explicit) */
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__title,
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__paragraph,
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__lead {
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__title,
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__paragraph,
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__lead {
   color: var(--why-text);
 }
 
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__number {
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__number {
   color: var(--why-number);
 }
 
 /* Glassmorphism cards */
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__item {
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__item {
   background: color-mix(in oklch, var(--surface-1) 75%, white 25%);
   backdrop-filter: blur(12px) saturate(1.12);
   border: 1px solid color-mix(in oklch, var(--accent-gold) 30%, transparent);
   box-shadow: var(--why-shadow);
 }
 
-html[data-theme="dark"] [data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
+html[data-theme="dark"] [data-clean-root="true"] .alternating-blocks__item:hover .alternating-blocks__image {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
 }
 
 /* Dark mode (auto - OS preference) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__title,
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__paragraph,
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__lead {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__title,
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__paragraph,
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__lead {
     color: var(--why-text);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__number {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__number {
     color: var(--why-number);
   }
 
   /* Glassmorphism cards */
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__item {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__item {
     background: color-mix(in oklch, var(--surface-1) 75%, white 25%);
     backdrop-filter: blur(12px) saturate(1.12);
     border: 1px solid color-mix(in oklch, var(--accent-gold) 30%, transparent);
     box-shadow: var(--why-shadow);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .alternating-blocks__item:hover .alternating-blocks__image {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .alternating-blocks__item:hover .alternating-blocks__image {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
   }
 }

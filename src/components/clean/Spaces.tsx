@@ -137,6 +137,7 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
       {...storyblokEditable(blok)}
       as="section"
       id="venue"
+      align="center"
       container="wrapper"
       variant="content-wrapper-compat"
       background="tint-rose"

@@ -26,7 +26,7 @@ export type Variant =
   | 'centered'                     // Header centered, content centered (content rail)
   | 'header-center-content-left'   // Header centered (prose), content left (content/wide)
   | 'header-center-content-center' // Header centered (prose), content centered (content)
-  | 'hotfix-alternating-blocks'    // Your original hotfix alternating blocks baseline
+  | 'alternating-blocks-luxe'      // Luxe alternating blocks with gold accents
   | 'home-hero-2024'               // Your original home hero baseline
   | 'right-rail'                   // Quick right-rail demo
   | 'left-rail'                    // Quick left-rail demo
@@ -128,8 +128,8 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     tone: 'auto',
   },
 
-  // Original hotfix alternating blocks: tint bg, fluid vertical rhythm, center header
-  'hotfix-alternating-blocks': {
+  // Luxe alternating blocks: tint bg, fluid vertical rhythm, center header
+  'alternating-blocks-luxe': {
     align: 'center',
     header: { align: 'center' },
     headerWidth: 'content',

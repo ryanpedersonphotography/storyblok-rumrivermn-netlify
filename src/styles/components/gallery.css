@@ -14,7 +14,7 @@
 */
 
 /* ===== Wedding Gallery Grid ===== */
-[data-clean-root] .wedding-gallery {
+[data-clean-root="true"] .wedding-gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 300px;
@@ -24,17 +24,17 @@
 }
 
 /* Featured items spanning multiple cells */
-[data-clean-root] .gallery-item:nth-child(1) {
+[data-clean-root="true"] .gallery-item:nth-child(1) {
   grid-column: span 2;
   grid-row: span 2;
 }
 
-[data-clean-root] .gallery-item:nth-child(6) {
+[data-clean-root="true"] .gallery-item:nth-child(6) {
   grid-column: span 2;
 }
 
 /* ===== Gallery Item Card ===== */
-[data-clean-root] .gallery-item {
+[data-clean-root="true"] .gallery-item {
   position: relative;
   display: block;
   overflow: hidden;
@@ -49,7 +49,7 @@
   outline: none;
 }
 
-[data-clean-root] .gallery-item img {
+[data-clean-root="true"] .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -57,7 +57,7 @@
 }
 
 /* ===== Gallery Overlay ===== */
-[data-clean-root] .gallery-overlay {
+[data-clean-root="true"] .gallery-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -78,27 +78,27 @@
 }
 
 /* ===== Hover/Focus States ===== */
-[data-clean-root] .gallery-item:hover {
+[data-clean-root="true"] .gallery-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 48px rgba(0,0,0,.24);
   border-color: color-mix(in srgb, var(--gallery-border, rgba(0,0,0,.12)) 70%, transparent);
 }
 
-[data-clean-root] .gallery-item:hover .gallery-overlay {
+[data-clean-root="true"] .gallery-item:hover .gallery-overlay {
   opacity: 1;
 }
 
-[data-clean-root] .gallery-item:hover img {
+[data-clean-root="true"] .gallery-item:hover img {
   transform: scale(1.1);
 }
 
 /* Focus makes overlay visible (keyboard navigation) */
-[data-clean-root] .gallery-item:focus-visible .gallery-overlay,
-[data-clean-root] .gallery-item:focus-within .gallery-overlay {
+[data-clean-root="true"] .gallery-item:focus-visible .gallery-overlay,
+[data-clean-root="true"] .gallery-item:focus-within .gallery-overlay {
   opacity: 1;
 }
 
-[data-clean-root] .gallery-item:focus-visible {
+[data-clean-root="true"] .gallery-item:focus-visible {
   box-shadow:
     0 0 0 2px color-mix(in srgb, #fff 85%, transparent),
     0 0 0 4px color-mix(in srgb, var(--gallery-rose, #9D6B7B) 70%, transparent),
@@ -107,7 +107,7 @@
 }
 
 /* ===== Shimmer Effect ===== */
-[data-clean-root] .gallery-item::before {
+[data-clean-root="true"] .gallery-item::before {
   content: '';
   position: absolute;
   top: 0;
@@ -121,12 +121,12 @@
   pointer-events: none;
 }
 
-[data-clean-root] .gallery-item:hover::before {
+[data-clean-root="true"] .gallery-item:hover::before {
   left: 100%;
 }
 
 /* ===== Overlay Text ===== */
-[data-clean-root] .gallery-couple-names {
+[data-clean-root="true"] .gallery-couple-names {
   font-family: var(--font-script, 'Dancing Script', cursive);
   font-size: clamp(1.35rem, 1rem + 1.2vw, 1.75rem);
   color: var(--gallery-on-dark, var(--theme-text-on-dark, #FFF8E7));
@@ -137,7 +137,7 @@
   z-index: 2;
 }
 
-[data-clean-root] .gallery-season {
+[data-clean-root="true"] .gallery-season {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: 1rem;
   font-weight: 500;
@@ -149,7 +149,7 @@
   z-index: 2;
 }
 
-[data-clean-root] .gallery-details {
+[data-clean-root="true"] .gallery-details {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: .875rem;
   font-weight: 400;
@@ -164,18 +164,18 @@
    Dark Mode
    ============================================================================ */
 
-:root[data-theme="dark"] [data-clean-root] .gallery-item {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-item {
   background: color-mix(in srgb, var(--gallery-card-dark, #3D2F22) 15%, transparent);
   border-color: var(--gallery-border-dark, rgba(255,255,255,.12));
   box-shadow: var(--theme-shadow-dark-lg, 0 25px 50px rgba(0,0,0,.6));
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-item:hover {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-item:hover {
   border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.25));
   box-shadow: 0 30px 60px rgba(0,0,0,.6);
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-overlay {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-overlay {
   background: linear-gradient(
     to top,
     rgba(10,8,6,.82) 0%,
@@ -185,24 +185,24 @@
   border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.18));
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-season {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-season {
   color: var(--gallery-gold-dark, #F0D9A8);
 }
 
 /* Auto dark mode (OS preference) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .gallery-item {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-item {
     background: color-mix(in srgb, var(--gallery-card-dark, #3D2F22) 15%, transparent);
     border-color: var(--gallery-border-dark, rgba(255,255,255,.12));
     box-shadow: var(--theme-shadow-dark-lg, 0 25px 50px rgba(0,0,0,.6));
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .gallery-item:hover {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-item:hover {
     border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.25));
     box-shadow: 0 30px 60px rgba(0,0,0,.6);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .gallery-overlay {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-overlay {
     background: linear-gradient(
       to top,
       rgba(10,8,6,.82) 0%,
@@ -212,7 +212,7 @@
     border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.18));
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .gallery-season {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-season {
     color: var(--gallery-gold-dark, #F0D9A8);
   }
 }
@@ -223,37 +223,37 @@
 
 /* Touch devices: keep overlay always visible with simpler background */
 @media (hover: none) {
-  [data-clean-root] .gallery-item:hover {
+  [data-clean-root="true"] .gallery-item:hover {
     transform: none;
   }
 
-  [data-clean-root] .gallery-item:hover img {
+  [data-clean-root="true"] .gallery-item:hover img {
     transform: none;
   }
 
-  [data-clean-root] .gallery-overlay {
+  [data-clean-root="true"] .gallery-overlay {
     opacity: .95;
     background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 50%, transparent 80%);
   }
 
-  [data-clean-root] .gallery-item:hover .gallery-overlay {
+  [data-clean-root="true"] .gallery-item:hover .gallery-overlay {
     opacity: .95;
   }
 
-  [data-clean-root] .gallery-item::before {
+  [data-clean-root="true"] .gallery-item::before {
     display: none;
   }
 }
 
 /* Reduced motion: disable all transitions */
 @media (prefers-reduced-motion: reduce) {
-  [data-clean-root] .gallery-item,
-  [data-clean-root] .gallery-item img,
-  [data-clean-root] .gallery-overlay {
+  [data-clean-root="true"] .gallery-item,
+  [data-clean-root="true"] .gallery-item img,
+  [data-clean-root="true"] .gallery-overlay {
     transition: none !important;
   }
 
-  [data-clean-root] .gallery-item::before {
+  [data-clean-root="true"] .gallery-item::before {
     display: none;
   }
 }
@@ -264,25 +264,25 @@
 
 /* Tablet: Reset featured item spans */
 @media (max-width: 1024px) {
-  [data-clean-root] .gallery-item:nth-child(1),
-  [data-clean-root] .gallery-item:nth-child(6) {
+  [data-clean-root="true"] .gallery-item:nth-child(1),
+  [data-clean-root="true"] .gallery-item:nth-child(6) {
     grid-column: span 1;
   }
 }
 
 /* Mobile: Single column layout */
 @media (max-width: 768px) {
-  [data-clean-root] .wedding-gallery {
+  [data-clean-root="true"] .wedding-gallery {
     grid-template-columns: 1fr;
     grid-auto-rows: 300px;
     gap: 16px;
   }
 
-  [data-clean-root] .gallery-overlay {
+  [data-clean-root="true"] .gallery-overlay {
     padding: 1.25rem;
   }
 
-  [data-clean-root] .gallery-couple-names {
+  [data-clean-root="true"] .gallery-couple-names {
     font-size: 1.5rem;
   }
 }
