@@ -1,29 +1,79 @@
-/* BRAND SOCIAL PROOF - Clean Version
- * Brand logos with testimonial quote
- * Dependencies: brand-proof CSS classes
+/* BRAND PROOF SECTION - Clean Version
+ * Brand logos and social proof quote
+ * Dependencies: brand-proof.css
+ * Storyblok-compatible with blok prop
  */
 
-export default function BrandProof() {
-  const brands = ['THE KNOT', 'WEDDINGWIRE', 'MARTHA STEWART', 'MINNESOTA BRIDE'];
+'use client'
+
+import { storyblokEditable } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react/rsc'
+
+interface BrandProofStoryblok extends SbBlokData {
+  brands?: string
+  quote_text?: string
+  highlight_1?: string
+  highlight_2?: string
+}
+
+export default function BrandProof({ blok }: { blok: BrandProofStoryblok }) {
+  // Parse brands from textarea (one per line)
+  const brandsList = (blok.brands || 'THE KNOT\nWEDDINGWIRE\nMARTHA STEWART\nMINNESOTA BRIDE')
+    .split('\n')
+    .filter(brand => brand.trim())
+
+  // Parse quote text and replace placeholders with highlighted spans
+  const quoteText = blok.quote_text ||
+    'Rum River Barn isn\'t just a venue—it\'s {highlight_1}. Their commitment to saying \'yes\' to every couple\'s vision sets them apart as {highlight_2}.'
+
+  const highlight1 = blok.highlight_1 || 'where dreams come to life'
+  const highlight2 = blok.highlight_2 || 'Minnesota\'s most accommodating wedding destination'
+
+  // Replace placeholders with span elements
+  const renderQuoteText = () => {
+    const parts = quoteText.split(/(\{highlight_1\}|\{highlight_2\})/g)
+
+    return parts.map((part, index) => {
+      if (part === '{highlight_1}') {
+        return (
+          <span key={index} className="highlight">
+            {highlight1}
+          </span>
+        )
+      }
+      if (part === '{highlight_2}') {
+        return (
+          <span key={index} className="highlight">
+            {highlight2}
+          </span>
+        )
+      }
+      return part
+    })
+  }
 
   return (
-    <section className="brand-proof" data-section="brand-proof">
-        <div className="brand-proof__content">
-        <div className="brand-proof__logos">
-          {brands.map((brand, index) => (
-            <span key={index} className="brand-proof__logo">
-              {brand}
+    <section
+      {...storyblokEditable(blok)}
+      className="brand-quote-section"
+      data-section="brand-proof"
+      data-discover="true"
+    >
+      <div className="brand-quote-content">
+        {/* Brand Logos Section */}
+        <div className="brand-logos">
+          {brandsList.map((brand, index) => (
+            <span key={index} className="brand-logo">
+              {brand.trim()}
             </span>
           ))}
         </div>
 
-        <p className="brand-proof__quote">
-          "Rum River Barn isn't just a venue—it's{' '}
-          <span className="brand-proof__highlight">where dreams come to life</span>.
-          Their commitment to saying 'yes' to every couple's vision sets them apart as{' '}
-          <span className="brand-proof__highlight">Minnesota's most accommodating wedding destination</span>."
+        {/* Testimonial Quote with Highlighted Text */}
+        <p className="brand-quote-text">
+          &ldquo;{renderQuoteText()}&rdquo;
         </p>
       </div>
     </section>
-  );
+  )
 }

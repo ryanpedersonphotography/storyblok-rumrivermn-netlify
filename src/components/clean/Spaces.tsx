@@ -1,12 +1,36 @@
 'use client'
 
 import React, { useState } from 'react'
+import { storyblokEditable } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react/rsc'
 
-export default function Spaces() {
+interface VenueFeatureStoryblok {
+  label?: string
+  value?: string
+}
+
+interface VenueStoryblok {
+  title?: string
+  images?: Array<{ filename?: string; alt?: string }>
+  description?: string
+  features?: VenueFeatureStoryblok[]
+}
+
+interface SpacesStoryblok extends SbBlokData {
+  title?: string
+  subtitle?: string
+  description?: string
+  barn?: VenueStoryblok
+  bridal?: VenueStoryblok
+  groom?: VenueStoryblok
+  pavilion?: VenueStoryblok
+}
+
+export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
   const [activeVenue, setActiveVenue] = useState('barn')
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const venueData = {
+  const defaultVenueData = {
     barn: {
       title: 'The Historic Barn',
       images: [
@@ -66,6 +90,30 @@ export default function Spaces() {
     }
   }
 
+  // Merge Storyblok data with defaults
+  const venueData = {
+    barn: blok.barn || defaultVenueData.barn,
+    bridal: blok.bridal || defaultVenueData.bridal,
+    groom: blok.groom || defaultVenueData.groom,
+    pavilion: blok.pavilion || defaultVenueData.pavilion
+  }
+
+  // Convert Storyblok image format to simple string array for compatibility
+  const getVenueImages = (venue: VenueStoryblok | typeof defaultVenueData.barn) => {
+    if ('images' in venue && Array.isArray(venue.images)) {
+      if (venue.images.length > 0 && typeof venue.images[0] === 'object' && 'filename' in venue.images[0]) {
+        // Storyblok format
+        return venue.images.map(img => img.filename || '')
+      }
+    }
+    // Default format (already strings)
+    return venue.images as string[]
+  }
+
+  const title = blok.title || 'Discover Our Spaces'
+  const subtitle = blok.subtitle || 'Your Perfect Setting'
+  const description = blok.description || 'Every corner tells a story, every space creates memories'
+
   const handleVenueChange = (venue: string) => {
     setActiveVenue(venue)
     setCurrentImageIndex(0)
@@ -85,29 +133,30 @@ export default function Spaces() {
 
   return (
     <section
-        id="venue"
-      className="spaces"
+      {...storyblokEditable(blok)}
+      id="venue"
+      className="spaces-section"
       data-discover="true"
       data-section="spaces"
     >
-      <div className="spaces__container">
-        <div className="spaces__header">
-          <div className="spaces__script-accent">
-            Your Perfect Setting
+      <div className="content-wrapper">
+        <div className="section-header">
+          <div className="script-accent">
+            {subtitle}
           </div>
-          <h2 className="spaces__title">
-            Discover Our Spaces
+          <h2 className="section-title">
+            {title}
           </h2>
-          <p className="spaces__lead">
-            Every corner tells a story, every space creates memories
+          <p className="lead">
+            {description}
           </p>
         </div>
 
-        <div className="spaces__tabs">
+        <div className="venue-tabs">
           {Object.entries(venueData).map(([key, venue]) => (
             <button
               key={key}
-              className={`spaces__tab ${activeVenue === key ? 'spaces__tab--active' : ''}`}
+              className={`venue-tab ${activeVenue === key ? 'active' : ''}`}
               onClick={() => handleVenueChange(key)}
             >
               {venue.title}
@@ -115,24 +164,24 @@ export default function Spaces() {
           ))}
         </div>
 
-        <div className="spaces__content spaces__content--layout-classic">
-          <div className="spaces__image">
+        <div className="spaces-content layout-classic">
+          <div className="venue-main-image">
             <img
-              src={venueData[activeVenue as keyof typeof venueData].images[currentImageIndex]}
+              src={getVenueImages(venueData[activeVenue as keyof typeof venueData])[currentImageIndex]}
               alt={venueData[activeVenue as keyof typeof venueData].title}
             />
-            <button className="spaces__arrow spaces__arrow--prev" onClick={prevImage}>←</button>
-            <button className="spaces__arrow spaces__arrow--next" onClick={nextImage}>→</button>
+            <button className="carousel-arrow prev" onClick={prevImage}>←</button>
+            <button className="carousel-arrow next" onClick={nextImage}>→</button>
           </div>
 
-          <div className="spaces__details">
-            <h3 className="spaces__details-title">{venueData[activeVenue as keyof typeof venueData].title}</h3>
-            <p className="spaces__details-description">{venueData[activeVenue as keyof typeof venueData].description}</p>
-            <div className="spaces__features">
+          <div className="venue-details">
+            <h3>{venueData[activeVenue as keyof typeof venueData].title}</h3>
+            <p>{venueData[activeVenue as keyof typeof venueData].description}</p>
+            <div className="venue-features">
               {venueData[activeVenue as keyof typeof venueData].features.map((feature, index) => (
-                <div key={index} className="spaces__feature">
-                  <h5 className="spaces__feature-label">{feature.label}</h5>
-                  <p className="spaces__feature-value">{feature.value}</p>
+                <div key={index} className="venue-feature">
+                  <h5>{feature.label}</h5>
+                  <p>{feature.value}</p>
                 </div>
               ))}
             </div>

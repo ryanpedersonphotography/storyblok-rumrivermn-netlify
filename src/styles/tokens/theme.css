@@ -44,6 +44,161 @@
     --ok-text-walnut-deep: oklch(0.52 0.05 55);
   }
 
+/* === Hero semantic tokens (light) === */
+:root {
+  /* Base background */
+  --hero-bg: #2c241a;
+
+  /* Text & accents on image */
+  --hero-text: var(--text-inverse, #FFF8E7);
+  --hero-accent: var(--accent-gold, #E4C896);
+  --hero-cta-text: var(--text-inverse, #FFF8E7);
+  --hero-cta-hover-text: var(--text-primary, #2C241A);
+
+  /* Overlay stops — matches your hotfix vibe, but tokenized */
+  --hero-overlay-start: rgba(44, 36, 22, 0.85);
+  --hero-overlay-mid:   rgba(107, 78, 61, 0.75);
+  --hero-overlay-end:   rgba(58, 74, 60, 0.80);
+
+  /* Parallax behavior (override in media queries if needed) */
+  --hero-bg-attach: fixed;
+}
+
+/* === Hero tokens (dark) will be defined in main html[data-theme="dark"] block below === */
+
+/* ===============================
+   SECTION TOKENS — LIGHT THEME
+   =============================== */
+:root {
+  /* ===== Navbar ===== */
+  --navbar-bg: var(--surface-0, #FFFFFF);
+  --navbar-text: var(--text-primary, #2B2B2B);
+  --navbar-accent: var(--accent-gold, #E4C896);
+  --navbar-scroll-bg: rgba(44, 36, 26, 0.90);
+  --navbar-underline: rgba(0,0,0,0.08);
+
+  --navbar-link: var(--navbar-text);
+  --navbar-link-hover: var(--navbar-accent);
+
+  --navbar-cta-bg: linear-gradient(135deg, #D9A3AF 0%, #C88E9A 100%);
+  --navbar-cta-text: var(--text-inverse, #FFF8E7);
+
+  --navbar-logo-grad: linear-gradient(135deg, #D9A3AF 0%, #2B2B2B 100%);
+
+  /* ===== Footer ===== */
+  --footer-bg: var(--surface-1, #1E1A16);
+  --footer-text: var(--text-inverse, #FFF8E7);
+  --footer-link: var(--accent-gold, #E4C896);
+  --footer-link-hover: #FFFFFF;
+  --footer-border: rgba(255, 255, 255, 0.12);
+  --footer-accent: var(--accent-gold, #E4C896);
+
+  /* ===== Schedule / Booking ===== */
+  --schedule-bg: var(--surface-0, #FFFFFF);
+  --schedule-text: var(--text-primary, #2B2B2B);
+  --schedule-field-bg: var(--surface-0, #FFFFFF);
+  --schedule-field-border: rgba(0,0,0,0.18);
+  --schedule-field-focus: var(--accent-gold, #E4C896);
+  --schedule-cta-bg: var(--accent-gold, #E4C896);
+  --schedule-cta-text: var(--text-inverse, #FFF8E7);
+  --schedule-cta-hover-bg: #F1DCAA;
+  --schedule-cta-border: transparent;
+  --schedule-error: #B00020;
+  --schedule-success: #2E7D32;
+
+  /* ===== Map / Visit ===== */
+  --map-bg: var(--surface-0, #FFFFFF);
+  --map-text: var(--text-primary, #2B2B2B);
+  --map-embed-border: rgba(0,0,0,0.12);
+  --map-embed-radius: 50%;
+  --map-pin: var(--accent-gold, #E4C896);
+  --map-ring: rgba(228, 200, 150, 0.35);
+
+  /* ===== Rum River Experience ===== */
+  --experience-bg: var(--surface-0, #FFFFFF);
+  --experience-text: var(--text-primary, #2B2B2B);
+  --experience-grid-gap: 1.25rem;
+  --feature-card-bg: var(--surface-0, #FFFFFF);
+  --feature-card-border: rgba(0,0,0,0.08);
+  --feature-card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  --feature-icon-color: var(--accent-gold, #E4C896);
+  --feature-accent: var(--accent-gold, #E4C896);
+
+  /* ===== Testimonials ===== */
+  --testimonials-bg: var(--surface-0, #FFFFFF);
+  --testimonials-text: var(--text-primary, #2B2B2B);
+  --testimonial-card-bg: var(--surface-0, #FFFFFF);
+  --testimonial-quote-color: var(--text-primary, #2B2B2B);
+  --testimonial-accent: var(--accent-gold, #E4C896);
+  --testimonial-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  --testimonial-modal-backdrop: rgba(0,0,0,0.55);
+  --testimonial-modal-bg: var(--surface-0, #FFFFFF);
+
+  /* ===== History Carousel ===== */
+  --history-bg: var(--surface-0, #FFFFFF);
+  --history-text: var(--text-primary, #2B2B2B);
+  --history-accent: var(--accent-gold, #E4C896);
+  --history-nav-bg: rgba(0,0,0,0.55);
+  --history-nav-icon: #FFFFFF;
+  --history-slide-bg: var(--surface-0, #FFFFFF);
+  --history-slide-shadow: 0 10px 30px rgba(0,0,0,0.10);
+
+  /* ===== Weddings / Real Love Stories ===== */
+  --weddings-bg: var(--surface-0, #FFFFFF);
+  --weddings-text: var(--text-primary, #2B2B2B);
+  --wedding-card-bg: var(--surface-0, #FFFFFF);
+  --wedding-card-overlay-bg: rgba(0,0,0,0.35);
+  --wedding-card-overlay-text: #FFFFFF;
+  --wedding-card-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  --wedding-image-radius: 16px;
+
+  /* ===== Pricing / Packages ===== */
+  --pricing-bg: var(--surface-0, #FFFFFF);
+  --pricing-text: var(--text-primary, #2B2B2B);
+  --price-text: var(--text-primary, #2B2B2B);
+  --price-accent: var(--accent-gold, #E4C896);
+  --pricing-card-bg: var(--surface-0, #FFFFFF);
+  --pricing-card-border: rgba(0,0,0,0.10);
+  --pricing-popular-bg: #FFF5D9;
+  --pricing-popular-accent: var(--accent-gold, #E4C896);
+  --pricing-cta-bg: var(--accent-gold, #E4C896);
+  --pricing-cta-text: var(--text-inverse, #FFF8E7);
+
+  /* ===== Gallery / Love Stories ===== */
+  --gallery-rose: var(--theme-accent-rose, #9D6B7B);
+  --gallery-gold: var(--theme-accent-gold, #E4C896);
+  --gallery-on-dark: var(--theme-text-on-dark, #FFF8E7);
+  --gallery-text: var(--theme-text-primary, #6B4E3D);
+  --gallery-text-soft: var(--theme-text-secondary, #6B4E3D);
+  --gallery-card-bg: var(--surface-0, #FFFFFF);
+  --gallery-border: rgba(0,0,0,.08);
+
+  /* ===== About / Timeline / Alternating Blocks ===== */
+  --about-bg: var(--surface-0, #FFFFFF);
+  --about-text: var(--text-primary, #2B2B2B);
+  --about-accent: var(--accent-gold, #E4C896);
+  --timeline-connector: rgba(0,0,0,0.10);
+  --timeline-dot: var(--accent-gold, #E4C896);
+  --block-alt-bg: #FAF7F2;
+
+  /* ===== Venue Features ===== */
+  --features-bg: var(--surface-0, #FFFFFF);
+  --features-text: var(--text-primary, #2B2B2B);
+  --features-grid-gap: 1rem;
+  --features-card-bg: var(--surface-0, #FFFFFF);
+  --features-card-border: rgba(0,0,0,0.08);
+  --features-card-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  --features-icon-color: var(--accent-gold, #E4C896);
+
+  /* ===== Sticky CTA ===== */
+  --sticky-cta-bg: var(--accent-gold, #E4C896);
+  --sticky-cta-text: var(--text-on-accent, #2C241A);
+  --sticky-cta-shadow: 0 10px 26px rgba(0,0,0,0.25);
+  --sticky-cta-border: transparent;
+  --sticky-cta-z: 1000;
+}
+
+
   /* ===== Semantic Surfaces (LIGHT) ===== */
   --surface-0: rgb(var(--clr-cream-rgb));            /* page soft background (blush) */
   --surface-1: rgb(255 255 255);                     /* cards/contrast */
@@ -173,9 +328,156 @@ html[data-theme="dark"] {
   --theme-accent-sage: rgb(182 204 190);
   --theme-accent-gold: var(--accent-gold);
   --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
+
+  /* =================================
+     SECTION TOKENS — DARK THEME
+     ================================= */
+
+  /* ===== Hero ===== */
+  --hero-bg: oklch(0.16 0.03 30);
+  --hero-text: oklch(0.98 0.01 95);
+  --hero-accent: oklch(0.78 0.10 90);
+  --hero-cta-text: oklch(0.98 0.01 95);
+  --hero-cta-hover-text: oklch(0.18 0.03 30);
+  --hero-overlay-start: oklch(0.18 0.03 65 / 0.92);
+  --hero-overlay-mid:   oklch(0.22 0.05 80 / 0.88);
+  --hero-overlay-end:   oklch(0.26 0.04 70 / 0.90);
+
+  /* ===== Navbar ===== */
+  --navbar-bg: oklch(0.18 0.03 30);
+  --navbar-text: oklch(0.97 0.01 95);
+  --navbar-accent: oklch(0.78 0.10 90);
+  --navbar-scroll-bg: oklch(0.16 0.03 30 / 0.92);
+  --navbar-underline: oklch(0.40 0 0 / 0.25);
+
+  --navbar-link: var(--navbar-text);
+  --navbar-link-hover: var(--navbar-accent);
+
+  --navbar-cta-bg: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.62 0.11 10) 100%);
+  --navbar-cta-text: oklch(0.16 0.03 30);
+
+  --navbar-logo-grad: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.22 0.03 30) 100%);
+
+  /* ===== Footer ===== */
+  --footer-bg: oklch(0.15 0.03 30);
+  --footer-text: oklch(0.92 0.01 95);
+  --footer-link: oklch(0.78 0.10 90);
+  --footer-link-hover: oklch(0.95 0.01 95);
+  --footer-border: oklch(0.92 0.01 95 / 0.14);
+  --footer-accent: oklch(0.78 0.10 90);
+
+  /* ===== Schedule / Booking ===== */
+  --schedule-bg: oklch(0.20 0.03 30);
+  --schedule-text: oklch(0.92 0.01 95);
+  --schedule-field-bg: oklch(0.22 0.03 30);
+  --schedule-field-border: oklch(0.92 0.01 95 / 0.20);
+  --schedule-field-focus: oklch(0.78 0.10 90);
+  --schedule-cta-bg: oklch(0.78 0.10 90);
+  --schedule-cta-text: oklch(0.15 0.03 30);
+  --schedule-cta-hover-bg: oklch(0.82 0.10 90);
+  --schedule-cta-border: transparent;
+  --schedule-error: oklch(0.60 0.20 25);
+  --schedule-success: oklch(0.60 0.15 145);
+
+  /* ===== Map ===== */
+  --map-section-bg: oklch(0.19 0.03 30);
+  --map-text: oklch(0.92 0.01 95);
+  --map-embed-border: oklch(0.92 0.01 95 / 0.12);
+  --map-embed-radius: 8px;
+  --map-pin: oklch(0.78 0.10 90);
+
+  /* ===== Experience / Features Grid ===== */
+  --experience-section-bg: oklch(0.18 0.03 30);
+  --experience-text: oklch(0.92 0.01 95);
+  --feature-card-bg: oklch(0.22 0.03 30);
+  --feature-card-border: oklch(0.92 0.01 95 / 0.10);
+  --feature-card-shadow: 0 4px 12px oklch(0 0 0 / 0.25);
+  --feature-icon-color: oklch(0.78 0.10 90);
+  --feature-icon-bg: oklch(0.78 0.10 90 / 0.12);
+
+  /* ===== Testimonials ===== */
+  --testimonials-section-bg: oklch(0.19 0.03 30);
+  --testimonials-text: oklch(0.92 0.01 95);
+  --testimonial-card-bg: oklch(0.22 0.03 30);
+  --testimonial-card-border: oklch(0.92 0.01 95 / 0.10);
+  --testimonial-card-shadow: 0 2px 10px oklch(0 0 0 / 0.20);
+  --testimonial-quote: oklch(0.78 0.10 90);
+  --testimonial-stars: oklch(0.78 0.10 90);
+  --testimonial-modal-backdrop: oklch(0 0 0 / 0.75);
+  --testimonial-modal-bg: oklch(0.20 0.03 30);
+  --testimonial-modal-border: oklch(0.92 0.01 95 / 0.15);
+
+  /* ===== History Carousel ===== */
+  --history-section-bg: oklch(0.18 0.03 30);
+  --history-text: oklch(0.92 0.01 95);
+  --history-slide-bg: oklch(0.22 0.03 30);
+  --history-slide-border: oklch(0.92 0.01 95 / 0.10);
+  --history-slide-shadow: 0 6px 16px oklch(0 0 0 / 0.30);
+  --history-nav-bg: oklch(0.22 0.03 30);
+  --history-nav-arrow: oklch(0.78 0.10 90);
+  --history-nav-arrow-hover: oklch(0.82 0.10 90);
+  --history-dot: oklch(0.92 0.01 95 / 0.35);
+  --history-dot-active: oklch(0.78 0.10 90);
+
+  /* ===== Weddings / Gallery ===== */
+  --weddings-section-bg: oklch(0.19 0.03 30);
+  --weddings-text: oklch(0.92 0.01 95);
+  --wedding-card-bg: oklch(0.22 0.03 30);
+  --wedding-card-overlay-bg: oklch(0.15 0.03 30 / 0.85);
+  --wedding-card-shadow: 0 4px 14px oklch(0 0 0 / 0.25);
+  --wedding-image-radius: 6px;
+  --wedding-cta: oklch(0.78 0.10 90);
+  --wedding-cta-hover: oklch(0.82 0.10 90);
+
+  /* ===== Gallery / Love Stories (Dark) ===== */
+  --gallery-bg-dark: var(--rose-veil-8, #3D2F2A);
+  --gallery-rose-dark: #D89BAE;
+  --gallery-gold-dark: oklch(0.78 0.10 90);
+  --gallery-text-dark: #F5E6D3;
+  --gallery-card-dark: #3D2F22;
+  --gallery-border-dark: rgba(255,255,255,.12);
+  --gallery-border-strong-dark: rgba(255,255,255,.18);
+
+  /* ===== Pricing ===== */
+  --pricing-section-bg: oklch(0.18 0.03 30);
+  --pricing-text: oklch(0.92 0.01 95);
+  --pricing-card-bg: oklch(0.22 0.03 30);
+  --pricing-card-border: oklch(0.92 0.01 95 / 0.10);
+  --pricing-card-shadow: 0 3px 12px oklch(0 0 0 / 0.20);
+  --pricing-popular-bg: oklch(0.78 0.10 90 / 0.15);
+  --pricing-popular-border: oklch(0.78 0.10 90);
+  --pricing-cta-bg: oklch(0.78 0.10 90);
+  --pricing-cta-text: oklch(0.15 0.03 30);
+  --pricing-cta-hover-bg: oklch(0.82 0.10 90);
+
+  /* ===== About / Timeline ===== */
+  --about-section-bg: oklch(0.19 0.03 30);
+  --about-text: oklch(0.92 0.01 95);
+  --timeline-connector: oklch(0.78 0.10 90 / 0.35);
+  --timeline-dot: oklch(0.78 0.10 90);
+  --timeline-card-bg: oklch(0.22 0.03 30);
+  --timeline-card-border: oklch(0.92 0.01 95 / 0.10);
+  --timeline-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
+
+  /* ===== Features / Amenities ===== */
+  --features-section-bg: oklch(0.18 0.03 30);
+  --features-text: oklch(0.92 0.01 95);
+  --features-card-bg: oklch(0.22 0.03 30);
+  --features-card-border: oklch(0.92 0.01 95 / 0.10);
+  --features-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
+  --features-icon-color: oklch(0.78 0.10 90);
+  --features-icon-bg: oklch(0.78 0.10 90 / 0.12);
+
+  /* ===== Sticky CTA ===== */
+  --sticky-cta-bg: oklch(0.78 0.10 90);
+  --sticky-cta-text: oklch(0.15 0.03 30);
+  --sticky-cta-hover-bg: oklch(0.82 0.10 90);
+  --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
+  --sticky-cta-border: oklch(0.78 0.10 90);
+  --sticky-cta-z: 100;
 }
 
-/* ---------- Auto dark (OS preference) when you’re not forcing a theme ---- */
+/* ---------- Auto dark (OS preference) when you're not forcing a theme ---- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     /* Mirror the explicit dark values */
@@ -216,5 +518,133 @@ html[data-theme="dark"] {
     --theme-accent-sage: rgb(182 204 190);
     --theme-accent-gold: var(--accent-gold);
     --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
+
+    /* =================================
+       SECTION TOKENS — DARK THEME
+       ================================= */
+
+    /* ===== Navbar ===== */
+    --navbar-bg: oklch(0.18 0.03 30);
+    --navbar-text: oklch(0.97 0.01 95);
+    --navbar-accent: oklch(0.78 0.10 90);
+    --navbar-scroll-bg: oklch(0.16 0.03 30 / 0.92);
+    --navbar-underline: oklch(0.40 0 0 / 0.25);
+
+    --navbar-link: var(--navbar-text);
+    --navbar-link-hover: var(--navbar-accent);
+
+    --navbar-cta-bg: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.62 0.11 10) 100%);
+    --navbar-cta-text: oklch(0.16 0.03 30);
+
+    --navbar-logo-grad: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.22 0.03 30) 100%);
+
+    /* ===== Footer ===== */
+    --footer-bg: oklch(0.15 0.03 30);
+    --footer-text: oklch(0.92 0.01 95);
+    --footer-link: oklch(0.78 0.10 90);
+    --footer-link-hover: oklch(0.95 0.01 95);
+    --footer-border: oklch(0.92 0.01 95 / 0.14);
+    --footer-accent: oklch(0.78 0.10 90);
+
+    /* ===== Schedule / Booking ===== */
+    --schedule-bg: oklch(0.20 0.03 30);
+    --schedule-text: oklch(0.92 0.01 95);
+    --schedule-field-bg: oklch(0.22 0.03 30);
+    --schedule-field-border: oklch(0.92 0.01 95 / 0.20);
+    --schedule-field-focus: oklch(0.78 0.10 90);
+    --schedule-cta-bg: oklch(0.78 0.10 90);
+    --schedule-cta-text: oklch(0.15 0.03 30);
+    --schedule-cta-hover-bg: oklch(0.82 0.10 90);
+    --schedule-cta-border: transparent;
+    --schedule-error: oklch(0.60 0.20 25);
+    --schedule-success: oklch(0.60 0.15 145);
+
+    /* ===== Map ===== */
+    --map-section-bg: oklch(0.19 0.03 30);
+    --map-text: oklch(0.92 0.01 95);
+    --map-embed-border: oklch(0.92 0.01 95 / 0.12);
+    --map-embed-radius: 8px;
+    --map-pin: oklch(0.78 0.10 90);
+
+    /* ===== Experience / Features Grid ===== */
+    --experience-section-bg: oklch(0.18 0.03 30);
+    --experience-text: oklch(0.92 0.01 95);
+    --feature-card-bg: oklch(0.22 0.03 30);
+    --feature-card-border: oklch(0.92 0.01 95 / 0.10);
+    --feature-card-shadow: 0 4px 12px oklch(0 0 0 / 0.25);
+    --feature-icon-color: oklch(0.78 0.10 90);
+    --feature-icon-bg: oklch(0.78 0.10 90 / 0.12);
+
+    /* ===== Testimonials ===== */
+    --testimonials-section-bg: oklch(0.19 0.03 30);
+    --testimonials-text: oklch(0.92 0.01 95);
+    --testimonial-card-bg: oklch(0.22 0.03 30);
+    --testimonial-card-border: oklch(0.92 0.01 95 / 0.10);
+    --testimonial-card-shadow: 0 2px 10px oklch(0 0 0 / 0.20);
+    --testimonial-quote: oklch(0.78 0.10 90);
+    --testimonial-stars: oklch(0.78 0.10 90);
+    --testimonial-modal-backdrop: oklch(0 0 0 / 0.75);
+    --testimonial-modal-bg: oklch(0.20 0.03 30);
+    --testimonial-modal-border: oklch(0.92 0.01 95 / 0.15);
+
+    /* ===== History Carousel ===== */
+    --history-section-bg: oklch(0.18 0.03 30);
+    --history-text: oklch(0.92 0.01 95);
+    --history-slide-bg: oklch(0.22 0.03 30);
+    --history-slide-border: oklch(0.92 0.01 95 / 0.10);
+    --history-slide-shadow: 0 6px 16px oklch(0 0 0 / 0.30);
+    --history-nav-bg: oklch(0.22 0.03 30);
+    --history-nav-arrow: oklch(0.78 0.10 90);
+    --history-nav-arrow-hover: oklch(0.82 0.10 90);
+    --history-dot: oklch(0.92 0.01 95 / 0.35);
+    --history-dot-active: oklch(0.78 0.10 90);
+
+    /* ===== Weddings / Gallery ===== */
+    --weddings-section-bg: oklch(0.19 0.03 30);
+    --weddings-text: oklch(0.92 0.01 95);
+    --wedding-card-bg: oklch(0.22 0.03 30);
+    --wedding-card-overlay-bg: oklch(0.15 0.03 30 / 0.85);
+    --wedding-card-shadow: 0 4px 14px oklch(0 0 0 / 0.25);
+    --wedding-image-radius: 6px;
+    --wedding-cta: oklch(0.78 0.10 90);
+    --wedding-cta-hover: oklch(0.82 0.10 90);
+
+    /* ===== Pricing ===== */
+    --pricing-section-bg: oklch(0.18 0.03 30);
+    --pricing-text: oklch(0.92 0.01 95);
+    --pricing-card-bg: oklch(0.22 0.03 30);
+    --pricing-card-border: oklch(0.92 0.01 95 / 0.10);
+    --pricing-card-shadow: 0 3px 12px oklch(0 0 0 / 0.20);
+    --pricing-popular-bg: oklch(0.78 0.10 90 / 0.15);
+    --pricing-popular-border: oklch(0.78 0.10 90);
+    --pricing-cta-bg: oklch(0.78 0.10 90);
+    --pricing-cta-text: oklch(0.15 0.03 30);
+    --pricing-cta-hover-bg: oklch(0.82 0.10 90);
+
+    /* ===== About / Timeline ===== */
+    --about-section-bg: oklch(0.19 0.03 30);
+    --about-text: oklch(0.92 0.01 95);
+    --timeline-connector: oklch(0.78 0.10 90 / 0.35);
+    --timeline-dot: oklch(0.78 0.10 90);
+    --timeline-card-bg: oklch(0.22 0.03 30);
+    --timeline-card-border: oklch(0.92 0.01 95 / 0.10);
+    --timeline-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
+
+    /* ===== Features / Amenities ===== */
+    --features-section-bg: oklch(0.18 0.03 30);
+    --features-text: oklch(0.92 0.01 95);
+    --features-card-bg: oklch(0.22 0.03 30);
+    --features-card-border: oklch(0.92 0.01 95 / 0.10);
+    --features-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
+    --features-icon-color: oklch(0.78 0.10 90);
+    --features-icon-bg: oklch(0.78 0.10 90 / 0.12);
+
+    /* ===== Sticky CTA ===== */
+    --sticky-cta-bg: oklch(0.78 0.10 90);
+    --sticky-cta-text: oklch(0.15 0.03 30);
+    --sticky-cta-hover-bg: oklch(0.82 0.10 90);
+    --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
+    --sticky-cta-border: oklch(0.78 0.10 90);
+    --sticky-cta-z: 100;
   }
 }

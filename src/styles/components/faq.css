@@ -3,6 +3,8 @@
    Purpose: Clean semantic CSS (token-driven, no !important)
    =============================================================== */
 
+@layer components {
+
 .faq-accordion {
   background: var(--surface-faq-bg, var(--surface-2));
   padding: var(--space-4xl) 0; /* 64px */
@@ -139,3 +141,5 @@ html[data-theme="dark"] .faq-answer-body { color: var(--text-secondary); }
   .faq-question { padding: var(--space-lg) 0; }    /* 1.25rem */
   .faq-item.is-open .faq-answer { padding-bottom: var(--space-lg); }
 }
+
+} /* End @layer components */

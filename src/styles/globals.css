@@ -4,7 +4,11 @@
             Loads AFTER theme tokens in your layout.
  * ========================================================================== */
 
-/* 1) Modern reset with low specificity */
+/* ===== Layer Declaration ===== */
+@layer base, components, utilities;
+
+@layer base {
+  /* 1) Modern reset with low specificity */
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -20,6 +24,8 @@ body {
   font-family: var(--font-sans);
   font-size: var(--size-base);
 }
+
+
 
 /* Media defaults */
 img, picture, video, canvas, svg { display: block; max-width: 100%; }
@@ -55,12 +61,12 @@ a:hover { text-decoration: underline; }
   color: var(--text-inverse);
 }
 
-/* Reduced motion */
+/* Reduced motion - global accessibility guard */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-    scroll-behavior: auto !important;
+  [data-clean-root] * {
+    animation: none !important;
+    transition: none !important;
   }
 }
+
+} /* End @layer base */

@@ -15,7 +15,7 @@ import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEdi
 import RumRiverExperienceEditor from '@/components/storyblok/RumRiverExperienceEditor'
 import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
 import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
-import TestimonialsEditor, { TestimonialItem } from '@/components/storyblok/TestimonialsEditor'
+import TestimonialsEditor from '@/components/storyblok/TestimonialsEditor'
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
 import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
 import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
@@ -26,8 +26,17 @@ import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEdito
 import SpacesEditor from '@/components/storyblok/SpacesEditor'
 
 // --- Clean overrides (start swapping here)
-import FAQ from '@/components/clean/FAQ' // your clean FAQ TSX that uses semantic CSS
-import Hero from '@/components/clean/Hero' // clean Hero component
+import FAQ from '@/components/clean/FAQ'
+import Hero from '@/components/clean/Hero'
+import Footer from '@/components/clean/Footer'
+import AlternatingBlocks from '@/components/clean/AlternatingBlocks'
+import Experience from '@/components/clean/Experience'
+import BrandProof from '@/components/clean/BrandProof'
+import Pricing from '@/components/clean/Pricing'
+import Gallery from '@/components/clean/Gallery'
+import Spaces from '@/components/clean/Spaces'
+import ScheduleForm from '@/components/clean/ScheduleForm'
+import Map from '@/components/clean/Map'
 
 
 let inited = false
@@ -39,26 +48,27 @@ function ensureInit() {
     components: {
       // Keep legacy/editor mappings so the story renders
       page: Page,
-      home_hero_section: Hero, // Override to clean Hero
-      alternating_blocks_section: AlternatingBlocksEditor,
-      rum_river_experience: RumRiverExperienceEditor,
-      love_stories_gallery: LoveStoriesGalleryEditor,
-      brand_social_proof: BrandSocialProofEditor,
-      testimonials_section: TestimonialsEditor,
-      testimonial_item: TestimonialItem,
+      home_hero_section: Hero, // ✅ Clean with migrated CSS
+      alternating_blocks_section: AlternatingBlocks, // ✅ Clean with migrated CSS
+      rum_river_experience: Experience, // ✅ Clean with migrated CSS
+      brand_social_proof: BrandProof, // ✅ Clean with migrated CSS
+      pricing_section: Pricing, // ✅ Clean with migrated CSS
+      testimonials_section: () => null, // Hidden - not rendering testimonials
+
+      // ✅ Now using clean components with migrated CSS
+      love_stories_gallery: Gallery, // ✅ Clean with migrated CSS
+      schedule_form: ScheduleForm, // ✅ Clean with migrated CSS
+      map_section: Map, // ✅ Clean with migrated CSS
+      spaces_section: Spaces, // ✅ Clean with migrated CSS
+      location_item: LocationItem, // Keep for nested items
+
+      // Keep these as-is
       history_carousel: HistoryCarouselEditor,
       history_slide: HistoryCarouselEditor,
-      schedule_form: ScheduleFormEditor,
-      map_section: MapSectionEditor,
-      location_item: LocationItem,
-      pricing_section: PricingEditor,
-      footer_section: FooterEditor,
+      footer_section: Footer, // ✅ Clean with migrated CSS
       real_wedding: RealWeddingEditor,
       featured_weddings_section: FeaturedWeddingsEditor,
-      spaces_section: SpacesEditor,
-
-      // Clean override(s) — this replaces the existing FAQAccordionEditor for /clean
-      faq_accordion: FAQ,
+      faq_accordion: FAQ, // ✅ Clean with migrated CSS
     },
   })
   inited = true
@@ -66,5 +76,18 @@ function ensureInit() {
 
 export default function CleanStoryRenderer({ story }: { story: any }) {
   ensureInit()
+
+  // Dev mode guardrail: warn if root component isn't mapped
+  if (process.env.NODE_ENV !== 'production') {
+    const root = story?.content?.component
+    const known = new Set(['page', 'home', 'landing_page'])
+    if (root && !known.has(root)) {
+      console.warn(
+        `[Storyblok] ⚠️  Unmapped root component: "${root}". Add it to storyblokInit.components in CleanStoryRenderer.tsx`,
+        story.content
+      )
+    }
+  }
+
   return <StoryblokComponent blok={story.content} />
 }

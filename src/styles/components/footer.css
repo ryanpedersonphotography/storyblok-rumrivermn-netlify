@@ -1,0 +1,267 @@
+/* ==========================================================================
+   CLEAN FOOTER (scoped to /clean via [data-clean-root])
+   - Token-driven (see theme.css for --footer-* tokens)
+   - No !important, no hotfix classes
+   - Flexbox layout with responsive stacking
+   ========================================================================== */
+
+@layer components {
+
+[data-clean-root] .footer {
+  padding: 53px 0 35px;
+  background: linear-gradient(135deg, #2C2416 0%, #1F1A11 100%);
+  color: var(--footer-text, #FFF8E7);
+  inline-size: 100%;
+  overflow: hidden;
+  margin: 0;
+
+  /* Local private tokens with fallbacks */
+  --_bg: var(--footer-bg, #1E1A16);
+  --_text: var(--footer-text, #FFF8E7);
+  --_link: var(--footer-link, #E4C896);
+  --_link-hover: var(--footer-link-hover, #FFF8E7);
+  --_border: var(--footer-border, rgba(255, 255, 255, 0.15));
+  --_accent: var(--footer-accent, #E4C896);
+}
+
+/* Dark mode override */
+html[data-theme="dark"] [data-clean-root] .footer,
+:root[data-theme="dark"] [data-clean-root] .footer {
+  background: var(--grad-section-deep, linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .footer {
+    background: var(--grad-section-deep, linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%));
+  }
+}
+
+/* Container */
+[data-clean-root] .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Main content - Flexbox layout */
+[data-clean-root] .footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 64px;
+  margin-bottom: 32px;
+}
+
+/* Footer sections */
+[data-clean-root] .footer-section {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* First section slightly wider for description */
+[data-clean-root] .footer-section:first-child {
+  flex: 1.2;
+}
+
+/* Center the contact section content */
+[data-clean-root] .footer-section:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+[data-clean-root] .footer-section:nth-child(2) .footer-contact {
+  inline-size: 100%;
+  max-inline-size: 100%;
+  align-items: center;
+}
+
+/* Section Titles - All Centered */
+[data-clean-root] .footer-title,
+[data-clean-root] .footer-section-title {
+  color: var(--_accent);
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+/* Dividers - All Centered */
+[data-clean-root] .footer-title::after,
+[data-clean-root] .footer-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  inline-size: 40px;
+  block-size: 2px;
+  background: var(--_accent);
+}
+
+/* Description Text */
+[data-clean-root] .footer-description {
+  line-height: 1.8;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  color: var(--text-secondary, #E8D4BC);
+  margin: 0 0 24px 0;
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Address Styling */
+[data-clean-root] .footer-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+}
+
+/* Phone Link */
+[data-clean-root] .footer-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--_link);
+  text-decoration: none;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  padding: 8px 0;
+  transition: all 300ms ease;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+[data-clean-root] .footer-phone-link:hover {
+  color: var(--_link-hover);
+  transform: translateX(3px);
+}
+
+/* Contact Container */
+[data-clean-root] .footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Social Links Container */
+[data-clean-root] .footer-social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Social Link - Icon Only */
+[data-clean-root] .footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: all var(--duration-normal, 300ms) ease;
+}
+
+[data-clean-root] .footer-social-link:hover {
+  background: var(--_accent);
+  color: var(--surface-1, #2C2416);
+  transform: translateY(-3px);
+}
+
+/* Social Icons */
+[data-clean-root] .footer-social-icon {
+  inline-size: 20px;
+  block-size: 20px;
+  flex-shrink: 0;
+}
+
+/* Footer Bottom Section */
+[data-clean-root] .footer-bottom {
+  padding-top: 24px;
+  margin-top: 24px;
+  text-align: center;
+  border-top: 1px solid var(--_border);
+}
+
+/* Copyright Text */
+[data-clean-root] .footer-copyright {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  [data-clean-root] .footer {
+    padding: 40px 0 20px;
+  }
+
+  [data-clean-root] .footer-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  [data-clean-root] .footer-section:first-child {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-clean-root] .footer {
+    padding: 40px 0 24px;
+  }
+
+  [data-clean-root] .footer-content {
+    gap: 32px;
+    padding: 0 16px;
+  }
+
+  [data-clean-root] .footer-title,
+  [data-clean-root] .footer-section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  [data-clean-root] .footer-description,
+  [data-clean-root] .footer-address,
+  [data-clean-root] .footer-phone-link,
+  [data-clean-root] .footer-social-link {
+    font-size: 14px;
+  }
+
+  [data-clean-root] .footer-social-links {
+    gap: 16px;
+  }
+
+  [data-clean-root] .footer-social-icon {
+    inline-size: 18px;
+    block-size: 18px;
+  }
+}
+
+/* Focus visibility for keyboard navigation */
+[data-clean-root] .footer-phone-link:focus-visible,
+[data-clean-root] .footer-social-link:focus-visible {
+  outline: 3px solid #E4C896;
+  outline-offset: 3px;
+}
+
+} /* End @layer components */

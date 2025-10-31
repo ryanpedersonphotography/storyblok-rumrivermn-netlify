@@ -1,92 +1,73 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { useEffect, useState } from 'react'
+import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline'
 
-type ThemeMode = 'auto' | 'light' | 'dark'
-type EffectiveTheme = 'light' | 'dark'
+type Mode = 'light' | 'dark' | 'system'
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>('auto')
-  const [effectiveTheme, setEffectiveTheme] = useState<EffectiveTheme>('light')
+  const [mode, setMode] = useState<Mode>('system')
   const [mounted, setMounted] = useState(false)
 
-  // Get effective theme based on mode and system preference
-  const getEffectiveTheme = (themeMode: ThemeMode): EffectiveTheme => {
-    if (themeMode === 'auto') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
-    return themeMode
-  }
-
-  // Apply theme to document
-  const applyTheme = (themeMode: ThemeMode) => {
-    const root = document.documentElement
-
-    if (themeMode === 'auto') {
-      // Remove forced theme, let CSS media query handle it
-      root.removeAttribute('data-theme')
-      const systemTheme = getEffectiveTheme('auto')
-      root.style.colorScheme = systemTheme
-      setEffectiveTheme(systemTheme)
-    } else {
-      // Force specific theme
-      root.setAttribute('data-theme', themeMode)
-      root.style.colorScheme = themeMode
-      setEffectiveTheme(themeMode)
-    }
-  }
-
-  // Handle hydration and initial setup
+  // Hydration-safe mounting
   useEffect(() => {
     setMounted(true)
-
-    // Get saved mode or default to auto
-    const savedMode = (localStorage.getItem('theme-mode') as ThemeMode) || 'auto'
-    setMode(savedMode)
-    applyTheme(savedMode)
-
-    // Listen for system theme changes when in auto mode
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = () => {
-      const currentMode = localStorage.getItem('theme-mode') as ThemeMode || 'auto'
-      if (currentMode === 'auto') {
-        applyTheme('auto')
-      }
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
+    try {
+      const stored = localStorage.getItem('theme-mode') as Mode | null
+      setMode(stored || 'system')
+    } catch {}
   }, [])
 
-  // Smart toggle logic
-  const handleToggle = () => {
-    let nextMode: ThemeMode
+  // Apply theme to document
+  useEffect(() => {
+    if (!mounted) return
 
-    if (mode === 'auto') {
-      // In auto mode: force the opposite of system
-      const currentEffective = getEffectiveTheme('auto')
-      nextMode = currentEffective === 'dark' ? 'light' : 'dark'
-    } else {
-      // In forced mode: return to auto
-      nextMode = 'auto'
+    const apply = (m: Mode) => {
+      const root = document.documentElement
+      if (m === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        root.setAttribute('data-theme', isDark ? 'dark' : 'light')
+      } else {
+        root.setAttribute('data-theme', m)
+      }
+      // Dispatch event for listeners
+      root.dispatchEvent(new CustomEvent('themechange', { detail: { mode: m } }))
     }
 
-    setMode(nextMode)
-    localStorage.setItem('theme-mode', nextMode)
-    applyTheme(nextMode)
+    apply(mode)
+
+    // Listen for system theme changes when in system mode
+    if (mode === 'system') {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const handler = () => apply('system')
+      mq.addEventListener('change', handler)
+      return () => mq.removeEventListener('change', handler)
+    }
+  }, [mode, mounted])
+
+  // Cycle through modes: light → dark → system → light
+  const cycle = () => {
+    setMode(prev => {
+      const next = prev === 'light' ? 'dark' : prev === 'dark' ? 'system' : 'light'
+      try {
+        localStorage.setItem('theme-mode', next)
+      } catch {}
+      return next
+    })
   }
 
-  // Get button label based on current state
-  const getButtonLabel = (): string => {
-    if (mode === 'auto') {
-      // Offer opposite of system
-      const offer = effectiveTheme === 'dark' ? 'Light' : 'Dark'
-      return `Switch to ${offer}`
-    } else {
-      // Offer to follow system
-      return 'Follow System'
-    }
+  // Get icon for current mode
+  const getIcon = () => {
+    if (mode === 'light') return <SunIcon className="theme-toggle-icon" />
+    if (mode === 'dark') return <MoonIcon className="theme-toggle-icon" />
+    return <ComputerDesktopIcon className="theme-toggle-icon" />
+  }
+
+  // Get label for current mode
+  const getLabel = () => {
+    if (mode === 'light') return 'Switch to dark mode'
+    if (mode === 'dark') return 'Switch to system mode'
+    return 'Switch to light mode'
   }
 
   // Don't render until mounted to avoid hydration mismatch
@@ -98,20 +79,36 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={handleToggle}
+      type="button"
+      onClick={cycle}
       className="theme-toggle"
       data-testid="theme-toggle"
-      aria-label={getButtonLabel()}
-      title={getButtonLabel()}
+      aria-label={getLabel()}
+      title={getLabel()}
+      style={{
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '10px',
+        display: 'grid',
+        placeItems: 'center',
+        transition: 'opacity 150ms ease',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
     >
-      {effectiveTheme === 'light' ? (
-        <SunIcon className="theme-toggle-icon" />
-      ) : (
-        <MoonIcon className="theme-toggle-icon" />
-      )}
-      {mode !== 'auto' && (
-        <span className="theme-toggle-auto-badge">!</span>
-      )}
+      {getIcon()}
+      <style jsx>{`
+        :global(.theme-toggle-icon) {
+          width: 24px;
+          height: 24px;
+          color: var(--navbar-link, var(--navbar-text));
+          transition: color 150ms ease, transform 200ms ease;
+        }
+        button:hover :global(.theme-toggle-icon) {
+          transform: scale(1.1);
+        }
+      `}</style>
     </button>
   )
 }

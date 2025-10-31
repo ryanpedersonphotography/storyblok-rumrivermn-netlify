@@ -18,6 +18,7 @@ import FooterEditor from '@/components/storyblok/FooterEditor'
 import RealWeddingEditor from '@/components/storyblok/RealWeddingEditor'
 import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEditor'
 import SpacesEditor from '@/components/storyblok/SpacesEditor'
+import NavbarHotfix from '@/components/hotfix/NavbarHotfix'
 
 // Initialize Storyblok for client-side rendering
 // Use PREVIEW token for draft content in Visual Editor
@@ -76,8 +77,11 @@ export default function StoryblokBridge({ initialStory }: StoryblokBridgeProps) 
   }, [router])
 
   return (
-    <div>
-      {story?.content && <StoryblokComponent blok={story.content} />}
-    </div>
+    <>
+      <NavbarHotfix />
+      <div>
+        {story?.content && <StoryblokComponent blok={story.content} />}
+      </div>
+    </>
   )
 }

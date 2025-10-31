@@ -47,7 +47,6 @@ import Spaces from '@/components/clean/Spaces'
 import Experience from '@/components/clean/Experience'
 import Gallery from '@/components/clean/Gallery'
 import BrandProof from '@/components/clean/BrandProof'
-import Testimonials from '@/components/clean/Testimonials'
 import ScheduleForm from '@/components/clean/ScheduleForm'
 import Map from '@/components/clean/Map'
 import FAQ from '@/components/clean/FAQ'
@@ -56,6 +55,7 @@ import Footer from '@/components/clean/Footer'
 
 export default function CleanStatic() {
   return (
+    <>
       <Navbar />
       <Hero />
       <Spaces />
@@ -63,7 +63,6 @@ export default function CleanStatic() {
       <Experience />
       <Gallery />
       <BrandProof />
-      <Testimonials />
       <ScheduleForm />
       <Map />
       <FAQ />

@@ -75,7 +75,7 @@ export default function NavbarHotfix({ data = hotfixNavbar }: Props) {
 
   return (
     <>
-      <nav className={`hotfix-navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className={`hotfix-navbar ${isScrolled ? 'scrolled' : ''}`} data-section="navbar">
         <div className="hotfix-navbar-container">
           {/* Logo */}
           <a href="/" className="hotfix-navbar-logo">

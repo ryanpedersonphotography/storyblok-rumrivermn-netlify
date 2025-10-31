@@ -1,79 +1,105 @@
-/* LOVE STORIES GALLERY - Clean Version
- * Wedding photo gallery with hover effects
- * Dependencies: gallery CSS classes
- */
-
+// FILE: src/components/clean/Gallery.tsx
 'use client'
 
-export default function Gallery() {
-  const weddings = [
+type WeddingItem = {
+  couple: string
+  season: string
+  image: string
+  alt: string
+  href?: string
+}
+
+export default function Gallery({ blok }: { blok?: any } = {}) {
+  const weddings: WeddingItem[] = [
     {
       couple: 'Anthony & Linnea',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/177cb56979/anthony-linnea-wedding.jpg',
-      alt: 'Anthony & Linnea at Rum River Barn'
+      alt: 'Anthony & Linnea at Rum River Barn',
+      href: '#'
     },
     {
       couple: 'Loria & Jason Rolstad',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/399bb3279c/loria-jason-wedding-final.jpg',
-      alt: 'Loria & Jason Rolstad at Rum River Barn'
+      alt: 'Loria & Jason Rolstad at Rum River Barn',
+      href: '#'
     },
     {
       couple: 'Mattea Courtney',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/0d38f0a59c/mattea-courtney-wedding-final.jpg',
-      alt: 'Mattea Courtney at Rum River Barn'
+      alt: 'Mattea Courtney at Rum River Barn',
+      href: '#'
     },
     {
       couple: 'Kyle Carrie',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/da0775fb6b/kyle-carrie-wedding-final.jpg',
-      alt: 'Kyle Carrie at Rum River Barn'
+      alt: 'Kyle Carrie at Rum River Barn',
+      href: '#'
     },
     {
       couple: 'Emily & Barron Nixon',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/ef2dda951e/emily-barron-wedding-final.jpg',
-      alt: 'Emily & Barron Nixon at Rum River Barn'
+      alt: 'Emily & Barron Nixon at Rum River Barn',
+      href: '#'
     },
     {
       couple: 'Joshua & Teri',
       season: 'Summer 2024',
       image: 'https://a.storyblok.com/f/288003424841711/ec400a08f8/joshua-teri-wedding-final.jpg',
-      alt: 'Joshua & Teri at Rum River Barn'
+      alt: 'Joshua & Teri at Rum River Barn',
+      href: '#'
     }
-  ];
+  ]
+
+  const title = 'Weddings at the Barn'
+  const subtitle = 'Real Love Stories'
+  const description = 'Every celebration tells a unique story of love, laughter, and happily ever after.'
 
   return (
-    <section id="gallery" className="gallery" data-section="gallery">
-        <div className="gallery__content">
-        <div className="gallery__header">
-          <div className="gallery__script">Real Love Stories</div>
-          <h2 className="gallery__title">Weddings at the Barn</h2>
-          <p className="gallery__lead">
-            Every celebration tells a unique story of love, laughter, and happily ever after.
-          </p>
-        </div>
+    <section
+      id="gallery"
+      className="love-stories-gallery"
+      data-section="gallery"
+    >
+        <div className="love-stories-content">
+          <header className="love-stories-header">
+            <div className="script-accent">{subtitle}</div>
+            <h2 className="love-section-title">{title}</h2>
+            <p className="love-lead">{description}</p>
+          </header>
 
-        <div className="gallery__grid">
-          {weddings.map((wedding, index) => (
-            <div key={index} className="gallery__item" role="button" tabIndex={0}>
-              <img
-                src={wedding.image}
-                alt={wedding.alt}
-                width="800"
-                height="800"
-              />
-              <div className="gallery__overlay">
-                <div className="gallery__couple-names">{wedding.couple}</div>
-                <div className="gallery__season">{wedding.season}</div>
-                <div className="gallery__details"></div>
-              </div>
-            </div>
-          ))}
+          <div className="wedding-gallery">
+            {weddings.map((w, i) => (
+              <a
+                key={`${w.couple}-${i}`}
+                className="gallery-item"
+                href={w.href || '#'}
+                aria-label={`${w.couple}${w.season ? ` — ${w.season}` : ''}`}
+                data-testid="gallery-item"
+              >
+                <img
+                  src={w.image}
+                  alt={w.alt}
+                  width={800}
+                  height={800}
+                  loading="lazy"
+                  decoding="async"
+                  // basic sizes for the 4→1 column responsive grid
+                  sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 100vw"
+                />
+                <div className="gallery-overlay" aria-hidden="true">
+                  <div className="gallery-couple-names">{w.couple}</div>
+                  <div className="gallery-season">{w.season}</div>
+                  <div className="gallery-details"></div>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+  )
 }

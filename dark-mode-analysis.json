@@ -1,0 +1,68 @@
+[
+  {
+    "section": "Hero",
+    "selector": ".hotfix-hero-romantic",
+    "background": "rgb(44, 36, 26)",
+    "backgroundImage": "url(\"https://a.storyblok.com/f/288003424841711/1280x854/8687f91346/details-building-entrance-windows.jpg\")"
+  },
+  {
+    "section": "Spaces",
+    "selector": ".spaces-section",
+    "background": "oklch(0.31 0.04 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Alternating Blocks",
+    "selector": ".hotfix-alternating-blocks",
+    "background": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(oklch(0.24 0.0336 65) 0%, oklch(0.22 0.03 65) 100%)"
+  },
+  {
+    "section": "Rum River Experience",
+    "selector": ".rum-river-experience",
+    "background": "oklch(0.28 0.04 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Brand Social Proof",
+    "selector": ".hotfix-brand-quote-section",
+    "background": "oklch(0.28 0.04 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Testimonials",
+    "selector": ".hotfix-social-proof",
+    "background": "oklch(0.25 0.035 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "History Carousel",
+    "selector": ".hotfix-history-section",
+    "background": "oklch(0.22 0.03 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Pricing",
+    "selector": ".pricing-section",
+    "background": "rgb(255, 252, 248)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Schedule Form",
+    "selector": ".hotfix-schedule-tour",
+    "background": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(135deg, oklch(0.25 0.035 65) 0%, oklch(0.22 0.03 65) 100%)"
+  },
+  {
+    "section": "Map",
+    "selector": ".hotfix-map-section",
+    "background": "oklch(0.25 0.035 65)",
+    "backgroundImage": "none"
+  },
+  {
+    "section": "Footer",
+    "selector": ".hotfix-footer",
+    "background": "rgba(0, 0, 0, 0)",
+    "backgroundImage": "linear-gradient(oklch(0.22 0.03 65) 0%, oklch(0.18 0.03 65) 100%)"
+  }
+]

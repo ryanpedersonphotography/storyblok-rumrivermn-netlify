@@ -37,6 +37,7 @@
   stroke-width: 2.5 !important;
   animation: fadeInRotate 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   color: inherit !important;
+  pointer-events: none !important;
 }
 
 /* Auto mode badge */

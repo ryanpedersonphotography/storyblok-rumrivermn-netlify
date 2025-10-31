@@ -1,3 +1,4 @@
+import '@/styles/tokens/theme.css';
 import './globals.css';
 import StoryblokProvider from '@/components/StoryblokProvider';
 import { playfairDisplay, montserrat, dancingScript } from './fonts';
@@ -20,25 +21,19 @@ export default function RootLayout({ children }) {
 			<html
 				lang="en"
 				className={`${playfairDisplay.variable} ${montserrat.variable} ${dancingScript.variable}`}
+				suppressHydrationWarning
 			>
 				<head>
 					<script
 						dangerouslySetInnerHTML={{
 							__html: `
-(function () {
-  try {
-    var KEY="theme-mode";
-    var m=localStorage.getItem(KEY)||"auto";
-    var d=window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var forced=(m==="dark"||m==="light")?m:null;
-    if (forced) {
-      document.documentElement.setAttribute("data-theme", forced);
-      document.documentElement.style.colorScheme = forced;
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-      document.documentElement.style.colorScheme = d ? "dark" : "light";
-    }
-  } catch(e) {}
+(function(){
+  try{
+    var stored = localStorage.getItem('theme-mode');
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = stored || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  }catch(e){}
 })();
 `}}
 					/>

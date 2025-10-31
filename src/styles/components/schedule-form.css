@@ -1,0 +1,321 @@
+/* SCHEDULE FORM SECTION STYLES - Extracted from hotfix-site.css */
+
+[data-clean-root] .schedule-tour {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--theme-bg-secondary, #2C2416) 0%, var(--theme-bg-card, #3D2F22) 100%);
+  position: relative;
+  overflow: hidden;
+
+  /* 🔥 CRITICAL: Full-width breakout to prevent black bars */
+  width: 100vw;
+  max-width: none;
+  max-inline-size: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+/* Rotating background decoration */
+[data-clean-root] .schedule-tour::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--theme-accent-gold, #E4C896) 10%, transparent) 0%, transparent 70%);
+  animation: rotate 30s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+[data-clean-root] .form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Header */
+[data-clean-root] .form-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+[data-clean-root] .form-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.75rem;
+  color: var(--theme-accent-gold, #E4C896);
+  margin: 0 0 20px;
+}
+
+[data-clean-root] .form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  line-height: 1.2;
+  color: var(--theme-accent-gold, #E4C896);
+  margin: 0 0 15px;
+  letter-spacing: 2px;
+  font-weight: 400;
+}
+
+[data-clean-root] .form-description {
+  font-size: 1rem;
+  color: var(--theme-text-on-dark, #FFF8E7);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Form */
+[data-clean-root] .tour-form {
+  background: var(--theme-bg-primary, #FFFCF8);
+  backdrop-filter: none;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: var(--theme-shadow-lg, 0 20px 60px rgba(0, 0, 0, 0.3));
+  border: 1px solid var(--theme-border-subtle, rgba(0, 0, 0, 0.08));
+  display: grid;
+  gap: 30px;
+}
+
+[data-clean-root] .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+[data-clean-root] .form-group {
+  display: grid;
+  gap: 10px;
+}
+
+[data-clean-root] .form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--theme-text-secondary, #6B4E3D);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-clean-root] .form-input,
+[data-clean-root] .form-select,
+[data-clean-root] .form-textarea {
+  padding: 15px 20px;
+  border: 2px solid color-mix(in srgb, var(--theme-accent-gold, #E4C896) 30%, transparent);
+  border-radius: 12px;
+  background: var(--theme-bg-card, #FFFCF8);
+  color: var(--theme-text-primary, #2C2416);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+[data-clean-root] .form-input::placeholder,
+[data-clean-root] .form-textarea::placeholder {
+  color: var(--theme-text-muted, rgba(107, 78, 61, 0.6));
+}
+
+[data-clean-root] .form-input:focus,
+[data-clean-root] .form-select:focus,
+[data-clean-root] .form-textarea:focus {
+  outline: none;
+  border-color: var(--theme-accent-gold, #E4C896);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-accent-gold, #E4C896) 20%, transparent);
+  background: var(--theme-bg-primary, #FFFCF8);
+}
+
+[data-clean-root] .form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Submit Button Enhancement */
+[data-clean-root] .form-submit {
+  margin: 2rem auto 0;
+  display: flex;
+  padding: 0.875rem 2.5rem;
+  min-width: 200px;
+  justify-content: center;
+  background: var(--theme-accent-rose, #9D6B7B);
+  color: var(--theme-text-on-dark, #FFF8E7);
+  border: 2px solid var(--theme-accent-rose, #9D6B7B);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-clean-root] .form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--theme-accent-rose, #9D6B7B) 40%, transparent);
+  background: var(--theme-bg-card, #3D2F22);
+  border-color: var(--theme-bg-card, #3D2F22);
+}
+
+[data-clean-root] .form-submit:active {
+  transform: translateY(0);
+}
+
+[data-clean-root] .form-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, color-mix(in srgb, var(--theme-text-on-dark, #FFF8E7) 20%, transparent), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+[data-clean-root] .form-submit:hover::before {
+  transform: translateX(100%);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DARK MODE - Forced (html[data-theme="dark"])
+   ════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] [data-clean-root] .schedule-tour {
+  background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-1) 100%);
+}
+
+html[data-theme="dark"] [data-clean-root] .tour-form {
+  background: var(--theme-bg-card, #3D2F22);
+  border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
+  box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.6));
+}
+
+html[data-theme="dark"] [data-clean-root] .form-label {
+  color: var(--theme-text-primary, #F5E6D3);
+}
+
+html[data-theme="dark"] [data-clean-root] .form-input,
+html[data-theme="dark"] [data-clean-root] .form-select,
+html[data-theme="dark"] [data-clean-root] .form-textarea {
+  background: var(--theme-bg-secondary, #2C2416);
+  border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
+  color: var(--theme-text-primary, #F5E6D3);
+}
+
+html[data-theme="dark"] [data-clean-root] .form-input::placeholder,
+html[data-theme="dark"] [data-clean-root] .form-textarea::placeholder {
+  color: var(--theme-text-muted, rgba(245, 230, 211, 0.5));
+}
+
+html[data-theme="dark"] [data-clean-root] .form-input:focus,
+html[data-theme="dark"] [data-clean-root] .form-select:focus,
+html[data-clean-root] .form-textarea:focus {
+  border-color: var(--theme-accent-gold, #F0D9A8);
+  background: var(--theme-bg-card, #3D2F22);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AUTO MODE - OS Preference (prefers-color-scheme: dark)
+   ════════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .schedule-tour {
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface-1) 100%);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .tour-form {
+    background: var(--theme-bg-card, #3D2F22);
+    border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
+    box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.6));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .form-label {
+    color: var(--theme-text-primary, #F5E6D3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .form-input,
+  :root:not([data-theme="light"]) [data-clean-root] .form-select,
+  :root:not([data-theme="light"]) [data-clean-root] .form-textarea {
+    background: var(--theme-bg-secondary, #2C2416);
+    border-color: var(--theme-border-medium, rgba(255,255,255,0.12));
+    color: var(--theme-text-primary, #F5E6D3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .form-input::placeholder,
+  :root:not([data-theme="light"]) [data-clean-root] .form-textarea::placeholder {
+    color: var(--theme-text-muted, rgba(245, 230, 211, 0.5));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .form-input:focus,
+  :root:not([data-theme="light"]) [data-clean-root] .form-select:focus,
+  :root:not([data-theme="light"]) [data-clean-root] .form-textarea:focus {
+    border-color: var(--theme-accent-gold, #F0D9A8);
+    background: var(--theme-bg-card, #3D2F22);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  [data-clean-root] .schedule-tour {
+    padding: 80px 0;
+  }
+
+  [data-clean-root] .form-container {
+    max-width: 100%;
+    padding: 0 40px;
+  }
+
+  [data-clean-root] .form-header {
+    margin-bottom: 60px;
+  }
+
+  [data-clean-root] .form-title {
+    font-size: 2.5rem;
+  }
+
+  [data-clean-root] .form-script {
+    font-size: 1.5rem;
+  }
+
+  [data-clean-root] .tour-form {
+    padding: 30px;
+    border-radius: 16px;
+  }
+
+  [data-clean-root] .form-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-clean-root] .schedule-tour {
+    padding: 60px 0;
+  }
+
+  [data-clean-root] .form-container {
+    padding: 0 16px;
+  }
+
+  [data-clean-root] .form-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  [data-clean-root] .tour-form {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  [data-clean-root] .form-input,
+  [data-clean-root] .form-select,
+  [data-clean-root] .form-textarea {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+}

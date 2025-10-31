@@ -1,8 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { storyblokEditable } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react/rsc'
 
-export default function ScheduleForm() {
+interface ScheduleFormStoryblok extends SbBlokData {
+  title?: string
+  subtitle?: string
+  description?: string
+  submit_text?: string
+}
+
+export default function ScheduleForm({ blok }: { blok: ScheduleFormStoryblok }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,28 +34,33 @@ export default function ScheduleForm() {
     console.log('Form submitted:', formData);
   };
 
+  const title = blok.title || 'Schedule a Tour'
+  const subtitle = blok.subtitle || 'Plan Your Visit'
+  const description = blok.description || 'Experience the magic of Rum River Barn in person. Book your private tour today.'
+  const submitText = blok.submit_text || 'Schedule Your Tour'
+
   return (
-    <section className="schedule" data-section="schedule-form">
-        <div className="schedule__container">
-        <div className="schedule__header">
-          <span className="schedule__script">Plan Your Visit</span>
-          <h2 className="schedule__title">Schedule a Tour</h2>
-          <p className="schedule__description">
-            Experience the magic of Rum River Barn in person. Book your private tour today.
+    <section {...storyblokEditable(blok)} className="schedule-tour" data-section="schedule-form">
+        <div className="form-container">
+        <div className="form-header">
+          <span className="form-script">{subtitle}</span>
+          <h2 className="form-title">{title}</h2>
+          <p className="form-description">
+            {description}
           </p>
         </div>
 
-        <form className="schedule__form" onSubmit={handleSubmit}>
-          <div className="schedule__row">
-            <div className="schedule__group">
-              <label htmlFor="name" className="schedule__label">
+        <form className="tour-form" onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="name" className="form-label">
                 Your Name *
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                className="schedule__input"
+                className="form-input"
                 placeholder="John & Jane Doe"
                 value={formData.name}
                 onChange={handleChange}
@@ -54,15 +68,15 @@ export default function ScheduleForm() {
               />
             </div>
 
-            <div className="schedule__group">
-              <label htmlFor="email" className="schedule__label">
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
                 Email Address *
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="schedule__input"
+                className="form-input"
                 placeholder="your@email.com"
                 value={formData.email}
                 onChange={handleChange}
@@ -71,45 +85,45 @@ export default function ScheduleForm() {
             </div>
           </div>
 
-          <div className="schedule__row">
-            <div className="schedule__group">
-              <label htmlFor="phone" className="schedule__label">
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="phone" className="form-label">
                 Phone Number
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
-                className="schedule__input"
+                className="form-input"
                 placeholder="(555) 123-4567"
                 value={formData.phone}
                 onChange={handleChange}
               />
             </div>
 
-            <div className="schedule__group">
-              <label htmlFor="date" className="schedule__label">
+            <div className="form-group">
+              <label htmlFor="date" className="form-label">
                 Preferred Date
               </label>
               <input
                 type="date"
                 id="date"
                 name="date"
-                className="schedule__input"
+                className="form-input"
                 value={formData.date}
                 onChange={handleChange}
               />
             </div>
           </div>
 
-          <div className="schedule__group">
-            <label htmlFor="guests" className="schedule__label">
+          <div className="form-group">
+            <label htmlFor="guests" className="form-label">
               Expected Guest Count
             </label>
             <select
               id="guests"
               name="guests"
-              className="schedule__select"
+              className="form-select"
               value={formData.guests}
               onChange={handleChange}
             >
@@ -122,22 +136,22 @@ export default function ScheduleForm() {
             </select>
           </div>
 
-          <div className="schedule__group">
-            <label htmlFor="message" className="schedule__label">
+          <div className="form-group">
+            <label htmlFor="message" className="form-label">
               Tell Us About Your Vision
             </label>
             <textarea
               id="message"
               name="message"
-              className="schedule__textarea"
+              className="form-textarea"
               placeholder="Share your dream wedding details, special requests, or questions..."
               value={formData.message}
               onChange={handleChange}
             />
           </div>
 
-          <button type="submit" className="schedule__submit">
-            Schedule Your Tour
+          <button type="submit" className="form-submit">
+            {submitText}
           </button>
         </form>
       </div>

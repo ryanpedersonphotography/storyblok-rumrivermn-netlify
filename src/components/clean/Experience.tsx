@@ -1,76 +1,104 @@
 /* EXPERIENCE SECTION - Clean Version
  * Two-column layout with feature grid and image
- * Dependencies: experience CSS classes
+ * Dependencies: experience.css
+ * Storyblok-compatible with blok prop
  */
 
 'use client'
 
-import { SparklesIcon, StarIcon, HeartIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
+import { storyblokEditable } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react/rsc'
+import { SparklesIcon, HeartIcon, CheckBadgeIcon, HomeModernIcon } from '@heroicons/react/24/outline'
 
-export default function Experience() {
-  const features = [
+interface ExperienceStoryblok extends SbBlokData {
+  title?: string
+  subtitle?: string
+  description?: string
+  features?: Array<{
+    icon?: string
+    title?: string
+    description?: string
+  }>
+  image?: {
+    filename?: string
+    alt?: string
+  }
+}
+
+export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
+  // Icon mapping
+  const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
+    sparkles: SparklesIcon,
+    home: HomeModernIcon,
+    heart: HeartIcon,
+    check: CheckBadgeIcon
+  }
+
+  // Default fallbacks
+  const defaultFeatures = [
     {
-      icon: SparklesIcon,
+      icon: 'sparkles',
       title: 'Natural Beauty',
       description: 'Surrounded by pristine woodlands and the scenic Rum River'
     },
     {
-      icon: StarIcon,
+      icon: 'home',
       title: 'Authentic Charm',
       description: 'Rustic elegance that captures the spirit of Minnesota'
     },
     {
-      icon: HeartIcon,
+      icon: 'heart',
       title: 'Personal Touch',
       description: 'Dedicated team committed to bringing your vision to life'
     },
     {
-      icon: CheckBadgeIcon,
+      icon: 'check',
       title: 'Complete Experience',
       description: 'Everything you need for an unforgettable celebration'
     }
-  ];
+  ]
+
+  const features = blok.features && blok.features.length > 0 ? blok.features : defaultFeatures
+  const title = blok.title || 'More Than a Venue'
+  const subtitle = blok.subtitle || 'The Rum River Experience'
+  const description = blok.description || "At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story."
 
   return (
-    <section className="experience" data-section="experience">
-        <div className="experience__container">
-        <div className="experience__content">
-          <div className="experience__header">
-            <p className="experience__script">The Rum River Experience</p>
-            <h2 className="experience__title">More Than a Venue</h2>
-            <p className="experience__description">
-              At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable.
-              Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural
-              elegance that creates the perfect backdrop for your love story.
-            </p>
+    <section {...storyblokEditable(blok)} className="rum-river-experience" data-section="experience">
+      <div className="experience-container">
+        <div className="experience-content">
+          <div className="experience-header">
+            <p className="experience-script">{subtitle}</p>
+            <h2 className="experience-title">{title}</h2>
+            <p className="experience-description">{description}</p>
           </div>
 
-          <div className="experience__features">
+          <div className="experience-features">
             {features.map((feature, index) => {
-              const IconComponent = feature.icon;
+              const IconComponent = iconMap[feature.icon || 'sparkles'] || SparklesIcon
               return (
-                <div key={index} className="experience__feature">
-                  <div className="experience__icon">
+                <div key={index} className="experience-feature">
+                  <div className="feature-icon">
                     <IconComponent className="icon-svg" />
                   </div>
-                  <div className="experience__text">
+                  <div className="feature-text">
                     <h3 className="feature-title">{feature.title}</h3>
                     <p className="feature-description">{feature.description}</p>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
 
-        <div className="experience__image">
+        <div className="experience-image">
           <img
-            src="https://images.ctfassets.net/qqjgd2e69j47/3q98p75VUiiBiTC5g8CIwr/e98b7c0f292754187fd889300705524e/wedding-celebration.jpg"
-            alt="Wedding celebration at Rum River Barn"
-            className="experience__img"
+            src={blok.image?.filename || 'https://a.storyblok.com/f/296659/1920x1280/c5c8e1e5c0/placeholder-barn.jpg'}
+            alt={blok.image?.alt || 'Rum River Barn Experience'}
+            className="experience-img"
           />
         </div>
       </div>
     </section>
-  );
+  )
 }
