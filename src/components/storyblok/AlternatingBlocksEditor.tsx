@@ -15,8 +15,8 @@ export default function AlternatingBlocksEditor({ blok }: AlternatingBlocksEdito
   ]
 
   return (
-    <section className="hotfix-alternating-blocks" {...storyblokEditable(blok)}>
-      <div className="hotfix-content-wrapper">
+      <section className="hotfix-alternating-blocks" {...storyblokEditable(blok)} data-section="alternating-blocks">
+        <div className="hotfix-content-wrapper">
         <div className="hotfix-section-header">
           <div className="hotfix-script-accent">
             {blok.script_accent || 'Your Perfect Venue'}

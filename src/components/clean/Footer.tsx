@@ -2,8 +2,8 @@ import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline'
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer__container">
+    <footer className="footer" data-section="footer">
+        <div className="footer__container">
         <div className="footer__content">
           {/* About Section */}
           <div className="footer__section">

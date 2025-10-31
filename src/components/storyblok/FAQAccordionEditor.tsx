@@ -54,8 +54,8 @@ export default function FAQAccordionEditor({ blok }: { blok: FAQAccordionStorybl
   }
 
   return (
-    <section {...storyblokEditable(blok)} className="faq-accordion-section">
-      <div className="faq-container">
+      <section {...storyblokEditable(blok)} className="faq-accordion-section" data-section="faq">
+        <div className="faq-container">
         <div className="faq-header">
           <p className="faq-script">{subtitle}</p>
           <h2 className="faq-title">{title}</h2>

@@ -22,8 +22,9 @@ export default function FooterEditor({ blok }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="hotfix-footer"
+      <footer
+        className="hotfix-footer"
+        data-section="footer"
       {...storyblokEditable(blok)}
       data-discover="true"
     >

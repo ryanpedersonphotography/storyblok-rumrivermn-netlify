@@ -57,8 +57,8 @@ export default function RumRiverExperienceEditor({ blok }: { blok: RumRiverExper
   const description = blok.description || "At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story."
 
   return (
-    <section {...storyblokEditable(blok)} className="rum-river-experience">
-      <div className="experience-container">
+      <section {...storyblokEditable(blok)} className="rum-river-experience" data-section="experience">
+        <div className="experience-container">
         <div className="experience-content">
           <div className="experience-header">
             <p className="experience-script">{subtitle}</p>

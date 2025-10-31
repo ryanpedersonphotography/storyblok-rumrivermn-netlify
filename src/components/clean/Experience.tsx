@@ -32,8 +32,8 @@ export default function Experience() {
   ];
 
   return (
-    <section className="experience">
-      <div className="experience__container">
+    <section className="experience" data-section="experience">
+        <div className="experience__container">
         <div className="experience__content">
           <div className="experience__header">
             <p className="experience__script">The Rum River Experience</p>

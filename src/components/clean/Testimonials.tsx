@@ -23,8 +23,8 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="testimonials">
-      <div className="testimonials__content">
+    <section className="testimonials" data-section="testimonials">
+        <div className="testimonials__content">
         <div className="testimonials__header">
           <span className="testimonials__script">Love Letters</span>
           <h2 className="testimonials__title">What Couples Say</h2>

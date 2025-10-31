@@ -26,8 +26,8 @@ export default function ScheduleForm() {
   };
 
   return (
-    <section className="schedule">
-      <div className="schedule__container">
+    <section className="schedule" data-section="schedule-form">
+        <div className="schedule__container">
         <div className="schedule__header">
           <span className="schedule__script">Plan Your Visit</span>
           <h2 className="schedule__title">Schedule a Tour</h2>

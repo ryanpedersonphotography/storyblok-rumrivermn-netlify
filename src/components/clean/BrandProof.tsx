@@ -7,8 +7,8 @@ export default function BrandProof() {
   const brands = ['THE KNOT', 'WEDDINGWIRE', 'MARTHA STEWART', 'MINNESOTA BRIDE'];
 
   return (
-    <section className="brand-proof">
-      <div className="brand-proof__content">
+    <section className="brand-proof" data-section="brand-proof">
+        <div className="brand-proof__content">
         <div className="brand-proof__logos">
           {brands.map((brand, index) => (
             <span key={index} className="brand-proof__logo">

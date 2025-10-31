@@ -160,8 +160,9 @@ export default function MapSectionEditor({ blok }: MapSectionProps) {
   ] : currentItems;
 
   return (
-    <section
-      className="hotfix-map-section"
+      <section
+        className="hotfix-map-section"
+        data-section="map"
       {...storyblokEditable(blok)}
       data-discover="true"
     >

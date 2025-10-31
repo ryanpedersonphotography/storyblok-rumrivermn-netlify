@@ -85,9 +85,10 @@ export default function Spaces() {
 
   return (
     <section
-      id="venue"
+        id="venue"
       className="spaces"
       data-discover="true"
+      data-section="spaces"
     >
       <div className="spaces__container">
         <div className="spaces__header">

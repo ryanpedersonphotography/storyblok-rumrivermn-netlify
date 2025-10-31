@@ -56,7 +56,6 @@ import Footer from '@/components/clean/Footer'
 
 export default function CleanStatic() {
   return (
-    <>
       <Navbar />
       <Hero />
       <Spaces />

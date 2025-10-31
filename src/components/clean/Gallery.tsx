@@ -46,8 +46,8 @@ export default function Gallery() {
   ];
 
   return (
-    <section id="gallery" className="gallery">
-      <div className="gallery__content">
+    <section id="gallery" className="gallery" data-section="gallery">
+        <div className="gallery__content">
         <div className="gallery__header">
           <div className="gallery__script">Real Love Stories</div>
           <h2 className="gallery__title">Weddings at the Barn</h2>

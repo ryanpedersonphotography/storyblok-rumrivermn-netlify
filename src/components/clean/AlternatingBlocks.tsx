@@ -14,8 +14,8 @@ export default function AlternatingBlocks({ data = hotfixAlternatingBlocks }: Pr
   console.log('AlternatingBlocks received data:', JSON.stringify(data, null, 2));
 
   return (
-    <section className="alternating-blocks">
-      <div className="alternating-blocks__content-wrapper">
+    <section className="alternating-blocks" data-section="alternating-blocks">
+        <div className="alternating-blocks__content-wrapper">
         <div className="alternating-blocks__section-header">
           <div className="alternating-blocks__script-accent">{data.sectionHeader.scriptAccent}</div>
           <h2 className="alternating-blocks__section-title">{data.sectionHeader.title}</h2>

@@ -56,9 +56,10 @@ export default function HeroEditor({ blok }: HeroEditorProps) {
   }
 
   return (
-    <section
-      id="hero"
-      className="hotfix-hero-romantic"
+      <section
+        id="hero"
+        data-section="hero"
+        className="hotfix-hero-romantic"
       {...storyblokEditable(blok)}
       style={style}
     >

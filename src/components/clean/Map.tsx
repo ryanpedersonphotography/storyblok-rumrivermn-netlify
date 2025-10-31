@@ -35,8 +35,8 @@ export default function Map() {
   ];
 
   return (
-    <section className="map">
-      <div className="map__container">
+    <section className="map" data-section="map">
+        <div className="map__container">
         <div className="map__header">
           <span className="map__script">Find Us</span>
           <h2 className="map__title">Visit Rum River Barn</h2>

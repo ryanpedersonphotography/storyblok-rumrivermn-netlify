@@ -161,9 +161,9 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
   // Cards will display using deluxe_weddings UUIDs, modal opens once weddings load
 
   return (
-    <section
-      className="hotfix-social-proof"
-      {...storyblokEditable(blok)}
+      <section
+        className="hotfix-social-proof"
+        {...storyblokEditable(blok)}
       data-discover="true"
     >
       <div className="hotfix-social-proof-content">

@@ -59,8 +59,9 @@ export default function ScheduleFormEditor({ blok }: ScheduleFormProps) {
   ];
 
   return (
-    <section
-      id="contact"
+      <section
+        id="contact"
+        data-section="schedule-form"
       className="hotfix-schedule-tour"
       {...storyblokEditable(blok)}
       data-discover="true"

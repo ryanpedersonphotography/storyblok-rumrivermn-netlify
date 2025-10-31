@@ -50,8 +50,9 @@ export default function BrandSocialProofEditor({ blok }: BrandSocialProofProps) 
   };
 
   return (
-    <section
-      className="hotfix-brand-quote-section"
+      <section
+        className="hotfix-brand-quote-section"
+        data-section="brand-proof"
       {...storyblokEditable(blok)}
       data-discover="true"
     >

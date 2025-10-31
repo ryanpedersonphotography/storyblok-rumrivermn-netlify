@@ -96,8 +96,9 @@ export default function SpacesEditor({ blok }: SpacesEditorProps) {
   }
 
   return (
-    <section 
-      id="venue"
+      <section
+        id="venue"
+        data-section="spaces"
       className="spaces-section" 
       {...storyblokEditable(blok)}
       data-discover="true"

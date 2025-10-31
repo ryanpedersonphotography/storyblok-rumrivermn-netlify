@@ -24,6 +24,7 @@ interface HeroBlok {
   bg_image?: SBAsset
   primary_cta_text?: string
   scroll_text?: string
+  [key: string]: any
 }
 
 function assetUrl(a: SBAsset): string | undefined {
@@ -80,7 +81,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
   }
 
   return (
-    <section className="hero" style={style} {...storyblokEditable(blok)}>
+    <section className="hero" data-section="hero" style={style} {...storyblokEditable(blok)}>
       <span className="sr-only">{bgAlt}</span>
 
       <div className="hero-content">

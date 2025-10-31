@@ -39,8 +39,8 @@ export default function Pricing() {
   ];
 
   return (
-    <section className="pricing">
-      <div className="pricing__container">
+    <section className="pricing" data-section="pricing">
+        <div className="pricing__container">
         <div className="pricing__header">
           <span className="pricing__script">Investment</span>
           <h2 className="pricing__title">Wedding Packages</h2>

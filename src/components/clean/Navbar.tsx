@@ -33,8 +33,7 @@ export default function Navbar() {
   ];
 
   return (
-    <>
-      <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} data-testid="navbar">
+    <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} data-testid="navbar" data-section="navbar">
         <div className="navbar__container">
           {/* Logo */}
           <a href="/" className="navbar__logo">
@@ -120,6 +119,5 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="navbar__backdrop" onClick={() => setIsMenuOpen(false)} />
       )}
-    </>
   );
 }

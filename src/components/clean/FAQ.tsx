@@ -93,8 +93,8 @@ export default function FAQ({ blok }: { blok: Blok }) {
   // useEffect(() => { console.log('[FAQ blok]', JSON.parse(JSON.stringify(blok))) }, [blok])
 
   return (
-    <section {...storyblokEditable(blok)} className="faq-accordion">
-      <div className="faq-container">
+    <section {...storyblokEditable(blok)} className="faq-accordion" data-section="faq">
+        <div className="faq-container">
         <div className="faq-header">
           <p className="faq-script">{subtitle}</p>
           <h2 className="faq-title">{title}</h2>

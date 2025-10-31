@@ -71,9 +71,10 @@ export default function PricingEditor({ blok }: PricingEditorProps) {
   ]
 
   return (
-    <section 
-      id="packages"
-      className="pricing-section" 
+      <section
+        id="packages"
+      className="pricing-section"
+      data-section="pricing" 
       {...storyblokEditable(blok)}
       data-discover="true"
     >
