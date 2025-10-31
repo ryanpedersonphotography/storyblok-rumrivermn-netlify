@@ -6,6 +6,7 @@
 import '@/styles/tokens/theme.css'
 import '@/styles/globals.css'
 import '@/styles/components/faq.css' // your clean FAQ CSS (adjust path if needed)
+import '@/styles/components/hero.css' // clean Hero CSS
 
 export default function CleanLayout({ children }: { children: React.ReactNode }) {
   return <div data-clean-root>{children}</div>

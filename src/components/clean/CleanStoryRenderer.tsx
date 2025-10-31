@@ -27,6 +27,8 @@ import SpacesEditor from '@/components/storyblok/SpacesEditor'
 
 // --- Clean overrides (start swapping here)
 import FAQ from '@/components/clean/FAQ' // your clean FAQ TSX that uses semantic CSS
+import Hero from '@/components/clean/Hero' // clean Hero component
+
 
 let inited = false
 function ensureInit() {
@@ -37,7 +39,7 @@ function ensureInit() {
     components: {
       // Keep legacy/editor mappings so the story renders
       page: Page,
-      home_hero_section: HeroEditor,
+      home_hero_section: Hero, // Override to clean Hero
       alternating_blocks_section: AlternatingBlocksEditor,
       rum_river_experience: RumRiverExperienceEditor,
       love_stories_gallery: LoveStoriesGalleryEditor,
