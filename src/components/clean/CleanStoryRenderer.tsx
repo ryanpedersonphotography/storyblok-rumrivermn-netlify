@@ -8,22 +8,12 @@
 
 import { storyblokInit, apiPlugin, StoryblokComponent } from '@storyblok/react'
 
-// --- Existing Storyblok editor components (so everything keeps working)
+// --- Existing Storyblok editor components (only those still needed)
 import Page from '@/components/storyblok/Page'
-import HeroEditor from '@/components/storyblok/HeroEditor'
-import AlternatingBlocksEditor from '@/components/storyblok/AlternatingBlocksEditor'
-import RumRiverExperienceEditor from '@/components/storyblok/RumRiverExperienceEditor'
-import LoveStoriesGalleryEditor from '@/components/storyblok/LoveStoriesGalleryEditor'
-import BrandSocialProofEditor from '@/components/storyblok/BrandSocialProofEditor'
-import TestimonialsEditor from '@/components/storyblok/TestimonialsEditor'
 import HistoryCarouselEditor from '@/components/storyblok/HistoryCarouselEditor'
-import ScheduleFormEditor from '@/components/storyblok/ScheduleFormEditor'
-import MapSectionEditor, { LocationItem } from '@/components/storyblok/MapSectionEditor'
-import PricingEditor from '@/components/storyblok/PricingEditor'
-import FooterEditor from '@/components/storyblok/FooterEditor'
+import { LocationItem } from '@/components/storyblok/MapSectionEditor'
 import RealWeddingEditor from '@/components/storyblok/RealWeddingEditor'
 import FeaturedWeddingsEditor from '@/components/storyblok/FeaturedWeddingsEditor'
-import SpacesEditor from '@/components/storyblok/SpacesEditor'
 
 // --- Clean overrides (start swapping here)
 import FAQ from '@/components/clean/FAQ'
@@ -35,7 +25,6 @@ import BrandProof from '@/components/clean/BrandProof'
 import Pricing from '@/components/clean/Pricing'
 import Gallery from '@/components/clean/Gallery'
 import Spaces from '@/components/clean/Spaces'
-import SpacesNew from '@/components/clean/SpacesNew'
 import ScheduleForm from '@/components/clean/ScheduleForm'
 import Map from '@/components/clean/Map'
 
@@ -61,7 +50,6 @@ function ensureInit() {
       schedule_form: ScheduleForm, // ✅ Clean with migrated CSS
       map_section: Map, // ✅ Clean with migrated CSS
       spaces_section: Spaces, // ✅ Clean with migrated CSS
-      spaces_section_new: SpacesNew, // ✅ Duplicate of Spaces for Section migration testing
       location_item: LocationItem, // Keep for nested items
 
       // Keep these as-is

@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
-import Section from '@/components/ui/Section'
+import SpacesLayout from '@/components/layouts/SpacesLayout'
 
 interface VenueFeatureStoryblok {
   label?: string
@@ -20,7 +20,11 @@ interface VenueStoryblok {
 interface SpacesStoryblok extends SbBlokData {
   title?: string
   subtitle?: string
+  script_accent?: string
   description?: string
+  background_variant?: 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient'
+  theme_override?: 'auto' | 'light' | 'dark'
+  padding_size?: 'sm' | 'md' | 'lg' | 'xl'
   barn?: VenueStoryblok
   bridal?: VenueStoryblok
   groom?: VenueStoryblok
@@ -28,6 +32,7 @@ interface SpacesStoryblok extends SbBlokData {
 }
 
 export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
+  console.log('[Spaces] Rendering with blok:', blok)
   const [activeVenue, setActiveVenue] = useState('barn')
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -112,8 +117,13 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
   }
 
   const title = blok.title || 'Discover Our Spaces'
-  const subtitle = blok.subtitle || 'Your Perfect Setting'
+  const subtitle = blok.script_accent || blok.subtitle || 'Your Perfect Setting'
   const description = blok.description || 'Every corner tells a story, every space creates memories'
+  
+  // Get background and theme from Storyblok or use defaults
+  const backgroundVariant = blok.background_variant || 'tint-rose'
+  const themeOverride = blok.theme_override || 'auto'
+  const paddingSize = blok.padding_size || 'lg'
 
   const handleVenueChange = (venue: string) => {
     setActiveVenue(venue)
@@ -133,22 +143,19 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
   }
 
   return (
-    <Section
+    <SpacesLayout
       {...storyblokEditable(blok)}
-      as="section"
-      id="venue"
-      align="center"
-      container="wrapper"
-      variant="content-wrapper-compat"
-      background="tint-rose"
-      paddingY="lg"
       header={{
         scriptAccent: subtitle,
         title: title,
-        lead: description,
-        align: 'center'
+        lead: description
       }}
-      className="spaces-section"
+      // Use Storyblok-configured styling
+      background={backgroundVariant}
+      tone={themeOverride}
+      paddingY={paddingSize}
+      divider="none"          // Clean transition
+      useContentWrapper={true} // Consistent width
       data-discover="true"
       data-section="spaces"
     >
@@ -187,6 +194,6 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
             </div>
           </div>
         </div>
-    </Section>
+    </SpacesLayout>
   )
 }

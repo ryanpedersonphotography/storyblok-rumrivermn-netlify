@@ -4,6 +4,7 @@ import '@/styles/tokens/theme.css'
 // 2. UTILITIES - Section presets and layout utilities (@layer utilities)
 import '@/styles/system/section-presets.css'
 import '@/styles/system/layout.css'
+import '@/styles/system/primitives.css'
 
 // 3. GLOBALS - Base styles
 import '@/styles/globals.css'
@@ -17,7 +18,6 @@ import '@/styles/components/navbar.css'
 import '@/styles/components/hero.css'
 import '@/styles/components/experience.css'
 import '@/styles/components/spaces.css'
-import '@/styles/components/spaces-new.css'
 import '@/styles/components/gallery.css'
 import '@/styles/components/alternating-blocks.css'
 import '@/styles/components/brand-proof.css'
@@ -26,6 +26,7 @@ import '@/styles/components/schedule-form.css'
 import '@/styles/components/map.css'
 import '@/styles/components/footer.css'
 import '@/styles/components/faq.css'
+import '@/styles/components/section.legacy-wrapper.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider';
 import { playfairDisplay, montserrat, dancingScript } from './fonts';

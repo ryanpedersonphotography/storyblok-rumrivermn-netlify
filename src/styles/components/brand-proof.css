@@ -58,8 +58,8 @@
 [data-clean-root="true"] .brand-logos {
   display: flex;
   justify-content: center;
-  gap: 60px;
-  margin-bottom: 40px;
+  gap: var(--space-56);
+  margin-bottom: var(--space-40);
   flex-wrap: wrap;
 }
 
@@ -174,7 +174,7 @@ html[data-theme="dark"] [data-clean-root="true"] .brand-quote-text .highlight:ho
 /* Responsive Design for Brand Quote Section */
 @media (max-width: 1024px) {
   [data-clean-root="true"] .brand-logos {
-    gap: 40px;
+    gap: var(--space-40);
   }
 
   [data-clean-root="true"] .brand-quote-text {
@@ -184,8 +184,8 @@ html[data-theme="dark"] [data-clean-root="true"] .brand-quote-text .highlight:ho
 
 @media (max-width: 768px) {
   [data-clean-root="true"] .brand-logos {
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: var(--space-32);
+    margin-bottom: var(--space-32);
   }
 
   [data-clean-root="true"] .brand-logo {
@@ -196,7 +196,7 @@ html[data-theme="dark"] [data-clean-root="true"] .brand-quote-text .highlight:ho
   [data-clean-root="true"] .brand-quote-text {
     font-size: 1.5rem; /* 24px */
     line-height: 1.5;
-    padding: 0 1rem;
+    padding: 0 var(--space-16);
   }
 
   [data-clean-root="true"] .brand-quote-content {
@@ -208,7 +208,7 @@ html[data-theme="dark"] [data-clean-root="true"] .brand-quote-text .highlight:ho
   [data-clean-root="true"] .brand-logos {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: var(--space-20);
   }
 
   [data-clean-root="true"] .brand-quote-text {

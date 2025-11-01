@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { storyblokEditable } from '@storyblok/react'
-import Section from '@/components/ui/Section'
+import Section from '@/components/ui/SectionEnhanced'
 
 interface AlternatingBlocksBlok {
   _uid?: string
@@ -10,6 +10,9 @@ interface AlternatingBlocksBlok {
   script_accent?: string
   title?: string
   description?: string
+  background_variant?: 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient'
+  theme_override?: 'auto' | 'light' | 'dark'
+  padding_size?: 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
   blocks?: Array<{
     _uid?: string
     number?: string
@@ -34,14 +37,21 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
   console.log('[AlternatingBlocks] blocks count:', blok.blocks?.length || 0)
   console.log('[AlternatingBlocks] first block:', blok.blocks?.[0])
 
+  // Get styling from Storyblok or use defaults
+  const backgroundVariant = blok.background_variant || 'tint-rose'
+  const themeOverride = blok.theme_override || 'auto'
+  const paddingSize = blok.padding_size || 'fluid'
+
   return (
     <Section
       align="center"
-      container="wrapper"
+      contentWrapper={true}  // Use enhanced content wrapper
+      background={backgroundVariant}
+      tone={themeOverride}
+      paddingY={paddingSize}
       divider="thread-gold"
       variant={[
-        'content-wrapper-compat',     // Match Spaces .content-wrapper exactly
-        'alternating-blocks-luxe',  // Background/padding/tone settings
+        'alternating-blocks-luxe',  // Additional styling
         'header-center-wide',         // Remove max-width constraint on header
         'lead-full-width',            // Remove 48ch constraint on lead text
         'box-sizing-content'          // Override box-sizing if needed
@@ -51,6 +61,10 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
         title: blok.title || 'Why Choose Rum River Barn',
         lead: blok.description || 'Discover what makes our venue the perfect setting for your unforgettable celebration',
         align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'alternating-blocks-header',
+        style: { scrollMarginTop: '96px' }  // Account for fixed navbar
       }}
       className="alternating-blocks"
       data-section="alternating-blocks"

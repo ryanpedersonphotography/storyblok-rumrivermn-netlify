@@ -10,7 +10,7 @@
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
 import { SparklesIcon, HeartIcon, CheckBadgeIcon, HomeModernIcon } from '@heroicons/react/24/outline'
-import Section from '@/components/ui/Section'
+import ExperienceLayout from '@/components/layouts/ExperienceLayout'
 
 interface ExperienceStoryblok extends SbBlokData {
   title?: string
@@ -66,15 +66,18 @@ export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
   const description = blok.description || "At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story."
 
   return (
-    <Section
-      as="section"
-      align="center"
-      width="content"
-      paddingY="xl"
-      background="surface"
-      className="rum-river-experience"
-      data-section="experience"
+    <ExperienceLayout
       {...storyblokEditable(blok)}
+      header={{
+        scriptAccent: subtitle,
+        title: title,
+        lead: description
+      }}
+      // Styling kept in code for consistency
+      background="surface"     // Clean, professional
+      paddingY="xl"           // Generous spacing
+      useContentWrapper={true} // Consistent width
+      data-section="experience"
     >
       <div className="experience-container">
         <div className="experience-content">
@@ -110,6 +113,6 @@ export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
           />
         </div>
       </div>
-    </Section>
+    </ExperienceLayout>
   )
 }

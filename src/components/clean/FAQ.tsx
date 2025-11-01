@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import { renderRichText } from '@storyblok/js'
-import Section from '@/components/ui/Section'
+import Section from '@/components/ui/SectionEnhanced'
 
 type Blok = Record<string, any>
 
@@ -105,6 +105,14 @@ export default function FAQ({ blok }: { blok: Blok }) {
         scriptAccent: subtitle,
         title: title,
         align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'faq-header',
+        style: { scrollMarginTop: '80px' }  // Smooth scroll offset
+      }}
+      contentSlotProps={{
+        'data-test-id': 'faq-content',
+        'aria-label': 'Frequently asked questions list'
       }}
       className="faq-accordion"
       data-section="faq"

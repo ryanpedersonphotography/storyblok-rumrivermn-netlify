@@ -1,7 +1,7 @@
 import { MapPinIcon, ClockIcon, PhoneIcon, EnvelopeIcon, HomeIcon, CakeIcon } from '@heroicons/react/24/outline'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
-import Section from '@/components/ui/Section'
+import Section from '@/components/ui/SectionEnhanced'
 
 interface LocationStoryblok {
   icon?: string
@@ -70,7 +70,7 @@ export default function Map({ blok }: { blok: MapStoryblok }) {
     <Section
       as="section"
       align="center"
-      width="content"
+      contentWrapper={true}  // Use enhanced content wrapper for consistent width
       paddingY="lg"
       background="surface"
       header={{
@@ -78,6 +78,14 @@ export default function Map({ blok }: { blok: MapStoryblok }) {
         title: title,
         lead: description,
         align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'map-header',
+        'aria-label': 'Location and contact information'
+      }}
+      contentSlotProps={{
+        'data-test-id': 'map-content',
+        style: { position: 'relative' }  // For map overlay positioning
       }}
       className="map-section"
       data-section="map"

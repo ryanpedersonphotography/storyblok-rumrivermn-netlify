@@ -1,7 +1,7 @@
 // FILE: src/components/clean/Gallery.tsx
 'use client'
 
-import Section from '@/components/ui/Section'
+import Section from '@/components/ui/SectionEnhanced'
 
 type WeddingItem = {
   couple: string
@@ -66,8 +66,7 @@ export default function Gallery({ blok }: { blok?: any } = {}) {
       id="gallery"
       as="section"
       align="center"
-      headerWidth="prose"
-      contentWidth="wide"
+      contentWrapper={true}  // Use enhanced content wrapper for consistent gallery width
       paddingY="lg"
       background="surface"
       header={{
@@ -75,6 +74,14 @@ export default function Gallery({ blok }: { blok?: any } = {}) {
         title: title,
         lead: description,
         align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'gallery-header',
+        style: { scrollMarginTop: '80px' }  // Smooth scroll offset
+      }}
+      contentSlotProps={{
+        'data-test-id': 'gallery-content',
+        'aria-label': 'Wedding gallery showcase'
       }}
       className="love-stories-gallery"
       data-section="gallery"

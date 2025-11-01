@@ -289,17 +289,79 @@
   --weight-medium: 500;
   --weight-light: 300;
 
-  /* ===== Spacing Scale ===== */
-  --space-2xs: 0.25rem;
-  --space-xs:  0.5rem;
-  --space-sm:  0.75rem;
-  --space-md:  1rem;
-  --space-lg:  1.25rem;
-  --space-xl:  2rem;
-  --space-2xl: 2.5rem;
-  --space-3xl: 3rem;
-  --space-4xl: 4rem;
-  --space-5xl: 6.25rem; /* 100px */
+  /* =========================================================
+     SPACING SCALE & FLUID TOKENS — USAGE POLICY (2025)
+     ---------------------------------------------------------
+     1) Canonical scale:
+        - Use fixed tokens (e.g., --space-16, --space-32) for
+          components, cards, grids, and inner UI spacing.
+        - Do NOT add bespoke values to the global scale.
+
+     2) Fluid tokens:
+        - Use fluid tokens ONLY for macro layout:
+          • Section vertical padding
+          • Hero breathing room
+          • Large "stack" gaps between major blocks
+        - Define fluid tokens via clamp() between existing fixed
+          rungs. Never use raw px in clamp bounds.
+
+     3) Odd legacy values:
+        - Prefer nearest fixed rung or a local alias:
+          .component { --space-local-53: var(--space-56); }
+        - If "feel" matters more than exact px, use clamp().
+
+     4) Linting:
+        - gap/margin/padding MUST use var().
+        - Allowed exceptions: 0, auto, inherit.
+        - clamp() is allowed but must wrap fixed tokens.
+
+     5) Review checklist:
+        - No raw px in spacing declarations.
+        - No new globals unless reviewed and added to scale.
+        - Fluid tokens appear only in macro layout rules.
+     ========================================================= */
+
+  /* ===== Fixed Spacing Scale (4px base) ===== */
+  --space-0: 0;
+  --space-2: 0.125rem;  /* 2px  */
+  --space-4: 0.25rem;   /* 4px  */
+  --space-8: 0.5rem;    /* 8px  */
+  --space-12: 0.75rem;  /* 12px */
+  --space-16: 1rem;     /* 16px */
+  --space-20: 1.25rem;  /* 20px */
+  --space-24: 1.5rem;   /* 24px */
+  --space-32: 2rem;     /* 32px */
+  --space-40: 2.5rem;   /* 40px */
+  --space-48: 3rem;     /* 48px */
+  --space-56: 3.5rem;   /* 56px */
+  --space-64: 4rem;     /* 64px */
+  --space-80: 5rem;     /* 80px */
+  --space-96: 6rem;     /* 96px */
+
+  /* ===== Legacy Aliases (backward compatibility) ===== */
+  --space-2xs: var(--space-4);   /* 4px */
+  --space-xs:  var(--space-8);   /* 8px */
+  --space-sm:  var(--space-12);  /* 12px */
+  --space-md:  var(--space-16);  /* 16px */
+  --space-lg:  var(--space-20);  /* 20px */
+  --space-xl:  var(--space-32);  /* 32px */
+  --space-2xl: var(--space-40);  /* 40px */
+  --space-3xl: var(--space-48);  /* 48px */
+  --space-4xl: var(--space-64);  /* 64px */
+  --space-5xl: var(--space-96);  /* 96px */
+
+  /* ===== Fluid Spacing Tokens (for macro layout only) ===== */
+  /* Scale-relative fluid rungs (general purpose) */
+  --space-fluid-1: clamp(var(--space-16), 1.5vw, var(--space-24));
+  --space-fluid-2: clamp(var(--space-24), 2vw,   var(--space-40));
+  --space-fluid-3: clamp(var(--space-32), 3vw,   var(--space-56));
+  --space-fluid-4: clamp(var(--space-48), 5vw,   var(--space-80));
+  --space-fluid-5: clamp(var(--space-64), 6vw,   var(--space-96));
+
+  /* Semantic fluid tokens (plug-and-play for common patterns) */
+  --section-pad-fluid: clamp(var(--space-48), 6vw, var(--space-96));
+  --stack-gap-fluid-lg: clamp(var(--space-24), 3vw, var(--space-40));
+  --hero-pad-fluid: clamp(var(--space-56), 8vw, var(--space-96));
 
   /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
   --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
@@ -331,14 +393,20 @@
   --space-section-xs: 35px;
   --space-section-sm: 50px;
   --space-section-md: 60px;
-  --space-section-lg: 80px;
-  --space-section-xl: 100px;
-  --space-section-fluid: clamp(56px, 6vw, 96px);
+  --space-section-lg: var(--space-80);
+  --space-section-xl: var(--space-96);
+  --space-section-fluid: var(--section-pad-fluid); /* Now references semantic fluid token */
 
   /* Background Helpers */
   --bg-surface: var(--theme-bg-primary, #FFFCF8);
-  --bg-tint-rose: color-mix(in srgb, var(--bg-surface) 92%, var(--theme-accent-rose, #9D6B7B) 8%);
-  --bg-tint-sage: color-mix(in srgb, var(--bg-surface) 92%, #7A8B7F 8%);
+  --bg-tint-rose: #FDF5F7; /* Fallback: light rose tint */
+  --bg-tint-sage: #F8FAF9; /* Fallback: light sage tint */
+  
+  /* Use color-mix if supported */
+  @supports (color: color-mix(in srgb, white 50%, black)) {
+    --bg-tint-rose: color-mix(in srgb, var(--bg-surface) 92%, var(--theme-accent-rose, #9D6B7B) 8%);
+    --bg-tint-sage: color-mix(in srgb, var(--bg-surface) 92%, #7A8B7F 8%);
+  }
   --bg-dark-grad: linear-gradient(135deg, #2C2416 0%, #3D2F22 100%);
 
   /* Overlay Strengths */
