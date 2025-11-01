@@ -194,7 +194,7 @@
   font-family: var(--font-script, 'Dancing Script', cursive);
   color: var(--theme-accent-rose, #9D6B7B);
   font-size: clamp(1.5rem, 3.2vw, 1.75rem);
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-12);
   font-weight: 400;
 }
 
@@ -203,7 +203,7 @@
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: clamp(2.25rem, 4.8vw, 3rem);
   color: inherit;
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-12);
   font-weight: 400;
   line-height: 1.2;
 }
@@ -249,7 +249,7 @@
 [data-clean-root="true"] .section__actions {
   margin-top: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
-  gap: 1rem;
+  gap: var(--space-16);
   flex-wrap: wrap;
 }
 

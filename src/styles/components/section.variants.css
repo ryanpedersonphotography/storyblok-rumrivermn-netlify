@@ -98,7 +98,7 @@
   }
   /* Hero CTA micro spacing */
   [data-clean-root="true"] .section[data-variant="home-hero-2024"] .section__actions {
-    gap:1.125rem;
+    gap: var(--space-16);
   }
 
   /* --------------------------------------

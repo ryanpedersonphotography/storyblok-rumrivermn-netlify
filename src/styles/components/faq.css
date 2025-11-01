@@ -86,7 +86,7 @@
   line-height: var(--line-loose, 1.8);
   color: var(--text-secondary);
 }
-[data-clean-root="true"] .faq-accordion .faq-answer-body p { margin: 0 0 1em 0; }
+[data-clean-root="true"] .faq-accordion .faq-answer-body p { margin: 0 0 var(--space-16) 0; }
 
 /* Dark mode */
 html[data-theme="dark"] [data-clean-root="true"] .faq-accordion .faq-question h3 {
