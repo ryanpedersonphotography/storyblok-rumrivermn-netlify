@@ -3008,6 +3008,10 @@ Radius: --radius-md`}</pre>
           margin: '0 auto',
           padding: '0 var(--gutter)'
         }}>
+          {/* Basic Reel */}
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)', marginLeft: 'var(--gutter)' }}>
+            Basic Reel
+          </h3>
           <div className="reel" style={{ marginBottom: 'var(--space-48)' }}>
             {[...Array(10)].map((_, i) => (
               <div
@@ -3035,6 +3039,37 @@ Radius: --radius-md`}</pre>
             ))}
           </div>
 
+          {/* Reel with Edge Fades & Quiet Scrollbars */}
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)', marginLeft: 'var(--gutter)' }}>
+            Enhanced Reel (Edge Fades + Quiet Scrollbars)
+          </h3>
+          <div className="reel" data-fade-edges="true" data-quiet-scrollbars="true" style={{ marginBottom: 'var(--space-48)' }}>
+            {[...Array(10)].map((_, i) => (
+              <div
+                key={`enhanced-${i}`}
+                data-card
+                data-elevation="floating"
+                data-padding="compact"
+                style={{ minWidth: '220px' }}
+              >
+                <div data-card-header style={{ fontWeight: 600 }}>
+                  Enhanced {i + 1}
+                </div>
+                <div
+                  data-card-media
+                  style={{
+                    aspectRatio: '16/9',
+                    background: i % 3 === 0 ? 'var(--bg-tint-gold)' : i % 3 === 1 ? 'var(--bg-tint-sage)' : 'var(--bg-tint-rose)',
+                    borderRadius: '8px'
+                  }}
+                />
+                <div data-card-footer style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                  Subtle scrollbar, edge fades
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* Usage documentation */}
           <div style={{
             background: 'var(--surface-2)',
@@ -3052,7 +3087,17 @@ Radius: --radius-md`}</pre>
               overflow: 'auto',
               fontSize: '0.875rem',
               lineHeight: 1.6
-            }}>{`<div className="reel">
+            }}>{`<!-- Basic Reel -->
+<div className="reel">
+  <Card />
+  <Card />
+  <Card />
+</div>
+
+<!-- Enhanced Reel with optional features -->
+<div className="reel"
+     data-fade-edges="true"
+     data-quiet-scrollbars="true">
   <Card />
   <Card />
   <Card />
@@ -3062,13 +3107,21 @@ Features:
 - Horizontal scroll with snap points
 - Touch-friendly overflow scrolling
 - Container query responsive gaps
+- Scroll refinements (padding, margins, snap-stop)
+- Performance optimizations (contain, content-visibility)
+- Optional edge fades (pure CSS mask)
+- Optional quiet scrollbars
 - Reduced motion support
 - No JavaScript required
 
 Tokens used:
 Gap: --reel-gap (default: --space-24)
-Padding: --space-8
-Container breakpoint: 700px → --space-16`}</pre>
+Padding: --reel-pad (default: --space-16)
+Container breakpoint: 700px → --space-16
+
+Optional Attributes:
+data-fade-edges="true" - CSS mask edge fades
+data-quiet-scrollbars="true" - Minimal scrollbar`}</pre>
           </div>
         </div>
       </Section>
@@ -3089,6 +3142,10 @@ Container breakpoint: 700px → --space-16`}</pre>
           margin: '0 auto',
           padding: '0 var(--gutter)'
         }}>
+          {/* Basic Sidebar */}
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)', marginLeft: 'var(--gutter)' }}>
+            Basic Sidebar
+          </h3>
           <div className="sidebar" style={{ marginBottom: 'var(--space-48)' }}>
             <div data-card data-elevation="elevated" data-padding="spacious">
               <h3 style={{ marginTop: 0, marginBottom: 'var(--space-16)' }}>
@@ -3165,6 +3222,107 @@ Container breakpoint: 700px → --space-16`}</pre>
             </aside>
           </div>
 
+          {/* Sidebar with Sticky Rail */}
+          <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)', marginLeft: 'var(--gutter)' }}>
+            Sidebar with Sticky Rail
+          </h3>
+          <div className="sidebar" style={{ marginBottom: 'var(--space-48)' }}>
+            <div data-card data-elevation="elevated" data-padding="spacious">
+              <h3 style={{ marginTop: 0, marginBottom: 'var(--space-16)' }}>
+                Main Content (Scroll to See Sticky Effect)
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-24)' }}>
+                The sidebar rail on the right will stick to the top as you scroll down. This is perfect for
+                navigation, table of contents, or related links that should remain accessible.
+              </p>
+              <div className="stack" style={{ ['--stack-gap' as any]: 'var(--space-24)' }}>
+                {[1, 2, 3, 4, 5].map(n => (
+                  <div
+                    key={`sticky-${n}`}
+                    data-card
+                    data-padding="normal"
+                    style={{ background: 'var(--surface-2)' }}
+                  >
+                    <h4 style={{ marginTop: 0, marginBottom: 'var(--space-12)', fontWeight: 600 }}>
+                      Section {n}
+                    </h4>
+                    <p style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.875rem',
+                      margin: 0
+                    }}>
+                      Scroll down to see the sidebar rail stick to the top of the viewport.
+                      This creates a persistent navigation experience without any JavaScript.
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <aside data-card data-elevation="raised" data-padding="normal" data-rail-sticky="true">
+              <h4 style={{ marginTop: 0, marginBottom: 'var(--space-16)', fontWeight: 600 }}>
+                Sticky Navigation
+              </h4>
+              <p style={{
+                fontSize: '0.875rem',
+                color: 'var(--text-secondary)',
+                marginBottom: 'var(--space-16)'
+              }}>
+                This rail stays visible as you scroll.
+              </p>
+              <ul className="stack is-compact" style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0
+              }}>
+                <li>
+                  <a href="#section-1" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem'
+                  }}>
+                    → Jump to Section 1
+                  </a>
+                </li>
+                <li>
+                  <a href="#section-2" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem'
+                  }}>
+                    → Jump to Section 2
+                  </a>
+                </li>
+                <li>
+                  <a href="#section-3" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem'
+                  }}>
+                    → Jump to Section 3
+                  </a>
+                </li>
+                <li>
+                  <a href="#section-4" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem'
+                  }}>
+                    → Jump to Section 4
+                  </a>
+                </li>
+                <li>
+                  <a href="#section-5" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem'
+                  }}>
+                    → Jump to Section 5
+                  </a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+
           {/* Usage documentation */}
           <div style={{
             background: 'var(--surface-2)',
@@ -3182,7 +3340,8 @@ Container breakpoint: 700px → --space-16`}</pre>
               overflow: 'auto',
               fontSize: '0.875rem',
               lineHeight: 1.6
-            }}>{`<div className="sidebar">
+            }}>{`<!-- Basic Sidebar -->
+<div className="sidebar">
   <main>
     Main content area
   </main>
@@ -3197,17 +3356,502 @@ Container breakpoint: 700px → --space-16`}</pre>
   <main>Main</main>
 </div>
 
+<!-- Sticky Rail variant -->
+<div className="sidebar">
+  <main>
+    Main content
+  </main>
+  <aside data-rail-sticky="true">
+    This rail sticks to top
+  </aside>
+</div>
+
+<!-- Custom sticky offset -->
+<aside data-rail-sticky="true"
+       style={{ '--rail-top': '4rem' }}>
+  Custom sticky top offset
+</aside>
+
 Features:
 - Two-column grid layout
 - Fixed sidebar width (28rem max, 32vw)
 - Container query responsive collapse
+- Optional sticky rail variant
+- Performance optimizations (contain)
+- Forced-colors mode support
 - Source order independence
 - Token-based gaps
 
 Tokens used:
 Gap: --sidebar-gap (default: --space-32)
 Rail width: min(28rem, 32vw)
-Container breakpoint: 980px collapse`}</pre>
+Rail sticky top: --rail-top (default: 2rem)
+Container breakpoint: 980px collapse
+
+Optional Attributes:
+data-rail-sticky="true" - Makes rail sticky
+data-reverse="true" - Rail comes first in layout`}</pre>
+          </div>
+        </div>
+      </Section>
+
+      {/* Demo 23: Container Queries - Composition-First Responsive Design */}
+      <Section
+        background="surface"
+        align="center"
+        paddingY="lg"
+      >
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
+          <h2 style={{ marginBottom: '1rem', textAlign: 'center', fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 4vw, 2.5rem)' }}>
+            Demo 23: Container Queries (Phase 5)
+          </h2>
+          <Text style={{ marginBottom: '2rem', textAlign: 'center', maxWidth: '65ch', marginInline: 'auto' }}>
+            Container queries enable composition-first responsive design. Components respond to their container width, not the viewport.
+          </Text>
+
+          <div style={{
+            display: 'grid',
+            gap: 'var(--space-32)',
+            marginBottom: 'var(--space-48)'
+          }}>
+
+            {/* Demo: Container Query vs Viewport Query */}
+            <div>
+              <h3 style={{ marginBottom: '1rem', fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.5rem, 3vw, 1.875rem)' }}>
+                Container Query vs Viewport Query
+              </h3>
+              <Text style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
+                Resize your browser to see the difference. The container query box responds to its container width, while viewport query responds to window width.
+              </Text>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: 'var(--space-24)'
+              }}>
+
+                {/* Container Query Demo */}
+                <div style={{
+                  border: '2px solid var(--accent-gold)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: 'var(--space-16)',
+                  background: 'var(--bg-tint-rose)'
+                }}>
+                  <h4 style={{ marginBottom: '0.5rem', fontSize: '1rem', fontWeight: 600 }}>
+                    🎯 Container Query
+                  </h4>
+                  <div
+                    style={{
+                      containerType: 'inline-size',
+                      containerName: 'demo-container',
+                      border: '1px dashed var(--accent-rose)',
+                      padding: 'var(--space-16)',
+                      background: 'var(--surface-1)',
+                      borderRadius: 'var(--radius-sm)'
+                    }}
+                  >
+                    <style dangerouslySetInnerHTML={{ __html: `
+                      .cq-demo-content {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        gap: var(--space-12);
+                      }
+
+                      @container demo-container (max-width: 400px) {
+                        .cq-demo-content {
+                          grid-template-columns: 1fr;
+                          gap: var(--space-8);
+                        }
+                        .cq-demo-content::before {
+                          content: "📱 Mobile layout (container < 400px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--accent-gold);
+                          color: var(--text-primary);
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      @container demo-container (min-width: 401px) and (max-width: 600px) {
+                        .cq-demo-content {
+                          grid-template-columns: 1fr 1fr;
+                        }
+                        .cq-demo-content::before {
+                          content: "📱 Tablet layout (400-600px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--accent-rose);
+                          color: white;
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1 / -1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      @container demo-container (min-width: 601px) {
+                        .cq-demo-content::before {
+                          content: "🖥️ Desktop layout (container > 600px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--accent-sage, #7a8b7f);
+                          color: white;
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1 / -1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      .cq-demo-box {
+                        background: var(--bg-tint-sage);
+                        padding: var(--space-12);
+                        border-radius: var(--radius-sm);
+                        text-align: center;
+                        font-size: 0.875rem;
+                        border: 1px solid var(--border-subtle);
+                      }
+                    `}} />
+                    <div className="cq-demo-content">
+                      <div className="cq-demo-box">Box 1</div>
+                      <div className="cq-demo-box">Box 2</div>
+                      <div className="cq-demo-box">Box 3</div>
+                    </div>
+                  </div>
+                  <Text style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                    Responds to container width ↑
+                  </Text>
+                </div>
+
+                {/* Viewport Query Demo */}
+                <div style={{
+                  border: '2px solid var(--border-medium)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: 'var(--space-16)',
+                  background: 'var(--surface-2)'
+                }}>
+                  <h4 style={{ marginBottom: '0.5rem', fontSize: '1rem', fontWeight: 600 }}>
+                    📏 Viewport Query (Old Way)
+                  </h4>
+                  <div
+                    style={{
+                      border: '1px dashed var(--border-medium)',
+                      padding: 'var(--space-16)',
+                      background: 'var(--surface-1)',
+                      borderRadius: 'var(--radius-sm)'
+                    }}
+                  >
+                    <style dangerouslySetInnerHTML={{ __html: `
+                      .vq-demo-content {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        gap: var(--space-12);
+                      }
+
+                      @media (max-width: 768px) {
+                        .vq-demo-content {
+                          grid-template-columns: 1fr;
+                          gap: var(--space-8);
+                        }
+                        .vq-demo-content::before {
+                          content: "📱 Mobile (viewport < 768px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--border-medium);
+                          color: var(--text-primary);
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      @media (min-width: 769px) and (max-width: 1024px) {
+                        .vq-demo-content {
+                          grid-template-columns: 1fr 1fr;
+                        }
+                        .vq-demo-content::before {
+                          content: "📱 Tablet (768-1024px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--border-medium);
+                          color: var(--text-primary);
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1 / -1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      @media (min-width: 1025px) {
+                        .vq-demo-content::before {
+                          content: "🖥️ Desktop (viewport > 1024px)";
+                          display: block;
+                          padding: var(--space-8);
+                          background: var(--border-medium);
+                          color: var(--text-primary);
+                          border-radius: var(--radius-sm);
+                          text-align: center;
+                          font-size: 0.875rem;
+                          font-weight: 500;
+                          grid-column: 1 / -1;
+                          margin-bottom: var(--space-8);
+                        }
+                      }
+
+                      .vq-demo-box {
+                        background: var(--surface-3);
+                        padding: var(--space-12);
+                        border-radius: var(--radius-sm);
+                        text-align: center;
+                        font-size: 0.875rem;
+                        border: 1px solid var(--border-subtle);
+                      }
+                    `}} />
+                    <div className="vq-demo-content">
+                      <div className="vq-demo-box">Box 1</div>
+                      <div className="vq-demo-box">Box 2</div>
+                      <div className="vq-demo-box">Box 3</div>
+                    </div>
+                  </div>
+                  <Text style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                    Responds to viewport width ↑
+                  </Text>
+                </div>
+              </div>
+            </div>
+
+            {/* Code Examples */}
+            <div style={{
+              background: 'var(--surface-1)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              padding: 'var(--space-24)'
+            }}>
+              <h3 style={{ marginBottom: '1rem', fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.5rem, 3vw, 1.875rem)' }}>
+                Code Examples
+              </h3>
+
+              <div style={{ display: 'grid', gap: 'var(--space-24)' }}>
+                <div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    marginBottom: '0.5rem',
+                    color: 'var(--accent-rose)',
+                    fontWeight: 600
+                  }}>
+                    1. Enable Container Queries
+                  </h4>
+                  <pre style={{
+                    background: 'var(--surface-2)',
+                    padding: 'var(--space-16)',
+                    borderRadius: 'var(--radius-sm)',
+                    overflow: 'auto',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.6
+                  }}>{`/* Enable on any container */
+.section {
+  container-type: inline-size;
+  container-name: section;
+}`}</pre>
+                </div>
+
+                <div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    marginBottom: '0.5rem',
+                    color: 'var(--accent-rose)',
+                    fontWeight: 600
+                  }}>
+                    2. Use Container Queries
+                  </h4>
+                  <pre style={{
+                    background: 'var(--surface-2)',
+                    padding: 'var(--space-16)',
+                    borderRadius: 'var(--radius-sm)',
+                    overflow: 'auto',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.6
+                  }}>{`/* Narrow container layout */
+@container section (max-width: 48rem) {
+  .section__actions {
+    flex-direction: column;
+  }
+}
+
+/* Mobile container layout */
+@container section (max-width: 28rem) {
+  .section__title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+}`}</pre>
+                </div>
+
+                <div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    marginBottom: '0.5rem',
+                    color: 'var(--accent-rose)',
+                    fontWeight: 600
+                  }}>
+                    3. Fallback Support
+                  </h4>
+                  <pre style={{
+                    background: 'var(--surface-2)',
+                    padding: 'var(--space-16)',
+                    borderRadius: 'var(--radius-sm)',
+                    overflow: 'auto',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.6
+                  }}>{`/* Fallback for older browsers */
+@supports not (container-type: inline-size) {
+  @media (max-width: 768px) {
+    .section__actions {
+      flex-direction: column;
+    }
+  }
+}`}</pre>
+                </div>
+
+                <div>
+                  <h4 style={{
+                    fontSize: '1rem',
+                    marginBottom: '0.5rem',
+                    color: 'var(--accent-rose)',
+                    fontWeight: 600
+                  }}>
+                    4. Container Query Tokens
+                  </h4>
+                  <pre style={{
+                    background: 'var(--surface-2)',
+                    padding: 'var(--space-16)',
+                    borderRadius: 'var(--radius-sm)',
+                    overflow: 'auto',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.6
+                  }}>{`/* Available in theme.css */
+--cq-xs: 28rem;  /* ~448px - mobile */
+--cq-sm: 36rem;  /* ~576px - small tablet */
+--cq-md: 48rem;  /* ~768px - tablet */
+--cq-lg: 64rem;  /* ~1024px - desktop */
+--cq-xl: 80rem;  /* ~1280px - wide desktop */
+
+/* Usage with tokens */
+@container (max-width: var(--cq-md)) {
+  /* Styles */
+}`}</pre>
+                </div>
+              </div>
+            </div>
+
+            {/* Benefits & CI Guardrail */}
+            <div style={{ display: 'grid', gap: 'var(--space-16)' }}>
+              <div style={{
+                background: 'var(--bg-tint-sage)',
+                border: '1px solid var(--accent-sage, #7a8b7f)',
+                borderRadius: 'var(--radius-md)',
+                padding: 'var(--space-20)'
+              }}>
+                <h4 style={{ marginBottom: '0.75rem', fontSize: '1rem', fontWeight: 600 }}>
+                  ✨ Benefits
+                </h4>
+                <ul style={{
+                  margin: 0,
+                  paddingLeft: '1.5rem',
+                  fontSize: '0.9375rem',
+                  lineHeight: 1.7
+                }}>
+                  <li><strong>Composition-First:</strong> Components respond to their container, not viewport</li>
+                  <li><strong>Better Reusability:</strong> Same component works in sidebars, grids, or full-width</li>
+                  <li><strong>Scoped Breakpoints:</strong> Each section can have different responsive behavior</li>
+                  <li><strong>Progressive Enhancement:</strong> Automatic fallback for older browsers</li>
+                </ul>
+              </div>
+
+              <div style={{
+                background: 'var(--surface-1)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-md)',
+                padding: 'var(--space-20)'
+              }}>
+                <h4 style={{ marginBottom: '0.75rem', fontSize: '1rem', fontWeight: 600 }}>
+                  🛡️ CI Guardrail
+                </h4>
+                <Text style={{ marginBottom: '0.75rem', fontSize: '0.9375rem' }}>
+                  Enforce container query policy in your CI pipeline:
+                </Text>
+                <pre style={{
+                  background: 'var(--surface-2)',
+                  padding: 'var(--space-12)',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '0.875rem',
+                  marginBottom: '0.75rem'
+                }}>{`npm run lint:cq`}</pre>
+                <Text style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                  This script detects viewport media queries outside @supports fallback blocks and ensures container queries are used for composition-first design.
+                </Text>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Technical Details */}
+          <div style={{
+            background: 'var(--surface-2)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 'var(--radius-md)',
+            padding: 'var(--space-20)'
+          }}>
+            <pre style={{
+              margin: 0,
+              fontSize: '0.875rem',
+              lineHeight: 1.8,
+              whiteSpace: 'pre-wrap'
+            }}>{`Phase 5 Implementation Summary:
+
+✅ Pass 1 - Foundations:
+   • Container query tokens: --cq-xs through --cq-xl (already in theme.css)
+   • Enabled container-type: inline-size on .section by default
+   • Added container-name: section for scoped queries
+   • @supports fallback for browsers without CQ support
+
+✅ Pass 2 - Migration:
+   • Migrated section.css from viewport MQs to container queries
+   • @media (max-width: 768px) → @container section (max-width: 48rem)
+   • @media (max-width: 480px) → @container section (max-width: 28rem)
+   • Preserved viewport MQs in @supports fallback block
+
+✅ Pass 3 - Validation:
+   • Created Playwright tests (tests/container-queries.spec.ts)
+   • Tests verify container-type, container-name, responsive behavior
+   • CI guardrail script (scripts/check-container-queries.mjs)
+   • npm run lint:cq enforces CQ policy
+
+Browser Support:
+✓ Chrome 105+
+✓ Edge 105+
+✓ Safari 16+
+✓ Firefox 110+
+✓ Fallback for older browsers via @supports + viewport MQs
+
+Files Modified:
+• src/styles/components/section.css (container queries + fallback)
+• package.json (added lint:cq script)
+• scripts/check-container-queries.mjs (new CI guardrail)
+• tests/container-queries.spec.ts (new Playwright tests)`}</pre>
           </div>
         </div>
       </Section>
