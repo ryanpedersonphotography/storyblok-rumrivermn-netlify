@@ -14,7 +14,7 @@ export default defineConfig({
   fullyParallel: true,
 
   use: {
-    baseURL: process.env.PW_BASE_URL ?? 'http://localhost:9999',
+    baseURL: process.env.PW_BASE_URL ?? 'https://localhost:9999',
     viewport: { width: 1200, height: 900 },
     colorScheme: 'light',
     locale: 'en-US',
