@@ -1,243 +1,121 @@
 #!/usr/bin/env node
+import fs from 'node:fs';
+import path from 'node:path';
+import fg from 'fast-glob';
+import postcss from 'postcss';
+import safe from 'postcss-safe-parser';
+import pc from 'picocolors';
 
-/**
- * CI Guardrail: Container Query Policy Enforcement
- *
- * Ensures all responsive CSS uses container queries (composition-first)
- * instead of viewport media queries. Viewport MQs are only allowed as
- * fallbacks inside @supports not (container-type: inline-size) blocks.
- *
- * Usage:
- *   npm run lint:cq
- *   node scripts/check-container-queries.mjs
- *
- * Exit codes:
- *   0 - Success (no violations)
- *   1 - Violations found (CI should fail)
- */
+/* ===================== Policy ===================== */
+const FILE_GLOBS = ['src/styles/**/*.css'];
+const ALLOWED_CONTAINERS = new Set(['section', 'section-content']);
+const ALLOWED_BY_FILE = {
+  // 'src/styles/components/card.css': new Set(['section','section-content','card'])
+};
+const ENFORCE_MIN_WIDTH_ONLY = true;
+const REQUIRE_TOKENIZED_WIDTHS = true;
+const PRAGMA_ALLOW_MAX_WIDTH = 'cq:allow-max-width';
 
-import { readFileSync, readdirSync, statSync } from 'fs'
-import { join, relative } from 'path'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+/* precise match: @supports not (container-type: inline-size) */
+const SUPPORTS_NOT_CQ_RE = /not\s*\(\s*container-type\s*:\s*inline-size\s*\)/i;
+const MEDIA_WIDTH_RE = /\(\s*(min|max)-width\s*:\s*[^)]+\)/i;
+const TOKEN_RE = /var\(\s*--cq-(xs|sm|md|lg|xl|navbar-min|xl-nav-gap)\b/i;
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-const projectRoot = join(__dirname, '..')
-
-// Configuration
-const CSS_DIRS = [
-  join(projectRoot, 'src/styles/components'),
-  join(projectRoot, 'src/styles/primitives'),
-]
-
-const ALLOWED_VIEWPORT_MQ_FILES = [
-  'src/styles/tokens/theme.css', // Base theme can have viewport MQs
-  'src/styles/system/reset.css', // Reset CSS can have viewport MQs
-]
-
-// ANSI color codes for terminal output
-const colors = {
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
-  reset: '\x1b[0m',
-  bold: '\x1b[1m',
+function isViewportWidthMedia(at) {
+  return at.name === 'media' && MEDIA_WIDTH_RE.test(at.params || '');
+}
+function isSupportsNotCQ(at) {
+  return at.name === 'supports' && SUPPORTS_NOT_CQ_RE.test(at.params || '');
+}
+function hasAncestor(node, pred) {
+  let p = node.parent;
+  while (p) { if (pred(p)) return true; p = p.parent; }
+  return false;
+}
+function loc(node) {
+  const s = node?.source?.start;
+  return s ? `${s.line}:${s.column}` : '?:?';
+}
+function beforeHasPragma(node, pragma) {
+  const parent = node.parent;
+  if (!parent?.nodes) return false;
+  const idx = parent.nodes.indexOf(node);
+  for (let i = idx - 1; i >= 0; i--) {
+    const n = parent.nodes[i];
+    if (n.type === 'comment' && String(n.text).includes(pragma)) return true;
+    if (n.type === 'atrule' || n.type === 'rule') break;
+  }
+  if (node.raws?.before && String(node.raws.before).includes(pragma)) return true;
+  return false;
+}
+function parseContainerParams(params) {
+  // "section (min-width: var(--cq-md))"
+  // "section (max-width: var(--cq-xs))"
+  const name = (params.match(/^\s*([a-zA-Z-]+)\s*\(/) || [])[1] || null;
+  const inner = params.slice(params.indexOf('(') + 1, params.lastIndexOf(')'));
+  const km = inner.match(/\b(min|max)-width\s*:\s*([^)]+)\)/i) || inner.match(/\b(min|max)-width\s*:\s*([^)]+)$/i);
+  const kind = km ? km[1].toLowerCase() : null;
+  const value = km ? km[2].trim() : null;
+  return { name, kind, value };
+}
+function err(file, node, msg) {
+  console.log(pc.red(`✗ ${file}:${loc(node)} ${msg}`));
+  return 1;
+}
+function info(file, node, msg) {
+  console.log(pc.gray(`• ${file}:${loc(node)} ${msg}`));
 }
 
-/**
- * Recursively find all CSS files in a directory
- */
-function findCSSFiles(dir, files = []) {
-  const entries = readdirSync(dir)
+/* ===================== Check ===================== */
+function checkFile(absPath) {
+  const rel = path.relative(process.cwd(), absPath);
+  const css = fs.readFileSync(absPath, 'utf8');
+  const root = postcss.parse(css, { parser: safe, from: rel });
+  let violations = 0;
 
-  for (const entry of entries) {
-    const fullPath = join(dir, entry)
-    const stat = statSync(fullPath)
+  const allowedHere = new Set([...ALLOWED_CONTAINERS, ...(ALLOWED_BY_FILE[rel] || [])]);
 
-    if (stat.isDirectory()) {
-      findCSSFiles(fullPath, files)
-    } else if (entry.endsWith('.css')) {
-      files.push(fullPath)
+  root.walkAtRules(at => {
+    // Rule 1: viewport @media must be inside @supports not(CQ)
+    if (isViewportWidthMedia(at) && !hasAncestor(at, isSupportsNotCQ)) {
+      violations += err(rel, at, '@media (min|max-width: …) must be inside @supports not (container-type: inline-size)');
     }
-  }
 
-  return files
+    // Rules 2-4: @container validations
+    if (at.name === 'container') {
+      const { name, kind, value } = parseContainerParams(at.params || '');
+
+      if (!name || !allowedHere.has(name)) {
+        violations += err(rel, at, `@container must target an allowed named container (${[...allowedHere].join(', ')}) — found "${name || 'none'}"`);
+      }
+      if (REQUIRE_TOKENIZED_WIDTHS && value && !TOKEN_RE.test(value)) {
+        violations += err(rel, at, `@container width must use var(--cq-*) token — found "${value}"`);
+      }
+      if (ENFORCE_MIN_WIDTH_ONLY && kind === 'max' && !beforeHasPragma(at, PRAGMA_ALLOW_MAX_WIDTH)) {
+        violations += err(rel, at, `Use min-width (mobile-first). Max-width requires /* ${PRAGMA_ALLOW_MAX_WIDTH} */ with justification.`);
+      }
+    }
+  });
+
+  if (violations === 0) info(rel, root, 'No policy violations.');
+  return violations;
 }
 
-/**
- * Check if a viewport media query is inside a @supports fallback block
- */
-function isInSupportsFallback(content, mediaQueryIndex) {
-  // Find the nearest @supports before this media query
-  const beforeContent = content.substring(0, mediaQueryIndex)
-
-  // Look for @supports not (container-type: inline-size)
-  const supportsPattern = /@supports\s+not\s+\(container-type:\s*inline-size\)/gi
-  const supportsMatches = [...beforeContent.matchAll(supportsPattern)]
-
-  if (supportsMatches.length === 0) {
-    return false
+/* ===================== Main ===================== */
+async function main() {
+  console.log(pc.cyan('🔍 Container Query Policy Checker (PostCSS AST)\n'));
+  const files = await fg(FILE_GLOBS, { absolute: true });
+  let total = 0;
+  for (const f of files) total += checkFile(f);
+  if (total > 0) {
+    console.log('\n' + pc.red(`Failed with ${total} violation${total === 1 ? '' : 's'}.`));
+    console.log(pc.dim('\nPolicy:'));
+    console.log(pc.dim(' 1) Viewport @media (width) only inside @supports not (container-type: inline-size)'));
+    console.log(pc.dim(' 2) @container must target allowed names'));
+    console.log(pc.dim(' 3) Widths must use var(--cq-*) tokens'));
+    console.log(pc.dim(` 4) min-width default; max-width needs /* ${PRAGMA_ALLOW_MAX_WIDTH} */`));
+    process.exit(1);
   }
-
-  // Get the last @supports block before this media query
-  const lastSupports = supportsMatches[supportsMatches.length - 1]
-  const supportsStart = lastSupports.index
-
-  // Count braces to see if we're inside the @supports block
-  let braceCount = 0
-  let inSupportsBlock = false
-
-  for (let i = supportsStart; i < mediaQueryIndex; i++) {
-    if (content[i] === '{') {
-      braceCount++
-      if (braceCount === 1) inSupportsBlock = true
-    } else if (content[i] === '}') {
-      braceCount--
-      if (braceCount === 0) inSupportsBlock = false
-    }
-  }
-
-  return inSupportsBlock
+  console.log(pc.green('\n✓ All CSS files comply with container query policy.'));
 }
-
-/**
- * Check a single CSS file for viewport media query violations
- */
-function checkFile(filePath) {
-  const relativePath = relative(projectRoot, filePath)
-
-  // Skip allowed files
-  if (ALLOWED_VIEWPORT_MQ_FILES.some(allowed => relativePath.includes(allowed))) {
-    return { violations: [], warnings: [] }
-  }
-
-  const content = readFileSync(filePath, 'utf-8')
-  const violations = []
-  const warnings = []
-
-  // Pattern: @media with width-based queries (viewport MQs)
-  const viewportMQPattern = /@media\s*\([^)]*(?:min-width|max-width|width)[^)]*\)/gi
-  const matches = [...content.matchAll(viewportMQPattern)]
-
-  for (const match of matches) {
-    const line = content.substring(0, match.index).split('\n').length
-    const isInFallback = isInSupportsFallback(content, match.index)
-
-    if (!isInFallback) {
-      violations.push({
-        file: relativePath,
-        line,
-        code: match[0],
-        message: 'Viewport media query found outside @supports fallback',
-      })
-    }
-  }
-
-  // Check for container queries (informational)
-  const containerQPattern = /@container\s+[a-z-]+\s*\([^)]*(?:min-width|max-width|width)[^)]*\)/gi
-  const containerMatches = [...content.matchAll(containerQPattern)]
-
-  if (containerMatches.length === 0 && matches.length === 0) {
-    warnings.push({
-      file: relativePath,
-      message: 'No container queries or media queries found. Consider using container queries for responsive design.',
-    })
-  }
-
-  return { violations, warnings }
-}
-
-/**
- * Main execution
- */
-function main() {
-  console.log(`${colors.bold}${colors.cyan}`)
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('  Container Query Policy Enforcement')
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log(`${colors.reset}\n`)
-
-  console.log(`${colors.blue}Scanning directories:${colors.reset}`)
-  CSS_DIRS.forEach(dir => {
-    console.log(`  • ${relative(projectRoot, dir)}`)
-  })
-  console.log()
-
-  // Collect all CSS files
-  const allFiles = []
-  for (const dir of CSS_DIRS) {
-    findCSSFiles(dir, allFiles)
-  }
-
-  console.log(`${colors.blue}Found ${allFiles.length} CSS files${colors.reset}\n`)
-
-  // Check each file
-  const allViolations = []
-  const allWarnings = []
-  let filesChecked = 0
-
-  for (const file of allFiles) {
-    const { violations, warnings } = checkFile(file)
-
-    if (violations.length > 0) {
-      allViolations.push(...violations)
-    }
-
-    if (warnings.length > 0) {
-      allWarnings.push(...warnings)
-    }
-
-    filesChecked++
-  }
-
-  // Report results
-  console.log(`${colors.bold}Results:${colors.reset}`)
-  console.log(`  Files checked: ${filesChecked}`)
-  console.log(`  Violations: ${allViolations.length}`)
-  console.log(`  Warnings: ${allWarnings.length}`)
-  console.log()
-
-  // Display violations
-  if (allViolations.length > 0) {
-    console.log(`${colors.bold}${colors.red}❌ VIOLATIONS FOUND:${colors.reset}\n`)
-
-    for (const violation of allViolations) {
-      console.log(`${colors.red}✗${colors.reset} ${colors.bold}${violation.file}:${violation.line}${colors.reset}`)
-      console.log(`  ${violation.message}`)
-      console.log(`  ${colors.yellow}${violation.code}${colors.reset}`)
-      console.log()
-    }
-
-    console.log(`${colors.red}${colors.bold}Policy:${colors.reset}`)
-    console.log(`  Viewport media queries MUST be wrapped in:`)
-    console.log(`  ${colors.cyan}@supports not (container-type: inline-size) { ... }${colors.reset}`)
-    console.log()
-    console.log(`  Prefer container queries for composition-first responsive design:`)
-    console.log(`  ${colors.green}@container section (max-width: var(--cq-md)) { ... }${colors.reset}`)
-    console.log()
-
-    process.exit(1)
-  }
-
-  // Display warnings (don't fail CI)
-  if (allWarnings.length > 0) {
-    console.log(`${colors.yellow}⚠ Warnings:${colors.reset}\n`)
-
-    for (const warning of allWarnings) {
-      console.log(`${colors.yellow}⚠${colors.reset} ${warning.file}`)
-      console.log(`  ${warning.message}`)
-      console.log()
-    }
-  }
-
-  // Success
-  console.log(`${colors.green}${colors.bold}✓ All checks passed!${colors.reset}`)
-  console.log(`${colors.green}Container query policy is being followed.${colors.reset}\n`)
-
-  process.exit(0)
-}
-
-main()
+main().catch(e => { console.error(pc.red('Fatal error:'), e); process.exit(1); });

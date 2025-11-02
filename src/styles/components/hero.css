@@ -210,37 +210,50 @@
 }
 
 /* ============================================================================
-   Responsive — Container Queries (Composition-First)
+   Responsive — Container Queries (Mobile-First Progressive Enhancement)
    ============================================================================ */
 
-/* Tablet-width containers: adjust spacing */
-@container section (max-width: var(--cq-lg, 64rem)) {
-  [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
-  [data-clean-root="true"] .hero-lead { font-size: var(--size-lg, 1.125rem); margin-bottom: var(--space-2xl, 2.5rem); }
+/* Base (mobile): stacked CTAs, no parallax, tighter spacing */
+[data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
+[data-clean-root="true"] .hero-lead {
+  font-size: var(--size-lg, 1.125rem);
+  margin-bottom: var(--space-2xl, 2.5rem);
+}
+[data-clean-root="true"] .hero-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm, .75rem);
+}
+[data-clean-root="true"] .hero-cta {
+  padding: var(--space-sm, .75rem) var(--space-xl, 2rem);
+  font-size: calc(var(--size-sm, 0.875rem) * 0.95);
+}
+/* Disable parallax on mobile for perf */
+[data-clean-root="true"] .hero::before {
+  background-attachment: scroll;
 }
 
-/* Mobile-width containers: stack CTAs, disable parallax */
-@container section (max-width: var(--cq-md, 48rem)) {
-  [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
-  [data-clean-root="true"] .hero-ctas { flex-direction: column; align-items: center; gap: var(--space-sm, 0.75rem); }
-  [data-clean-root="true"] .hero-cta { padding: var(--space-sm, .75rem) var(--space-xl, 2rem); font-size: calc(var(--size-sm, 0.875rem) * 0.95); }
-  /* disable parallax on mobile for perf */
-  [data-clean-root="true"] .hero::before { background-attachment: scroll; }
+/* Tablet-up: horizontal CTAs */
+@container section (min-width: var(--cq-md, 48rem)) {
+  [data-clean-root="true"] .hero-ctas {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Desktop-up: roomier spacing and larger title (handled by tokens) */
+@container section (min-width: var(--cq-lg, 64rem)) {
+  /* Spacing and typography scale naturally via tokens */
 }
 
 /* Fallback: Viewport media queries for browsers without container query support */
 @supports not (container-type: inline-size) {
-  @media (max-width: 1024px) {
-    [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
-    [data-clean-root="true"] .hero-lead { font-size: var(--size-lg, 1.125rem); margin-bottom: var(--space-2xl, 2.5rem); }
-  }
-
-  @media (max-width: 768px) {
-    [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
-    [data-clean-root="true"] .hero-ctas { flex-direction: column; align-items: center; gap: var(--space-sm, 0.75rem); }
-    [data-clean-root="true"] .hero-cta { padding: var(--space-sm, .75rem) var(--space-xl, 2rem); font-size: calc(var(--size-sm, 0.875rem) * 0.95); }
-    /* disable parallax on mobile for perf */
-    [data-clean-root="true"] .hero::before { background-attachment: scroll; }
+  @media (min-width: 768px) {
+    [data-clean-root="true"] .hero-ctas {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 }
 

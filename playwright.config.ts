@@ -1,25 +1,46 @@
 import { defineConfig, devices } from '@playwright/test';
 
+/**
+ * Playwright Configuration for Container Query Visual Regression Testing
+ *
+ * This config defines two projects:
+ * - 'cq': Standard Chromium with container queries enabled (default)
+ * - 'no-cq': Chromium with --disable-blink-features=CSSContainerQueries
+ *
+ * Visual snapshots are shared between projects to detect fallback drift.
+ */
 export default defineConfig({
   testDir: 'tests',
   fullyParallel: true,
-  timeout: 45_000,
-  expect: {
-    toHaveScreenshot: {
-      maxDiffPixelRatio: 0.02, // tighten/loosen later
-      animations: 'disabled',
-    },
-  },
+
   use: {
-    headless: true,
-    browserName: 'chromium',
-    viewport: { width: 1280, height: 900 },
-    deviceScaleFactor: 1, // keep stable
+    baseURL: process.env.PW_BASE_URL ?? 'http://localhost:9999',
+    viewport: { width: 1200, height: 900 },
     colorScheme: 'light',
-    timezoneId: 'America/Chicago',
     locale: 'en-US',
-    javaScriptEnabled: true,
+    timezoneId: 'America/Chicago',
     ignoreHTTPSErrors: true,
+    video: 'off',
+    screenshot: 'on',
+    trace: 'off'
   },
-  reporter: [['list'], ['html', { open: 'never' }]],
+
+  // Shared snapshot path ensures cq and no-cq projects use same baseline
+  snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+
+  projects: [
+    {
+      name: 'cq',
+      use: { ...devices['Desktop Chrome'] }
+    },
+    {
+      name: 'no-cq',
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--disable-blink-features=CSSContainerQueries']
+        }
+      }
+    }
+  ],
 });

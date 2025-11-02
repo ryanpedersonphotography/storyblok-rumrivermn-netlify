@@ -429,6 +429,10 @@
   --cq-lg: 64rem;  /* ~1024px - desktop component */
   --cq-xl: 80rem;  /* ~1280px - wide desktop component */
 
+  /* Navbar-specific container query breakpoints */
+  --cq-navbar-min: 56.25rem;  /* 900px - navbar desktop layout breakpoint */
+  --cq-xl-nav-gap: 75rem;     /* 1200px - extra wide nav gap (optional, xl may suffice) */
+
   /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
   --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
   --grad-section-soft: linear-gradient(180deg, rgb(252 248 244) 0%, rgb(246 240 234) 100%);

@@ -47,21 +47,31 @@
   line-height: 1.8; opacity: .95;
 }
 
-/* Grid (mobile-first: 1 column by default) */
+/* Grid (Base: Mobile-First Single Column) */
 [data-clean-root="true"] .pricing-grid {
-  display: grid; gap: clamp(1rem, 3vw, 2rem);
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: 1fr;
 }
 
-/* Tablet-width containers and up: 3 columns */
+/* Tablet-up: 2 columns */
 @container section (min-width: var(--cq-md, 48rem)) {
-  [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Fallback: Viewport media query for browsers without container query support */
+/* Desktop-up: 3 columns */
+@container section (min-width: var(--cq-lg, 64rem)) {
+  [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
 @supports not (container-type: inline-size) {
   @media (min-width: 768px) {
-    [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    [data-clean-root="true"] .pricing-grid { grid-template-columns: repeat(3, 1fr); }
   }
 }
 

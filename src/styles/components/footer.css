@@ -8,7 +8,7 @@
 @layer components {
 
 [data-clean-root="true"] .footer {
-  padding: var(--space-56) 0 var(--space-32);
+  padding: var(--space-40) 0 var(--space-24);
   background: linear-gradient(135deg, #2C2416 0%, #1F1A11 100%);
   color: var(--footer-text, #FFF8E7);
   inline-size: 100%;
@@ -43,11 +43,12 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   padding: 0 var(--gutter);
 }
 
-/* Main content - Flexbox layout */
+/* Main content - Flexbox layout (Base: Mobile Stacked) */
 [data-clean-root="true"] .footer-content {
   display: flex;
-  justify-content: space-between;
-  gap: var(--space-64);
+  flex-direction: column;
+  gap: var(--space-32);
+  padding: 0 var(--gutter);
   margin-bottom: var(--space-32);
 }
 
@@ -75,12 +76,12 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   align-items: center;
 }
 
-/* Section Titles - All Centered */
+/* Section Titles - All Centered (Base: Mobile Font Size) */
 [data-clean-root="true"] .footer-title,
 [data-clean-root="true"] .footer-section-title {
   color: var(--_accent);
-  margin: 0 0 var(--space-20) 0;
-  font-size: 20px;
+  margin: 0 0 var(--space-16) 0;
+  font-size: 18px;
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -102,17 +103,17 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   background: var(--_accent);
 }
 
-/* Description Text */
+/* Description Text (Base: Mobile Font Size) */
 [data-clean-root="true"] .footer-description {
   line-height: 1.8;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   color: var(--text-secondary, #E8D4BC);
   margin: 0 0 var(--space-24) 0;
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
 }
 
-/* Address Styling */
+/* Address Styling (Base: Mobile Font Size) */
 [data-clean-root="true"] .footer-address {
   display: flex;
   align-items: flex-start;
@@ -121,10 +122,10 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   line-height: 1.6;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   color: rgba(255, 255, 255, 0.85);
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* Phone Link */
+/* Phone Link (Base: Mobile Font Size) */
 [data-clean-root="true"] .footer-phone-link {
   display: inline-flex;
   align-items: center;
@@ -134,7 +135,7 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   padding: var(--space-8) 0;
   transition: all 300ms ease;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -151,11 +152,11 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   align-items: center;
 }
 
-/* Social Links Container */
+/* Social Links Container (Base: Mobile Gap) */
 [data-clean-root="true"] .footer-social-links {
   display: flex;
   flex-direction: row;
-  gap: var(--space-24);
+  gap: var(--space-16);
   align-items: center;
   justify-content: center;
 }
@@ -180,10 +181,10 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   transform: translateY(-3px);
 }
 
-/* Social Icons */
+/* Social Icons (Base: Mobile Size) */
 [data-clean-root="true"] .footer-social-icon {
-  inline-size: 20px;
-  block-size: 20px;
+  inline-size: 18px;
+  block-size: 18px;
   flex-shrink: 0;
 }
 
@@ -206,106 +207,42 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
 }
 
 /* ============================================================================
-   Responsive — Container Queries (Composition-First)
+   Responsive — Container Queries (Mobile-First Progressive Enhancement)
    ============================================================================ */
 
-/* Tablet-width containers: stack footer sections vertically */
-@container section (max-width: var(--cq-md, 48rem)) {
+/* Base (mobile): vertical stack already set above */
+
+/* Tablet-up: Horizontal two-column footer */
+@container section (min-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .footer {
     padding: var(--space-40) 0 var(--space-20);
   }
 
   [data-clean-root="true"] .footer-content {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: var(--space-40);
-  }
-
-  [data-clean-root="true"] .footer-section:first-child {
-    flex: 1;
+    padding: 0;
   }
 }
 
-/* Mobile-width containers: reduce spacing and font sizes */
-@container section (max-width: var(--cq-xs, 28rem)) {
-  [data-clean-root="true"] .footer {
-    padding: var(--space-40) 0 var(--space-24);
-  }
-
-  [data-clean-root="true"] .footer-content {
-    gap: var(--space-32);
-    padding: 0 var(--gutter);
-  }
-
-  [data-clean-root="true"] .footer-title,
-  [data-clean-root="true"] .footer-section-title {
-    font-size: 18px;
-    margin-bottom: var(--space-16);
-  }
-
-  [data-clean-root="true"] .footer-description,
-  [data-clean-root="true"] .footer-address,
-  [data-clean-root="true"] .footer-phone-link,
-  [data-clean-root="true"] .footer-social-link {
-    font-size: 14px;
-  }
-
-  [data-clean-root="true"] .footer-social-links {
-    gap: var(--space-16);
-  }
-
-  [data-clean-root="true"] .footer-social-icon {
-    inline-size: 18px;
-    block-size: 18px;
-  }
+/* Desktop-up: Four-column footer (if using footer-columns grid) */
+@container section (min-width: var(--cq-lg, 64rem)) {
+  /* Optionally add four-column layout via .footer-columns grid if markup supports it */
 }
 
 /* Fallback: Viewport media queries for browsers without container query support */
 @supports not (container-type: inline-size) {
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     [data-clean-root="true"] .footer {
       padding: var(--space-40) 0 var(--space-20);
     }
 
     [data-clean-root="true"] .footer-content {
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
       gap: var(--space-40);
-    }
-
-    [data-clean-root="true"] .footer-section:first-child {
-      flex: 1;
-    }
-  }
-
-  @media (max-width: 480px) {
-    [data-clean-root="true"] .footer {
-      padding: var(--space-40) 0 var(--space-24);
-    }
-
-    [data-clean-root="true"] .footer-content {
-      gap: var(--space-32);
-      padding: 0 var(--gutter);
-    }
-
-    [data-clean-root="true"] .footer-title,
-    [data-clean-root="true"] .footer-section-title {
-      font-size: 18px;
-      margin-bottom: var(--space-16);
-    }
-
-    [data-clean-root="true"] .footer-description,
-    [data-clean-root="true"] .footer-address,
-    [data-clean-root="true"] .footer-phone-link,
-    [data-clean-root="true"] .footer-social-link {
-      font-size: 14px;
-    }
-
-    [data-clean-root="true"] .footer-social-links {
-      gap: var(--space-16);
-    }
-
-    [data-clean-root="true"] .footer-social-icon {
-      inline-size: 18px;
-      block-size: 18px;
+      padding: 0;
     }
   }
 }

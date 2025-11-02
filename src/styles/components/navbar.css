@@ -233,7 +233,7 @@
    ============================================================================ */
 
 /* Desktop layout: show nav, hide mobile button (900px+ containers) */
-@container section (min-width: 56.25rem) {
+@container section (min-width: var(--cq-navbar-min, 56.25rem)) {
   [data-clean-root="true"] .navbar__nav {
     display: flex;
   }
@@ -250,7 +250,7 @@
 }
 
 /* Wide containers: increase nav gap (1200px+ containers) */
-@container section (min-width: 75rem) {
+@container section (min-width: var(--cq-xl, 75rem)) {
   [data-clean-root="true"] .navbar__nav {
     gap: var(--space-40);
   }

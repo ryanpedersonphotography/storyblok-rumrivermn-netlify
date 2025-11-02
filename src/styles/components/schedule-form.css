@@ -1,7 +1,7 @@
-/* SCHEDULE FORM SECTION STYLES - Clean architecture implementation */
+/* SCHEDULE FORM SECTION STYLES - Clean architecture implementation (Base: Mobile-First) */
 
 [data-clean-root="true"] .schedule-tour {
-  padding: clamp(var(--space-56), 6vw, var(--space-96)) 0;
+  padding: var(--space-64) 0;
   background: linear-gradient(135deg, var(--surface-0, #F4E4E1) 0%, var(--surface-2, #FFF8E7) 100%);
   position: relative;
   overflow: hidden;
@@ -33,17 +33,17 @@
 }
 
 [data-clean-root="true"] .form-container {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 var(--gutter);
   position: relative;
   z-index: 1;
 }
 
-/* Form Header */
+/* Form Header (Base: Mobile) */
 [data-clean-root="true"] .form-header {
   text-align: center;
-  margin-bottom: clamp(var(--space-32), 4vw, var(--space-48));
+  margin-bottom: var(--space-64);
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -53,7 +53,7 @@
 
 [data-clean-root="true"] .form-script {
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(1.5rem, 3.2vw, 1.75rem);
+  font-size: 1.5rem;
   color: var(--theme-accent-gold, #E4C896);
   margin-bottom: var(--space-12);
   font-weight: 400;
@@ -61,12 +61,12 @@
 
 [data-clean-root="true"] .form-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.25rem, 4.8vw, 3rem);
+  font-size: 2rem;
   line-height: 1.2;
   color: var(--theme-text-primary, #6B4E3D);
   margin: 0 0 var(--space-12);
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: 1px;
 }
 
 [data-clean-root="true"] .form-description {
@@ -77,22 +77,22 @@
   max-width: 48ch;
 }
 
-/* Form */
+/* Form (Base: Mobile) */
 [data-clean-root="true"] .tour-form {
   background: var(--theme-bg-primary, #FFFCF8);
   backdrop-filter: none;
-  padding: var(--space-48);
-  border-radius: 20px;
+  padding: var(--space-20);
+  border-radius: 16px;
   box-shadow: var(--theme-shadow-lg, 0 20px 60px rgba(0, 0, 0, 0.3));
   border: 1px solid var(--theme-border-subtle, rgba(0, 0, 0, 0.08));
   display: grid;
-  gap: var(--space-32);
+  gap: var(--space-20);
 }
 
 [data-clean-root="true"] .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-32);
+  grid-template-columns: 1fr;
+  gap: var(--space-20);
 }
 
 [data-clean-root="true"] .form-group {
@@ -112,13 +112,13 @@
 [data-clean-root="true"] .form-input,
 [data-clean-root="true"] .form-select,
 [data-clean-root="true"] .form-textarea {
-  padding: var(--space-16) var(--space-20);
+  padding: var(--space-12) var(--space-16);
   border: 2px solid color-mix(in srgb, var(--theme-accent-gold, #E4C896) 30%, transparent);
   border-radius: 12px;
   background: var(--theme-bg-card, #FFFCF8);
   color: var(--theme-text-primary, #2C2416);
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -271,130 +271,55 @@ html[data-clean-root="true"] .form-textarea:focus {
 }
 
 /* ============================================================================
-   Responsive — Container Queries (Composition-First)
+   Responsive — Container Queries (Mobile-First Progressive Enhancement)
    ============================================================================ */
 
-/* Tablet-width containers: stack form fields, adjust spacing */
-@container section (max-width: var(--cq-md, 48rem)) {
+/* Base (mobile): Single column layout already set above */
+
+/* Tablet-up: Two-column form fields and roomier spacing */
+@container section (min-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .schedule-tour {
     padding: var(--space-80) 0;
   }
 
   [data-clean-root="true"] .form-container {
-    max-width: 100%;
-    padding: 0 var(--gutter);
-  }
-
-  [data-clean-root="true"] .form-header {
-    margin-bottom: var(--space-64);
+    padding: 0;
   }
 
   [data-clean-root="true"] .form-title {
     font-size: 2.5rem;
   }
 
-  [data-clean-root="true"] .form-script {
-    font-size: 1.5rem;
-  }
-
   [data-clean-root="true"] .tour-form {
     padding: var(--space-32);
-    border-radius: 16px;
   }
 
   [data-clean-root="true"] .form-row {
-    grid-template-columns: 1fr;
-    gap: var(--space-20);
-  }
-}
-
-/* Mobile-width containers: reduce padding and font sizes */
-@container section (max-width: var(--cq-xs, 28rem)) {
-  [data-clean-root="true"] .schedule-tour {
-    padding: var(--space-64) 0;
-  }
-
-  [data-clean-root="true"] .form-container {
-    padding: 0 var(--gutter);
-  }
-
-  [data-clean-root="true"] .form-title {
-    font-size: 2rem;
-    letter-spacing: 1px;
-  }
-
-  [data-clean-root="true"] .tour-form {
-    padding: var(--space-20);
-    gap: var(--space-20);
-  }
-
-  [data-clean-root="true"] .form-input,
-  [data-clean-root="true"] .form-select,
-  [data-clean-root="true"] .form-textarea {
-    padding: var(--space-12) var(--space-16);
-    font-size: 0.9rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Fallback: Viewport media queries for browsers without container query support */
 @supports not (container-type: inline-size) {
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     [data-clean-root="true"] .schedule-tour {
       padding: var(--space-80) 0;
     }
 
     [data-clean-root="true"] .form-container {
-      max-width: 100%;
-      padding: 0 var(--gutter);
-    }
-
-    [data-clean-root="true"] .form-header {
-      margin-bottom: var(--space-64);
+      padding: 0;
     }
 
     [data-clean-root="true"] .form-title {
       font-size: 2.5rem;
     }
 
-    [data-clean-root="true"] .form-script {
-      font-size: 1.5rem;
-    }
-
     [data-clean-root="true"] .tour-form {
       padding: var(--space-32);
-      border-radius: 16px;
     }
 
     [data-clean-root="true"] .form-row {
-      grid-template-columns: 1fr;
-      gap: var(--space-20);
-    }
-  }
-
-  @media (max-width: 480px) {
-    [data-clean-root="true"] .schedule-tour {
-      padding: var(--space-64) 0;
-    }
-
-    [data-clean-root="true"] .form-container {
-      padding: 0 var(--gutter);
-    }
-
-    [data-clean-root="true"] .form-title {
-      font-size: 2rem;
-      letter-spacing: 1px;
-    }
-
-    [data-clean-root="true"] .tour-form {
-      padding: var(--space-20);
-      gap: var(--space-20);
-    }
-
-    [data-clean-root="true"] .form-input,
-    [data-clean-root="true"] .form-select,
-    [data-clean-root="true"] .form-textarea {
-      padding: var(--space-12) var(--space-16);
-      font-size: 0.9rem;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 }
