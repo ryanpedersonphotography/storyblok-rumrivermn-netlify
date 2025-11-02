@@ -1,0 +1,80 @@
+/* ===========================
+   PHASE 6: ALPHA / BLUR / MIX TOKENS
+   =========================== */
+
+/* 1) Alpha scale (fractions). Semantically named. */
+:root {
+  --alpha-hairline: 0.06;   /* hairline borders */
+  --alpha-subtle:  0.08;    /* default borders, light dividers */
+  --alpha-soft:    0.12;    /* standard dividers, mats */
+  --alpha-med:     0.16;    /* hover outlines, image mats */
+  --alpha-strong:  0.24;    /* overlays, inset shadows */
+  --alpha-deep:    0.36;    /* modal scrims, strong glass */
+  --alpha-heavy:   0.50;    /* max scrim */
+}
+
+/* 2) Blur / saturation scales for glass & backdrops */
+:root {
+  --blur-xs: 2px;
+  --blur-sm: 4px;
+  --blur-md: 8px;           /* replaces "8px" */
+  --blur-lg: 12px;
+  --blur-xl: 16px;
+
+  --saturate-low: 1.1;
+  --saturate-med: 1.2;      /* replaces "1.2" */
+  --saturate-high: 1.35;
+}
+
+/* 3) Theme-aware mix base: Light→black, Dark→white */
+:root { --mix-base: black; }
+html[data-theme="dark"] { --mix-base: white; }
+
+/* 4) Reusable mix results (OKLCH) */
+:root {
+  --mix-hairline: color-mix(in oklch, var(--mix-base) calc(var(--alpha-hairline) * 100%), transparent);
+  --mix-subtle:   color-mix(in oklch, var(--mix-base) calc(var(--alpha-subtle)  * 100%), transparent);
+  --mix-soft:     color-mix(in oklch, var(--mix-base) calc(var(--alpha-soft)    * 100%), transparent);
+  --mix-med:      color-mix(in oklch, var(--mix-base) calc(var(--alpha-med)     * 100%), transparent);
+  --mix-strong:   color-mix(in oklch, var(--mix-base) calc(var(--alpha-strong)  * 100%), transparent);
+  --mix-deep:     color-mix(in oklch, var(--mix-base) calc(var(--alpha-deep)    * 100%), transparent);
+  --mix-heavy:    color-mix(in oklch, var(--mix-base) calc(var(--alpha-heavy)   * 100%), transparent);
+
+  /* Glass backdrops */
+  --glass-backdrop: blur(var(--blur-md)) saturate(var(--saturate-med));
+  --glass-backdrop-strong: blur(var(--blur-lg)) saturate(var(--saturate-high));
+}
+
+/* 5) Progressive enhancement fallbacks for engines w/o OKLCH */
+@supports not (color: oklch(50% 0.05 30)) {
+  :root {
+    --mix-hairline: rgba(0,0,0,0.06);
+    --mix-subtle:   rgba(0,0,0,0.08);
+    --mix-soft:     rgba(0,0,0,0.12);
+    --mix-med:      rgba(0,0,0,0.16);
+    --mix-strong:   rgba(0,0,0,0.24);
+    --mix-deep:     rgba(0,0,0,0.36);
+    --mix-heavy:    rgba(0,0,0,0.50);
+  }
+  html[data-theme="dark"] {
+    --mix-hairline: rgba(255,255,255,0.06);
+    --mix-subtle:   rgba(255,255,255,0.08);
+    --mix-soft:     rgba(255,255,255,0.12);
+    --mix-med:      rgba(255,255,255,0.16);
+    --mix-strong:   rgba(255,255,255,0.24);
+    --mix-deep:     rgba(255,255,255,0.36);
+    --mix-heavy:    rgba(255,255,255,0.50);
+  }
+}
+
+/* 6) Backdrop-filter vendor guard (Safari/WebKit) */
+.glass-backdrop {
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+}
+
+/* TL;DR:
+   Borders/Dividers:  border-color: var(--mix-subtle);
+   Mats/Overlays:     background: var(--mix-soft|--mix-med|--mix-strong|--mix-deep);
+   Glass:             backdrop-filter: var(--glass-backdrop); -webkit-backdrop-filter: var(--glass-backdrop);
+*/
