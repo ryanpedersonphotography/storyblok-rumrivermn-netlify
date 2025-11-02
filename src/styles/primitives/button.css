@@ -13,57 +13,18 @@
      - Universal selector (native + asChild)
      ========================================================= */
 
-  :root {
-    /* Size scale (map to your spacing tokens) */
-    --btn-h-xs: 2rem;       /* 32px */
-    --btn-pad-xs: 0 var(--space-12, 0.75rem);
-    --btn-fs-xs: 0.8125rem; /* 13px */
-
-    --btn-h-sm: 2.5rem;     /* 40px */
-    --btn-pad-sm: 0 var(--space-16, 1rem);
-    --btn-fs-sm: 0.875rem;  /* 14px */
-
-    --btn-h-md: 3rem;       /* 48px */
-    --btn-pad-md: 0 var(--space-20, 1.25rem);
-    --btn-fs-md: 1rem;      /* 16px */
-
-    --btn-h-lg: 3.5rem;     /* 56px */
-    --btn-pad-lg: 0 var(--space-24, 1.5rem);
-    --btn-fs-lg: 1.0625rem; /* 17px */
-
-    /* Border radius options */
-    --btn-rad-round: 8px;
-    --btn-rad-pill: 9999px;
-    --btn-rad-square: 0;
-
-    /* Focus ring */
-    --btn-focus: var(--focus-ring, var(--btn-outline-border, oklch(0.78 0.08 85)));
-    --btn-focus-offset: 2px;
-
-    /* Variant surfaces (wire to your brand tokens) */
-    /* SOLID variant */
-    --btn-bg-solid: var(--btn-bg-gold, oklch(0.85 0.09 85));
-    --btn-fg-solid: var(--btn-fg-on-gold, oklch(0.20 0.03 80));
-
-    /* OUTLINE variant */
-    --btn-bg-outline: transparent;
-    --btn-bd-outline: var(--btn-outline-border, color-mix(in oklch, var(--btn-bg-gold) 90%, black));
-    --btn-fg-outline: var(--btn-outline-fg, var(--btn-bg-gold));
-
-    /* SUBTLE variant */
-    --btn-bg-subtle: color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 18%, transparent);
-    --btn-fg-subtle: var(--btn-bg-gold, oklch(0.85 0.09 85));
-
-    /* GHOST variant */
-    --btn-bg-ghost: transparent;
-    --btn-fg-ghost: var(--text-primary, currentColor);
-  }
-
   /* =========================================================
-     UNIVERSAL RESET (native <button> + asChild elements)
+     BASE: Shared layout + motion (grid for spinner/content)
      ========================================================= */
-  button[data-ui="button"],
-  [data-ui="button"]:is(a, span, div) {
+  [data-ui="button"] {
+    /* Internal, overridable knobs (default from tokens) */
+    --_pad-y: var(--btn-pad-y, var(--space-12));
+    --_pad-x: var(--btn-pad-x, var(--space-20));
+    --_radius: var(--btn-radius, var(--radius-pill));
+    --_gap: var(--btn-gap, var(--space-8));
+    --_min-h: var(--btn-min-h, 44px);
+    --_min-w: var(--btn-min-w, 44px);
+
     /* Reset all browser defaults */
     all: unset;
     box-sizing: border-box;
@@ -77,7 +38,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-8, 0.5rem);
+    gap: var(--_gap);
 
     /* Typography */
     font: inherit;
@@ -93,8 +54,14 @@
     cursor: pointer;
 
     /* WCAG 2.5.5: Minimum 44×44px hit target */
-    min-inline-size: 44px;
-    min-block-size: 44px;
+    min-inline-size: var(--_min-w);
+    min-block-size: var(--_min-h);
+
+    /* Base padding (calculated from internal vars) */
+    padding: var(--_pad-y) var(--_pad-x);
+
+    /* Border radius */
+    border-radius: var(--_radius);
 
     /* Smooth transitions (respects motion preferences below) */
     transition:
@@ -106,69 +73,79 @@
   }
 
   /* =========================================================
-     VARIANTS (behavioral, not branded)
-     ========================================================= */
-  [data-ui="button"][data-variant="solid"] {
-    background: var(--btn-bg-solid);
-    color: var(--btn-fg-solid);
-  }
-
-  [data-ui="button"][data-variant="outline"] {
-    background: var(--btn-bg-outline);
-    color: var(--btn-fg-outline);
-    border: 2px solid var(--btn-bd-outline);
-  }
-
-  [data-ui="button"][data-variant="subtle"] {
-    background: var(--btn-bg-subtle);
-    color: var(--btn-fg-subtle);
-  }
-
-  [data-ui="button"][data-variant="ghost"] {
-    background: var(--btn-bg-ghost);
-    color: var(--btn-fg-ghost);
-  }
-
-  /* =========================================================
-     SIZES (height + padding + font-size)
+     SIZES (calculated from base tokens)
      ========================================================= */
   [data-ui="button"][data-size="xs"] {
-    block-size: var(--btn-h-xs);
-    padding: var(--btn-pad-xs);
-    font-size: var(--btn-fs-xs);
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.5);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.6);
+    font-size: 0.8125rem; /* 13px */
   }
 
   [data-ui="button"][data-size="sm"] {
-    block-size: var(--btn-h-sm);
-    padding: var(--btn-pad-sm);
-    font-size: var(--btn-fs-sm);
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.725);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.8);
+    font-size: 0.875rem; /* 14px */
   }
 
   [data-ui="button"][data-size="md"] {
-    block-size: var(--btn-h-md);
-    padding: var(--btn-pad-md);
-    font-size: var(--btn-fs-md);
+    --_pad-y: var(--btn-pad-y, var(--space-12));
+    --_pad-x: var(--btn-pad-x, var(--space-20));
+    font-size: 1rem; /* 16px */
   }
 
   [data-ui="button"][data-size="lg"] {
-    block-size: var(--btn-h-lg);
-    padding: var(--btn-pad-lg);
-    font-size: var(--btn-fs-lg);
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 1.25);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 1.2);
+    font-size: 1.0625rem; /* 17px */
   }
 
   /* =========================================================
      CORNERS (border-radius options)
      ========================================================= */
   [data-ui="button"][data-corner="round"] {
-    border-radius: var(--btn-rad-round);
+    --_radius: 8px;
   }
 
   [data-ui="button"][data-corner="pill"] {
-    border-radius: var(--btn-rad-pill);
+    --_radius: 9999px;
   }
 
   [data-ui="button"][data-corner="square"] {
-    border-radius: var(--btn-rad-square);
+    --_radius: 0;
+  }
+
+  /* =========================================================
+     VARIANTS (behavioral, token-driven)
+     ========================================================= */
+
+  /* SOLID variant */
+  [data-ui="button"][data-variant="solid"] {
+    background: var(--btn-bg-gold, oklch(0.85 0.09 85));
+    color: var(--btn-fg-on-gold, oklch(0.20 0.03 80));
+  }
+
+  /* OUTLINE variant */
+  [data-ui="button"][data-variant="outline"] {
+    background: transparent;
+    color: var(--btn-outline-fg, var(--btn-bg-gold, oklch(0.85 0.09 85)));
+    border: 2px solid var(--btn-outline-border, color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 90%, black));
+  }
+
+  /* SUBTLE variant (14% accent mix) */
+  [data-ui="button"][data-variant="subtle"] {
+    background: color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 14%, transparent);
+    color: var(--btn-bg-gold, oklch(0.85 0.09 85));
+  }
+
+  /* GHOST variant */
+  [data-ui="button"][data-variant="ghost"] {
+    background: transparent;
+    color: var(--text-primary, currentColor);
+  }
+
+  /* Ghost hover background */
+  [data-ui="button"][data-variant="ghost"]:hover:not([data-disabled="true"]):not(:disabled) {
+    background: color-mix(in oklch, currentColor 10%, transparent);
   }
 
   /* =========================================================
@@ -202,20 +179,34 @@
   }
 
   /* =========================================================
-     FOCUS STYLES (keyboard accessibility)
+     FOCUS STYLES (defers to global focus system)
      ========================================================= */
   button[data-ui="button"]:focus-visible,
   [data-ui="button"]:focus-visible {
-    outline: 2px solid var(--btn-focus);
-    outline-offset: var(--btn-focus-offset);
+    outline: var(--focus-width, 2px) solid var(--focus-ring, var(--btn-outline-border, oklch(0.78 0.08 85)));
+    outline-offset: var(--focus-offset, 2px);
   }
 
   /* High Contrast Mode (Windows HCM / forced-colors) */
   @media (forced-colors: active) {
+    button[data-ui="button"],
+    [data-ui="button"] {
+      border: 1px solid ButtonText;
+      background: ButtonFace;
+      color: ButtonText;
+    }
+
     button[data-ui="button"]:focus,
     [data-ui="button"]:focus {
       outline: 2px solid CanvasText;
       outline-offset: 2px;
+    }
+
+    button[data-ui="button"][disabled],
+    button[data-ui="button"]:disabled,
+    [data-ui="button"][data-disabled="true"] {
+      border-color: GrayText;
+      color: GrayText;
     }
   }
 
@@ -235,6 +226,14 @@
     }
   }
 
+  /* Remove transforms when motion is reduced */
+  @media (prefers-reduced-motion: reduce) {
+    [data-ui="button"] {
+      transition: none;
+      transform: none !important;
+    }
+  }
+
   /* =========================================================
      LOADING SPINNER & CONTENT COMPOSITION
      ========================================================= */
@@ -251,7 +250,7 @@
     display: inline-grid;
     grid-auto-flow: column;
     align-items: center;
-    gap: var(--space-8, 0.5rem);
+    gap: var(--_gap);
   }
 
   /* Spinner wrappers for positioning */
