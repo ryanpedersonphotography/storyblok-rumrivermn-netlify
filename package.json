@@ -10,6 +10,7 @@
     "lint:css": "stylelint 'src/**/*.css'",
     "lint:css:fix": "stylelint 'src/**/*.css' --fix",
     "lint:cq": "node scripts/check-container-queries.mjs",
+    "prepush": "if [ -z \"$SKIP_CQ_LINT\" ]; then npm run lint:cq; else echo '⚠️  SKIP_CQ_LINT set - skipping cq lint'; fi",
     "tokens:build": "node scripts/build-tokens.js",
     "tokens:watch": "nodemon --watch tokens/ --exec npm run tokens:build",
     "test:contrast": "node scripts/test-contrast.js",
