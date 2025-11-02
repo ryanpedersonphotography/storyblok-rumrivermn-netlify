@@ -3855,6 +3855,81 @@ Files Modified:
           </div>
         </div>
       </Section>
+
+      {/* Migration Test Cards */}
+      <Section
+        recipe="surface-rose"
+        density="compact"
+        paddingY="lg"
+        header={{
+          title: 'Migration Test Cards',
+          lead: 'Cards migrated from primitives-migration page - testing data-ui attributes',
+          align: 'center'
+        }}
+      >
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="grid" style={{ ['--grid-min' as any]: '18rem', ['--grid-gap' as any]: 'var(--rc-gap)' }}>
+            {/* Card A - from migration page line 152-160 */}
+            <article data-card data-elevation="raised" data-padding="spacious" className="stack">
+              <h3 data-ui="heading" data-size="sm">Card A</h3>
+              <p data-ui="text" className="muted">Uses rc vars for bg/fg/border</p>
+              <div className="inline">
+                <span className="badge">Rustic</span>
+                <span className="badge">Romantic</span>
+                <span className="badge">Outdoor</span>
+              </div>
+            </article>
+
+            {/* Card B - from migration page line 161-169 */}
+            <article data-card data-elevation="raised" data-padding="spacious" className="stack">
+              <h3 data-ui="heading" data-size="sm">Card B</h3>
+              <p data-ui="text" className="muted">Test switcher in narrow containers</p>
+              <div className="switcher" style={{ ['--switcher-threshold' as any]: '320px' }}>
+                <div data-card data-elevation="flat" data-padding="compact">Item 1</div>
+                <div data-card data-elevation="flat" data-padding="compact">Item 2</div>
+                <div data-card data-elevation="flat" data-padding="compact">Item 3</div>
+              </div>
+            </article>
+
+            {/* Card C - from migration page line 170-178 */}
+            <article data-card data-elevation="raised" data-padding="spacious" className="stack">
+              <h3 data-ui="heading" data-size="sm">Card C</h3>
+              <p data-ui="text" className="muted">Aspect ratio utilities</p>
+              <div className="ar ar-16x9" style={{ background: 'var(--mix-soft)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
+                  16:9
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div style={{ marginTop: 'var(--space-48)' }}>
+            <Heading as={3} size="md">Inline Primitive Test</Heading>
+            <div className="grid" style={{ ['--grid-min' as any]: '20rem', ['--grid-gap' as any]: 'var(--rc-gap)', marginTop: 'var(--space-24)' }}>
+              <div data-card data-elevation="raised" data-padding="spacious">
+                <Heading as={3} size="sm">Inline Primitive</Heading>
+                <Text className="muted" style={{ marginBottom: 'var(--space-16)' }}>Wraps tags with consistent gap</Text>
+                <div className="inline" style={{ ['--gap' as any]: 'var(--space-12)' }}>
+                  <span className="badge">Tag A</span>
+                  <span className="badge">Tag B</span>
+                  <span className="badge">Tag C</span>
+                  <span className="badge">Tag D</span>
+                  <span className="badge">Tag E</span>
+                </div>
+              </div>
+
+              <div data-card data-elevation="raised" data-padding="spacious">
+                <Heading as={3} size="sm">Stack Layout</Heading>
+                <div className="stack" style={{ ['--stack-gap' as any]: 'var(--space-16)' }}>
+                  <div style={{ padding: 'var(--space-12)', background: 'var(--mix-soft)', borderRadius: 'var(--radius-sm)' }}>Item 1</div>
+                  <div style={{ padding: 'var(--space-12)', background: 'var(--mix-soft)', borderRadius: 'var(--radius-sm)' }}>Item 2</div>
+                  <div style={{ padding: 'var(--space-12)', background: 'var(--mix-soft)', borderRadius: 'var(--radius-sm)' }}>Item 3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }
