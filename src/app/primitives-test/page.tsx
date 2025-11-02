@@ -2528,6 +2528,222 @@ export default function PrimitivesTestPage() {
           </div>
         </div>
       </Section>
+
+      {/* Demo 19: Glass Primitive - Glassmorphism Effects */}
+      <Section
+        background="tint-rose"
+        paddingY="lg"
+        contentWrapper={false}
+        header={{
+          title: 'Demo 19: Glass Primitive',
+          lead: 'Glassmorphism effects with token-driven blur, transparency, and elevation variants',
+          align: 'center'
+        }}
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 var(--gutter)'
+        }}>
+          {/* Glass elevation demo */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-glass data-elevation="sm" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Small Elevation
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;sm&quot;
+              </p>
+            </div>
+
+            <div data-glass data-elevation="md" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Medium (Default)
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;md&quot;
+              </p>
+            </div>
+
+            <div data-glass data-elevation="lg" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Large Elevation
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;lg&quot;
+              </p>
+            </div>
+
+            <div data-glass data-elevation="xl" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Extra Large
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;xl&quot;
+              </p>
+            </div>
+          </div>
+
+          {/* Strong variant demo */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-glass data-elevation="md" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Normal Opacity
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;md&quot;
+              </p>
+            </div>
+
+            <div data-glass data-elevation="md" data-strong style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Strong (More Opaque)
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-elevation=&quot;md&quot; data-strong
+              </p>
+            </div>
+          </div>
+
+          {/* Tinted glass demo */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-glass data-surface="rose" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Rose Tint
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-surface=&quot;rose&quot;
+              </p>
+            </div>
+
+            <div data-glass data-surface="gold" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Gold Tint
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-surface=&quot;gold&quot;
+              </p>
+            </div>
+
+            <div data-glass data-surface="sage" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Sage Tint
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-surface=&quot;sage&quot;
+              </p>
+            </div>
+          </div>
+
+          {/* Interactive hover demo */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-glass data-elevation="lg" data-hover="lift" style={{
+              padding: 'var(--space-24)',
+              borderRadius: '12px',
+              cursor: 'pointer'
+            }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Hover to Lift
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                data-glass data-hover=&quot;lift&quot;
+              </p>
+            </div>
+          </div>
+
+          {/* Documentation card */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-medium)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--text-primary)'
+            }}>
+              Glass Primitive Usage
+            </h3>
+            <pre style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8125rem',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)',
+              margin: 0,
+              whiteSpace: 'pre-wrap'
+            }}>{`// HTML with data attributes
+<div data-glass data-elevation="lg" data-strong>
+  Glass effect with large blur
+</div>
+
+// React component (optional)
+import Glass from '@/components/primitives/Glass'
+
+<Glass elevation="lg" strong surface="rose">
+  Type-safe glass component
+</Glass>
+
+// Tokens used:
+--blur-sm: 6px
+--blur-md: 10px
+--blur-lg: 14px
+--blur-xl: 22px
+--alpha-subtle: 0.20
+--alpha-mid: 0.32
+--alpha-strong: 0.45
+--saturate-low/med/high: 1.05 - 1.25`}</pre>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }

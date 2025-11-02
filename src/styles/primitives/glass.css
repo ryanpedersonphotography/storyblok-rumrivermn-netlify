@@ -1,0 +1,229 @@
+/* ==========================================================================
+   GLASS PRIMITIVE — Glassmorphism with Token-Driven Variants
+   ==========================================================================
+   Usage: <div data-glass data-elevation="md" data-strong>...</div>
+
+   Features:
+   - Token-driven blur, transparency, and saturation
+   - Elevation variants: sm, md (default), lg, xl
+   - Strength modifier: data-strong increases opacity
+   - Light/dark mode support (tokens adjust automatically)
+   - @supports fallback for browsers without backdrop-filter
+
+   Dependencies:
+   - Requires glass tokens from theme.css (--blur-*, --alpha-*, --saturate-*)
+   ========================================================================== */
+
+@layer components {
+  /* Base Glass Effect */
+  [data-glass] {
+    position: relative;
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-mid),
+      transparent
+    );
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+    border: 1px solid color-mix(
+      in oklch,
+      currentColor var(--alpha-subtle),
+      transparent
+    );
+  }
+
+  /* Fallback for browsers without backdrop-filter support */
+  @supports not (backdrop-filter: blur(1px)) {
+    [data-glass] {
+      background: color-mix(
+        in oklch,
+        var(--surface-1) var(--alpha-heavy),
+        transparent
+      );
+      /* Slightly more opaque to compensate for lack of blur */
+    }
+  }
+
+  /* =========================================================
+     ELEVATION VARIANTS
+     ========================================================= */
+
+  /* Small: Subtle glass effect */
+  [data-glass][data-elevation="sm"] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-subtle),
+      transparent
+    );
+    backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
+  }
+
+  /* Medium: Default (already applied above) */
+  [data-glass][data-elevation="md"] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-mid),
+      transparent
+    );
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+  }
+
+  /* Large: More pronounced glass */
+  [data-glass][data-elevation="lg"] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-strong),
+      transparent
+    );
+    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
+  }
+
+  /* Extra Large: Maximum glass effect */
+  [data-glass][data-elevation="xl"] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-heavy),
+      transparent
+    );
+    backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
+  }
+
+  /* =========================================================
+     STRENGTH MODIFIER
+     ========================================================= */
+
+  /* Strong variant: Increase opacity for better legibility */
+  [data-glass][data-strong] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-strong),
+      transparent
+    );
+  }
+
+  [data-glass][data-elevation="sm"][data-strong] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-mid),
+      transparent
+    );
+  }
+
+  [data-glass][data-elevation="md"][data-strong] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-strong),
+      transparent
+    );
+  }
+
+  [data-glass][data-elevation="lg"][data-strong] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) var(--alpha-heavy),
+      transparent
+    );
+  }
+
+  [data-glass][data-elevation="xl"][data-strong] {
+    background: color-mix(
+      in oklch,
+      var(--surface-1) 0.75,
+      transparent
+    );
+  }
+
+  /* =========================================================
+     OPTIONAL SURFACE VARIANTS
+     ========================================================= */
+
+  /* Tinted glass: Uses accent colors */
+  [data-glass][data-surface="rose"] {
+    background: color-mix(
+      in oklch,
+      var(--accent-rose) var(--alpha-subtle),
+      transparent
+    );
+    border-color: color-mix(
+      in oklch,
+      var(--accent-rose) var(--alpha-mid),
+      transparent
+    );
+  }
+
+  [data-glass][data-surface="gold"] {
+    background: color-mix(
+      in oklch,
+      var(--accent-gold) var(--alpha-subtle),
+      transparent
+    );
+    border-color: color-mix(
+      in oklch,
+      var(--accent-gold) var(--alpha-mid),
+      transparent
+    );
+  }
+
+  [data-glass][data-surface="sage"] {
+    background: color-mix(
+      in oklch,
+      var(--accent-sage) var(--alpha-subtle),
+      transparent
+    );
+    border-color: color-mix(
+      in oklch,
+      var(--accent-sage) var(--alpha-mid),
+      transparent
+    );
+  }
+
+  /* =========================================================
+     ANIMATION & INTERACTION
+     ========================================================= */
+
+  /* Smooth transitions for hover states */
+  [data-glass] {
+    transition:
+      background var(--duration-normal) var(--ease-smooth),
+      backdrop-filter var(--duration-normal) var(--ease-smooth),
+      border-color var(--duration-normal) var(--ease-smooth),
+      transform var(--duration-normal) var(--ease-smooth);
+  }
+
+  /* Optional hover enhancement */
+  [data-glass][data-hover="lift"]:hover {
+    transform: translateY(calc(-1 * var(--distance-sm)));
+    background: color-mix(
+      in oklch,
+      var(--surface-1) calc(var(--alpha-mid) + 0.05),
+      transparent
+    );
+  }
+
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
+
+  /* Ensure sufficient contrast on glass surfaces */
+  [data-glass] {
+    /* Inherit text color or use primary */
+    color: inherit;
+  }
+
+  /* Focus visible for interactive glass elements */
+  [data-glass]:focus-visible {
+    outline: var(--focus-width) solid var(--focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+
+  /* Reduce glass effects for users with motion sensitivity */
+  @media (prefers-reduced-motion: reduce) {
+    [data-glass] {
+      backdrop-filter: none;
+      background: color-mix(
+        in oklch,
+        var(--surface-1) var(--alpha-heavy),
+        transparent
+      );
+    }
+  }
+}

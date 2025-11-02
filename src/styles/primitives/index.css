@@ -16,5 +16,8 @@
 /* Typography primitives (heading, text, fluid scales) */
 @import './typography.css';
 
+/* Glass/Glassmorphism primitive (blur, elevation, tints) */
+@import './glass.css';
+
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';
