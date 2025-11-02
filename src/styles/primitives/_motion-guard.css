@@ -1,0 +1,19 @@
+/* ==========================================================================
+   MOTION GUARD — Global Reduced Motion Support
+   ==========================================================================
+   Ensures all animations and transitions respect user motion preferences.
+   This provides a blanket safety net across all components.
+
+   Applied globally to honor prefers-reduced-motion for accessibility.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

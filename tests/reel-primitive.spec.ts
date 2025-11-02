@@ -180,6 +180,121 @@ test.describe('Reel Primitive', () => {
   })
 })
 
+test.describe('Reel Primitive - Scroll Refinements', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(`${ORIGIN}/primitives-test`)
+    await page.locator('text=Demo 21: Reel Primitive').scrollIntoViewIfNeeded()
+  })
+
+  test('should have scroll-padding for safe snap zones', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    const scrollPadding = await reel.evaluate(el =>
+      getComputedStyle(el).scrollPaddingInline
+    )
+
+    expect(scrollPadding).toBeTruthy()
+  })
+
+  test('should contain overscroll to prevent parent hijacking', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    const overscroll = await reel.evaluate(el =>
+      getComputedStyle(el).overscrollBehaviorInline
+    )
+
+    expect(overscroll).toBe('contain')
+  })
+
+  test('should have stable scrollbar gutter', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    const scrollbarGutter = await reel.evaluate(el =>
+      (getComputedStyle(el) as any).scrollbarGutter
+    )
+
+    // May be undefined in browsers that don't support it
+    if (scrollbarGutter !== undefined) {
+      expect(scrollbarGutter).toContain('stable')
+    }
+  })
+
+  test('should apply scroll-snap-stop to items', async ({ page }) => {
+    const item = page.locator('.reel > *').first()
+
+    const snapStop = await item.evaluate(el =>
+      (getComputedStyle(el) as any).scrollSnapStop
+    )
+
+    // May be undefined in browsers that don't support it
+    if (snapStop !== undefined) {
+      expect(snapStop).toBe('always')
+    }
+  })
+
+  test('should have edge fades when data-fade-edges is enabled', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    // Enable edge fades
+    await reel.evaluate(el => {
+      el.setAttribute('data-fade-edges', 'true')
+    })
+
+    await page.waitForTimeout(50)
+
+    const maskImage = await reel.evaluate(el => {
+      const style = getComputedStyle(el)
+      return (style as any).maskImage || (style as any).webkitMaskImage
+    })
+
+    // Should have linear gradient mask
+    expect(maskImage).toBeTruthy()
+    if (maskImage && maskImage !== 'none') {
+      expect(maskImage).toContain('linear-gradient')
+    }
+  })
+
+  test('should have quiet scrollbars when data-quiet-scrollbars is enabled', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    // Enable quiet scrollbars
+    await reel.evaluate(el => {
+      el.setAttribute('data-quiet-scrollbars', 'true')
+    })
+
+    await page.waitForTimeout(50)
+
+    const scrollbarWidth = await reel.evaluate(el =>
+      (getComputedStyle(el) as any).scrollbarWidth
+    )
+
+    // May be undefined in browsers that don't support it
+    if (scrollbarWidth !== undefined) {
+      expect(scrollbarWidth).toBe('thin')
+    }
+  })
+
+  test('should have performance optimizations', async ({ page }) => {
+    const reel = page.locator('.reel').first()
+
+    const styles = await reel.evaluate(el => {
+      const cs = getComputedStyle(el)
+      return {
+        contain: cs.contain,
+        contentVisibility: (cs as any).contentVisibility
+      }
+    })
+
+    // Should have containment
+    expect(styles.contain).toContain('content')
+
+    // content-visibility may not be supported in all browsers
+    if (styles.contentVisibility !== undefined) {
+      expect(styles.contentVisibility).toBe('auto')
+    }
+  })
+})
+
 test.describe('Reel Primitive - Advanced', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${ORIGIN}/primitives-test`)

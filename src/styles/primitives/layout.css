@@ -129,18 +129,53 @@
   padding-block: var(--space-8);
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+
+  /* Performance optimizations */
   container-type: inline-size;
+  contain: content;
+  content-visibility: auto;
+
+  /* Scroll refinements */
+  overscroll-behavior-inline: contain;
+  scroll-padding-inline: var(--reel-pad, var(--space-16));
+  scrollbar-gutter: stable both-edges;
 }
 
 /* Snap items to start of scroll container */
 .reel > * {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-inline: var(--reel-pad, var(--space-16));
+}
+
+/* Optional: fade edges to hint overflow (pure CSS mask) */
+.reel[data-fade-edges="true"] {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+}
+
+/* Optional: hide scrollbar cosmetically while preserving accessibility */
+.reel::-webkit-scrollbar {
+  height: 10px;
+}
+
+.reel[data-quiet-scrollbars="true"]::-webkit-scrollbar {
+  height: 0;
 }
 
 /* Responsive gap adjustment via container query */
 @container (max-width: 700px) {
   .reel {
     --reel-gap: var(--space-16);
+  }
+}
+
+/* Fallback if container queries aren't supported */
+@supports not (container-type: inline-size) {
+  @media (max-width: 700px) {
+    .reel {
+      --reel-gap: var(--space-16);
+    }
   }
 }
 
@@ -161,7 +196,16 @@
   grid-template-columns: minmax(0, 1fr) min(28rem, 32vw);
   gap: var(--sidebar-gap, var(--space-32));
   align-items: start;
+
+  /* Performance optimizations */
   container-type: inline-size;
+  contain: content;
+}
+
+/* Sticky rail variant (opt-in) */
+.sidebar [data-rail-sticky="true"] {
+  position: sticky;
+  top: var(--rail-top, 2rem);
 }
 
 /* Collapse to single column on narrow containers */
@@ -180,5 +224,22 @@
 .sidebar[data-reverse="true"] {
   @container (max-width: 980px) {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Fallback if container queries aren't supported */
+@supports not (container-type: inline-size) {
+  @media (max-width: 980px) {
+    .sidebar,
+    .sidebar[data-reverse="true"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* Forced-colors/HC mode: ensure visible boundaries */
+@media (forced-colors: active) {
+  .sidebar > * {
+    border: 1px solid CanvasText;
   }
 }

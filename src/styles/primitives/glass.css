@@ -191,15 +191,16 @@
   /* Smooth transitions for hover states */
   [data-glass] {
     transition:
-      background var(--duration-normal) var(--ease-smooth),
-      backdrop-filter var(--duration-normal) var(--ease-smooth),
-      border-color var(--duration-normal) var(--ease-smooth),
-      transform var(--duration-normal) var(--ease-smooth);
+      background var(--motion-hover-duration) var(--motion-hover-ease),
+      backdrop-filter var(--motion-hover-duration) var(--motion-hover-ease),
+      border-color var(--motion-hover-duration) var(--motion-hover-ease),
+      transform var(--motion-hover-duration) var(--motion-hover-ease);
+    will-change: transform;
   }
 
   /* Optional hover enhancement */
   [data-glass][data-hover="lift"]:hover {
-    transform: translateY(calc(-1 * var(--distance-sm)));
+    transform: translateY(calc(-1 * var(--lift-sm)));
     background: color-mix(
       in oklch,
       var(--surface-1) calc(var(--alpha-mid) * 100% + 5%),

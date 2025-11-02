@@ -27,9 +27,11 @@
     border-radius: var(--radius-md);
     padding: var(--space-24);
     transition:
-      transform var(--duration-normal) var(--ease-smooth),
-      box-shadow var(--duration-normal) var(--ease-smooth),
-      border-color var(--duration-normal) var(--ease-smooth);
+      transform var(--motion-hover-duration) var(--motion-hover-ease),
+      box-shadow var(--motion-hover-duration) var(--motion-hover-ease),
+      background-color var(--motion-hover-duration) var(--motion-hover-ease),
+      border-color var(--motion-hover-duration) var(--motion-hover-ease);
+    will-change: transform;
   }
 
   /* =========================================================
@@ -92,7 +94,7 @@
   @media (hover: hover) {
     /* Hoverable: Lift on hover */
     [data-card][data-hover="lift"]:hover {
-      transform: translateY(calc(-1 * var(--distance-xs)));
+      transform: translateY(calc(-1 * var(--lift-md)));
       box-shadow: var(--shadow-md);
     }
 
@@ -112,7 +114,7 @@
 
     /* Clickable: Hover state */
     [data-card][data-clickable]:hover {
-      transform: translateY(calc(-1 * var(--distance-xs)));
+      transform: translateY(calc(-1 * var(--lift-md)));
       border-color: var(--border-strong);
     }
   }

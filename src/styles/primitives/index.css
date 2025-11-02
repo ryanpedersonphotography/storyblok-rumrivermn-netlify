@@ -10,7 +10,10 @@
    - Minimal styling (behavior + reset only)
    ========================================================= */
 
-/* Layout primitives (stack, cluster, grid) */
+/* Motion guard - global reduced motion support (must be first) */
+@import './_motion-guard.css';
+
+/* Layout primitives (stack, cluster, grid, reel, sidebar) */
 @import './layout.css';
 
 /* Typography primitives (heading, text, fluid scales) */

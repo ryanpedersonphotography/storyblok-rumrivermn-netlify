@@ -63,13 +63,14 @@
     /* Border radius */
     border-radius: var(--_radius);
 
-    /* Smooth transitions (respects motion preferences below) */
+    /* Smooth transitions using motion contracts */
     transition:
-      transform var(--duration-fast) var(--ease-smooth),
-      box-shadow var(--duration-fast) var(--ease-smooth),
-      background-color var(--duration-fast) var(--ease-smooth),
-      color var(--duration-fast) var(--ease-smooth),
-      border-color var(--duration-fast) var(--ease-smooth);
+      transform var(--motion-hover-duration) var(--motion-hover-ease),
+      box-shadow var(--motion-hover-duration) var(--motion-hover-ease),
+      background-color var(--motion-hover-duration) var(--motion-hover-ease),
+      color var(--motion-hover-duration) var(--motion-hover-ease),
+      border-color var(--motion-hover-duration) var(--motion-hover-ease);
+    will-change: transform;
   }
 
   /* =========================================================
@@ -214,14 +215,14 @@
      HOVER & ACTIVE STATES (respects motion preferences)
      ========================================================= */
   @media (prefers-reduced-motion: no-preference) {
-    /* Hover: subtle lift */
+    /* Hover: subtle lift using token */
     [data-ui="button"]:where(:hover):not([data-disabled="true"]):not(:disabled) {
-      transform: translateY(-1px);
+      transform: translateY(calc(-1 * var(--lift-sm)));
     }
 
-    /* Active: press down + slight darken */
+    /* Active: press down using token */
     [data-ui="button"]:where(:active):not([data-disabled="true"]):not(:disabled) {
-      transform: translateY(0);
+      transform: translateY(var(--press-sm));
       filter: brightness(0.98);
     }
   }
