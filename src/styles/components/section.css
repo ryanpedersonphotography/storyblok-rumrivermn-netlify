@@ -14,20 +14,17 @@
   margin: 0;
   overflow: clip; /* Bleed guard: prevent horizontal scroll */
   contain: paint; /* Bleed guard: safer stacking context */
+
+  /* Container queries enabled by default for composition-first responsive design */
+  container-type: inline-size;
+  container-name: section;
 }
 
-/* ===== Container Queries (opt-in, feature-flagged) ===== */
-/* Enable container-based responsiveness when data-cq="on" */
-@supports (container-type: inline-size) {
-  [data-clean-root="true"] .section[data-cq="on"] {
-    container-type: inline-size;
-    container-name: section;
-  }
-
-  /* Enable container queries on content rail for fine-grained control */
-  [data-clean-root="true"] .section[data-cq="on"] .section__rail--content {
-    container-type: inline-size;
-    container-name: content-rail;
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  [data-clean-root="true"] .section {
+    /* Viewport media queries (below) will handle responsive behavior */
+    container-type: normal;
   }
 }
 
@@ -331,10 +328,11 @@ html[data-theme="dark"] [data-clean-root="true"] .section__lead {
 }
 
 /* ============================================================================
-   Responsive Adjustments
+   Responsive Adjustments — Container Queries (Composition-First)
    ============================================================================ */
 
-@media (max-width: 768px) {
+/* Container query: narrow section layout */
+@container section (max-width: 48rem) {
   [data-clean-root="true"] .section__header {
     margin-bottom: clamp(1.5rem, 3vw, 2rem);
   }
@@ -358,13 +356,51 @@ html[data-theme="dark"] [data-clean-root="true"] .section__lead {
   }
 }
 
-@media (max-width: 480px) {
+/* Container query: mobile section layout */
+@container section (max-width: 28rem) {
   [data-clean-root="true"] .section__title {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
   }
 
   [data-clean-root="true"] .section__script-accent {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 768px) {
+    [data-clean-root="true"] .section__header {
+      margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    [data-clean-root="true"] .section__actions {
+      margin-top: clamp(1rem, 2vw, 1.5rem);
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    [data-clean-root="true"] .section__actions[data-align="center"] {
+      align-items: center;
+    }
+
+    [data-clean-root="true"] .section__actions[data-align="left"] {
+      align-items: flex-start;
+    }
+
+    [data-clean-root="true"] .section__actions[data-align="right"] {
+      align-items: flex-end;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-clean-root="true"] .section__title {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+    }
+
+    [data-clean-root="true"] .section__script-accent {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
   }
 }
 
