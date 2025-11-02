@@ -206,10 +206,11 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
 }
 
 /* ============================================================================
-   Responsive Design
+   Responsive — Container Queries (Composition-First)
    ============================================================================ */
 
-@media (max-width: 768px) {
+/* Tablet-width containers: stack footer sections vertically */
+@container section (max-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .footer {
     padding: var(--space-40) 0 var(--space-20);
   }
@@ -224,7 +225,8 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile-width containers: reduce spacing and font sizes */
+@container section (max-width: var(--cq-xs, 28rem)) {
   [data-clean-root="true"] .footer {
     padding: var(--space-40) 0 var(--space-24);
   }
@@ -254,6 +256,57 @@ html[data-theme="dark"] [data-clean-root="true"] .footer,
   [data-clean-root="true"] .footer-social-icon {
     inline-size: 18px;
     block-size: 18px;
+  }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 768px) {
+    [data-clean-root="true"] .footer {
+      padding: var(--space-40) 0 var(--space-20);
+    }
+
+    [data-clean-root="true"] .footer-content {
+      flex-direction: column;
+      gap: var(--space-40);
+    }
+
+    [data-clean-root="true"] .footer-section:first-child {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-clean-root="true"] .footer {
+      padding: var(--space-40) 0 var(--space-24);
+    }
+
+    [data-clean-root="true"] .footer-content {
+      gap: var(--space-32);
+      padding: 0 var(--gutter);
+    }
+
+    [data-clean-root="true"] .footer-title,
+    [data-clean-root="true"] .footer-section-title {
+      font-size: 18px;
+      margin-bottom: var(--space-16);
+    }
+
+    [data-clean-root="true"] .footer-description,
+    [data-clean-root="true"] .footer-address,
+    [data-clean-root="true"] .footer-phone-link,
+    [data-clean-root="true"] .footer-social-link {
+      font-size: 14px;
+    }
+
+    [data-clean-root="true"] .footer-social-links {
+      gap: var(--space-16);
+    }
+
+    [data-clean-root="true"] .footer-social-icon {
+      inline-size: 18px;
+      block-size: 18px;
+    }
   }
 }
 

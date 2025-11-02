@@ -228,8 +228,12 @@
   outline-offset: var(--focus-offset, 3px);
 }
 
-/* Responsive */
-@media (min-width: 900px) {
+/* ============================================================================
+   Responsive — Container Queries (Composition-First)
+   ============================================================================ */
+
+/* Desktop layout: show nav, hide mobile button (900px+ containers) */
+@container section (min-width: 56.25rem) {
   [data-clean-root="true"] .navbar__nav {
     display: flex;
   }
@@ -238,15 +242,41 @@
   }
 }
 
-@media (min-width: 1024px) {
+/* Larger containers: increase link font size */
+@container section (min-width: var(--cq-lg, 64rem)) {
   [data-clean-root="true"] .navbar__link {
     font-size: 15px;
   }
 }
 
-@media (min-width: 1200px) {
+/* Wide containers: increase nav gap (1200px+ containers) */
+@container section (min-width: 75rem) {
   [data-clean-root="true"] .navbar__nav {
     gap: var(--space-40);
+  }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (min-width: 900px) {
+    [data-clean-root="true"] .navbar__nav {
+      display: flex;
+    }
+    [data-clean-root="true"] .navbar__mobile-btn {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    [data-clean-root="true"] .navbar__link {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    [data-clean-root="true"] .navbar__nav {
+      gap: var(--space-40);
+    }
   }
 }
 

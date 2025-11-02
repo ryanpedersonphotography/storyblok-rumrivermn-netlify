@@ -270,8 +270,12 @@ html[data-clean-root="true"] .form-textarea:focus {
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* ============================================================================
+   Responsive — Container Queries (Composition-First)
+   ============================================================================ */
+
+/* Tablet-width containers: stack form fields, adjust spacing */
+@container section (max-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .schedule-tour {
     padding: var(--space-80) 0;
   }
@@ -304,7 +308,8 @@ html[data-clean-root="true"] .form-textarea:focus {
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile-width containers: reduce padding and font sizes */
+@container section (max-width: var(--cq-xs, 28rem)) {
   [data-clean-root="true"] .schedule-tour {
     padding: var(--space-64) 0;
   }
@@ -328,5 +333,68 @@ html[data-clean-root="true"] .form-textarea:focus {
   [data-clean-root="true"] .form-textarea {
     padding: var(--space-12) var(--space-16);
     font-size: 0.9rem;
+  }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 768px) {
+    [data-clean-root="true"] .schedule-tour {
+      padding: var(--space-80) 0;
+    }
+
+    [data-clean-root="true"] .form-container {
+      max-width: 100%;
+      padding: 0 var(--gutter);
+    }
+
+    [data-clean-root="true"] .form-header {
+      margin-bottom: var(--space-64);
+    }
+
+    [data-clean-root="true"] .form-title {
+      font-size: 2.5rem;
+    }
+
+    [data-clean-root="true"] .form-script {
+      font-size: 1.5rem;
+    }
+
+    [data-clean-root="true"] .tour-form {
+      padding: var(--space-32);
+      border-radius: 16px;
+    }
+
+    [data-clean-root="true"] .form-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-20);
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-clean-root="true"] .schedule-tour {
+      padding: var(--space-64) 0;
+    }
+
+    [data-clean-root="true"] .form-container {
+      padding: 0 var(--gutter);
+    }
+
+    [data-clean-root="true"] .form-title {
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    [data-clean-root="true"] .tour-form {
+      padding: var(--space-20);
+      gap: var(--space-20);
+    }
+
+    [data-clean-root="true"] .form-input,
+    [data-clean-root="true"] .form-select,
+    [data-clean-root="true"] .form-textarea {
+      padding: var(--space-12) var(--space-16);
+      font-size: 0.9rem;
+    }
   }
 }

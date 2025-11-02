@@ -259,19 +259,19 @@
 }
 
 /* ============================================================================
-   Responsive Design
+   Responsive — Container Queries (Composition-First)
    ============================================================================ */
 
-/* Tablet: Reset featured item spans */
-@media (max-width: 1024px) {
+/* Tablet-width containers: Reset featured item spans */
+@container section (max-width: var(--cq-lg, 64rem)) {
   [data-clean-root="true"] .gallery-item:nth-child(1),
   [data-clean-root="true"] .gallery-item:nth-child(6) {
     grid-column: span 1;
   }
 }
 
-/* Mobile: Single column layout */
-@media (max-width: 768px) {
+/* Mobile-width containers: Single column layout */
+@container section (max-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .wedding-gallery {
     grid-template-columns: 1fr;
     grid-auto-rows: 300px;
@@ -284,6 +284,34 @@
 
   [data-clean-root="true"] .gallery-couple-names {
     font-size: 1.5rem;
+  }
+}
+
+/* Fallback: Viewport media queries for browsers without container query support */
+@supports not (container-type: inline-size) {
+  /* Tablet: Reset featured item spans */
+  @media (max-width: 1024px) {
+    [data-clean-root="true"] .gallery-item:nth-child(1),
+    [data-clean-root="true"] .gallery-item:nth-child(6) {
+      grid-column: span 1;
+    }
+  }
+
+  /* Mobile: Single column layout */
+  @media (max-width: 768px) {
+    [data-clean-root="true"] .wedding-gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 300px;
+      gap: var(--space-16);
+    }
+
+    [data-clean-root="true"] .gallery-overlay {
+      padding: var(--space-20);
+    }
+
+    [data-clean-root="true"] .gallery-couple-names {
+      font-size: 1.5rem;
+    }
   }
 }
 
