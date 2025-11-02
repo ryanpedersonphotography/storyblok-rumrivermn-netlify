@@ -2744,6 +2744,253 @@ import Glass from '@/components/primitives/Glass'
           </div>
         </div>
       </Section>
+
+      {/* Demo 20: Card Primitive - Flexible Containers with Elevation */}
+      <Section
+        background="tint-sage"
+        paddingY="lg"
+        contentWrapper={false}
+        header={{
+          title: 'Demo 20: Card Primitive',
+          lead: 'Flexible container primitive with elevation, padding, and interactive variants',
+          align: 'center'
+        }}
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 var(--gutter)'
+        }}>
+          {/* Elevation variants */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-card data-elevation="flat" style={{ minHeight: '140px' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Flat (Default)
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                No shadow, minimal border. Best for subtle containers.
+              </p>
+            </div>
+
+            <div data-card data-elevation="raised" style={{ minHeight: '140px' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Raised
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Subtle shadow for lifted appearance.
+              </p>
+            </div>
+
+            <div data-card data-elevation="elevated" style={{ minHeight: '140px' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Elevated
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Medium shadow for clear elevation.
+              </p>
+            </div>
+
+            <div data-card data-elevation="floating" style={{ minHeight: '140px' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Floating
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Large shadow for dramatic elevation.
+              </p>
+            </div>
+          </div>
+
+          {/* Padding variants */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-card data-elevation="raised" data-padding="compact">
+              <h4 style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
+                Compact Padding
+              </h4>
+            </div>
+
+            <div data-card data-elevation="raised" data-padding="normal">
+              <h4 style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
+                Normal (Default)
+              </h4>
+            </div>
+
+            <div data-card data-elevation="raised" data-padding="spacious">
+              <h4 style={{ fontSize: '0.875rem', fontWeight: 600, margin: 0 }}>
+                Spacious Padding
+              </h4>
+            </div>
+          </div>
+
+          {/* Interactive variants */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-card data-elevation="raised" data-hover="lift" style={{ cursor: 'pointer' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Hover: Lift
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Elevates on hover for interactive feedback
+              </p>
+            </div>
+
+            <div data-card data-elevation="raised" data-hover="glow" style={{ cursor: 'pointer' }}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Hover: Glow
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Glows on hover with accent color
+              </p>
+            </div>
+
+            <div data-card data-elevation="raised" data-clickable tabIndex={0}>
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Clickable
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0, color: 'var(--text-secondary)' }}>
+                Fully interactive with keyboard support
+              </p>
+            </div>
+          </div>
+
+          {/* Glass composition */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-card data-glass data-elevation="raised" data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Card + Glass
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                Combines card structure with glassmorphism
+              </p>
+            </div>
+
+            <div data-card data-glass data-elevation="elevated" data-strong data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Glass + Strong
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                More opaque for better readability
+              </p>
+            </div>
+
+            <div data-card data-glass data-surface="rose" data-elevation="elevated" data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Glass + Tint
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                Tinted glassmorphism with accent color
+              </p>
+            </div>
+          </div>
+
+          {/* Surface tints */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 'var(--space-24)',
+            marginBottom: 'var(--space-48)'
+          }}>
+            <div data-card data-elevation="raised" data-surface="rose" data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Rose Surface
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                Tinted background with rose accent
+              </p>
+            </div>
+
+            <div data-card data-elevation="raised" data-surface="gold" data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Gold Surface
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                Tinted background with gold accent
+              </p>
+            </div>
+
+            <div data-card data-elevation="raised" data-surface="sage" data-padding="spacious">
+              <h4 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: 'var(--space-8)' }}>
+                Sage Surface
+              </h4>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                Tinted background with sage accent
+              </p>
+            </div>
+          </div>
+
+          {/* Documentation */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-medium)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--text-primary)'
+            }}>
+              Card Primitive Usage
+            </h3>
+            <pre style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8125rem',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)',
+              margin: 0,
+              whiteSpace: 'pre-wrap'
+            }}>{`// HTML with data attributes
+<div data-card data-elevation="raised" data-padding="spacious">
+  <h3>Card Title</h3>
+  <p>Card content</p>
+</div>
+
+// Interactive card
+<div data-card data-elevation="elevated" data-clickable>
+  Clickable with keyboard support
+</div>
+
+// Glass composition
+<div data-card data-glass data-elevation="raised">
+  Card structure + glassmorphism
+</div>
+
+// React component (optional)
+import Card, { CardHeader, CardFooter } from '@/components/primitives/Card'
+
+<Card elevation="raised" padding="spacious" hover="lift">
+  <CardHeader>Header</CardHeader>
+  <p>Content</p>
+  <CardFooter>Footer</CardFooter>
+</Card>
+
+// Tokens used:
+Elevation: --shadow-sm/md/lg/xl
+Padding: --space-16/24/32
+Borders: --border-subtle/medium/strong
+Radius: --radius-md`}</pre>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }

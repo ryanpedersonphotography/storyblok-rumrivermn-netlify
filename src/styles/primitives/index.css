@@ -19,5 +19,8 @@
 /* Glass/Glassmorphism primitive (blur, elevation, tints) */
 @import './glass.css';
 
+/* Card primitive (elevation, padding, interactive, glass composition) */
+@import './card.css';
+
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';

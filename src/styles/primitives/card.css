@@ -1,0 +1,246 @@
+/* ==========================================================================
+   CARD PRIMITIVE — Flexible Container with Elevation & Composition
+   ==========================================================================
+   Usage: <div data-card data-elevation="raised" data-padding="normal">...</div>
+
+   Features:
+   - Token-driven shadows, borders, and spacing
+   - Elevation variants: flat (default), raised, elevated, floating
+   - Padding variants: compact, normal (default), spacious
+   - Interactive states: hoverable, clickable
+   - Glass composition: Combines with [data-glass] for glassmorphism cards
+   - Light/dark mode support (tokens adjust automatically)
+
+   Dependencies:
+   - Requires tokens from theme.css (--shadow-*, --space-*, --border-*, --radius-*)
+   ========================================================================== */
+
+@layer components {
+  /* Base Card */
+  [data-card] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-1);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-24);
+    transition:
+      transform var(--duration-normal) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth),
+      border-color var(--duration-normal) var(--ease-smooth);
+  }
+
+  /* =========================================================
+     ELEVATION VARIANTS
+     ========================================================= */
+
+  /* Flat: No shadow, minimal border (default) */
+  [data-card][data-elevation="flat"] {
+    box-shadow: none;
+    border: 1px solid var(--border-subtle);
+  }
+
+  /* Raised: Subtle shadow, lifted appearance */
+  [data-card][data-elevation="raised"] {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--border-medium);
+  }
+
+  /* Elevated: Medium shadow, clear elevation */
+  [data-card][data-elevation="elevated"] {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-strong);
+  }
+
+  /* Floating: Large shadow, dramatic elevation */
+  [data-card][data-elevation="floating"] {
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+  }
+
+  /* =========================================================
+     PADDING VARIANTS
+     ========================================================= */
+
+  /* Compact: Reduced padding */
+  [data-card][data-padding="compact"] {
+    padding: var(--space-16);
+  }
+
+  /* Normal: Default padding (already applied) */
+  [data-card][data-padding="normal"] {
+    padding: var(--space-24);
+  }
+
+  /* Spacious: Generous padding */
+  [data-card][data-padding="spacious"] {
+    padding: var(--space-32);
+  }
+
+  /* None: No padding (for custom layouts) */
+  [data-card][data-padding="none"] {
+    padding: 0;
+  }
+
+  /* =========================================================
+     INTERACTIVE VARIANTS
+     ========================================================= */
+
+  /* Hoverable: Lift on hover */
+  [data-card][data-hover="lift"]:hover {
+    transform: translateY(calc(-1 * var(--distance-xs)));
+    box-shadow: var(--shadow-md);
+  }
+
+  [data-card][data-elevation="raised"][data-hover="lift"]:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  [data-card][data-elevation="elevated"][data-hover="lift"]:hover {
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Hoverable: Glow on hover */
+  [data-card][data-hover="glow"]:hover {
+    border-color: var(--accent-rose);
+    box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent-rose) 20%, transparent);
+  }
+
+  /* Clickable: Full interactive state */
+  [data-card][data-clickable] {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  [data-card][data-clickable]:hover {
+    transform: translateY(calc(-1 * var(--distance-xs)));
+    border-color: var(--border-strong);
+  }
+
+  [data-card][data-clickable]:active {
+    transform: translateY(0);
+  }
+
+  /* =========================================================
+     GLASS COMPOSITION
+     ========================================================= */
+
+  /* When card combines with glass primitive */
+  [data-card][data-glass] {
+    /* Glass background overrides card background */
+    background: transparent;
+    border: 1px solid color-mix(
+      in oklch,
+      currentColor calc(var(--alpha-subtle) * 100%),
+      transparent
+    );
+  }
+
+  [data-card][data-glass][data-elevation="raised"],
+  [data-card][data-glass][data-elevation="elevated"],
+  [data-card][data-glass][data-elevation="floating"] {
+    /* Reduce shadow on glass cards (blur provides depth) */
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* =========================================================
+     SURFACE TINTS
+     ========================================================= */
+
+  /* Tinted card backgrounds using accent colors */
+  [data-card][data-surface="rose"] {
+    background: var(--bg-tint-rose);
+    border-color: color-mix(in oklch, var(--accent-rose) 30%, transparent);
+  }
+
+  [data-card][data-surface="gold"] {
+    background: var(--bg-tint-gold);
+    border-color: color-mix(in oklch, var(--accent-gold) 30%, transparent);
+  }
+
+  [data-card][data-surface="sage"] {
+    background: var(--bg-tint-sage);
+    border-color: color-mix(in oklch, var(--accent-sage) 30%, transparent);
+  }
+
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
+
+  /* Focus visible for clickable cards */
+  [data-card][data-clickable]:focus-visible {
+    outline: var(--focus-width, 2px) solid var(--focus-ring);
+    outline-offset: var(--focus-offset, 2px);
+  }
+
+  /* Ensure clickable cards are keyboard accessible */
+  [data-card][data-clickable]:not([tabindex]) {
+    tabindex: 0;
+  }
+
+  /* Reduced motion: Disable transforms */
+  @media (prefers-reduced-motion: reduce) {
+    [data-card] {
+      transition: none;
+    }
+
+    [data-card][data-hover="lift"]:hover,
+    [data-card][data-clickable]:hover {
+      transform: none;
+    }
+
+    [data-card][data-clickable]:active {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode: Ensure visible borders */
+  @media (forced-colors: active) {
+    [data-card] {
+      border: 1px solid ButtonBorder;
+      background: Canvas;
+    }
+  }
+
+  /* =========================================================
+     CARD SECTIONS (Optional Utilities)
+     ========================================================= */
+
+  /* Card header with bottom border */
+  [data-card-header] {
+    padding-bottom: var(--space-16);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: var(--space-16);
+  }
+
+  /* Card footer with top border */
+  [data-card-footer] {
+    padding-top: var(--space-16);
+    border-top: 1px solid var(--border-subtle);
+    margin-top: var(--space-16);
+  }
+
+  /* Card media (full-bleed images) */
+  [data-card-media] {
+    margin: calc(-1 * var(--space-24)) calc(-1 * var(--space-24)) var(--space-16);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    overflow: hidden;
+  }
+
+  [data-card][data-padding="compact"] [data-card-media] {
+    margin: calc(-1 * var(--space-16)) calc(-1 * var(--space-16)) var(--space-12);
+  }
+
+  [data-card][data-padding="spacious"] [data-card-media] {
+    margin: calc(-1 * var(--space-32)) calc(-1 * var(--space-32)) var(--space-20);
+  }
+
+  /* Ensure images in card media fill container */
+  [data-card-media] > img,
+  [data-card-media] > picture > img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
