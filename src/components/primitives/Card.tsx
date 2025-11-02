@@ -107,13 +107,34 @@ const Card = forwardRef<HTMLElement, CardProps>(
   ) => {
     const Component = as as any
 
-    // Handle keyboard interactions for clickable cards
+    // Check if this is a native interactive element
+    const isNativeInteractive = as === 'a' || as === 'button' || as === 'input'
+    const shouldAddA11y = !isNativeInteractive && (clickable || onClick)
+
+    // Handle keyboard interactions for clickable cards (non-native elements only)
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (clickable && onClick && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault()
-        onClick(e as any)
+      if (shouldAddA11y && onClick) {
+        // Enter key activates on keydown (like native buttons)
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          onClick(e as any)
+        }
+        // Space key prevents page scroll on keydown
+        if (e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault()
+        }
       }
       onKeyDown?.(e)
+    }
+
+    // Space key activates on keyup (like native buttons)
+    const handleKeyUp = (e: React.KeyboardEvent) => {
+      if (shouldAddA11y && onClick) {
+        if (e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault()
+          onClick(e as any)
+        }
+      }
     }
 
     return (
@@ -132,10 +153,11 @@ const Card = forwardRef<HTMLElement, CardProps>(
         data-glass-surface={glass ? glassSurface : undefined}
         className={className}
         style={style}
-        onClick={clickable ? onClick : undefined}
-        onKeyDown={clickable ? handleKeyDown : undefined}
-        role={clickable && !role ? 'button' : role}
-        tabIndex={clickable && tabIndex === undefined ? 0 : tabIndex}
+        onClick={shouldAddA11y ? onClick : undefined}
+        onKeyDown={shouldAddA11y ? handleKeyDown : onKeyDown}
+        onKeyUp={shouldAddA11y ? handleKeyUp : undefined}
+        role={shouldAddA11y && !role ? 'button' : role}
+        tabIndex={shouldAddA11y && tabIndex === undefined ? 0 : tabIndex}
         {...rest}
       >
         {children}

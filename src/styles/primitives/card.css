@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     background: var(--surface-1);
+    background-clip: padding-box; /* Prevent glass/border bleed */
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: var(--space-24);
@@ -61,7 +62,7 @@
 
   /* =========================================================
      PADDING VARIANTS
-     ========================================================= */
+     ========================================================================== */
 
   /* Compact: Reduced padding */
   [data-card][data-padding="compact"] {
@@ -87,24 +88,33 @@
      INTERACTIVE VARIANTS
      ========================================================= */
 
-  /* Hoverable: Lift on hover */
-  [data-card][data-hover="lift"]:hover {
-    transform: translateY(calc(-1 * var(--distance-xs)));
-    box-shadow: var(--shadow-md);
-  }
+  /* Gate hover effects to devices that support hover */
+  @media (hover: hover) {
+    /* Hoverable: Lift on hover */
+    [data-card][data-hover="lift"]:hover {
+      transform: translateY(calc(-1 * var(--distance-xs)));
+      box-shadow: var(--shadow-md);
+    }
 
-  [data-card][data-elevation="raised"][data-hover="lift"]:hover {
-    box-shadow: var(--shadow-lg);
-  }
+    [data-card][data-elevation="raised"][data-hover="lift"]:hover {
+      box-shadow: var(--shadow-lg);
+    }
 
-  [data-card][data-elevation="elevated"][data-hover="lift"]:hover {
-    box-shadow: var(--shadow-xl);
-  }
+    [data-card][data-elevation="elevated"][data-hover="lift"]:hover {
+      box-shadow: var(--shadow-xl);
+    }
 
-  /* Hoverable: Glow on hover */
-  [data-card][data-hover="glow"]:hover {
-    border-color: var(--accent-rose);
-    box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent-rose) 20%, transparent);
+    /* Hoverable: Glow on hover */
+    [data-card][data-hover="glow"]:hover {
+      border-color: var(--accent-rose);
+      box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent-rose) 20%, transparent);
+    }
+
+    /* Clickable: Hover state */
+    [data-card][data-clickable]:hover {
+      transform: translateY(calc(-1 * var(--distance-xs)));
+      border-color: var(--border-strong);
+    }
   }
 
   /* Clickable: Full interactive state */
@@ -113,23 +123,20 @@
     user-select: none;
   }
 
-  [data-card][data-clickable]:hover {
-    transform: translateY(calc(-1 * var(--distance-xs)));
-    border-color: var(--border-strong);
-  }
-
   [data-card][data-clickable]:active {
     transform: translateY(0);
   }
 
   /* =========================================================
      GLASS COMPOSITION
-     ========================================================= */
+     ========================================================================== */
 
   /* When card combines with glass primitive */
   [data-card][data-glass] {
     /* Glass background overrides card background */
     background: transparent;
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
     border: 1px solid color-mix(
       in oklch,
       currentColor calc(var(--alpha-subtle) * 100%),
@@ -137,16 +144,50 @@
     );
   }
 
+  /* Glass cards inherit glass elevation variants */
+  [data-card][data-glass][data-elevation="sm"] {
+    -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
+    backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
+  }
+
+  [data-card][data-glass][data-elevation="md"] {
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+  }
+
+  [data-card][data-glass][data-elevation="lg"] {
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
+    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
+  }
+
+  [data-card][data-glass][data-elevation="xl"] {
+    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
+    backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
+  }
+
+  /* Reduce shadow on glass cards (blur provides depth) */
   [data-card][data-glass][data-elevation="raised"],
   [data-card][data-glass][data-elevation="elevated"],
   [data-card][data-glass][data-elevation="floating"] {
-    /* Reduce shadow on glass cards (blur provides depth) */
     box-shadow: var(--shadow-sm);
+  }
+
+  /* Fallback for browsers without backdrop-filter support */
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    [data-card][data-glass] {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: color-mix(
+        in oklch,
+        var(--surface-1) calc(var(--alpha-heavy) * 100%),
+        transparent
+      );
+    }
   }
 
   /* =========================================================
      SURFACE TINTS
-     ========================================================= */
+     ========================================================================== */
 
   /* Tinted card backgrounds using accent colors */
   [data-card][data-surface="rose"] {
@@ -166,7 +207,7 @@
 
   /* =========================================================
      ACCESSIBILITY
-     ========================================================= */
+     ========================================================================== */
 
   /* Focus visible for clickable cards */
   [data-card][data-clickable]:focus-visible {
@@ -179,15 +220,18 @@
     tabindex: 0;
   }
 
-  /* Reduced motion: Disable transforms */
+  /* Reduced motion: Remove all animations and transforms */
   @media (prefers-reduced-motion: reduce) {
     [data-card] {
       transition: none;
     }
 
     [data-card][data-hover="lift"]:hover,
+    [data-card][data-hover="glow"]:hover,
     [data-card][data-clickable]:hover {
       transform: none;
+      box-shadow: inherit;
+      border-color: inherit;
     }
 
     [data-card][data-clickable]:active {
@@ -195,17 +239,24 @@
     }
   }
 
-  /* High contrast mode: Ensure visible borders */
+  /* High contrast / forced colors mode: Ensure legibility */
   @media (forced-colors: active) {
     [data-card] {
       border: 1px solid ButtonBorder;
+      background: Canvas;
+      color: CanvasText;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    [data-card][data-glass] {
       background: Canvas;
     }
   }
 
   /* =========================================================
      CARD SECTIONS (Optional Utilities)
-     ========================================================= */
+     ========================================================================== */
 
   /* Card header with bottom border */
   [data-card-header] {
