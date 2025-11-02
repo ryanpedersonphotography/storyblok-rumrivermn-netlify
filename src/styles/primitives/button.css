@@ -65,11 +65,11 @@
 
     /* Smooth transitions (respects motion preferences below) */
     transition:
-      transform 160ms ease,
-      box-shadow 160ms ease,
-      background-color 120ms,
-      color 120ms,
-      border-color 120ms;
+      transform var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-fast) var(--ease-smooth),
+      background-color var(--duration-fast) var(--ease-smooth),
+      color var(--duration-fast) var(--ease-smooth),
+      border-color var(--duration-fast) var(--ease-smooth);
   }
 
   /* =========================================================

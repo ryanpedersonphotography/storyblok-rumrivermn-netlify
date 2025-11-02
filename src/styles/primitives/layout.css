@@ -114,3 +114,71 @@
     minmax(var(--grid-min, 280px), 1fr)
   );
 }
+
+/* =========================================================
+   REEL PRIMITIVE
+   Horizontal auto-scroller with snap scrolling
+   ========================================================= */
+
+.reel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: var(--reel-gap, var(--space-24));
+  overflow-x: auto;
+  padding-block: var(--space-8);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  container-type: inline-size;
+}
+
+/* Snap items to start of scroll container */
+.reel > * {
+  scroll-snap-align: start;
+}
+
+/* Responsive gap adjustment via container query */
+@container (max-width: 700px) {
+  .reel {
+    --reel-gap: var(--space-16);
+  }
+}
+
+/* Reduce motion: disable smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  .reel {
+    scroll-behavior: auto;
+  }
+}
+
+/* =========================================================
+   SIDEBAR PRIMITIVE
+   Two-column layout with main content + fixed-width rail
+   ========================================================= */
+
+.sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(28rem, 32vw);
+  gap: var(--sidebar-gap, var(--space-32));
+  align-items: start;
+  container-type: inline-size;
+}
+
+/* Collapse to single column on narrow containers */
+@container (max-width: 980px) {
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reverse variant - rail comes first */
+.sidebar[data-reverse="true"] {
+  grid-template-columns: min(28rem, 32vw) minmax(0, 1fr);
+}
+
+/* Reverse also collapses to single column on narrow containers */
+.sidebar[data-reverse="true"] {
+  @container (max-width: 980px) {
+    grid-template-columns: 1fr;
+  }
+}

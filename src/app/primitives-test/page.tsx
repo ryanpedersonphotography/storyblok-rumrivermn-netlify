@@ -2991,6 +2991,226 @@ Radius: --radius-md`}</pre>
           </div>
         </div>
       </Section>
+
+      {/* Demo 21: Reel Primitive - Horizontal Snap Scrolling */}
+      <Section
+        background="surface"
+        paddingY="lg"
+        contentWrapper={false}
+        header={{
+          title: 'Demo 21: Reel Primitive',
+          lead: 'Horizontal snap-scrolling container without JavaScript',
+          align: 'center'
+        }}
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 var(--gutter)'
+        }}>
+          <div className="reel" style={{ marginBottom: 'var(--space-48)' }}>
+            {[...Array(10)].map((_, i) => (
+              <div
+                key={i}
+                data-card
+                data-elevation="raised"
+                data-padding="compact"
+                style={{ minWidth: '220px' }}
+              >
+                <div data-card-header style={{ fontWeight: 600 }}>
+                  Item {i + 1}
+                </div>
+                <div
+                  data-card-media
+                  style={{
+                    aspectRatio: '16/9',
+                    background: i % 3 === 0 ? 'var(--bg-tint-rose)' : i % 3 === 1 ? 'var(--bg-tint-gold)' : 'var(--bg-tint-sage)',
+                    borderRadius: '8px'
+                  }}
+                />
+                <div data-card-footer style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                  Snap scroll →
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Usage documentation */}
+          <div style={{
+            background: 'var(--surface-2)',
+            padding: 'var(--space-24)',
+            borderRadius: '8px',
+            border: '1px solid var(--border-subtle)'
+          }}>
+            <h4 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)' }}>
+              Usage
+            </h4>
+            <pre style={{
+              background: 'var(--surface-1)',
+              padding: 'var(--space-16)',
+              borderRadius: '6px',
+              overflow: 'auto',
+              fontSize: '0.875rem',
+              lineHeight: 1.6
+            }}>{`<div className="reel">
+  <Card />
+  <Card />
+  <Card />
+</div>
+
+Features:
+- Horizontal scroll with snap points
+- Touch-friendly overflow scrolling
+- Container query responsive gaps
+- Reduced motion support
+- No JavaScript required
+
+Tokens used:
+Gap: --reel-gap (default: --space-24)
+Padding: --space-8
+Container breakpoint: 700px → --space-16`}</pre>
+          </div>
+        </div>
+      </Section>
+
+      {/* Demo 22: Sidebar Primitive - Two-Column Layout */}
+      <Section
+        background="tint-sage"
+        paddingY="lg"
+        contentWrapper={false}
+        header={{
+          title: 'Demo 22: Sidebar Primitive',
+          lead: 'Responsive main + rail layout using container queries',
+          align: 'center'
+        }}
+      >
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 var(--gutter)'
+        }}>
+          <div className="sidebar" style={{ marginBottom: 'var(--space-48)' }}>
+            <div data-card data-elevation="elevated" data-padding="spacious">
+              <h3 style={{ marginTop: 0, marginBottom: 'var(--space-16)' }}>
+                Main Content
+              </h3>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-24)' }}>
+                This area stretches to fill available space and is first in source order.
+                Resize your browser to see it collapse to a single column layout.
+              </p>
+              <div className="grid is-auto-fit" style={{ ['--grid-min' as any]: '220px' }}>
+                {[1, 2, 3].map(n => (
+                  <div
+                    key={n}
+                    data-card
+                    data-padding="compact"
+                    style={{ background: 'var(--surface-2)' }}
+                  >
+                    <div data-card-header style={{ fontWeight: 600 }}>
+                      Feature {n}
+                    </div>
+                    <p style={{
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.875rem',
+                      margin: 0
+                    }}>
+                      Token-driven spacing and borders.
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <aside data-card data-elevation="raised" data-padding="normal">
+              <h4 style={{ marginTop: 0, marginBottom: 'var(--space-16)' }}>
+                Sidebar Rail
+              </h4>
+              <ul className="stack is-compact" style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0
+              }}>
+                <li>
+                  <a href="#" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none'
+                  }}>
+                    Getting Started Guide
+                  </a>
+                </li>
+                <li>
+                  <a href="#" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none'
+                  }}>
+                    Pricing & Plans
+                  </a>
+                </li>
+                <li>
+                  <a href="#" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none'
+                  }}>
+                    Frequently Asked Questions
+                  </a>
+                </li>
+                <li>
+                  <a href="#" style={{
+                    color: 'var(--accent-rose)',
+                    textDecoration: 'none'
+                  }}>
+                    Contact Support
+                  </a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+
+          {/* Usage documentation */}
+          <div style={{
+            background: 'var(--surface-2)',
+            padding: 'var(--space-24)',
+            borderRadius: '8px',
+            border: '1px solid var(--border-subtle)'
+          }}>
+            <h4 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: 'var(--space-16)' }}>
+              Usage
+            </h4>
+            <pre style={{
+              background: 'var(--surface-1)',
+              padding: 'var(--space-16)',
+              borderRadius: '6px',
+              overflow: 'auto',
+              fontSize: '0.875rem',
+              lineHeight: 1.6
+            }}>{`<div className="sidebar">
+  <main>
+    Main content area
+  </main>
+  <aside>
+    Sidebar rail
+  </aside>
+</div>
+
+<!-- Reverse variant (rail comes first) -->
+<div className="sidebar" data-reverse="true">
+  <aside>Rail</aside>
+  <main>Main</main>
+</div>
+
+Features:
+- Two-column grid layout
+- Fixed sidebar width (28rem max, 32vw)
+- Container query responsive collapse
+- Source order independence
+- Token-based gaps
+
+Tokens used:
+Gap: --sidebar-gap (default: --space-32)
+Rail width: min(28rem, 32vw)
+Container breakpoint: 980px collapse`}</pre>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }
