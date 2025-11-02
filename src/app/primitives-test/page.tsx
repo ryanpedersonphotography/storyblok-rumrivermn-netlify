@@ -1904,6 +1904,561 @@ export default function PrimitivesTestPage() {
           </p>
         </div>
       </Section>
+
+      {/* Demo 16: Measure Utilities - Readable Line Lengths */}
+      <Section
+        align="center"
+        width="content"
+        paddingY="lg"
+        background="surface"
+        header={{
+          scriptAccent: 'Demo 16',
+          title: 'Measure Utilities',
+          lead: 'Control line length for optimal readability using .measure classes',
+          align: 'center'
+        }}
+      >
+        <div className="stack is-rhythm-section">
+          {/* Measure Tight (52ch) */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--accent-rose)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem'
+            }}>
+              .measure--tight (52ch)
+            </h3>
+            <div className="measure--tight">
+              <Text size="sm">
+                This paragraph demonstrates the tight measure utility, which limits line length to 52 characters. This is ideal for shorter text blocks, captions, or sidebars where a narrower column creates better readability. The tight measure prevents lines from becoming too long and helps maintain reader focus on compact content areas.
+              </Text>
+            </div>
+            <div style={{
+              marginTop: 'var(--space-16)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              color: 'var(--text-secondary)'
+            }}>
+              max-width: var(--measure-tight) = 52ch
+            </div>
+          </div>
+
+          {/* Measure Default (66ch) */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--accent-rose)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem'
+            }}>
+              .measure (66ch) - Optimal Reading Width
+            </h3>
+            <div className="measure">
+              <Text size="md">
+                This paragraph uses the default measure utility, set at 66 characters per line. Research shows this is the optimal line length for body text, balancing readability with efficient use of space. Lines that are too long cause readers to lose their place when moving to the next line, while lines that are too short create choppy, inefficient reading. The 66-character measure hits the sweet spot for comfortable, sustained reading of longer content like blog posts, articles, or documentation.
+              </Text>
+            </div>
+            <div style={{
+              marginTop: 'var(--space-16)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              color: 'var(--text-secondary)'
+            }}>
+              max-width: var(--measure) = 66ch
+            </div>
+          </div>
+
+          {/* Measure Loose (72ch) */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--accent-rose)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem'
+            }}>
+              .measure--loose (72ch)
+            </h3>
+            <div className="measure--loose">
+              <Text size="lg">
+                This paragraph demonstrates the loose measure utility at 72 characters. This wider measure is appropriate for larger text sizes where the increased font size naturally improves readability even with longer lines. Use this for text that needs to feel more spacious or for larger type where the standard measure might feel cramped. The loose measure also works well for text with generous line-height where the vertical spacing helps guide the eye back to the start of each line.
+              </Text>
+            </div>
+            <div style={{
+              marginTop: 'var(--space-16)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              color: 'var(--text-secondary)'
+            }}>
+              max-width: var(--measure-loose) = 72ch
+            </div>
+          </div>
+
+          {/* Usage Example */}
+          <div style={{
+            background: 'var(--bg-tint-sage)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-medium)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--text-primary)'
+            }}>
+              Usage in JSX
+            </h3>
+            <pre style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8125rem',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)',
+              margin: 0,
+              whiteSpace: 'pre-wrap'
+            }}>{`<div className="measure">
+  <Text size="md">
+    Long paragraph text that needs optimal reading width (66ch)
+  </Text>
+</div>
+
+<div className="measure--tight">
+  <Text size="sm">Shorter text with tight measure (52ch)</Text>
+</div>
+
+<div className="measure--loose">
+  <Text size="lg">Large text with loose measure (72ch)</Text>
+</div>`}</pre>
+          </div>
+        </div>
+      </Section>
+
+      {/* Demo 17: Muted Text Variants */}
+      <Section
+        align="center"
+        width="content"
+        paddingY="lg"
+        background="tint-rose"
+        header={{
+          scriptAccent: 'Demo 17',
+          title: 'Muted Text Variants',
+          lead: 'Reduce emphasis with automatic opacity adjustment for secondary content',
+          align: 'center'
+        }}
+      >
+        <div className="stack is-rhythm-section">
+          {/* Heading Comparison */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-24)',
+              color: 'var(--text-primary)'
+            }}>
+              Heading Variants
+            </h3>
+
+            <div style={{ marginBottom: 'var(--space-32)' }}>
+              <div style={{
+                marginBottom: 'var(--space-8)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)'
+              }}>
+                Normal (100% opacity):
+              </div>
+              <Heading as={2} size="lg">
+                Primary Heading - Full Emphasis
+              </Heading>
+            </div>
+
+            <div>
+              <div style={{
+                marginBottom: 'var(--space-8)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)'
+              }}>
+                Muted (70% opacity):
+              </div>
+              <Heading as={2} size="lg" muted>
+                Secondary Heading - Reduced Emphasis
+              </Heading>
+            </div>
+
+            <div style={{
+              marginTop: 'var(--space-24)',
+              padding: 'var(--space-16)',
+              background: 'var(--bg-tint-sage)',
+              borderRadius: '8px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem',
+              color: 'var(--text-secondary)'
+            }}>
+              <div>--text-muted: color-mix(in oklch, var(--text-primary) 70%, transparent)</div>
+              <div style={{ marginTop: '8px' }}>Dark mode: 65% opacity for better contrast</div>
+            </div>
+          </div>
+
+          {/* Text Comparison */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-24)',
+              color: 'var(--text-primary)'
+            }}>
+              Body Text Variants
+            </h3>
+
+            <div style={{ marginBottom: 'var(--space-32)' }}>
+              <div style={{
+                marginBottom: 'var(--space-8)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)'
+              }}>
+                Normal text:
+              </div>
+              <Text size="md">
+                This is standard body text with full color emphasis. Use this for primary content that needs maximum readability and prominence. Perfect for main paragraphs, important announcements, or key information.
+              </Text>
+            </div>
+
+            <div>
+              <div style={{
+                marginBottom: 'var(--space-8)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)'
+              }}>
+                Muted text:
+              </div>
+              <Text size="md" muted>
+                This is muted body text with reduced color emphasis. Use this for secondary information like descriptions, captions, metadata, or supporting details that complement but don&apos;t compete with primary content.
+              </Text>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--text-primary)'
+            }}>
+              Common Use Cases
+            </h3>
+
+            <div className="stack is-rhythm-prose" style={{ gap: 'var(--space-24)' }}>
+              {/* Card Example */}
+              <div style={{
+                padding: 'var(--space-24)',
+                border: '1px solid var(--border-medium)',
+                borderRadius: '8px'
+              }}>
+                <Heading as={3} size="md">
+                  Article Title
+                </Heading>
+                <Heading as={4} size="sm" muted style={{ marginTop: 'var(--space-8)' }}>
+                  Subtitle or Secondary Information
+                </Heading>
+                <Text size="md" style={{ marginTop: 'var(--space-16)' }}>
+                  Main article content goes here with full emphasis...
+                </Text>
+                <Text size="sm" muted style={{ marginTop: 'var(--space-12)' }}>
+                  Posted 2 days ago · 5 min read
+                </Text>
+              </div>
+
+              {/* Code Example */}
+              <div style={{
+                background: 'var(--bg-tint-sage)',
+                padding: 'var(--space-24)',
+                borderRadius: '8px'
+              }}>
+                <pre style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.8125rem',
+                  lineHeight: 1.6,
+                  margin: 0,
+                  whiteSpace: 'pre-wrap'
+                }}>{`<Heading as={3} size="sm" muted>
+  Secondary Heading (70% opacity)
+</Heading>
+
+<Text size="sm" muted>
+  Muted body text for less emphasis
+</Text>`}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Demo 18: Text Balance Control */}
+      <Section
+        align="center"
+        width="content"
+        paddingY="lg"
+        background="surface"
+        header={{
+          scriptAccent: 'Demo 18',
+          title: 'Text Balance Control',
+          lead: 'Prevent orphaned words and create visually balanced headings',
+          align: 'center'
+        }}
+      >
+        <div className="stack is-rhythm-section">
+          {/* Balanced (Default) */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--accent-rose)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem'
+            }}>
+              Balanced (Default) - text-wrap: balance
+            </h3>
+
+            <div style={{
+              maxWidth: '600px',
+              margin: '0 auto',
+              padding: 'var(--space-24)',
+              background: 'var(--bg-tint-rose)',
+              borderRadius: '8px'
+            }}>
+              <Heading as={2} size="xl">
+                This Heading Uses Text Wrap Balance for Better Typography
+              </Heading>
+            </div>
+
+            <div style={{
+              marginTop: 'var(--space-16)',
+              padding: 'var(--space-16)',
+              background: 'var(--bg-tint-sage)',
+              borderRadius: '8px'
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6
+              }}>
+                <div>✓ Lines have similar length</div>
+                <div>✓ No orphaned words</div>
+                <div>✓ Visually balanced appearance</div>
+                <div style={{ marginTop: '12px', color: 'var(--text-primary)' }}>
+                  text-wrap: balance (browser automatically balances line breaks)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Not Balanced */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--accent-rose)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem'
+            }}>
+              Not Balanced - balance=&#123;false&#125;
+            </h3>
+
+            <div style={{
+              maxWidth: '600px',
+              margin: '0 auto',
+              padding: 'var(--space-24)',
+              background: 'var(--bg-tint-rose)',
+              borderRadius: '8px'
+            }}>
+              <Heading as={2} size="xl" balance={false}>
+                This Heading Uses Text Wrap Balance for Better Typography
+              </Heading>
+            </div>
+
+            <div style={{
+              marginTop: 'var(--space-16)',
+              padding: 'var(--space-16)',
+              background: 'rgba(180, 0, 32, 0.1)',
+              borderRadius: '8px',
+              border: '1px solid rgba(180, 0, 32, 0.2)'
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6
+              }}>
+                <div>✗ Uneven line lengths</div>
+                <div>✗ May have orphaned words</div>
+                <div>✗ Natural browser wrapping (less visually balanced)</div>
+                <div style={{ marginTop: '12px', color: 'var(--text-primary)' }}>
+                  text-wrap: normal (standard browser line breaking)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* When to Use Each */}
+          <div style={{
+            background: 'var(--surface-1)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-subtle)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-24)',
+              color: 'var(--text-primary)'
+            }}>
+              When to Use Each Variant
+            </h3>
+
+            <div className="stack is-rhythm-prose" style={{ gap: 'var(--space-24)' }}>
+              <div>
+                <Heading as={4} size="sm" style={{ color: 'var(--accent-rose)' }}>
+                  Use Balance (Default)
+                </Heading>
+                <Text size="sm" muted style={{ marginTop: 'var(--space-8)' }}>
+                  ✓ Headlines and page titles<br/>
+                  ✓ Card titles and section headers<br/>
+                  ✓ Any heading where visual balance matters<br/>
+                  ✓ Marketing copy and hero text
+                </Text>
+              </div>
+
+              <div>
+                <Heading as={4} size="sm" style={{ color: 'var(--accent-rose)' }}>
+                  Use balance=&#123;false&#125;
+                </Heading>
+                <Text size="sm" muted style={{ marginTop: 'var(--space-8)' }}>
+                  ✓ Very long headings (6+ words)<br/>
+                  ✓ Headings that need natural flow<br/>
+                  ✓ Technical documentation titles<br/>
+                  ✓ When you specifically want natural wrapping
+                </Text>
+              </div>
+            </div>
+          </div>
+
+          {/* Progressive Enhancement Note */}
+          <div style={{
+            background: 'linear-gradient(135deg, var(--accent-rose) 0%, var(--accent-gold) 100%)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            color: 'white',
+            textAlign: 'center'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-12)'
+            }}>
+              Progressive Enhancement
+            </h3>
+            <p style={{
+              fontSize: '0.9375rem',
+              margin: 0,
+              lineHeight: 1.6,
+              opacity: 0.95
+            }}>
+              For browsers that don&apos;t support <code style={{
+                fontFamily: 'var(--font-mono)',
+                background: 'rgba(255,255,255,0.2)',
+                padding: '2px 6px',
+                borderRadius: '4px'
+              }}>text-wrap: balance</code>, headings automatically enable <code style={{
+                fontFamily: 'var(--font-mono)',
+                background: 'rgba(255,255,255,0.2)',
+                padding: '2px 6px',
+                borderRadius: '4px'
+              }}>hyphens: auto</code> as a fallback to prevent orphaned words.
+            </p>
+          </div>
+
+          {/* Usage Example */}
+          <div style={{
+            background: 'var(--bg-tint-sage)',
+            padding: 'var(--space-32)',
+            borderRadius: '12px',
+            border: '2px solid var(--border-medium)'
+          }}>
+            <h3 style={{
+              fontSize: '1.125rem',
+              fontWeight: 600,
+              marginBottom: 'var(--space-16)',
+              color: 'var(--text-primary)'
+            }}>
+              Usage in JSX
+            </h3>
+            <pre style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8125rem',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)',
+              margin: 0,
+              whiteSpace: 'pre-wrap'
+            }}>{`{/* Default: balanced text wrapping */}
+<Heading as={2} size="lg">
+  This heading will use text-wrap: balance
+</Heading>
+
+{/* Opt out of text balancing */}
+<Heading as={2} size="lg" balance={false}>
+  This heading will NOT use text-wrap: balance
+</Heading>`}</pre>
+          </div>
+        </div>
+      </Section>
     </div>
   )
 }
