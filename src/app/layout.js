@@ -31,6 +31,7 @@ import '@/styles/components/faq.css'
 import '@/styles/components/section.legacy-wrapper.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider';
+import { ThemeProvider } from '@/components/ui/ThemeProvider';
 import { playfairDisplay, montserrat, dancingScript } from './fonts';
 import Navbar from '@/components/clean/Navbar';
 
@@ -60,20 +61,30 @@ export default function RootLayout({ children }) {
 							__html: `
 (function(){
   try{
-    var stored = localStorage.getItem('theme-mode');
-    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var theme = stored || (systemDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
+    var d = document.documentElement;
+
+    // Theme (light/dark)
+    var theme = localStorage.getItem('rr.theme');
+    if(!theme){
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    d.setAttribute('data-theme', theme);
+
+    // Brand (romantic/modern) - default to romantic for public site
+    var brand = localStorage.getItem('rr.brand') || 'romantic';
+    d.setAttribute('data-brand', brand);
   }catch(e){}
 })();
 `}}
 					/>
 				</head>
 				<body>
-					<div data-clean-root="true">
-						<Navbar />
-						{children}
-					</div>
+					<ThemeProvider>
+						<div data-clean-root="true">
+							<Navbar />
+							{children}
+						</div>
+					</ThemeProvider>
 				</body>
 			</html>
 		</StoryblokProvider>
