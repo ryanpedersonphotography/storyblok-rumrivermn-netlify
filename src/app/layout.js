@@ -58,24 +58,16 @@ export default function RootLayout({ children }) {
 				<head>
 					<script
 						dangerouslySetInnerHTML={{
-							__html: `
-(function(){
-  try{
-    var d = document.documentElement;
-
-    // Theme (light/dark)
-    var theme = localStorage.getItem('rr.theme');
-    if(!theme){
-      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    d.setAttribute('data-theme', theme);
-
-    // Brand (romantic/modern) - default to romantic for public site
-    var brand = localStorage.getItem('rr.brand') || 'romantic';
-    d.setAttribute('data-brand', brand);
-  }catch(e){}
-})();
-`}}
+							__html: `(function(){try{
+        var d=document.documentElement;
+        // theme
+        var t=localStorage.getItem('rr.theme');
+        if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+        d.setAttribute('data-theme', (t==='dark'?'dark':'light'));
+        // brand (public default romantic)
+        var b=localStorage.getItem('rr.brand')||'romantic';
+        d.setAttribute('data-brand', (b==='modern'?'modern':'romantic'));
+      }catch(e){}})();`}}
 					/>
 				</head>
 				<body>

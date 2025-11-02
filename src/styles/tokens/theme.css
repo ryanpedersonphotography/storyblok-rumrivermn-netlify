@@ -688,11 +688,9 @@ html[data-theme="dark"] {
   --why-shadow:   0 14px 36px rgba(0,0,0,.45);
 
   /* ===== Glass System (Dark) ===== */
-  /* Blur values same as light mode */
-  /* --blur-* inherited from :root */
-
+  /* Blur values inherited from :root (--blur-*) */
   /* Adjusted transparency for dark backgrounds */
-  --alpha-subtle: 0.15;    /* less transparent in dark mode */
+  --alpha-subtle: 0.15;
   --alpha-mid: 0.25;
   --alpha-strong: 0.35;
   --alpha-heavy: 0.50;

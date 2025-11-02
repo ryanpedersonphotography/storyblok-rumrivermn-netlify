@@ -13,6 +13,8 @@ import {
   BRAND_REGISTRY,
   STORAGE_KEYS,
   preferredSystemTheme,
+  clampTheme,
+  clampBrand,
   type ThemeId,
   type BrandId
 } from '@/lib/theme/registry'
@@ -28,37 +30,33 @@ const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // Initialize from DOM attributes (set by pre-paint script)
-  const [theme, setThemeState] = useState<ThemeId>(() => {
-    if (typeof document !== 'undefined') {
-      const attr = document.documentElement.getAttribute('data-theme')
-      return (attr as ThemeId) || 'light'
-    }
-    return 'light'
-  })
+  const initialTheme: ThemeId = typeof document !== 'undefined'
+    ? clampTheme(document.documentElement.getAttribute('data-theme'))
+    : 'light'
+  const initialBrand: BrandId = typeof document !== 'undefined'
+    ? clampBrand(document.documentElement.getAttribute('data-brand'))
+    : 'romantic'
 
-  const [brand, setBrandState] = useState<BrandId>(() => {
-    if (typeof document !== 'undefined') {
-      const attr = document.documentElement.getAttribute('data-brand')
-      return (attr as BrandId) || 'romantic'
-    }
-    return 'romantic'
-  })
+  const [theme, setThemeState] = useState<ThemeId>(initialTheme)
+  const [brand, setBrandState] = useState<BrandId>(initialBrand)
 
   /* Set theme: update state, DOM, and localStorage */
-  const setTheme = (newTheme: ThemeId) => {
-    setThemeState(newTheme)
+  const setTheme = (next: ThemeId) => {
+    if (next === theme) return // no-op if unchanged
+    setThemeState(next)
     if (typeof document !== 'undefined') {
-      THEME_REGISTRY[newTheme].apply(document.documentElement)
-      localStorage.setItem(STORAGE_KEYS.theme, newTheme)
+      THEME_REGISTRY[next].apply(document.documentElement)
+      localStorage.setItem(STORAGE_KEYS.theme, next)
     }
   }
 
   /* Set brand: update state, DOM, and localStorage */
-  const setBrand = (newBrand: BrandId) => {
-    setBrandState(newBrand)
+  const setBrand = (next: BrandId) => {
+    if (next === brand) return // no-op if unchanged
+    setBrandState(next)
     if (typeof document !== 'undefined') {
-      BRAND_REGISTRY[newBrand].apply(document.documentElement)
-      localStorage.setItem(STORAGE_KEYS.brand, newBrand)
+      BRAND_REGISTRY[next].apply(document.documentElement)
+      localStorage.setItem(STORAGE_KEYS.brand, next)
     }
   }
 
@@ -69,10 +67,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Cross-tab sync via storage events
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEYS.theme && e.newValue) {
-        setTheme(e.newValue as ThemeId)
+        const nv = clampTheme(e.newValue)
+        if (nv !== theme) setTheme(nv)
       }
       if (e.key === STORAGE_KEYS.brand && e.newValue) {
-        setBrand(e.newValue as BrandId)
+        const nv = clampBrand(e.newValue)
+        if (nv !== brand) setBrand(nv)
       }
     }
 
@@ -92,7 +92,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('storage', onStorage)
       mql.removeEventListener('change', onMqlChange)
     }
-  }, [])
+  }, [theme, brand])
 
   const value = useMemo(
     () => ({ theme, setTheme, brand, setBrand }),

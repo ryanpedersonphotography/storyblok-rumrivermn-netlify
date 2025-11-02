@@ -71,3 +71,11 @@ export function preferredSystemTheme(): ThemeId {
   if (typeof window === 'undefined') return 'light'
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
+
+export function clampTheme(v: string | null | undefined): ThemeId {
+  return v === 'dark' ? 'dark' : 'light'
+}
+
+export function clampBrand(v: string | null | undefined): BrandId {
+  return v === 'modern' ? 'modern' : 'romantic'
+}
