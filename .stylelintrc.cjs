@@ -35,5 +35,23 @@ module.exports = {
         disableFix: true
       }
     ]
-  }
+  },
+
+  // File-specific overrides
+  overrides: [
+    {
+      // Prevent base-level html/body selectors in component-layer files
+      // Rationale: html/body should only be styled in @layer base (globals.css)
+      // to avoid overriding critical base styles like scrollbar-gutter
+      files: ['src/styles/primitives/**/*.css', 'src/styles/components/**/*.css'],
+      rules: {
+        'selector-disallowed-list': [
+          ['/^html$/', '/^body$/'],
+          {
+            message: 'Base-level html/body selectors not allowed in component layers. Use globals.css @layer base instead to prevent cascade conflicts.'
+          }
+        ]
+      }
+    }
+  ]
 }

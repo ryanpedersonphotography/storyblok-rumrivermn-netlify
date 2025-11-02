@@ -1,4 +1,5 @@
 import * as React from 'react'
+import type { Align } from './types'
 
 /* ==========================================================================
    HEADING PRIMITIVE - Token-Driven, Semantic Headings
@@ -13,7 +14,6 @@ import * as React from 'react'
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
 export type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-export type Align = 'start' | 'center' | 'end'
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /**
@@ -92,11 +92,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ) => {
     const Tag = `h${as}` as const
 
-    const classes = [
-      balance && 't-balance',
-      blockMargin && 't-block-margin',
-      className,
-    ]
+    const classes = [blockMargin && 't-block-margin', className]
       .filter(Boolean)
       .join(' ')
       .trim()
@@ -108,6 +104,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
         data-size={size}
         data-align={align}
         data-muted={muted ? 'true' : undefined}
+        data-balance={balance ? undefined : 'false'}
         className={classes || undefined}
         {...rest}
       />

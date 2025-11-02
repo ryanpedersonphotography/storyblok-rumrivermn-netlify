@@ -1,4 +1,5 @@
 import * as React from 'react'
+import type { Align } from './types'
 
 /* ==========================================================================
    TEXT PRIMITIVE - Token-Driven Body Text
@@ -8,20 +9,19 @@ import * as React from 'react'
    - Fluid typography sizes (xs, sm, md, lg)
    - Zero margins by default (composition over inheritance)
    - Muted color variant for secondary text
-   - Full TypeScript support with polymorphic typing
+   - True polymorphic typing (element-specific props & refs)
    ========================================================================== */
 
-export type TextElement = 'p' | 'span' | 'div'
-export type TextSize = 'xs' | 'sm' | 'md' | 'lg'
-export type Align = 'start' | 'center' | 'end'
+type Element = keyof Pick<JSX.IntrinsicElements, 'p' | 'span' | 'div'>
 
-export interface TextProps<TElement extends TextElement = 'p'>
-  extends React.HTMLAttributes<HTMLElement> {
+export type TextSize = 'xs' | 'sm' | 'md' | 'lg'
+
+type Props<E extends Element> = {
   /**
    * HTML element to render
    * @default 'p'
    */
-  as?: TElement
+  as?: E
 
   /**
    * Text size variant
@@ -48,7 +48,13 @@ export interface TextProps<TElement extends TextElement = 'p'>
   blockMargin?: boolean
 
   children?: React.ReactNode
-}
+} & Omit<React.ComponentPropsWithoutRef<E>, 'as'>
+
+type Ref<E extends Element> = E extends 'span'
+  ? HTMLSpanElement
+  : E extends 'div'
+  ? HTMLDivElement
+  : HTMLParagraphElement
 
 /**
  * Text primitive component with fluid typography and semantic HTML.
@@ -66,25 +72,25 @@ export interface TextProps<TElement extends TextElement = 'p'>
  * </Text>
  *
  * @example
- * // Inline span
- * <Text as="span" size="lg">
+ * // Inline span with proper typing
+ * <Text as="span" size="lg" onClick={(e) => console.log(e.currentTarget)}>
  *   Important highlight
  * </Text>
  */
-export const Text = React.forwardRef<HTMLElement, TextProps>(
-  (
+export const Text = React.forwardRef(
+  <E extends Element = 'p'>(
     {
-      as = 'p',
+      as,
       size = 'md',
       align = 'start',
       muted = false,
       blockMargin = false,
       className = '',
       ...rest
-    },
-    ref
+    }: Props<E>,
+    ref: React.ForwardedRef<Ref<E>>
   ) => {
-    const Tag = as as React.ElementType
+    const Tag = (as ?? 'p') as Element
 
     const classes = [blockMargin && 't-block-margin', className]
       .filter(Boolean)
@@ -93,16 +99,18 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
 
     return (
       <Tag
-        ref={ref}
+        ref={ref as any}
         data-ui="text"
         data-size={size}
         data-align={align}
         data-muted={muted ? 'true' : undefined}
         className={classes || undefined}
-        {...rest}
+        {...(rest as any)}
       />
     )
   }
-)
+) as <E extends Element = 'p'>(
+  p: Props<E> & { ref?: React.Ref<Ref<E>> }
+) => JSX.Element
 
 Text.displayName = 'Text'
