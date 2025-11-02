@@ -1,0 +1,116 @@
+/* =========================================================
+   LAYOUT PRIMITIVES
+   Minimal, composable layout utilities that work INSIDE
+   your existing Section component.
+
+   NOTE: Unlayered (not in @layer components) so they have
+   higher cascade priority and work predictably.
+   ========================================================= */
+
+/* Stack - vertical flow with tokenized gaps */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--space-32));
+}
+
+/* Fluid variant - use for macro layout only */
+.stack.is-fluid {
+  --stack-gap: var(--stack-gap-fluid-lg);
+}
+
+/* =========================================================
+   SEMANTIC RHYTHM VARIANTS
+   Named spacing presets for common layout patterns
+   ========================================================= */
+
+/* Prose rhythm - tight spacing for reading flow */
+.stack.is-rhythm-prose {
+  --stack-gap: var(--space-fluid-1); /* clamp(16px, 1.5vw, 24px) */
+}
+
+/* Section rhythm - standard content section spacing */
+.stack.is-rhythm-section {
+  --stack-gap: var(--space-fluid-3); /* clamp(32px, 3vw, 56px) */
+}
+
+/* Macro rhythm - large spacing for page-level layout */
+.stack.is-rhythm-macro {
+  --stack-gap: var(--space-fluid-5); /* clamp(64px, 6vw, 96px) */
+}
+
+/* =========================================================
+   DENSITY PRESETS
+   Fine-tuned spacing control for stack primitive
+   ========================================================= */
+
+.stack.is-tight {
+  --stack-gap: var(--space-16); /* 1rem / 16px */
+}
+
+.stack.is-compact {
+  --stack-gap: var(--space-24); /* 1.5rem / 24px */
+}
+
+.stack.is-loose {
+  --stack-gap: var(--space-40); /* 2.5rem / 40px */
+}
+
+.stack.is-airy {
+  --stack-gap: var(--space-56); /* 3.5rem / 56px */
+}
+
+/* =========================================================
+   CLUSTER - Horizontal wrapping flow
+   ========================================================= */
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-gap, var(--space-24));
+  align-items: center;
+}
+
+.cluster[data-justify="between"] {
+  justify-content: space-between;
+}
+
+.cluster[data-justify="center"] {
+  justify-content: center;
+}
+
+.cluster[data-justify="end"] {
+  justify-content: flex-end;
+}
+
+/* Extended cluster alignment options */
+.cluster[data-align="start"] {
+  align-items: flex-start;
+}
+
+.cluster[data-align="end"] {
+  align-items: flex-end;
+}
+
+.cluster[data-align="baseline"] {
+  align-items: baseline;
+}
+
+/* =========================================================
+   GRID PRIMITIVE
+   Flexible grid layout with tokenized gaps
+   ========================================================= */
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-24));
+  grid-template-columns: var(--grid-cols, 1fr);
+}
+
+/* Auto-fit variant - responsive grid without media queries */
+.grid.is-auto-fit {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--grid-min, 280px), 1fr)
+  );
+}

@@ -1,0 +1,318 @@
+@layer components {
+  /* =========================================================
+     BUTTON PRIMITIVE - Production-Ready Styles
+
+     Features:
+     - Variants: solid, outline, subtle, ghost
+     - Sizes: xs, sm, md, lg (with WCAG 44x44 hit targets)
+     - Corners: round, pill, square
+     - Loading states with spinner
+     - Icon-only support
+     - HCM (High Contrast Mode) support
+     - Motion preferences respect
+     - Universal selector (native + asChild)
+     ========================================================= */
+
+  :root {
+    /* Size scale (map to your spacing tokens) */
+    --btn-h-xs: 2rem;       /* 32px */
+    --btn-pad-xs: 0 var(--space-12, 0.75rem);
+    --btn-fs-xs: 0.8125rem; /* 13px */
+
+    --btn-h-sm: 2.5rem;     /* 40px */
+    --btn-pad-sm: 0 var(--space-16, 1rem);
+    --btn-fs-sm: 0.875rem;  /* 14px */
+
+    --btn-h-md: 3rem;       /* 48px */
+    --btn-pad-md: 0 var(--space-20, 1.25rem);
+    --btn-fs-md: 1rem;      /* 16px */
+
+    --btn-h-lg: 3.5rem;     /* 56px */
+    --btn-pad-lg: 0 var(--space-24, 1.5rem);
+    --btn-fs-lg: 1.0625rem; /* 17px */
+
+    /* Border radius options */
+    --btn-rad-round: 8px;
+    --btn-rad-pill: 9999px;
+    --btn-rad-square: 0;
+
+    /* Focus ring */
+    --btn-focus: var(--focus-ring, var(--btn-outline-border, oklch(0.78 0.08 85)));
+    --btn-focus-offset: 2px;
+
+    /* Variant surfaces (wire to your brand tokens) */
+    /* SOLID variant */
+    --btn-bg-solid: var(--btn-bg-gold, oklch(0.85 0.09 85));
+    --btn-fg-solid: var(--btn-fg-on-gold, oklch(0.20 0.03 80));
+
+    /* OUTLINE variant */
+    --btn-bg-outline: transparent;
+    --btn-bd-outline: var(--btn-outline-border, color-mix(in oklch, var(--btn-bg-gold) 90%, black));
+    --btn-fg-outline: var(--btn-outline-fg, var(--btn-bg-gold));
+
+    /* SUBTLE variant */
+    --btn-bg-subtle: color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 18%, transparent);
+    --btn-fg-subtle: var(--btn-bg-gold, oklch(0.85 0.09 85));
+
+    /* GHOST variant */
+    --btn-bg-ghost: transparent;
+    --btn-fg-ghost: var(--text-primary, currentColor);
+  }
+
+  /* =========================================================
+     UNIVERSAL RESET (native <button> + asChild elements)
+     ========================================================= */
+  button[data-ui="button"],
+  [data-ui="button"]:is(a, span, div) {
+    /* Reset all browser defaults */
+    all: unset;
+    box-sizing: border-box;
+
+    /* Remove appearance for cross-browser consistency */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8, 0.5rem);
+
+    /* Typography */
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1;
+    vertical-align: middle;
+
+    /* Interaction */
+    user-select: none;
+    cursor: pointer;
+
+    /* WCAG 2.5.5: Minimum 44×44px hit target */
+    min-inline-size: 44px;
+    min-block-size: 44px;
+
+    /* Smooth transitions (respects motion preferences below) */
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background-color 120ms,
+      color 120ms,
+      border-color 120ms;
+  }
+
+  /* =========================================================
+     VARIANTS (behavioral, not branded)
+     ========================================================= */
+  [data-ui="button"][data-variant="solid"] {
+    background: var(--btn-bg-solid);
+    color: var(--btn-fg-solid);
+  }
+
+  [data-ui="button"][data-variant="outline"] {
+    background: var(--btn-bg-outline);
+    color: var(--btn-fg-outline);
+    border: 2px solid var(--btn-bd-outline);
+  }
+
+  [data-ui="button"][data-variant="subtle"] {
+    background: var(--btn-bg-subtle);
+    color: var(--btn-fg-subtle);
+  }
+
+  [data-ui="button"][data-variant="ghost"] {
+    background: var(--btn-bg-ghost);
+    color: var(--btn-fg-ghost);
+  }
+
+  /* =========================================================
+     SIZES (height + padding + font-size)
+     ========================================================= */
+  [data-ui="button"][data-size="xs"] {
+    block-size: var(--btn-h-xs);
+    padding: var(--btn-pad-xs);
+    font-size: var(--btn-fs-xs);
+  }
+
+  [data-ui="button"][data-size="sm"] {
+    block-size: var(--btn-h-sm);
+    padding: var(--btn-pad-sm);
+    font-size: var(--btn-fs-sm);
+  }
+
+  [data-ui="button"][data-size="md"] {
+    block-size: var(--btn-h-md);
+    padding: var(--btn-pad-md);
+    font-size: var(--btn-fs-md);
+  }
+
+  [data-ui="button"][data-size="lg"] {
+    block-size: var(--btn-h-lg);
+    padding: var(--btn-pad-lg);
+    font-size: var(--btn-fs-lg);
+  }
+
+  /* =========================================================
+     CORNERS (border-radius options)
+     ========================================================= */
+  [data-ui="button"][data-corner="round"] {
+    border-radius: var(--btn-rad-round);
+  }
+
+  [data-ui="button"][data-corner="pill"] {
+    border-radius: var(--btn-rad-pill);
+  }
+
+  [data-ui="button"][data-corner="square"] {
+    border-radius: var(--btn-rad-square);
+  }
+
+  /* =========================================================
+     ICON-ONLY (square aspect ratio)
+     ========================================================= */
+  [data-ui="button"][data-icon-only="true"] {
+    aspect-ratio: 1 / 1;
+    padding: 0;
+  }
+
+  /* =========================================================
+     DISABLED & LOADING STATES
+     ========================================================= */
+
+  /* Disabled (native <button>) */
+  button[data-ui="button"][disabled],
+  button[data-ui="button"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Disabled (asChild - aria-disabled parity) */
+  [data-ui="button"][data-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Loading (blocks interaction) */
+  [data-ui="button"][data-loading="true"] {
+    pointer-events: none;
+  }
+
+  /* =========================================================
+     FOCUS STYLES (keyboard accessibility)
+     ========================================================= */
+  button[data-ui="button"]:focus-visible,
+  [data-ui="button"]:focus-visible {
+    outline: 2px solid var(--btn-focus);
+    outline-offset: var(--btn-focus-offset);
+  }
+
+  /* High Contrast Mode (Windows HCM / forced-colors) */
+  @media (forced-colors: active) {
+    button[data-ui="button"]:focus,
+    [data-ui="button"]:focus {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+
+  /* =========================================================
+     HOVER & ACTIVE STATES (respects motion preferences)
+     ========================================================= */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hover: subtle lift */
+    [data-ui="button"]:where(:hover):not([data-disabled="true"]):not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    /* Active: press down + slight darken */
+    [data-ui="button"]:where(:active):not([data-disabled="true"]):not(:disabled) {
+      transform: translateY(0);
+      filter: brightness(0.98);
+    }
+  }
+
+  /* =========================================================
+     LOADING SPINNER & CONTENT COMPOSITION
+     ========================================================= */
+
+  /* Content wrapper - provides stable container for row/overlay modes */
+  [data-ui="button"] .btn__content {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+  }
+
+  /* Row layout - for start/end spinner positions */
+  [data-ui="button"] .btn__row {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: var(--space-8, 0.5rem);
+  }
+
+  /* Spinner wrappers for positioning */
+  .btn__spinner-start,
+  .btn__spinner-end {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* SVG spinner sizing (inherits from font-size in em units) */
+  [data-ui="button"] .btn__spinner {
+    inline-size: var(--spinner-size, 1.1em);
+    block-size: var(--spinner-size, 1.1em);
+  }
+
+  /* Overlay spinner - centers above content */
+  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__spinner-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  /* Hide label visually when overlay spinner is active */
+  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__label {
+    opacity: 0;
+  }
+
+  /* Width preservation ghost - keeps button width stable during loading */
+  [data-ui="button"][data-preserve-width="true"] .btn__width-ghost {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    white-space: nowrap;
+    visibility: hidden;
+  }
+
+  /* Screen-reader only text (for loadingText fallback) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST MODE (forced-colors)
+     ========================================================= */
+
+  /* Ensure SVG spinner remains visible in Windows HCM */
+  @media (forced-colors: active) {
+    [data-ui="button"] .btn__spinner {
+      stroke: CanvasText;
+      fill: CanvasText;
+    }
+  }
+}

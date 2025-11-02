@@ -1,15 +1,17 @@
 // 1. TOKENS - Design tokens (OKLCH colors, surfaces, gradients, accent veils)
 import '@/styles/tokens/theme.css'
 
-// 2. UTILITIES - Section presets and layout utilities (@layer utilities)
+// 2. PRIMITIVES - Layout primitives and component primitives (stack, cluster, grid, button)
+import '@/styles/primitives/index.css'
+
+// 3. UTILITIES - Section presets and layout utilities (@layer utilities)
 import '@/styles/system/section-presets.css'
 import '@/styles/system/layout.css'
-import '@/styles/system/primitives.css'
 
-// 3. GLOBALS - Base styles
+// 4. GLOBALS - Base styles
 import '@/styles/globals.css'
 
-// 4. COMPONENTS - Component-specific styles (@layer components)
+// 5. COMPONENTS - Component-specific styles (@layer components)
 import '@/styles/components/buttons.css'
 import '@/styles/components/section.css'
 import '@/styles/components/section.variants.css'
