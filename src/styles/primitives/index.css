@@ -1,13 +1,7 @@
 /* =========================================================
-   PRIMITIVES SYSTEM
-
-   Aggregator for all primitive CSS modules.
-   Import this once in your app layout.
-
-   Architecture:
-   - One file per primitive (scalable, focused diffs)
-   - Token-driven (themeable, testable)
-   - Minimal styling (behavior + reset only)
+   PRIMITIVES SYSTEM (Aggregator)
+   Import once in your app layout.
+   Note: CSS layers are declared in tokens/theme.css
    ========================================================= */
 
 /* Motion guard - global reduced motion support (must be first) */
@@ -15,6 +9,12 @@
 
 /* Layout primitives (stack, cluster, grid, reel, sidebar) */
 @import './layout.css';
+
+/* Inline primitive (tag/badge wrapping) */
+@import './inline.css';
+
+/* Switcher primitive (horizontal→vertical auto-switching) */
+@import './switcher.css';
 
 /* Typography primitives (heading, text, fluid scales) */
 @import './typography.css';
@@ -27,3 +27,33 @@
 
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';
+
+/* Dialog/Modal primitive (scrim, panel, focus trap support) */
+@import './dialog.css';
+
+/* Form Field primitive (label/input/hint/error system) */
+@import './form-field.css';
+
+/* Auxiliary utilities (sr-only, aspect-ratio) */
+@import './aux.css';
+
+/* Accessibility guards (reduced motion, forced colors, capability queries) */
+@import './a11y-guards.css';
+
+/* Recipe system (section-level theme/density combos) */
+@import '../recipes.css';
+
+/* Typography recipes (recipe-driven text colors) */
+@import '../recipes/typography-recipes.css';
+
+/* Glass bed recipes (backdrop wrapper colors) */
+@import '../recipes/glass-bed-recipes.css';
+
+/* Theme bridge (UA color-scheme integration) */
+@import '../theme-bridge.css';
+
+/* Card region utility (container query support) */
+@import '../utilities/card-region.css';
+
+/* Glass bed utility (backdrop wrapper for glass cards) */
+@import '../utilities/glass-bed.css';

@@ -1,0 +1,98 @@
+/* ==========================================================================
+   GLASS BED RECIPES — Recipe-Driven Backdrop Colors
+   ==========================================================================
+   Recipe-specific backdrop colors for .glass-bed utility.
+   Section recipes can tune the gradient without touching markup.
+
+   Usage:
+   <Section recipe="surface-rose">
+     <div className="glass-bed">
+       <!-- glass cards automatically get rose-tinted backdrop -->
+     </div>
+   </Section>
+
+   Features:
+   - Uses existing accent tokens (--accent-rose, --accent-gold, --accent-sage)
+   - Dark theme opacity adjustments
+   - Maintains recipe-driven architecture
+   ========================================================================== */
+
+@layer recipes {
+  /* ================================================
+     GLASS BED TOKEN DEFAULTS
+     ================================================ */
+
+  :root {
+    --glass-bed-rose: color-mix(in oklch, var(--accent-rose, #c88aa2) 10%, transparent);
+    --glass-bed-gold: color-mix(in oklch, var(--accent-gold, #e0b85a) 10%, transparent);
+    --glass-bed-sage: color-mix(in oklch, var(--theme-accent-sage, rgb(176 196 182)) 10%, transparent);
+  }
+
+  /* ================================================
+     RECIPE-SPECIFIC BACKDROPS
+     ================================================ */
+
+  /* Surface Rose: lean more pink */
+  :where([data-recipe="surface-rose"]) .glass-bed::before {
+    background:
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 2%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      linear-gradient(135deg, var(--glass-bed-rose) 0%, var(--glass-bed-gold) 100%);
+  }
+
+  /* Surface Sage: lean more green */
+  :where([data-recipe="surface-sage"]) .glass-bed::before {
+    background:
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 2%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      linear-gradient(135deg, var(--glass-bed-sage) 0%, var(--glass-bed-gold) 100%);
+  }
+
+  /* Tint Rose: match the tint */
+  :where([data-recipe="tint-rose"]) .glass-bed::before {
+    background:
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 2%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      linear-gradient(135deg, var(--glass-bed-rose) 0%, color-mix(in oklch, var(--glass-bed-rose) 50%, transparent) 100%);
+  }
+
+  /* Tint Sage: match the tint */
+  :where([data-recipe="tint-sage"]) .glass-bed::before {
+    background:
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 2%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      linear-gradient(135deg, var(--glass-bed-sage) 0%, color-mix(in oklch, var(--glass-bed-sage) 50%, transparent) 100%);
+  }
+
+  /* ================================================
+     DARK THEME ADJUSTMENTS
+     ================================================ */
+
+  /* Dark theme: slightly stronger bed so blur shows up */
+  html[data-theme="dark"] :where(.glass-bed::before) {
+    opacity: 0.9; /* keeps it subtle but visible */
+  }
+
+  /* Hero Dark: gold + warm tones */
+  :where([data-recipe="hero-dark"]) .glass-bed::before {
+    background:
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 3%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      linear-gradient(135deg, var(--glass-bed-gold) 0%, color-mix(in oklch, var(--accent-rose) 8%, transparent) 100%);
+  }
+}

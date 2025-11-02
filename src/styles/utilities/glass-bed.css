@@ -1,0 +1,64 @@
+/* ==========================================================================
+   GLASS BED UTILITY (@layer utilities)
+   ==========================================================================
+   Wrapper that paints a backdrop *behind* its children so backdrop-filter
+   has something interesting to blur.
+
+   Usage:
+   <div className="glass-bed" style={{ padding: 'var(--space-32)' }}>
+     <div className="card-region card-grid">
+       <div data-card data-glass data-glass-elevation="md">...</div>
+     </div>
+   </div>
+
+   Features:
+   - Subtle gradient + ultra-light noise backdrop
+   - z-index layering for proper stacking
+   - Recipe-driven color variants via glass-bed-recipes.css
+   - No isolation:isolate to allow blur to see through
+
+   Reference:
+   - https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter
+   ========================================================================== */
+
+@layer utilities {
+  /* ================================================
+     GLASS BED — Backdrop Wrapper
+     ================================================ */
+
+  .glass-bed {
+    position: relative;
+    border-radius: var(--radius-lg);
+    /* Don't use isolation:isolate unless you *want* to restrict blur to only this bed */
+  }
+
+  .glass-bed::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 0;
+    pointer-events: none;
+
+    /* Subtle gradient + ultra-light noise */
+    background:
+      /* noise layer (very faint) */
+      radial-gradient(
+        100% 100% at 0 0,
+        color-mix(in oklch, CanvasText 2%, transparent),
+        transparent 60%
+      ) 0 0 / 16px 16px repeat,
+      /* gradient layer */
+      linear-gradient(
+        135deg,
+        color-mix(in oklch, var(--accent-rose, #c88aa2) 10%, transparent) 0%,
+        color-mix(in oklch, var(--accent-gold, #e0b85a) 10%, transparent) 100%
+      );
+  }
+
+  /* Ensure the content sits ABOVE the backdrop */
+  .glass-bed > * {
+    position: relative;
+    z-index: 1;
+  }
+}

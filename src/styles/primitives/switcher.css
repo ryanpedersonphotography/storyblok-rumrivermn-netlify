@@ -1,0 +1,21 @@
+/* ================================================
+   SWITCHER PRIMITIVE (Every Layout-inspired)
+   Horizontal → vertical layout switching via container queries
+   ================================================ */
+@layer primitives {
+  .switcher {
+    /* Make the switcher its own container so @container reacts to its inline-size */
+    container-type: inline-size;
+    display: grid;
+    gap: var(--gap, var(--space-24));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--switcher-threshold, 280px), 1fr)
+    );
+    align-items: var(--align, start);
+  }
+
+  .switcher[data-align="start"]  { align-items: start; }
+  .switcher[data-align="center"] { align-items: center; }
+  .switcher[data-align="end"]    { align-items: end; }
+}
