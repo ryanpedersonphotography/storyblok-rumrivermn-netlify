@@ -465,47 +465,116 @@ export default function PrimitivesTestPage() {
         </div>
       </Section>
 
-      {/* Demo 6: Alternating Blocks Style with Stack Rhythm */}
+      {/* Demo 6: Alternating Blocks - Real Implementation */}
       <Section
         align="center"
         contentWrapper={true}
         background="tint-rose"
         paddingY="fluid"
         divider="thread-gold"
+        variant={[
+          'alternating-blocks-luxe',
+          'header-center-wide',
+          'lead-full-width',
+          'box-sizing-content'
+        ]}
         header={{
           scriptAccent: 'Demo 6',
-          title: 'Alternating Blocks Style',
-          lead: 'Props: contentWrapper={true} | background="tint-rose" | paddingY="fluid" | divider="thread-gold"',
+          title: 'Alternating Blocks - Real Implementation',
+          lead: 'Using actual .alternating-blocks__* classes and --why-* tokens with zigzag alignment, direction RTL reversal, and hover effects',
         }}
       >
-        <div className="stack is-rhythm-section">
-          {[1, 2].map(i => (
-            <div key={i} style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 'clamp(2rem, 5vw, 4rem)',
-              alignItems: 'center',
-              background: 'var(--surface-1)',
-              padding: 'clamp(1.5rem, 3vw, 2.5rem)',
-              borderRadius: '16px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
-            }}>
-              <div className="stack is-compact">
-                <div style={{ fontSize: '3rem', fontWeight: 700, color: 'var(--accent-rose)', lineHeight: 1 }}>
-                  0{i}
+        <div className="alternating-blocks__container">
+          {[
+            {
+              number: '01',
+              title: 'A Picturesque Location',
+              lead: 'Near Milaca, Saint Paul, St Cloud, and Brainerd MN',
+              paragraphs: [
+                'When it comes to special occasions such as weddings, birthday parties, or other events, it is important to have the perfect setting. You want to ensure that your event is at a location that people will remember.',
+                'Here at Rum River Barn, we understand the importance of your special occasion. We are different from other special event venues because we allow you to pretty much run the show.'
+              ],
+              isReverse: false,
+              imageUrl: '/images/barn-interior-ceiling-beams-lighting.jpg'
+            },
+            {
+              number: '02',
+              title: 'Rum River Barn & Vineyard',
+              lead: 'Milaca, St. Cloud, Saint Paul, and Brainerd MN',
+              paragraphs: [
+                'Our goal is to help you have your perfect day. The barn features beautiful exposed beam architecture, elegant lighting, and a warm, inviting atmosphere that creates the perfect backdrop for your celebration.',
+                'From intimate gatherings to grand celebrations, our versatile space adapts to your vision while maintaining its rustic charm and natural beauty.'
+              ],
+              isReverse: true,
+              imageUrl: '/images/property-field-wildflowers-natural.jpg'
+            }
+          ].map((block, index) => (
+            <div
+              key={index}
+              className={`alternating-blocks__item${block.isReverse ? ' alternating-blocks__item--reverse' : ''}`}
+            >
+              <div className="alternating-blocks__content">
+                <div className="alternating-blocks__number">
+                  {block.number}
                 </div>
-                <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  Block Title {i}
+                <h3 className="alternating-blocks__title">
+                  {block.title}
                 </h3>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                  This demonstrates the alternating blocks pattern with proper spacing and visual hierarchy. Notice the fluid padding and thread-gold divider.
+                <p className="alternating-blocks__lead">
+                  {block.lead}
                 </p>
+                {block.paragraphs.map((paragraph, pIndex) => (
+                  <p key={pIndex} className="alternating-blocks__paragraph">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
-              <div style={{ background: 'var(--surface-3)', borderRadius: '12px', aspectRatio: '16/10', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>
-                Image {i}
+              <div className="alternating-blocks__image">
+                <img
+                  src={block.imageUrl}
+                  alt={`Venue image ${index + 1}`}
+                  width="800"
+                  height="500"
+                />
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Documentation Card */}
+        <div style={{
+          marginTop: 'clamp(3rem, 6vw, 5rem)',
+          background: 'var(--surface-1)',
+          padding: 'var(--space-32)',
+          borderRadius: '12px',
+          border: '2px solid var(--border-subtle)'
+        }}>
+          <h4 style={{
+            fontSize: '1.125rem',
+            fontWeight: 600,
+            marginBottom: 'var(--space-16)',
+            color: 'var(--text-primary)'
+          }}>
+            Real Implementation Features
+          </h4>
+          <div className="stack is-compact" style={{ gap: 'var(--space-12)' }}>
+            <div style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8125rem',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)'
+            }}>
+              <div>✓ Uses .alternating-blocks__container wrapper</div>
+              <div>✓ Each block: .alternating-blocks__item (with --reverse modifier)</div>
+              <div>✓ Zigzag alignment via nth-child(odd) left, nth-child(even) right</div>
+              <div>✓ Direction RTL trick for image/content reversal</div>
+              <div>✓ Semantic classes: __number, __title, __lead, __paragraph, __image</div>
+              <div>✓ Token system: --why-card, --why-border, --why-shadow, --why-number, --why-text</div>
+              <div>✓ Hover effect: transform scale(1.02) on image</div>
+              <div>✓ Responsive: 2-column grid → 1-column on mobile</div>
+              <div>✓ Dark mode: glassmorphism cards with backdrop-filter</div>
+            </div>
+          </div>
         </div>
       </Section>
 
