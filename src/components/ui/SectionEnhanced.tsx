@@ -73,6 +73,12 @@ export interface SectionProps<TTag extends React.ElementType = 'section'>
       max-width: 1200px; margin: 0 auto; padding: 0 clamp(50px, 5vw, 80px) */
   contentWrapper?: boolean
 
+  // === Container Queries (opt-in feature flag) ===
+  /** Enable container-based responsiveness (uses @container instead of @media).
+      Components adapt to parent width instead of viewport width.
+      @default false */
+  containerQueries?: boolean
+
   // === OPTIONAL light-weight slots (advanced use only) ===
   headerSlotProps?: React.HTMLAttributes<HTMLElement>
   contentSlotProps?: React.HTMLAttributes<HTMLElement>
@@ -198,6 +204,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) 
 
     // compatibility/variants
     contentWrapper = false,
+    containerQueries = false,
     headerSlotProps,
     contentSlotProps,
     actionsSlotProps,
@@ -255,6 +262,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) 
     'data-overlay': image ? overlay : undefined,
     'data-bleed': resolvedBleed ? 'true' : undefined,
     'data-container': container,
+    'data-cq': containerQueries ? 'on' : undefined,
   } as Record<string, string | undefined>
 
   const LegacyWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>

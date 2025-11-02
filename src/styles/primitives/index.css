@@ -13,5 +13,8 @@
 /* Layout primitives (stack, cluster, grid) */
 @import './layout.css';
 
+/* Typography primitives (heading, text, fluid scales) */
+@import './typography.css';
+
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';

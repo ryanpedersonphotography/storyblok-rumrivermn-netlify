@@ -308,4 +308,70 @@
     );
   }
 
+  /* ============================================================================
+     CONTAINER QUERY REFINEMENTS (Progressive Enhancement)
+     - Enabled when data-cq="on" flag is set on Section
+     - Typography scaling based on container width (not viewport)
+     - Grid/layout switches based on content-rail width
+     - Progressive enhancement via @supports
+     ============================================================================ */
+  @supports (container-type: inline-size) {
+
+    /* Typography Scale: Base (< --cq-sm) */
+    [data-clean-root="true"] .section[data-cq="on"] .section__title {
+      font-size: clamp(1.75rem, 3vw, 2rem);
+    }
+
+    /* Typography Scale: Small containers (>= --cq-sm) */
+    @container section (width >= var(--cq-sm)) {
+      [data-clean-root="true"] .section[data-cq="on"] .section__title {
+        font-size: clamp(2rem, 3.5vw, 2.5rem);
+      }
+      [data-clean-root="true"] .section[data-cq="on"] .section__lead {
+        max-width: 70ch; /* Relax measure as container grows */
+      }
+    }
+
+    /* Typography Scale: Medium containers (>= --cq-md) */
+    @container section (width >= var(--cq-md)) {
+      [data-clean-root="true"] .section[data-cq="on"] .section__title {
+        font-size: clamp(2.25rem, 3.75vw, 3rem);
+        text-wrap: balance; /* Enable text balancing on larger containers */
+      }
+      [data-clean-root="true"] .section[data-cq="on"] .section__lead {
+        font-size: clamp(1.0625rem, 2.5vw, 1.1875rem);
+      }
+    }
+
+    /* Grid/Layout: Alternating Blocks switches at content-rail width */
+    @container content-rail (width >= var(--cq-sm)) {
+      [data-clean-root="true"] .section[data-cq="on"] .alternating-blocks__item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-32);
+        align-items: center;
+      }
+      [data-clean-root="true"] .section[data-cq="on"] .alternating-blocks__item--reverse {
+        grid-auto-flow: dense;
+      }
+    }
+
+    /* Grid/Layout: Gallery grid at medium containers */
+    @container content-rail (width >= var(--cq-md)) {
+      [data-clean-root="true"] .section[data-cq="on"] .gallery__grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    /* Layout: Two-column content layout at large containers */
+    @container section (width >= var(--cq-lg)) {
+      [data-clean-root="true"] .section[data-cq="on"] .section__content--columns {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-48);
+      }
+    }
+
+  } /* End @supports container queries */
+
 }

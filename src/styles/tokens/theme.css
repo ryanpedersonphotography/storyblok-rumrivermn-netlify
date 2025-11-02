@@ -363,6 +363,14 @@
   --stack-gap-fluid-lg: clamp(var(--space-24), 3vw, var(--space-40));
   --hero-pad-fluid: clamp(var(--space-56), 8vw, var(--space-96));
 
+  /* ===== Container Query Breakpoints (rem-based for scalability) ===== */
+  /* Use with @container rules for component-level responsiveness */
+  --cq-xs: 28rem;  /* ~448px - mobile component width */
+  --cq-sm: 36rem;  /* ~576px - small tablet component */
+  --cq-md: 48rem;  /* ~768px - tablet component */
+  --cq-lg: 64rem;  /* ~1024px - desktop component */
+  --cq-xl: 80rem;  /* ~1280px - wide desktop component */
+
   /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
   --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
   --grad-section-soft: linear-gradient(180deg, rgb(252 248 244) 0%, rgb(246 240 234) 100%);

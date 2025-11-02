@@ -16,6 +16,21 @@
   contain: paint; /* Bleed guard: safer stacking context */
 }
 
+/* ===== Container Queries (opt-in, feature-flagged) ===== */
+/* Enable container-based responsiveness when data-cq="on" */
+@supports (container-type: inline-size) {
+  [data-clean-root="true"] .section[data-cq="on"] {
+    container-type: inline-size;
+    container-name: section;
+  }
+
+  /* Enable container queries on content rail for fine-grained control */
+  [data-clean-root="true"] .section[data-cq="on"] .section__rail--content {
+    container-type: inline-size;
+    container-name: content-rail;
+  }
+}
+
 /* ===== Vertical Padding Presets ===== */
 [data-clean-root="true"] .section[data-padding-y="xs"] {
   padding: var(--space-section-xs) 0;
