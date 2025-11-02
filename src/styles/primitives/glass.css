@@ -20,23 +20,27 @@
     position: relative;
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-mid),
+      var(--surface-1) calc(var(--alpha-mid) * 100%),
       transparent
     );
+    background-clip: padding-box; /* Prevent glass bleed under border */
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
     backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
     border: 1px solid color-mix(
       in oklch,
-      currentColor var(--alpha-subtle),
+      currentColor calc(var(--alpha-subtle) * 100%),
       transparent
     );
   }
 
   /* Fallback for browsers without backdrop-filter support */
-  @supports not (backdrop-filter: blur(1px)) {
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
     [data-glass] {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
       background: color-mix(
         in oklch,
-        var(--surface-1) var(--alpha-heavy),
+        var(--surface-1) calc(var(--alpha-heavy) * 100%),
         transparent
       );
       /* Slightly more opaque to compensate for lack of blur */
@@ -51,9 +55,10 @@
   [data-glass][data-elevation="sm"] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-subtle),
+      var(--surface-1) calc(var(--alpha-subtle) * 100%),
       transparent
     );
+    -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
     backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
   }
 
@@ -61,9 +66,10 @@
   [data-glass][data-elevation="md"] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-mid),
+      var(--surface-1) calc(var(--alpha-mid) * 100%),
       transparent
     );
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
     backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
   }
 
@@ -71,9 +77,10 @@
   [data-glass][data-elevation="lg"] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-strong),
+      var(--surface-1) calc(var(--alpha-strong) * 100%),
       transparent
     );
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
     backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
   }
 
@@ -81,9 +88,10 @@
   [data-glass][data-elevation="xl"] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-heavy),
+      var(--surface-1) calc(var(--alpha-heavy) * 100%),
       transparent
     );
+    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
     backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
   }
 
@@ -95,7 +103,7 @@
   [data-glass][data-strong] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-strong),
+      var(--surface-1) calc(var(--alpha-strong) * 100%),
       transparent
     );
   }
@@ -103,7 +111,7 @@
   [data-glass][data-elevation="sm"][data-strong] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-mid),
+      var(--surface-1) calc(var(--alpha-mid) * 100%),
       transparent
     );
   }
@@ -111,7 +119,7 @@
   [data-glass][data-elevation="md"][data-strong] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-strong),
+      var(--surface-1) calc(var(--alpha-strong) * 100%),
       transparent
     );
   }
@@ -119,7 +127,7 @@
   [data-glass][data-elevation="lg"][data-strong] {
     background: color-mix(
       in oklch,
-      var(--surface-1) var(--alpha-heavy),
+      var(--surface-1) calc(var(--alpha-heavy) * 100%),
       transparent
     );
   }
@@ -127,7 +135,7 @@
   [data-glass][data-elevation="xl"][data-strong] {
     background: color-mix(
       in oklch,
-      var(--surface-1) 0.75,
+      var(--surface-1) 75%,
       transparent
     );
   }
@@ -140,12 +148,12 @@
   [data-glass][data-surface="rose"] {
     background: color-mix(
       in oklch,
-      var(--accent-rose) var(--alpha-subtle),
+      var(--accent-rose) calc(var(--alpha-subtle) * 100%),
       transparent
     );
     border-color: color-mix(
       in oklch,
-      var(--accent-rose) var(--alpha-mid),
+      var(--accent-rose) calc(var(--alpha-mid) * 100%),
       transparent
     );
   }
@@ -153,12 +161,12 @@
   [data-glass][data-surface="gold"] {
     background: color-mix(
       in oklch,
-      var(--accent-gold) var(--alpha-subtle),
+      var(--accent-gold) calc(var(--alpha-subtle) * 100%),
       transparent
     );
     border-color: color-mix(
       in oklch,
-      var(--accent-gold) var(--alpha-mid),
+      var(--accent-gold) calc(var(--alpha-mid) * 100%),
       transparent
     );
   }
@@ -166,12 +174,12 @@
   [data-glass][data-surface="sage"] {
     background: color-mix(
       in oklch,
-      var(--accent-sage) var(--alpha-subtle),
+      var(--accent-sage) calc(var(--alpha-subtle) * 100%),
       transparent
     );
     border-color: color-mix(
       in oklch,
-      var(--accent-sage) var(--alpha-mid),
+      var(--accent-sage) calc(var(--alpha-mid) * 100%),
       transparent
     );
   }
@@ -194,7 +202,7 @@
     transform: translateY(calc(-1 * var(--distance-sm)));
     background: color-mix(
       in oklch,
-      var(--surface-1) calc(var(--alpha-mid) + 0.05),
+      var(--surface-1) calc(var(--alpha-mid) * 100% + 5%),
       transparent
     );
   }
@@ -211,19 +219,30 @@
 
   /* Focus visible for interactive glass elements */
   [data-glass]:focus-visible {
-    outline: var(--focus-width) solid var(--focus-ring);
-    outline-offset: var(--focus-offset);
+    outline: var(--focus-width, 2px) solid var(--focus-ring);
+    outline-offset: var(--focus-offset, 2px);
   }
 
   /* Reduce glass effects for users with motion sensitivity */
   @media (prefers-reduced-motion: reduce) {
     [data-glass] {
+      -webkit-backdrop-filter: none;
       backdrop-filter: none;
       background: color-mix(
         in oklch,
-        var(--surface-1) var(--alpha-heavy),
+        var(--surface-1) calc(var(--alpha-heavy) * 100%),
         transparent
       );
+    }
+  }
+
+  /* High contrast / forced colors mode: Use system colors */
+  @media (forced-colors: active) {
+    [data-glass] {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: Canvas;
+      border-color: ButtonBorder;
     }
   }
 }
