@@ -50,25 +50,25 @@
     box-shadow: var(--shadow-sm);
   }
 
-  /* Glass elevation variants (explicit values for reliability) */
+  /* Glass elevation variants (token-driven) */
   :where([data-card][data-glass][data-glass-elevation="sm"]) {
-    -webkit-backdrop-filter: blur(6px) saturate(1.15);
-    backdrop-filter: blur(6px) saturate(1.15);
+    -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
+    backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
   }
 
   :where([data-card][data-glass][data-glass-elevation="md"]) {
-    -webkit-backdrop-filter: blur(10px) saturate(1.25);
-    backdrop-filter: blur(10px) saturate(1.25);
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
   }
 
   :where([data-card][data-glass][data-glass-elevation="lg"]) {
-    -webkit-backdrop-filter: blur(16px) saturate(1.35);
-    backdrop-filter: blur(16px) saturate(1.35);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
+    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
   }
 
   :where([data-card][data-glass][data-glass-elevation="xl"]) {
-    -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
+    backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
   }
 
   /* Fallback for browsers without backdrop-filter support */

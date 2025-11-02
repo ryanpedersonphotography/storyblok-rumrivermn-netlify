@@ -9,10 +9,12 @@
 /* ===== Unified CSS Layer Declaration ===== */
 /* IMPORTANT: This must be the FIRST layer declaration in the import chain */
 /* All subsequent files use these layers without redeclaring them */
-@layer base, tokens, components, utilities;
+@layer reset, base, tokens, primitives, recipes, components, utilities;
 
 /* ---------- Base (light mode by default) ---------------------------------- */
 :root {
+  color-scheme: light dark;
+
   /* ===== Color Primitives (sRGB fallbacks) ===== */
   /* Brand / palette anchor hex fallbacks */
   --clr-walnut-900-rgb: 15 12 10;    /* #0F0C0A */
@@ -236,19 +238,19 @@
   /* ===== Glass/Glassmorphism System ===== */
   --blur-sm: 6px;
   --blur-md: 10px;
-  --blur-lg: 14px;
-  --blur-xl: 22px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
 
   /* Transparency Scale */
-  --alpha-subtle: 0.20;
-  --alpha-mid: 0.32;
-  --alpha-strong: 0.45;
-  --alpha-heavy: 0.60;
+  --alpha-subtle: 0.12;
+  --alpha-mid: 0.20;
+  --alpha-strong: 0.32;
+  --alpha-heavy: 0.45;
 
   /* Saturation Boost */
-  --saturate-low: 1.05;
-  --saturate-med: 1.15;
-  --saturate-high: 1.25;
+  --saturate-low: 1.15;
+  --saturate-med: 1.25;
+  --saturate-high: 1.4;
 
   /* ===== Motion/Interaction Tokens ===== */
   --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);     /* smooth deceleration */
@@ -292,9 +294,10 @@
   --accent-rose: rgb(var(--clr-rose-rgb));           /* #9D6B7B */
   --accent-rose-soft: rgb(var(--clr-rose-soft-rgb)); /* #D89BAE */
   --accent-gold: rgb(var(--clr-gold-rgb));
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-medium: rgba(0, 0, 0, 0.16);
-  --focus-ring: rgb(var(--clr-walnut-text-rgb));     /* subtle walnut focus */
+  --border-subtle: color-mix(in oklch, canvasText 12%, transparent);
+  --border-medium: color-mix(in oklch, canvasText 18%, transparent);
+  --border-strong: color-mix(in oklch, canvasText 24%, transparent);
+  --focus-ring: 0 0 0 3px color-mix(in oklch, var(--accent-rose) 32%, transparent);
   --focus-width: 3px;
   --focus-offset: 3px;
 
@@ -323,7 +326,11 @@
   --radius-2xl: 24px;
   --radius-pill: 9999px;
 
+  /* Shadow tokens for elevation system */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+  --shadow-xl: 0 24px 72px rgba(0, 0, 0, 0.20), 0 12px 24px rgba(0, 0, 0, 0.12);
 
   /* ===== Typography ===== */
   --font-sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -514,9 +521,14 @@ html[data-theme="dark"] {
   --accent-rose: rgb(var(--clr-rose-soft-rgb)); /* slightly brighter in dark */
   --accent-rose-soft: rgb(var(--clr-rose-soft-rgb));
   --accent-gold: rgb(var(--clr-gold-rgb));
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-subtle: color-mix(in oklch, canvas 10%, canvasText 28%); /* Lighter borders for better contrast */
   --border-medium: rgba(255, 255, 255, 0.16);
-  --focus-ring: var(--accent-gold);
+  --border-strong: rgba(255, 255, 255, 0.32);
+  --focus-ring: 0 0 0 3px color-mix(in oklch, var(--accent-gold) 32%, transparent);
+
+  /* Softer shadows for realism in dark mode */
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.55);
 
   /* Gradients / hairlines (DARK) */
   --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
@@ -783,6 +795,7 @@ html[data-brand="modern"][data-theme="dark"],
     --accent-gold: rgb(var(--clr-gold-rgb));
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-medium: rgba(255, 255, 255, 0.16);
+    --border-strong: rgba(255, 255, 255, 0.32);
     --focus-ring: var(--accent-gold);
 
     --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
@@ -959,5 +972,3 @@ html[data-brand="modern"][data-theme="dark"],
     --why-shadow:   0 14px 36px rgba(0,0,0,.45);
   }
 }
-/* Phase 6 tokens */
-@import "./alpha-blur-mix.css";
