@@ -1,27 +1,12 @@
 /* src/styles/system/layout.css
    Load this AFTER all component CSS. Scopes to [data-clean-root="true"].
-   Unifies containers + creates a consistent left rail across sections. */
+   Unifies containers + creates a consistent left rail across sections.
 
-@layer tokens, utilities, overrides;
+   NOTE: Layout tokens moved to theme.css for unified @layer system.
+   This file now only contains utility overrides. */
 
-/* -------------------- TOKENS -------------------- */
-@layer tokens {
-  :root {
-    --page-max: 1200px;                 /* unified content width */
-    --page-wide: 1400px;                /* wide grids (gallery/pricing/maps) */
-    --gutter: clamp(16px, 4vw, 64px);   /* page side padding */
-    --prose-max: 68ch;                  /* readable text width */
-    --rail-offset: calc((100% - var(--page-max)) / 2 + var(--gutter));
-  }
-}
-
-/* -------------------- UTILITIES -------------------- */
+/* -------------------- UTILITY OVERRIDES -------------------- */
 @layer utilities {
-  /* Reserved for future utility classes */
-}
-
-/* -------------------- OVERRIDES (NO MARKUP CHANGES) -------------------- */
-@layer overrides {
   /* 1) Unify header blocks (keeps center by default; opt into left via data-align="left") */
   [data-clean-root="true"] .section-header,
   [data-clean-root="true"] .experience-header,

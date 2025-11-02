@@ -6,6 +6,11 @@
             - Includes "legacy alias" variables to avoid breaking old code
  * ========================================================================== */
 
+/* ===== Unified CSS Layer Declaration ===== */
+/* IMPORTANT: This must be the FIRST layer declaration in the import chain */
+/* All subsequent files use these layers without redeclaring them */
+@layer base, tokens, components, utilities;
+
 /* ---------- Base (light mode by default) ---------------------------------- */
 :root {
   /* ===== Color Primitives (sRGB fallbacks) ===== */
@@ -390,12 +395,20 @@
   --theme-accent-gold: var(--accent-gold);
   --theme-shadow-dark-lg: 0 24px 70px rgba(0, 0, 0, 0.28); /* used on glass cards */
 
+  /* ===== Layout Tokens (moved from system/layout.css) ===== */
+  /* Page-level layout constraints */
+  --page-max: 1200px;                   /* unified content width */
+  --page-wide: 1400px;                  /* wide grids (gallery/pricing/maps) */
+  --gutter: clamp(16px, 4vw, 64px);     /* page side padding */
+  --prose-max: 68ch;                    /* readable text width */
+  --rail-offset: calc((100% - var(--page-max)) / 2 + var(--gutter));
+
   /* ===== Unified Section System Tokens ===== */
   /* Rails & Content Widths */
-  --rail-gutter: var(--gutter, clamp(16px, 4vw, 64px)); /* inherits from layout.css */
-  --rail-prose: 65ch;                    /* readable text measure */
-  --rail-content: 1200px;                /* default content max */
-  --rail-wide: 1400px;                   /* wider grids (gallery/pricing) */
+  --rail-gutter: var(--gutter);         /* inherits from --gutter above */
+  --rail-prose: 65ch;                   /* readable text measure */
+  --rail-content: 1200px;               /* default content max */
+  --rail-wide: 1400px;                  /* wider grids (gallery/pricing) */
 
   /* Vertical Rhythm (Section Padding Presets) */
   --space-section-xs: 35px;

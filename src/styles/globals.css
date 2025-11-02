@@ -2,10 +2,9 @@
    FILE: src/styles/globals.css
    PURPOSE: Clean global reset + base, no visual mutation of components.
             Loads AFTER theme tokens in your layout.
- * ========================================================================== */
 
-/* ===== Layer Declaration ===== */
-@layer base, components, utilities;
+   NOTE: @layer declaration moved to theme.css for unified CSS layer system.
+ * ========================================================================== */
 
 /* ===== Component Imports ===== */
 /* buttons.css imported in layout.js - removed duplicate import */
