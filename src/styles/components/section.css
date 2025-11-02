@@ -240,6 +240,12 @@
   /* Content inherits alignment from parent section */
 }
 
+/* Opt-in nested content container (use sparingly for sub-layout queries) */
+[data-clean-root="true"] .section__content[data-content-container="true"] {
+  container-type: inline-size;
+  container-name: section-content;
+}
+
 /* Content alignment for rail mode */
 [data-clean-root="true"] .section[data-align="center"] .section__content {
   text-align: center;
@@ -331,8 +337,8 @@ html[data-theme="dark"] [data-clean-root="true"] .section__lead {
    Responsive Adjustments — Container Queries (Composition-First)
    ============================================================================ */
 
-/* Container query: narrow section layout */
-@container section (max-width: 48rem) {
+/* Container query: narrow section layout (tablet-width containers) */
+@container section (max-width: var(--cq-md, 48rem)) {
   [data-clean-root="true"] .section__header {
     margin-bottom: clamp(1.5rem, 3vw, 2rem);
   }
@@ -356,8 +362,8 @@ html[data-theme="dark"] [data-clean-root="true"] .section__lead {
   }
 }
 
-/* Container query: mobile section layout */
-@container section (max-width: 28rem) {
+/* Container query: mobile section layout (mobile-width containers) */
+@container section (max-width: var(--cq-xs, 28rem)) {
   [data-clean-root="true"] .section__title {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
   }

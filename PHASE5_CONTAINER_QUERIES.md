@@ -271,6 +271,319 @@ Comprehensive test suite covering:
 
 ---
 
+## 🎯 Decision Trees
+
+### When to Use `section` vs `section-content` Container
+
+**Use the default `section` container when:**
+- ✅ Component layout responds to overall section width
+- ✅ Breakpoints align with standard responsive tiers (mobile, tablet, desktop)
+- ✅ No nested sub-layouts that need independent responsive behavior
+
+**Use opt-in `section-content` container when:**
+- ✅ Content area has complex sub-layouts (grids, cards, columns)
+- ✅ Sub-components need to respond independently from section header/actions
+- ✅ Different breakpoints needed for content vs header (rare but valid)
+
+**Example:**
+```tsx
+{/* Default: section container only */}
+<section className="section" data-padding-y="lg">
+  <div className="section__rail" data-width="content">
+    <header className="section__header">
+      <h2 className="section__title">Features</h2>
+    </header>
+    <div className="section__content">
+      {/* Content responds to section container */}
+      <div className="feature-grid">...</div>
+    </div>
+  </div>
+</section>
+
+{/* Opt-in: nested content container for independent sub-layout queries */}
+<section className="section" data-padding-y="lg">
+  <div className="section__rail" data-width="wide">
+    <header className="section__header">
+      <h2 className="section__title">Pricing</h2>
+    </header>
+    <div className="section__content" data-content-container="true">
+      {/* Content can use @container section-content queries */}
+      <div className="pricing-cards">...</div>
+    </div>
+  </div>
+</section>
+```
+
+**CSS for nested container:**
+```css
+/* Pricing cards respond to section-content container, not section */
+@container section-content (max-width: var(--cq-lg, 64rem)) {
+  .pricing-cards {
+    grid-template-columns: repeat(2, 1fr); /* 3→2 columns */
+  }
+}
+
+@container section-content (max-width: var(--cq-md, 48rem)) {
+  .pricing-cards {
+    grid-template-columns: 1fr; /* 2→1 column */
+  }
+}
+```
+
+---
+
+## 📝 Migration Stencil
+
+### Copy/Paste Template for Component Migrations
+
+**Before (viewport media queries):**
+```css
+/* ❌ Illegal: viewport MQ outside fallback */
+.my-component {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .my-component {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-component {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+```
+
+**After (container queries + fallback):**
+```css
+/* ✅ Legal: container queries with tokenized breakpoints */
+.my-component {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Tablet-width container: 3→2 columns */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .my-component {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile-width container: 2→1 column */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .my-component {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+  @media (max-width: 768px) {
+    .my-component {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .my-component {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+}
+```
+
+**Key Changes:**
+1. Replace `@media (max-width: 768px)` → `@container section (max-width: var(--cq-md, 48rem))`
+2. Replace `@media (max-width: 480px)` → `@container section (max-width: var(--cq-xs, 28rem))`
+3. Wrap original viewport MQs in `@supports not (container-type: inline-size) { ... }`
+4. Add descriptive comments for each breakpoint tier
+
+---
+
+## 🔧 Component-Specific Migration Recipes
+
+### Navbar (navbar.css)
+**Pattern:** Horizontal navigation → vertical stack on narrow containers
+
+```css
+/* Desktop: horizontal nav */
+.navbar__links {
+  display: flex;
+  gap: var(--space-24);
+}
+
+/* Tablet-width container: reduce gap */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .navbar__links {
+    gap: var(--space-16);
+  }
+}
+
+/* Mobile-width container: stack vertically */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .navbar__links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+```
+
+### Hero (hero.css)
+**Pattern:** Title scale and CTA spacing adjustments
+
+```css
+/* Desktop: large title */
+.hero__title {
+  font-size: clamp(3rem, 5vw, 4rem);
+  margin-bottom: var(--space-24);
+}
+
+/* Tablet-width container: scale down */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .hero__title {
+    font-size: clamp(2.5rem, 4vw, 3rem);
+    margin-bottom: var(--space-20);
+  }
+}
+
+/* Mobile-width container: tighter spacing */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .hero__title {
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    margin-bottom: var(--space-16);
+  }
+}
+```
+
+### Gallery (gallery.css)
+**Pattern:** Grid column collapse (3→2→1)
+
+```css
+/* Desktop: 3 columns */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-24);
+}
+
+/* Tablet-width container: 2 columns */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-20);
+  }
+}
+
+/* Mobile-width container: 1 column */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+}
+```
+
+### Pricing (pricing.css)
+**Pattern:** Card layout with independent content container
+
+```css
+/* Enable nested container for pricing cards */
+.pricing__content[data-content-container="true"] {
+  container-type: inline-size;
+  container-name: section-content;
+}
+
+/* Desktop: 3 cards side-by-side */
+.pricing__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-32);
+}
+
+/* Tablet: 2 cards */
+@container section-content (max-width: var(--cq-lg, 64rem)) {
+  .pricing__cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-24);
+  }
+}
+
+/* Mobile: stacked */
+@container section-content (max-width: var(--cq-md, 48rem)) {
+  .pricing__cards {
+    grid-template-columns: 1fr;
+    gap: var(--space-20);
+  }
+}
+```
+
+### Footer (footer.css)
+**Pattern:** Multi-column → single column collapse
+
+```css
+/* Desktop: 4 columns */
+.footer__columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-40);
+}
+
+/* Tablet-width container: 2 columns */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .footer__columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-32);
+  }
+}
+
+/* Mobile-width container: stacked */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .footer__columns {
+    grid-template-columns: 1fr;
+    gap: var(--space-24);
+  }
+}
+```
+
+### Schedule Form (schedule-form.css)
+**Pattern:** Form field layout (2-col → 1-col)
+
+```css
+/* Desktop: two-column form fields */
+.form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-20);
+}
+
+/* Tablet-width container: keep 2 columns but reduce gap */
+@container section (max-width: var(--cq-md, 48rem)) {
+  .form__fields {
+    gap: var(--space-16);
+  }
+}
+
+/* Mobile-width container: single column */
+@container section (max-width: var(--cq-xs, 28rem)) {
+  .form__fields {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+---
+
 ## 🌐 Browser Support
 
 | Browser | Version | Support |
@@ -406,13 +719,20 @@ For each component:
 
 ## 🎯 Summary
 
-Phase 5 successfully established a foundation for composition-first responsive design:
+Phase 5 successfully established a production-grade foundation for composition-first responsive design:
 
-✅ **Tokens:** Container query breakpoints defined
-✅ **Implementation:** Section component migrated to container queries
-✅ **Fallbacks:** Progressive enhancement for older browsers
-✅ **Tests:** Comprehensive Playwright validation
-✅ **CI:** Automated policy enforcement
-✅ **Demo:** Interactive demonstration on primitives page
+✅ **Tokens:** Container query breakpoints defined and tokenized everywhere (`var(--cq-md, 48rem)`)
+✅ **Implementation:** Section component migrated to container queries with resilient token-based breakpoints
+✅ **Nested Containers:** Opt-in `section-content` container for complex sub-layouts (pricing cards, grids)
+✅ **Fallbacks:** Progressive enhancement for older browsers via `@supports` pattern
+✅ **Tests:** Comprehensive Playwright validation suite
+✅ **CI:** Automated policy enforcement with `npm run lint:cq`
+✅ **Demo:** Interactive demonstration on primitives page (Demo 23)
+✅ **Migration Guide:** Decision trees, stencils, and component-specific recipes for developers
 
-This enables better component reusability, scoped responsive behavior, and a more maintainable CSS architecture going forward.
+**Pass 1 Refinements (Production-Grade):**
+- Tokenized all container query breakpoints for future-proof adjustments
+- Added opt-in `data-content-container="true"` for nested layout queries
+- Enhanced documentation with migration recipes for all Tier 1 components
+
+This enables better component reusability, scoped responsive behavior, developer-friendly authoring patterns, and a more maintainable CSS architecture going forward.
