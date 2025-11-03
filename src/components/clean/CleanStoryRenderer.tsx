@@ -27,6 +27,7 @@ import Gallery from '@/components/clean/Gallery'
 import Spaces from '@/components/clean/Spaces'
 import ScheduleForm from '@/components/clean/ScheduleForm'
 import Map from '@/components/clean/Map'
+import CleanStoryblokBridge from '@/components/clean/CleanStoryblokBridge'
 
 
 let inited = false
@@ -79,5 +80,10 @@ export default function CleanStoryRenderer({ story }: { story: any }) {
     }
   }
 
-  return <StoryblokComponent blok={story.content} />
+  return (
+    <>
+      <StoryblokComponent blok={story.content} />
+      <CleanStoryblokBridge />
+    </>
+  )
 }
