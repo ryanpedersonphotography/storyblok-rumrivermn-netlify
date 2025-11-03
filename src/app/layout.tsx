@@ -1,8 +1,21 @@
 // src/app/layout.tsx
-// MINIMAL ROOT: no CSS imports; providers only.
+// Root layout: tokens + primitives + globals + recipes + providers
+
+// 1) Tokens define @layer order
+import '@/styles/tokens/theme.css'
+
+// 2) Primitives for components
+import '@/styles/primitives/index.css'
+
+// 3) Base globals (reset/typography)
+import '@/styles/globals.css'
+
+// 4) Recipes for semantic color/spacing combos
+import '@/styles/recipes.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
+import Navbar from '@/components/clean/Navbar'
 import { playfairDisplay, montserrat, dancingScript } from './fonts'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -33,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body>
           <ThemeProvider>
             <div data-clean-root="true">
+              <Navbar />
               {children}
             </div>
           </ThemeProvider>
