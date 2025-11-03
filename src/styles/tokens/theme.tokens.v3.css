@@ -236,9 +236,9 @@ Card primitive:
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   padding: var(--space-24);
-  container-type: inline-size;                 /* enable @container */
+  container-type: inline-size;
 }
 @container (min-width: var(--cq-md)) {
   .card { padding: var(--space-32); }
 }
---------------------------------------------------------------------------- */
+--------------------------------------------------------------------------- */ 
