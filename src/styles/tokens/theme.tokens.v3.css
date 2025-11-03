@@ -7,7 +7,7 @@
             - Motion, radius, shadows, container breakpoints
             - No section/hero/tone/legacy aliases
    NOTES:  Import this before primitives/components. Uses cascade layers.
-   UPDATED: 2025-11-02
+   UPDATED: 2025-11-03
  * ========================================================================== */
 
 /* Ordered cascade layers: keep this at the very top of your CSS import chain */
@@ -16,8 +16,6 @@
 /* ----------------------------- TOKENS ------------------------------------ */
 @layer tokens {
   :root {
-    color-scheme: light dark;
-
     /* ---------- sRGB anchor fallbacks (for older browsers) ---------- */
     /* Neutrals */
     --walnut-900-rgb: 15 12 10;    /* #0F0C0A */
@@ -33,22 +31,6 @@
     --gold-400-rgb: 240 217 168;   /* #F0D9A8 */
     --sage-400-rgb: 176 196 182;   /* #B0C4B6 */
 
-    /* ---------- Preferred OKLCH (overrides when supported) ---------- */
-    /* See: CSS Color (oklch/oklab); falls back to sRGB above */
-    @supports (color: oklch(0.5 0 0)) {
-      /* Neutrals */
-      --walnut-900: oklch(0.18 0.03 65);
-      --walnut-800: oklch(0.22 0.03 65);
-      --walnut-700: oklch(0.28 0.04 65);
-      --walnut-650: oklch(0.31 0.04 65);
-      --cream-100:  oklch(0.95 0.02 25);
-
-      /* Accents (Romantic defaults) */
-      --rose-500:   oklch(0.69 0.12 350);
-      --gold-400:   oklch(0.84 0.10 85);
-      --sage-400:   oklch(0.78 0.05 160);
-    }
-
     /* ---------- Role tokens (LIGHT) ---------- */
     --surface-0: rgb(var(--cream-100-rgb));  /* page backdrop */
     --surface-1: rgb(255 255 255);           /* cards/contrasting blocks */
@@ -59,18 +41,19 @@
     --text-primary:   rgb(107 78 61);        /* brand walnut text */
     --text-secondary: rgb(68 57 50);
     --text-inverse:   rgb(var(--white-rgb));
+    --on-accent:      var(--text-inverse);   /* text on accent backgrounds */
 
     --accent-rose: rgb(var(--rose-500-rgb));
     --accent-gold: rgb(var(--gold-400-rgb));
     --accent-sage: rgb(var(--sage-400-rgb));
 
-    --border-subtle: color-mix(in oklab, currentColor 12%, transparent);
-    --border-medium: color-mix(in oklab, currentColor 18%, transparent);
-    --border-strong: color-mix(in oklab, currentColor 26%, transparent);
+    --border-subtle: color-mix(in oklch, var(--text-primary) 14%, transparent);
+    --border-medium: color-mix(in oklch, var(--text-primary) 22%, transparent);
+    --border-strong: color-mix(in oklch, var(--text-primary) 32%, transparent);
 
     --focus-width: 3px;
     --focus-offset: 3px;
-    --focus-ring-color: color-mix(in oklab, var(--accent-rose) 35%, transparent);
+    --focus-ring-color: color-mix(in oklch, var(--accent-rose) 35%, transparent);
 
     /* ---------- Fixed spacing scale (4px base) ---------- */
     --space-0: 0;
@@ -150,7 +133,6 @@
     --weight-light:   300;
     --weight-regular: 400;
     --weight-medium:  500;
-
   }
 
   /* ---------- Dark theme overrides ---------- */
@@ -159,16 +141,17 @@
     --surface-1: rgb(var(--walnut-800-rgb));
     --surface-2: rgb(var(--walnut-700-rgb));
     --surface-3: rgb(var(--walnut-650-rgb));
-    --surface-4: color-mix(in oklab, rgb(var(--walnut-650-rgb)) 85%, white 15%);
+    --surface-4: color-mix(in oklch, rgb(var(--walnut-650-rgb)) 85%, white 15%);
 
     --text-primary:   rgb(var(--white-rgb));
     --text-secondary: color-mix(in oklch, rgb(var(--white-rgb)) 86%, rgb(var(--gold-400-rgb)) 14%);
     --text-inverse:   rgb(var(--walnut-800-rgb));
+    --on-accent:      var(--text-inverse);
 
-    --border-subtle: color-mix(in oklab, currentColor 14%, transparent);
-    --border-medium: rgb(255 255 255 / 0.16);
-    --border-strong: rgb(255 255 255 / 0.32);
-    --focus-ring-color: color-mix(in oklab, var(--accent-gold) 35%, transparent);
+    --border-subtle: color-mix(in oklch, var(--text-primary) 18%, transparent);
+    --border-medium: color-mix(in oklch, var(--text-primary) 28%, transparent);
+    --border-strong: color-mix(in oklch, var(--text-primary) 40%, transparent);
+    --focus-ring-color: color-mix(in oklch, var(--accent-gold) 35%, transparent);
 
     /* Dark-adapted shadows */
     --shadow-md: 0 3px 6px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.35);
@@ -176,21 +159,46 @@
   }
 
   /* ---------- Brand accents (light+dark) ---------- */
-  /* Swap brand without changing components */
+  /* Romantic is default (no override needed for base accents) */
   html[data-brand="romantic"] {
     --accent-rose: var(--rose-500, rgb(var(--rose-500-rgb)));
     --accent-gold: var(--gold-400, rgb(var(--gold-400-rgb)));
     --accent-sage: var(--sage-400, rgb(var(--sage-400-rgb)));
   }
+}
 
-  html[data-brand="modern"] {
-    /* Cooler champagne/coral/teal */
-    @supports (color: oklch(0.5 0 0)) {
+/* ----------------------------- OKLCH OVERRIDES ---------------------------
+   Modern browsers get perceptually-uniform OKLCH colors
+   -------------------------------------------------------------------------- */
+@supports (color: oklch(0.5 0 0)) {
+  @layer tokens {
+    :root {
+      /* Neutrals */
+      --walnut-900: oklch(0.18 0.03 65);
+      --walnut-800: oklch(0.22 0.03 65);
+      --walnut-700: oklch(0.28 0.04 65);
+      --walnut-650: oklch(0.31 0.04 65);
+      --cream-100:  oklch(0.95 0.02 25);
+
+      /* Accents (Romantic defaults) */
+      --rose-500:   oklch(0.69 0.12 350);
+      --gold-400:   oklch(0.84 0.10 85);
+      --sage-400:   oklch(0.78 0.05 160);
+    }
+
+    /* Modern brand accent overrides (OKLCH) */
+    html[data-brand="modern"] {
       --accent-rose: oklch(0.72 0.10 10);
       --accent-gold: oklch(0.86 0.07 95);
       --accent-sage: oklch(0.80 0.07 190);
     }
-    @supports not (color: oklch(0.5 0 0)) {
+  }
+}
+
+/* Modern brand fallback (non-OKLCH browsers) */
+@supports not (color: oklch(0.5 0 0)) {
+  @layer tokens {
+    html[data-brand="modern"] {
       --accent-rose: rgb(230 140 130);
       --accent-gold: rgb(240 225 190);
       --accent-sage: rgb(150 190 190);
@@ -203,7 +211,7 @@ Button primitive (consume role tokens, not brand names):
 
 .button {
   --btn-bg: var(--accent-gold);
-  --btn-fg: var(--text-inverse);
+  --btn-fg: var(--on-accent);
   background: var(--btn-bg);
   color: var(--btn-fg);
   border-radius: var(--radius-pill);
