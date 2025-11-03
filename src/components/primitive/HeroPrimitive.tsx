@@ -1,4 +1,5 @@
-import React from 'react';
+import Section from '@/components/ui/SectionEnhanced';
+import type { CSSVars } from '@/types/css-vars';
 
 export type HeroPrimitiveProps = {
   eyebrow?: string;
@@ -25,7 +26,7 @@ export type HeroPrimitiveProps = {
 
 /**
  * Pure-primitives Hero. No legacy CSS.
- * Uses your primitives layer classes: .section, .section__inner, .stack, .btn, etc.
+ * Uses only primitives from the migration layer.
  */
 export default function HeroPrimitive({
   eyebrow,
@@ -42,69 +43,177 @@ export default function HeroPrimitive({
   density = 'normal',
   paddingY = 'lg',
 }: HeroPrimitiveProps) {
-  // Section attributes used by your primitives/recipes
-  const sectionData: Record<string, string> = {
-    'data-density': density,
-    'data-align': align,
-  };
-
-  const style: React.CSSProperties = {
-    minHeight: height === 'screen' ? '100svh' : undefined,
-    backgroundImage: image?.src ? `url(${image.src})` : undefined,
-    backgroundSize: image?.position === 'contain' ? 'contain' : 'cover',
-    backgroundAttachment: image?.attachment === 'fixed' ? 'fixed' : undefined,
-    backgroundPosition: `${image?.focalX ?? '50%'} ${image?.focalY ?? '50%'}`,
-  };
-
-  // Overlay strength maps to a data attribute primitives already style
-  const overlayAttr =
-    overlay === 'none' ? undefined :
-    overlay === 'strong' ? { 'data-overlay': 'strong' } :
-    { 'data-overlay': 'soft' };
 
   return (
-    <section
-      data-hero data-impl="primitive"
-      className={`section section--surface section--pad section--py-${paddingY}`}
-      style={style}
-      {...sectionData}
-      {...overlayAttr}
+    <Section
+      recipe="hero-dark"
+      density={density}
+      height={height}
+      align={align}
+      paddingY={paddingY}
+      image={image ? {
+        src: image.src,
+        alt: image.alt || '',
+        position: image.position,
+        attachment: image.attachment
+      } : undefined}
+      overlay={overlay}
     >
-      <div className="section__inner stack gap-6" data-container="lg">
-        {eyebrow && <div className="text-script text-script--eyebrow">{eyebrow}</div>}
+      <div className="stack" style={{
+        ["--stack-gap" as CSSVars]: "var(--space-32)",
+        alignItems: align === 'center' ? 'center' : align === 'end' ? 'flex-end' : 'flex-start',
+        textAlign: align === 'center' ? 'center' : align === 'end' ? 'right' : 'left',
+        maxWidth: "800px",
+        margin: align === 'center' ? "0 auto" : "0",
+        position: "relative",
+        zIndex: 10
+      }}>
+        {/* Eyebrow - using text primitive */}
+        {eyebrow && (
+          <p
+            data-ui="text"
+            data-size="lg"
+            style={{
+              fontFamily: "var(--font-script, 'Dancing Script', cursive)",
+              fontSize: "clamp(1.5rem, 4vw, 2rem)",
+              color: "var(--rc-accent)",
+              fontWeight: 400
+            }}
+          >
+            {eyebrow}
+          </p>
+        )}
 
-        <h1 className="text-display">
-          {accent
-            ? (<>{title.replace(accent, '')}<span data-accent="true">{accent}</span></>)
-            : title}
+        {/* Title - using heading primitive */}
+        <h1
+          data-ui="heading"
+          data-size="xl"
+          style={{
+            fontSize: "clamp(3rem, 8vw, 5.5rem)",
+            lineHeight: 1.1,
+            marginBlock: "var(--space-16)"
+          }}
+        >
+          {title}
+          {accent && (
+            <>
+              <br />
+              <span style={{
+                fontFamily: "var(--font-script, 'Dancing Script', cursive)",
+                fontWeight: 400,
+                fontSize: "0.85em",
+                color: "var(--rc-accent)"
+              }}>
+                {accent}
+              </span>
+            </>
+          )}
         </h1>
 
-        {lead && <p className="text-lead">{lead}</p>}
+        {/* Lead text - using text primitive */}
+        {lead && (
+          <p
+            data-ui="text"
+            data-size="lg"
+            style={{
+              maxWidth: "65ch",
+              opacity: 0.95,
+              lineHeight: 1.7,
+              margin: align === 'center' ? "0 auto" : "0"
+            }}
+          >
+            {lead}
+          </p>
+        )}
 
+        {/* CTAs - using button primitive */}
         {(primaryCta || secondaryCta) && (
-          <div className="inline cluster gap-4">
+          <div className="cluster" style={{
+            ["--cluster-gap" as CSSVars]: "var(--space-20)",
+            marginBlockStart: "var(--space-24)",
+            justifyContent: align === 'center' ? 'center' : align === 'end' ? 'flex-end' : 'flex-start'
+          }}>
             {primaryCta && (
-              <a className="btn btn--primary" href={primaryCta.href} rel={primaryCta.rel} target={primaryCta.target}>
+              <a 
+                href={primaryCta.href}
+                rel={primaryCta.rel}
+                target={primaryCta.target}
+                className="button" 
+                data-ui="button"
+                data-variant="solid" 
+                data-size="lg"
+                data-corner="pill"
+                style={{
+                  background: "var(--rc-accent)",
+                  color: "var(--rc-accent-contrast)",
+                  border: "1px solid var(--rc-accent)"
+                }}
+              >
                 {primaryCta.label}
               </a>
             )}
             {secondaryCta && (
-              <a className="btn btn--secondary" href={secondaryCta.href} rel={secondaryCta.rel} target={secondaryCta.target}>
+              <a 
+                href={secondaryCta.href}
+                rel={secondaryCta.rel}
+                target={secondaryCta.target}
+                className="button" 
+                data-ui="button"
+                data-variant="ghost" 
+                data-size="lg"
+                data-corner="pill"
+                style={{
+                  color: "var(--rc-fg)",
+                  border: "1px solid currentColor"
+                }}
+              >
                 {secondaryCta.label}
               </a>
             )}
           </div>
         )}
 
+        {/* Scroll indicator (server-safe) */}
         {showScrollIndicator && (
-          <div className="stack gap-2" aria-hidden="true">
-            <div className="text-small">Scroll</div>
-            <svg width="24" height="24" viewBox="0 0 24 24" role="img" aria-label="scroll down">
-              <path d="M12 16l-6-6h12l-6 6z" />
-            </svg>
-          </div>
+          <a
+            href="#next-section"
+            className="button"
+            data-ui="button"
+            data-variant="ghost"
+            aria-label="Scroll down"
+            style={{
+              marginBlockStart: "var(--space-56)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-8)",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "var(--rc-fg)",
+              opacity: 0.9
+            }}
+          >
+            <span data-ui="text" data-size="sm" style={{ 
+              textTransform: "uppercase", 
+              letterSpacing: "0.1em" 
+            }}>
+              {showScrollIndicator === true ? 'Discover Your Perfect Day' : 'Scroll'}
+            </span>
+            <span style={{ 
+              fontSize: "1.5rem", 
+              animation: "heroScrollBounce 2s infinite" 
+            }}>
+              ↓
+            </span>
+          </a>
         )}
       </div>
-    </section>
+
+      <style jsx>{`
+        @keyframes heroScrollBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(10px); }
+        }
+      `}</style>
+    </Section>
   );
 }

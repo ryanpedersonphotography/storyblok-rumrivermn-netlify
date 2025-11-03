@@ -12,7 +12,6 @@ import '@/styles/globals.css'
 
 // 4) Legacy component CSS (must be layered; see Phase 5)
 import '@/styles/components/navbar.css'
-import '@/styles/components/hero.css'
 import '@/styles/components/experience.css'
 import '@/styles/components/spaces.css'
 import '@/styles/components/gallery.css'

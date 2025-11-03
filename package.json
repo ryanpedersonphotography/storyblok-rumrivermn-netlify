@@ -20,7 +20,9 @@
     "lint:rgba": "stylelint \"src/**/*.css\" --config stylelint.extend.cjs",
     "guard:legacy-imports": "node scripts/check-legacy-imports.mjs",
     "guard:legacy-layering": "node scripts/check-legacy-layering.mjs",
-    "guard:all": "npm run guard:legacy-imports && npm run guard:legacy-layering"
+    "guard:all": "npm run guard:legacy-imports && npm run guard:legacy-layering && npm run guard:protected && npm run guard:hero-adapter",
+    "guard:protected": "node scripts/check-protected-files.mjs",
+    "guard:hero-adapter": "node scripts/check-hero-adapter-hash.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
