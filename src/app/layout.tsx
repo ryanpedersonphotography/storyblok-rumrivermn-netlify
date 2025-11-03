@@ -21,7 +21,7 @@ import '@/styles/utilities/index.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
-import Navbar from '@/components/clean/Navbar'
+// import Navbar from '@/components/clean/Navbar'
 import { playfairDisplay, montserrat, dancingScript } from './fonts'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(){try{
-                var choice=localStorage.getItem('theme')||'system';
+                var choice=localStorage.getItem('rr.themeChoice')||'system';
                 var m=window.matchMedia('(prefers-color-scheme: dark)');
                 var effective=choice==='system'?(m.matches?'dark':'light'):choice;
                 var root=document.documentElement;
@@ -52,7 +52,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body>
           <ThemeProvider>
             <div data-clean-root="true">
-              <Navbar />
               {children}
             </div>
           </ThemeProvider>

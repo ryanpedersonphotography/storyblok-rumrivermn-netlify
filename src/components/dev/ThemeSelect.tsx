@@ -13,7 +13,7 @@ import { useTheme } from '@/components/ui/ThemeProvider'
 import { THEME_REGISTRY, BRAND_REGISTRY } from '@/lib/theme/registry'
 
 export default function ThemeSelect() {
-  const { theme, setTheme, brand, setBrand } = useTheme()
+  const { effective, setChoice, brand, setBrand } = useTheme()
 
   return (
     <div
@@ -51,16 +51,16 @@ export default function ThemeSelect() {
           {Object.values(THEME_REGISTRY).map(themeDef => (
             <button
               key={themeDef.id}
-              onClick={() => setTheme(themeDef.id)}
+              onClick={() => setChoice(themeDef.id)}
               style={{
                 padding: '0.375rem 0.75rem',
                 border: '1px solid var(--border-medium)',
                 borderRadius: 'var(--radius-sm)',
-                background: theme === themeDef.id ? 'var(--accent-gold)' : 'var(--surface-0)',
-                color: theme === themeDef.id ? 'var(--text-inverse)' : 'var(--text-primary)',
+                background: effective === themeDef.id ? 'var(--accent-gold)' : 'var(--surface-0)',
+                color: effective === themeDef.id ? 'var(--text-inverse)' : 'var(--text-primary)',
                 cursor: 'pointer',
                 fontSize: '0.75rem',
-                fontWeight: theme === themeDef.id ? 600 : 400
+                fontWeight: effective === themeDef.id ? 600 : 400
               }}
             >
               {themeDef.label}

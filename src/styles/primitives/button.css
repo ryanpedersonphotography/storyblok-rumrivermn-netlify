@@ -1,48 +1,50 @@
-@layer components {
-  /* =========================================================
-     BUTTON PRIMITIVE - Production-Ready Styles
-
+@layer primitives {
+  /* ==========================================================================
+     BUTTON PRIMITIVE — Role Tokens + Recipe Contracts
+     ==========================================================================
      Features:
-     - Variants: solid, outline, subtle, ghost
-     - Sizes: xs, sm, md, lg (with WCAG 44x44 hit targets)
-     - Corners: round, pill, square
-     - Loading states with spinner
-     - Icon-only support
-     - HCM (High Contrast Mode) support
-     - Motion preferences respect
-     - Universal selector (native + asChild)
-     ========================================================= */
+     - Role tokens only (--accent-*, --text-*, --surface-*)
+     - Recipe-local slots (--btn-*) with role fallbacks
+     - Variants: outline, ghost, gold, sage (default is rose)
+     - Sizes: sm, lg (default is implicit md)
+     - Busy state with aria-busy support
+     - Focus rings use token system
+     - Motion tokens for transitions
+     - No internal BEM classes - direct flex layout
+     ========================================================================== */
 
-  /* =========================================================
-     BASE: Shared layout + motion (grid for spinner/content)
-     ========================================================= */
-  [data-ui="button"] {
-    /* Internal, overridable knobs (default from tokens) */
-    --_pad-y: var(--btn-pad-y, var(--space-12));
-    --_pad-x: var(--btn-pad-x, var(--space-20));
-    --_radius: var(--btn-radius, var(--radius-pill));
-    --_gap: var(--btn-gap, var(--space-8));
-    --_min-h: var(--btn-min-h, 44px);
-    --_min-w: var(--btn-min-w, 44px);
+  /* Base button primitive */
+  .button {
+    /* Recipe-local slots with role token fallbacks */
+    --btn-bg: var(--accent-rose);
+    --btn-fg: var(--text-inverse);
+    --btn-border: color-mix(in oklch, var(--btn-bg) 25%, transparent);
+    --btn-gap: var(--space-12);
+    --btn-pad-y: var(--space-12);
+    --btn-pad-x: var(--space-20);
+    --btn-radius: var(--radius-pill);
+    --btn-shadow: var(--shadow-sm);
+    --btn-shadow-hover: var(--shadow-md);
 
-    /* Reset all browser defaults */
+    /* Reset & layout */
     all: unset;
     box-sizing: border-box;
-
-    /* Remove appearance for cross-browser consistency */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    /* Layout */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--_gap);
+    gap: var(--btn-gap);
+    min-inline-size: max-content;
+    padding: var(--btn-pad-y) var(--btn-pad-x);
+
+    /* Appearance */
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-border);
+    border-radius: var(--btn-radius);
+    box-shadow: var(--btn-shadow);
 
     /* Typography */
     font: inherit;
-    color: inherit;
     letter-spacing: inherit;
     text-decoration: none;
     white-space: nowrap;
@@ -54,265 +56,140 @@
     cursor: pointer;
 
     /* WCAG 2.5.5: Minimum 44×44px hit target */
-    min-inline-size: var(--_min-w);
-    min-block-size: var(--_min-h);
+    min-block-size: 44px;
 
-    /* Base padding (calculated from internal vars) */
-    padding: var(--_pad-y) var(--_pad-x);
-
-    /* Border radius */
-    border-radius: var(--_radius);
-
-    /* Smooth transitions using motion contracts */
+    /* Transitions using motion tokens */
     transition:
-      transform var(--motion-hover-duration) var(--motion-hover-ease),
       box-shadow var(--motion-hover-duration) var(--motion-hover-ease),
-      background-color var(--motion-hover-duration) var(--motion-hover-ease),
-      color var(--motion-hover-duration) var(--motion-hover-ease),
-      border-color var(--motion-hover-duration) var(--motion-hover-ease);
-    will-change: transform;
+      transform var(--motion-press-duration) var(--motion-press-ease),
+      opacity var(--motion-hover-duration) var(--motion-hover-ease);
+    will-change: transform, box-shadow;
   }
 
-  /* =========================================================
-     SIZES (calculated from base tokens)
-     ========================================================= */
-  [data-ui="button"][data-size="xs"] {
-    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.5);
-    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.6);
-    font-size: 0.8125rem; /* 13px */
+  /* Hover state */
+  .button:where(:hover) {
+    box-shadow: var(--btn-shadow-hover);
   }
 
-  [data-ui="button"][data-size="sm"] {
-    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.725);
-    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.8);
-    font-size: 0.875rem; /* 14px */
+  /* Active state (press down) */
+  .button:where(:active) {
+    transform: translateY(1px);
   }
 
-  [data-ui="button"][data-size="md"] {
-    --_pad-y: var(--btn-pad-y, var(--space-12));
-    --_pad-x: var(--btn-pad-x, var(--space-20));
-    font-size: 1rem; /* 16px */
+  /* Focus ring using token system */
+  .button:where(:focus-visible) {
+    outline: var(--focus-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-offset);
   }
 
-  [data-ui="button"][data-size="lg"] {
-    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 1.25);
-    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 1.2);
-    font-size: 1.0625rem; /* 17px */
-  }
-
-  /* =========================================================
-     CORNERS (border-radius options)
-     ========================================================= */
-  [data-ui="button"][data-corner="round"] {
-    --_radius: 8px;
-  }
-
-  [data-ui="button"][data-corner="pill"] {
-    --_radius: 9999px;
-  }
-
-  [data-ui="button"][data-corner="square"] {
-    --_radius: 0;
-  }
-
-  /* =========================================================
-     VARIANTS (behavioral, token-driven)
-     ========================================================= */
-
-  /* SOLID variant */
-  [data-ui="button"][data-variant="solid"] {
-    background: var(--btn-bg-gold, oklch(0.85 0.09 85));
-    color: var(--btn-fg-on-gold, oklch(0.20 0.03 80));
-  }
-
-  /* OUTLINE variant */
-  [data-ui="button"][data-variant="outline"] {
-    background: transparent;
-    color: var(--btn-outline-fg, var(--btn-bg-gold, oklch(0.85 0.09 85)));
-    border: 2px solid var(--btn-outline-border, color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 90%, black));
-  }
-
-  /* SUBTLE variant (14% accent mix) */
-  [data-ui="button"][data-variant="subtle"] {
-    background: color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 14%, transparent);
-    color: var(--btn-bg-gold, oklch(0.85 0.09 85));
-  }
-
-  /* GHOST variant */
-  [data-ui="button"][data-variant="ghost"] {
-    background: transparent;
-    color: var(--text-primary, currentColor);
-  }
-
-  /* Ghost hover background */
-  [data-ui="button"][data-variant="ghost"]:hover:not([data-disabled="true"]):not(:disabled) {
-    background: color-mix(in oklch, currentColor 10%, transparent);
-  }
-
-  /* =========================================================
-     ICON-ONLY (square aspect ratio)
-     ========================================================= */
-  [data-ui="button"][data-icon-only="true"] {
-    aspect-ratio: 1 / 1;
-    padding: 0;
-  }
-
-  /* =========================================================
-     DISABLED & LOADING STATES
-     ========================================================= */
-
-  /* Disabled (native <button>) */
-  button[data-ui="button"][disabled],
-  button[data-ui="button"]:disabled {
-    cursor: not-allowed;
+  /* Disabled state (native + aria-disabled) */
+  .button:where([disabled], [aria-disabled="true"]) {
     opacity: 0.55;
-  }
-
-  /* Disabled (asChild - aria-disabled parity) */
-  [data-ui="button"][data-disabled="true"] {
     cursor: not-allowed;
-    opacity: 0.55;
   }
 
-  /* Loading (blocks interaction) */
-  [data-ui="button"][data-loading="true"] {
+  /* Busy state (blocks interaction, keeps layout stable) */
+  .button[data-busy="true"] {
     pointer-events: none;
   }
 
-  /* =========================================================
-     FOCUS STYLES (defers to global focus system)
-     ========================================================= */
-  button[data-ui="button"]:focus-visible,
-  [data-ui="button"]:focus-visible {
-    outline: var(--focus-width, 2px) solid var(--focus-ring, var(--btn-outline-border, oklch(0.78 0.08 85)));
-    outline-offset: var(--focus-offset, 2px);
+  /* ==========================================================================
+     VARIANTS — Recipe-local slot overrides
+     ========================================================================== */
+
+  /* Outline variant */
+  .button[data-variant="outline"] {
+    --btn-bg: transparent;
+    --btn-fg: var(--text-primary);
+    --btn-border: color-mix(in oklch, var(--text-primary) 18%, transparent);
+    box-shadow: none;
   }
 
-  /* High Contrast Mode (Windows HCM / forced-colors) */
+  /* Ghost variant */
+  .button[data-variant="ghost"] {
+    --btn-bg: transparent;
+    --btn-fg: var(--text-primary);
+    --btn-border: transparent;
+    box-shadow: none;
+  }
+
+  .button[data-variant="ghost"]:hover:not([disabled]):not([aria-disabled="true"]) {
+    background: color-mix(in oklch, currentColor 10%, transparent);
+  }
+
+  /* Gold variant */
+  .button[data-variant="gold"] {
+    --btn-bg: var(--accent-gold);
+  }
+
+  /* Sage variant */
+  .button[data-variant="sage"] {
+    --btn-bg: var(--accent-sage);
+  }
+
+  /* ==========================================================================
+     SIZES — Padding + font-size adjustments
+     ========================================================================== */
+
+  /* Small size */
+  .button[data-size="sm"] {
+    --btn-pad-y: var(--space-8);
+    --btn-pad-x: var(--space-16);
+    font-size: 0.875rem; /* 14px */
+  }
+
+  /* Large size */
+  .button[data-size="lg"] {
+    --btn-pad-y: var(--space-16);
+    --btn-pad-x: var(--space-24);
+    font-size: 1.0625rem; /* 17px */
+  }
+
+  /* ==========================================================================
+     SPINNER SUPPORT (no internal classes, uses direct children)
+     ========================================================================== */
+
+  /* Spinner sizing (inherits from font-size) */
+  .button__spinner {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+  }
+
+  /* ==========================================================================
+     ACCESSIBILITY — High Contrast Mode (forced-colors)
+     ========================================================================== */
+
   @media (forced-colors: active) {
-    button[data-ui="button"],
-    [data-ui="button"] {
+    .button {
       border: 1px solid ButtonText;
       background: ButtonFace;
       color: ButtonText;
     }
 
-    button[data-ui="button"]:focus,
-    [data-ui="button"]:focus {
+    .button:focus-visible {
       outline: 2px solid CanvasText;
       outline-offset: 2px;
     }
 
-    button[data-ui="button"][disabled],
-    button[data-ui="button"]:disabled,
-    [data-ui="button"][data-disabled="true"] {
+    .button:where([disabled], [aria-disabled="true"]) {
       border-color: GrayText;
       color: GrayText;
     }
-  }
 
-  /* =========================================================
-     HOVER & ACTIVE STATES (respects motion preferences)
-     ========================================================= */
-  @media (prefers-reduced-motion: no-preference) {
-    /* Hover: subtle lift using token */
-    [data-ui="button"]:where(:hover):not([data-disabled="true"]):not(:disabled) {
-      transform: translateY(calc(-1 * var(--lift-sm)));
-    }
-
-    /* Active: press down using token */
-    [data-ui="button"]:where(:active):not([data-disabled="true"]):not(:disabled) {
-      transform: translateY(var(--press-sm));
-      filter: brightness(0.98);
-    }
-  }
-
-  /* Remove transforms when motion is reduced */
-  @media (prefers-reduced-motion: reduce) {
-    [data-ui="button"] {
-      transition: none;
-      transform: none !important;
-    }
-  }
-
-  /* =========================================================
-     LOADING SPINNER & CONTENT COMPOSITION
-     ========================================================= */
-
-  /* Content wrapper - provides stable container for row/overlay modes */
-  [data-ui="button"] .btn__content {
-    position: relative;
-    display: inline-grid;
-    place-items: center;
-  }
-
-  /* Row layout - for start/end spinner positions */
-  [data-ui="button"] .btn__row {
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: center;
-    gap: var(--_gap);
-  }
-
-  /* Spinner wrappers for positioning */
-  .btn__spinner-start,
-  .btn__spinner-end {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* SVG spinner sizing (inherits from font-size in em units) */
-  [data-ui="button"] .btn__spinner {
-    inline-size: var(--spinner-size, 1.1em);
-    block-size: var(--spinner-size, 1.1em);
-  }
-
-  /* Overlay spinner - centers above content */
-  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__spinner-overlay {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    pointer-events: none;
-  }
-
-  /* Hide label visually when overlay spinner is active */
-  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__label {
-    opacity: 0;
-  }
-
-  /* Width preservation ghost - keeps button width stable during loading */
-  [data-ui="button"][data-preserve-width="true"] .btn__width-ghost {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    white-space: nowrap;
-    visibility: hidden;
-  }
-
-  /* Screen-reader only text (for loadingText fallback) */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  /* =========================================================
-     HIGH CONTRAST MODE (forced-colors)
-     ========================================================= */
-
-  /* Ensure SVG spinner remains visible in Windows HCM */
-  @media (forced-colors: active) {
-    [data-ui="button"] .btn__spinner {
+    .button__spinner {
       stroke: CanvasText;
       fill: CanvasText;
+    }
+  }
+
+  /* ==========================================================================
+     MOTION PREFERENCES — Reduced motion support
+     ========================================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+      transform: none !important;
     }
   }
 }

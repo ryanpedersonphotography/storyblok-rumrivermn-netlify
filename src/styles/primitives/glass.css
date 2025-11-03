@@ -1,249 +1,124 @@
-/* ==========================================================================
-   GLASS PRIMITIVE — Glassmorphism with Token-Driven Variants
-   ==========================================================================
-   Usage: <div data-glass data-elevation="md" data-strong>...</div>
+@layer primitives {
+  /* ==========================================================================
+     GLASS PRIMITIVE — Simplified Glassmorphism with OKLCH Veils
+     ==========================================================================
+     Features:
+     - Recipe-local slots (--rc-*) with role fallbacks
+     - Neutral frosted base (--surface-1 at 70% opacity + 12px blur)
+     - Accent veils via data-veil (rose, gold, sage) using color-mix(in oklch)
+     - Single consistent blur/shadow (no elevation variants)
+     - Simplified API (no data-strong, data-hover)
+     - Automatic theme adaptation via OKLCH perceptual blending
+     ========================================================================== */
 
-   Features:
-   - Token-driven blur, transparency, and saturation
-   - Elevation variants: sm, md (default), lg, xl
-   - Strength modifier: data-strong increases opacity
-   - Light/dark mode support (tokens adjust automatically)
-   - @supports fallback for browsers without backdrop-filter
+  /* Base glass primitive */
+  .glass {
+    /* Recipe-local slots with role token fallbacks */
+    --rc-blur: 12px;
+    --rc-bg: color-mix(in oklch, var(--surface-1) 70%, transparent);
+    --rc-border: color-mix(in oklch, var(--text-primary) 10%, transparent);
+    --rc-shadow: var(--shadow-md);
 
-   Dependencies:
-   - Requires glass tokens from theme.css (--blur-*, --alpha-*, --saturate-*)
-   ========================================================================== */
-
-@layer components {
-  /* Base Glass Effect */
-  [data-glass] {
+    /* Layout */
     position: relative;
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-    background-clip: padding-box; /* Prevent glass bleed under border */
-    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
-    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
-    border: 1px solid color-mix(
-      in oklch,
-      currentColor calc(var(--alpha-subtle) * 100%),
-      transparent
-    );
-  }
 
-  /* Fallback for browsers without backdrop-filter support */
-  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-    [data-glass] {
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-      background: color-mix(
-        in oklch,
-        var(--surface-1) calc(var(--alpha-heavy) * 100%),
-        transparent
-      );
-      /* Slightly more opaque to compensate for lack of blur */
-    }
-  }
+    /* Glassmorphism appearance */
+    background: var(--rc-bg);
+    backdrop-filter: blur(var(--rc-blur));
+    -webkit-backdrop-filter: blur(var(--rc-blur));
+    border: 1px solid var(--rc-border);
+    box-shadow: var(--rc-shadow);
+    border-radius: var(--radius-xl);
 
-  /* =========================================================
-     ELEVATION VARIANTS
-     ========================================================= */
+    /* Prevent glass bleed under border */
+    background-clip: padding-box;
 
-  /* Small: Subtle glass effect */
-  [data-glass][data-elevation="sm"] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-subtle) * 100%),
-      transparent
-    );
-    -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
-    backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
-  }
-
-  /* Medium: Default (already applied above) */
-  [data-glass][data-elevation="md"] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
-    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
-  }
-
-  /* Large: More pronounced glass */
-  [data-glass][data-elevation="lg"] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-strong) * 100%),
-      transparent
-    );
-    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
-    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
-  }
-
-  /* Extra Large: Maximum glass effect */
-  [data-glass][data-elevation="xl"] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-heavy) * 100%),
-      transparent
-    );
-    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
-    backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
-  }
-
-  /* =========================================================
-     STRENGTH MODIFIER
-     ========================================================= */
-
-  /* Strong variant: Increase opacity for better legibility */
-  [data-glass][data-strong] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-strong) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-elevation="sm"][data-strong] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-elevation="md"][data-strong] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-strong) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-elevation="lg"][data-strong] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-heavy) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-elevation="xl"][data-strong] {
-    background: color-mix(
-      in oklch,
-      var(--surface-1) 75%,
-      transparent
-    );
-  }
-
-  /* =========================================================
-     OPTIONAL SURFACE VARIANTS
-     ========================================================= */
-
-  /* Tinted glass: Uses accent colors */
-  [data-glass][data-surface="rose"] {
-    background: color-mix(
-      in oklch,
-      var(--accent-rose) calc(var(--alpha-subtle) * 100%),
-      transparent
-    );
-    border-color: color-mix(
-      in oklch,
-      var(--accent-rose) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-surface="gold"] {
-    background: color-mix(
-      in oklch,
-      var(--accent-gold) calc(var(--alpha-subtle) * 100%),
-      transparent
-    );
-    border-color: color-mix(
-      in oklch,
-      var(--accent-gold) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-  }
-
-  [data-glass][data-surface="sage"] {
-    background: color-mix(
-      in oklch,
-      var(--accent-sage) calc(var(--alpha-subtle) * 100%),
-      transparent
-    );
-    border-color: color-mix(
-      in oklch,
-      var(--accent-sage) calc(var(--alpha-mid) * 100%),
-      transparent
-    );
-  }
-
-  /* =========================================================
-     ANIMATION & INTERACTION
-     ========================================================= */
-
-  /* Smooth transitions for hover states */
-  [data-glass] {
+    /* Transitions */
     transition:
       background var(--motion-hover-duration) var(--motion-hover-ease),
       backdrop-filter var(--motion-hover-duration) var(--motion-hover-ease),
-      border-color var(--motion-hover-duration) var(--motion-hover-ease),
-      transform var(--motion-hover-duration) var(--motion-hover-ease);
-    will-change: transform;
+      border-color var(--motion-hover-duration) var(--motion-hover-ease);
   }
 
-  /* Optional hover enhancement */
-  [data-glass][data-hover="lift"]:hover {
-    transform: translateY(calc(-1 * var(--lift-sm)));
-    background: color-mix(
-      in oklch,
-      var(--surface-1) calc(var(--alpha-mid) * 100% + 5%),
-      transparent
-    );
+  /* ==========================================================================
+     VEIL VARIANTS — Accent color overlays using OKLCH
+     ========================================================================== */
+
+  /* Rose veil */
+  .glass[data-veil="rose"] {
+    --rc-bg: color-mix(in oklch, var(--accent-rose) 18%, transparent);
   }
 
-  /* =========================================================
-     ACCESSIBILITY
-     ========================================================= */
-
-  /* Ensure sufficient contrast on glass surfaces */
-  [data-glass] {
-    /* Inherit text color or use primary */
-    color: inherit;
+  /* Gold veil */
+  .glass[data-veil="gold"] {
+    --rc-bg: color-mix(in oklch, var(--accent-gold) 18%, transparent);
   }
 
-  /* Focus visible for interactive glass elements */
-  [data-glass]:focus-visible {
-    outline: var(--focus-width, 2px) solid var(--focus-ring);
-    outline-offset: var(--focus-offset, 2px);
+  /* Sage veil */
+  .glass[data-veil="sage"] {
+    --rc-bg: color-mix(in oklch, var(--accent-sage) 18%, transparent);
   }
 
-  /* Reduce glass effects for users with motion sensitivity */
-  @media (prefers-reduced-motion: reduce) {
-    [data-glass] {
-      -webkit-backdrop-filter: none;
+  /* ==========================================================================
+     FALLBACK — Browsers without backdrop-filter support
+     ========================================================================== */
+
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass {
       backdrop-filter: none;
-      background: color-mix(
-        in oklch,
-        var(--surface-1) calc(var(--alpha-heavy) * 100%),
-        transparent
-      );
+      -webkit-backdrop-filter: none;
+      /* Increase opacity to compensate for lack of blur */
+      background: color-mix(in oklch, var(--surface-1) 88%, transparent);
+    }
+
+    .glass[data-veil="rose"] {
+      background: color-mix(in oklch, var(--accent-rose) 32%, transparent);
+    }
+
+    .glass[data-veil="gold"] {
+      background: color-mix(in oklch, var(--accent-gold) 32%, transparent);
+    }
+
+    .glass[data-veil="sage"] {
+      background: color-mix(in oklch, var(--accent-sage) 32%, transparent);
     }
   }
 
-  /* High contrast / forced colors mode: Use system colors */
+  /* ==========================================================================
+     ACCESSIBILITY — High Contrast Mode (forced-colors)
+     ========================================================================== */
+
   @media (forced-colors: active) {
-    [data-glass] {
-      -webkit-backdrop-filter: none;
+    .glass {
       backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       background: Canvas;
       border-color: ButtonBorder;
+    }
+  }
+
+  /* ==========================================================================
+     MOTION PREFERENCES — Reduced motion support
+     ========================================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .glass {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      /* Increase opacity for legibility without blur */
+      background: color-mix(in oklch, var(--surface-1) 88%, transparent);
+    }
+
+    .glass[data-veil="rose"] {
+      background: color-mix(in oklch, var(--accent-rose) 32%, transparent);
+    }
+
+    .glass[data-veil="gold"] {
+      background: color-mix(in oklch, var(--accent-gold) 32%, transparent);
+    }
+
+    .glass[data-veil="sage"] {
+      background: color-mix(in oklch, var(--accent-sage) 32%, transparent);
     }
   }
 }

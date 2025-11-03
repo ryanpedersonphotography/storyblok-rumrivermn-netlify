@@ -1,81 +1,21 @@
-"use client";
+/* ==========================================================================
+   THEME SWITCH — Unified UI Component
+   ==========================================================================
+   Uses ThemeProvider context to display and control theme/brand state.
+   Supports cycle button and individual choice buttons.
+   ========================================================================== */
 
-import { useEffect, useMemo, useState } from "react";
+"use client"
 
-type ThemeChoice = "light" | "dark" | "system";
-
-const STORAGE_KEY = "theme";
-const isBrowser = typeof window !== "undefined";
-
-function getSystemTheme(): "light" | "dark" {
-  if (!isBrowser) return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-function applyTheme(choice: ThemeChoice) {
-  if (!isBrowser) return;
-  const root = document.documentElement;
-
-  // Compute effective theme
-  const effective = choice === "system" ? getSystemTheme() : choice;
-
-  // Reflect on <html>
-  root.setAttribute("data-theme", effective);
-  // Let the UA widgets (scrollbars, form controls) match
-  root.style.setProperty("color-scheme", effective === "dark" ? "dark" : "light");
-
-  // Optional: set an attribute so CSS can show current mode
-  root.setAttribute("data-theme-choice", choice);
-}
-
-export function useTheme() {
-  const [choice, setChoice] = useState<ThemeChoice>(() => {
-    if (!isBrowser) return "system";
-    return (localStorage.getItem(STORAGE_KEY) as ThemeChoice) || "system";
-  });
-
-  const effective = useMemo(() => (choice === "system" ? getSystemTheme() : choice), [choice]);
-
-  useEffect(() => {
-    // Apply immediately and persist
-    applyTheme(choice);
-    try {
-      localStorage.setItem(STORAGE_KEY, choice);
-    } catch {}
-  }, [choice]);
-
-  // Keep in sync with OS when in "system"
-  useEffect(() => {
-    if (!isBrowser) return;
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
-      if (choice === "system") applyTheme("system");
-    };
-    mql.addEventListener?.("change", onChange);
-    // Fallback for very old Safari:
-    // @ts-ignore
-    mql.addListener?.(onChange);
-    return () => {
-      mql.removeEventListener?.("change", onChange);
-      // @ts-ignore
-      mql.removeListener?.(onChange);
-    };
-  }, [choice]);
-
-  const cycle = () => {
-    setChoice(prev => (prev === "light" ? "dark" : prev === "dark" ? "system" : "light"));
-  };
-
-  const set = (next: ThemeChoice) => setChoice(next);
-
-  return { choice, effective, cycle, set };
-}
+import React from 'react'
+import { useTheme } from '@/components/ui/ThemeProvider'
 
 export default function ThemeSwitch() {
-  const { choice, effective, cycle, set } = useTheme();
+  const { choice, effective, cycle, setChoice, brand, setBrand } = useTheme()
 
   return (
-    <div className="cluster" style={{ gap: "var(--space-12)", alignItems: "center" }}>
+    <div className="cluster" style={{ gap: 'var(--space-12)', alignItems: 'center' }}>
+      {/* Cycle button: light → dark → system → light */}
       <button
         type="button"
         className="button"
@@ -84,22 +24,65 @@ export default function ThemeSwitch() {
         title="Toggle theme (Light → Dark → System)"
         onClick={cycle}
       >
-        {choice === "light" && "☀️ Light"}
-        {choice === "dark" && "🌒 Dark"}
-        {choice === "system" && `🖥️ System (${effective})`}
+        {choice === 'light' && '☀️ Light'}
+        {choice === 'dark' && '🌒 Dark'}
+        {choice === 'system' && `🖥️ System (${effective})`}
       </button>
 
-      <div className="inline" style={{ ["--gap" as any]: "var(--space-8)" }}>
-        <button type="button" className="button" data-size="sm" onClick={() => set("light")} aria-pressed={choice==="light"}>
+      {/* Individual choice buttons */}
+      <div className="inline" style={{ ['--gap' as any]: 'var(--space-8)' }}>
+        <button
+          type="button"
+          className="button"
+          data-size="sm"
+          onClick={() => setChoice('light')}
+          aria-pressed={choice === 'light'}
+        >
           Light
         </button>
-        <button type="button" className="button" data-size="sm" onClick={() => set("dark")} aria-pressed={choice==="dark"}>
+        <button
+          type="button"
+          className="button"
+          data-size="sm"
+          onClick={() => setChoice('dark')}
+          aria-pressed={choice === 'dark'}
+        >
           Dark
         </button>
-        <button type="button" className="button" data-size="sm" onClick={() => set("system")} aria-pressed={choice==="system"}>
+        <button
+          type="button"
+          className="button"
+          data-size="sm"
+          onClick={() => setChoice('system')}
+          aria-pressed={choice === 'system'}
+        >
           System
         </button>
       </div>
+
+      {/* Brand switcher (optional section) */}
+      <div className="inline" style={{ ['--gap' as any]: 'var(--space-8)' }}>
+        <button
+          type="button"
+          className="button"
+          data-size="sm"
+          onClick={() => setBrand('romantic')}
+          aria-pressed={brand === 'romantic'}
+          title="Romantic brand palette"
+        >
+          🌹 Romantic
+        </button>
+        <button
+          type="button"
+          className="button"
+          data-size="sm"
+          onClick={() => setBrand('modern')}
+          aria-pressed={brand === 'modern'}
+          title="Modern brand palette"
+        >
+          ✨ Modern
+        </button>
+      </div>
     </div>
-  );
+  )
 }

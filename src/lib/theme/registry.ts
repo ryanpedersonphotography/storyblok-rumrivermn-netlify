@@ -3,10 +3,16 @@
    ==========================================================================
    Defines all available themes and brand variants.
    Registry only sets attributes (data-theme, data-brand), never token values.
-   Token values live in theme.css and respond to these attributes.
+   Token values live in theme.tokens.v3.css and respond to these attributes.
+
+   Key Concepts:
+   - ThemeChoice: User selection ("light" | "dark" | "system")
+   - ThemeId: Effective theme ("light" | "dark") that tokens respond to
+   - When choice === "system", effective is computed from OS preference
    ========================================================================== */
 
-export type ThemeId = 'light' | 'dark'
+export type ThemeId = 'light' | 'dark'                // effective theme (tokens respond to this)
+export type ThemeChoice = 'light' | 'dark' | 'system' // user choice
 export type BrandId = 'romantic' | 'modern'
 
 export type ThemeDef = {
@@ -22,7 +28,27 @@ export type BrandDef = {
   apply: (root: HTMLElement) => void
 }
 
-/* Theme Registry */
+/* Storage Keys for localStorage */
+export const STORAGE_KEYS = {
+  themeChoice: 'rr.themeChoice',  // "light" | "dark" | "system"
+  brand: 'rr.brand'               // "romantic" | "modern"
+} as const
+
+/* Helper: Detect system color scheme preference */
+export function preferredSystemTheme(): ThemeId {
+  if (typeof window === 'undefined') return 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+export function clampThemeChoice(v: string | null | undefined): ThemeChoice {
+  return v === 'dark' || v === 'light' || v === 'system' ? v : 'system'
+}
+
+export function clampBrand(v: string | null | undefined): BrandId {
+  return v === 'modern' ? 'modern' : 'romantic'
+}
+
+/* Theme Registry - Minimal, only sets attributes; tokens live in CSS */
 export const THEME_REGISTRY: Record<ThemeId, ThemeDef> = {
   light: {
     id: 'light',
@@ -58,24 +84,4 @@ export const BRAND_REGISTRY: Record<BrandId, BrandDef> = {
       root.setAttribute('data-brand', 'modern')
     }
   }
-}
-
-/* Storage Keys for localStorage */
-export const STORAGE_KEYS = {
-  theme: 'rr.theme',
-  brand: 'rr.brand'
-} as const
-
-/* Helper: Detect system color scheme preference */
-export function preferredSystemTheme(): ThemeId {
-  if (typeof window === 'undefined') return 'light'
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
-export function clampTheme(v: string | null | undefined): ThemeId {
-  return v === 'dark' ? 'dark' : 'light'
-}
-
-export function clampBrand(v: string | null | undefined): BrandId {
-  return v === 'modern' ? 'modern' : 'romantic'
 }

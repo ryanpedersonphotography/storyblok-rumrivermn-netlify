@@ -1,41 +1,42 @@
 /* ==========================================================================
    CARD COMPONENT — React Wrapper for Card Primitive
    ==========================================================================
-   Optional React component for type-safe card primitive usage.
-   The primitive works with plain HTML + data attributes, but this provides
-   better TypeScript autocomplete and prop validation.
+   Simplified card component using role tokens and container queries.
 
    Usage:
-   <Card elevation="raised" padding="spacious" hover="lift">
+   <Card elevation="raised" hover="lift">
+     <CardMedia>
+       <img src="..." alt="..." />
+     </CardMedia>
      <CardHeader>Title</CardHeader>
      <p>Content</p>
      <CardFooter>Actions</CardFooter>
    </Card>
 
-   Glass composition:
-   <Card elevation="elevated" glass glassElevation="lg">
-     Content with glassmorphism
-   </Card>
+   Glass composition (wrap Card with Glass, don't use props):
+   <Glass veil="rose">
+     <Card elevation="raised">Content with glassmorphism</Card>
+   </Glass>
    ========================================================================== */
 
 import React, { forwardRef } from 'react'
 
-export type CardElevation = 'flat' | 'raised' | 'elevated' | 'floating'
+export type CardElevation = 'flat' | 'raised' | 'elevated'
 export type CardPadding = 'none' | 'compact' | 'normal' | 'spacious'
 export type CardHover = 'lift' | 'glow'
-export type CardSurface = 'rose' | 'gold' | 'sage'
+export type CardTint = 'rose' | 'gold' | 'sage'
 
-export interface CardProps {
-  /** Child elements to render inside card */
-  children: React.ReactNode
+// Polymorphic component types for proper TypeScript
+type PolymorphicRef<E extends React.ElementType> = React.ComponentPropsWithRef<E>['ref']
 
+type CardOwnProps<E extends React.ElementType = React.ElementType> = {
   /** Element type to render (default: div) */
-  as?: keyof JSX.IntrinsicElements
+  as?: E
 
   /** Shadow depth and visual elevation */
   elevation?: CardElevation
 
-  /** Internal padding amount */
+  /** Internal padding amount (auto-adjusts via container queries) */
   padding?: CardPadding
 
   /** Hover interaction effect */
@@ -44,57 +45,47 @@ export interface CardProps {
   /** Make card clickable with full keyboard accessibility */
   clickable?: boolean
 
-  /** Tinted card background with accent color */
-  surface?: CardSurface
-
-  /** Combine with glass primitive for glassmorphism */
-  glass?: boolean
-
-  /** Glass elevation (when glass=true) */
-  glassElevation?: 'sm' | 'md' | 'lg' | 'xl'
-
-  /** Strong glass (when glass=true) */
-  glassStrong?: boolean
-
-  /** Glass surface tint (when glass=true) */
-  glassSurface?: 'rose' | 'gold' | 'sage'
-
-  /** Additional CSS class names */
-  className?: string
-
-  /** Additional inline styles */
-  style?: React.CSSProperties
-
-  /** Click handler */
-  onClick?: (e: React.MouseEvent) => void
-
-  /** Key down handler (for keyboard accessibility) */
-  onKeyDown?: (e: React.KeyboardEvent) => void
-
-  /** ARIA role */
-  role?: string
-
-  /** Tab index for keyboard navigation */
-  tabIndex?: number
-
-  /** Other HTML attributes */
-  [key: string]: any
+  /** Tinted card background with accent color (uses color-mix in OKLCH) */
+  tint?: CardTint
 }
 
-const Card = forwardRef<HTMLElement, CardProps>(
-  (
+type CardProps<E extends React.ElementType> = CardOwnProps<E> &
+  Omit<React.ComponentPropsWithoutRef<E>, keyof CardOwnProps>
+
+/**
+ * Card primitive with container-query responsive density.
+ *
+ * @example
+ * // Basic card
+ * <Card elevation="raised">
+ *   <h3>Title</h3>
+ *   <p>Content</p>
+ * </Card>
+ *
+ * @example
+ * // Clickable card with tint
+ * <Card clickable tint="rose" onClick={() => navigate('/details')}>
+ *   <CardMedia><img src="..." /></CardMedia>
+ *   <h3>Product Name</h3>
+ * </Card>
+ *
+ * @example
+ * // Render as article
+ * <Card as="article" elevation="raised">
+ *   <CardHeader>Blog Post Title</CardHeader>
+ *   <p>Content...</p>
+ * </Card>
+ */
+const Card = forwardRef(
+  <E extends React.ElementType = 'div'>(
     {
       children,
-      as = 'div',
-      elevation = 'flat',
-      padding = 'normal',
+      as,
+      elevation,
+      padding,
       hover,
       clickable = false,
-      surface,
-      glass = false,
-      glassElevation,
-      glassStrong,
-      glassSurface,
+      tint,
       className = '',
       style,
       onClick,
@@ -102,10 +93,10 @@ const Card = forwardRef<HTMLElement, CardProps>(
       role,
       tabIndex,
       ...rest
-    },
-    ref
+    }: CardProps<E>,
+    ref?: PolymorphicRef<E>
   ) => {
-    const Component = as as any
+    const Component = as || 'div'
 
     // Check if this is a native interactive element
     const isNativeInteractive = as === 'a' || as === 'button' || as === 'input'
@@ -117,7 +108,7 @@ const Card = forwardRef<HTMLElement, CardProps>(
         // Enter key activates on keydown (like native buttons)
         if (e.key === 'Enter') {
           e.preventDefault()
-          onClick(e as any)
+          ;(onClick as any)(e)
         }
         // Space key prevents page scroll on keydown
         if (e.key === ' ' || e.key === 'Spacebar') {
@@ -132,7 +123,7 @@ const Card = forwardRef<HTMLElement, CardProps>(
       if (shouldAddA11y && onClick) {
         if (e.key === ' ' || e.key === 'Spacebar') {
           e.preventDefault()
-          onClick(e as any)
+          ;(onClick as any)(e)
         }
       }
     }
@@ -140,18 +131,12 @@ const Card = forwardRef<HTMLElement, CardProps>(
     return (
       <Component
         ref={ref}
-        data-card
+        className={`card ${className}`.trim()}
         data-elevation={elevation}
         data-padding={padding}
         data-hover={hover}
         data-clickable={clickable || undefined}
-        data-surface={surface}
-        // Glass attributes (if glass prop is true)
-        data-glass={glass || undefined}
-        data-glass-elevation={glass ? glassElevation : undefined}
-        data-strong={glass && glassStrong ? true : undefined}
-        data-glass-surface={glass ? glassSurface : undefined}
-        className={className}
+        data-tint={tint}
         style={style}
         onClick={shouldAddA11y ? onClick : undefined}
         onKeyDown={shouldAddA11y ? handleKeyDown : onKeyDown}
@@ -164,7 +149,9 @@ const Card = forwardRef<HTMLElement, CardProps>(
       </Component>
     )
   }
-)
+) as <E extends React.ElementType = 'div'>(
+  props: CardProps<E> & { ref?: PolymorphicRef<E> }
+) => JSX.Element
 
 Card.displayName = 'Card'
 

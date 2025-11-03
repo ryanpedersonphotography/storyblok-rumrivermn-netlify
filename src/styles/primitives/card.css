@@ -1,209 +1,221 @@
-/* ==========================================================================
-   CARD PRIMITIVE — Thin Shell Consuming Recipe Variables
-   ==========================================================================
-   Usage: <div data-card data-elevation="raised">...</div>
+@layer primitives {
+  /* ==========================================================================
+     CARD PRIMITIVE — Container-Query Responsive with Recipe Contracts
+     ==========================================================================
+     Features:
+     - Recipe-local slots (--rc-*) with role fallbacks
+     - Container queries for automatic density adjustment
+     - min-inline-size: 0 prevents skinny-column issues in grids
+     - Simplified elevations: flat, raised, elevated
+     - Surface tinting via data-tint (rose, gold, sage)
+     - No glass integration (use composition: <Glass><Card>)
+     - Card parts: .card__media, .card__title, .card__meta
+     ========================================================================== */
 
-   Features:
-   - Recipe-driven: Consumes --card-* variables from @layer recipes
-   - Container-responsive: Density auto-adjusts via container queries (no manual data-padding needed)
-   - RTL-ready: Logical properties throughout (padding-block, padding-inline)
-   - Touch-friendly: Better capability queries prevent hover jank on touch devices
-   - Zero-specificity: :where() selectors allow easy overriding
+  /* Base card primitive */
+  .card {
+    /* Recipe-local slots with role token fallbacks */
+    --rc-surface: var(--surface-1);
+    --rc-fg: var(--text-primary);
+    --rc-border: var(--border-subtle);
+    --rc-radius: var(--radius-lg);
+    --rc-pad: var(--space-24);
+    --rc-gap: var(--space-16);
+    --rc-shadow: var(--shadow-sm);
 
-   Dependencies:
-   - Recipe variables from recipes.css (--card-surface, --card-border, --card-padding, etc.)
-   ========================================================================== */
-
-@layer components {
-  /* ================================================
-     BASE CARD STYLES
-     ================================================ */
-
-  :where([data-card]) {
+    /* Layout */
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--card-gap);
-    padding-block: var(--card-padding);
-    padding-inline: var(--card-padding);
-    background: var(--card-surface);
-    border: 1px solid var(--card-border);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
+    gap: var(--rc-gap);
+    min-inline-size: 0; /* prevent skinny-column overflow in grids */
+    inline-size: 100%;  /* explicit width for grid children */
+
+    /* Appearance */
+    background: var(--rc-surface);
+    color: var(--rc-fg);
+    border: 1px solid var(--rc-border);
+    border-radius: var(--rc-radius);
+    box-shadow: var(--rc-shadow);
+
+    /* Spacing */
+    padding: var(--rc-pad);
+
+    /* Overflow control */
     overflow: clip;
+
+    /* Container queries enable automatic density adjustments */
+    container-type: inline-size;
+
+    /* Transitions */
     transition:
-      transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform var(--motion-hover-duration) var(--motion-hover-ease),
+      box-shadow var(--motion-hover-duration) var(--motion-hover-ease),
+      border-color var(--motion-hover-duration) var(--motion-hover-ease);
   }
 
-  /* ================================================
-     GLASS COMPOSITION
-     ================================================ */
+  /* ==========================================================================
+     ELEVATIONS — Shadow depth variants
+     ========================================================================== */
 
-  :where([data-card][data-glass]) {
-    /* Semi-transparent fill to amplify the blur */
-    background: color-mix(in oklch, var(--card-surface, Canvas) 22%, transparent);
-    -webkit-backdrop-filter: blur(var(--blur-md, 10px)) saturate(var(--saturate-med, 1.25));
-    backdrop-filter: blur(var(--blur-md, 10px)) saturate(var(--saturate-med, 1.25));
-    border-color: color-mix(in oklch, currentColor calc(var(--alpha-subtle, .12) * 100%), transparent);
-    box-shadow: var(--shadow-sm);
+  .card[data-elevation="raised"] {
+    --rc-shadow: var(--shadow-md);
   }
 
-  /* Glass elevation variants (token-driven) */
-  :where([data-card][data-glass][data-glass-elevation="sm"]) {
-    -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
-    backdrop-filter: blur(var(--blur-sm)) saturate(var(--saturate-low));
+  .card[data-elevation="elevated"] {
+    --rc-shadow: var(--shadow-lg);
   }
 
-  :where([data-card][data-glass][data-glass-elevation="md"]) {
-    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
-    backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate-med));
+  /* ==========================================================================
+     SURFACE TINTS — Accent color mixing
+     ========================================================================== */
+
+  .card[data-tint="rose"] {
+    --rc-surface: color-mix(in oklch, var(--surface-1) 92%, var(--accent-rose) 8%);
   }
 
-  :where([data-card][data-glass][data-glass-elevation="lg"]) {
-    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
-    backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate-high));
+  .card[data-tint="gold"] {
+    --rc-surface: color-mix(in oklch, var(--surface-1) 92%, var(--accent-gold) 8%);
   }
 
-  :where([data-card][data-glass][data-glass-elevation="xl"]) {
-    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
-    backdrop-filter: blur(var(--blur-xl)) saturate(var(--saturate-high));
+  .card[data-tint="sage"] {
+    --rc-surface: color-mix(in oklch, var(--surface-1) 92%, var(--accent-sage) 8%);
   }
 
-  /* Fallback for browsers without backdrop-filter support */
-  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-    :where([data-card][data-glass]) {
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-      background: color-mix(in oklch, var(--card-surface) calc(var(--alpha-heavy) * 100%), transparent);
+  /* ==========================================================================
+     CONTAINER-QUERY DENSITY — Automatic padding/gap adjustments
+     ========================================================================== */
+
+  /* Large containers: increase spacing */
+  @container (min-width: var(--cq-lg)) {
+    .card {
+      --rc-pad: var(--space-32);
+      --rc-gap: var(--space-20);
     }
   }
 
-  /* ================================================
-     INTERACTIVE STATES
-     ================================================ */
+  /* Narrow containers: compact spacing */
+  @container (max-width: 28rem) {
+    .card {
+      --rc-pad: var(--space-16);
+      --rc-gap: var(--space-12);
+    }
+  }
 
-  /* Better capability queries: only hover on devices with precise pointers */
+  /* ==========================================================================
+     INTERACTIVE STATES — Hover & clickable
+     ========================================================================== */
+
+  /* Hover effects (precise pointers only) */
   @media (hover: hover) and (pointer: fine) {
-    :where([data-card][data-hover="lift"]:is(:hover, :focus-visible)) {
+    .card[data-hover="lift"]:where(:hover, :focus-visible) {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
     }
 
-    :where([data-card][data-elevation="raised"][data-hover="lift"]:is(:hover, :focus-visible)) {
+    .card[data-elevation="raised"][data-hover="lift"]:where(:hover, :focus-visible) {
       box-shadow: var(--shadow-lg);
     }
 
-    :where([data-card][data-elevation="elevated"][data-hover="lift"]:is(:hover, :focus-visible)) {
+    .card[data-elevation="elevated"][data-hover="lift"]:where(:hover, :focus-visible) {
       box-shadow: var(--shadow-xl);
     }
 
-    :where([data-card][data-hover="glow"]:is(:hover, :focus-visible)) {
+    .card[data-hover="glow"]:where(:hover, :focus-visible) {
       border-color: var(--accent-rose);
       box-shadow: 0 0 0 2px color-mix(in oklch, var(--accent-rose) 20%, transparent);
     }
 
-    :where([data-card][data-clickable]:is(:hover, :focus-visible)) {
+    .card[data-clickable]:where(:hover, :focus-visible) {
       transform: translateY(-2px);
-      border-color: var(--card-border);
+      border-color: var(--border-medium);
     }
   }
 
-  /* Press micro-state for tactile feedback */
-  :where([data-card][data-hover="lift"]:active),
-  :where([data-card][data-clickable]:active) {
+  /* Press feedback */
+  .card[data-hover="lift"]:active,
+  .card[data-clickable]:active {
     transform: translateY(0);
     transition-duration: 0.06s;
   }
 
   /* Clickable cards */
-  :where([data-card][data-clickable]) {
+  .card[data-clickable] {
     cursor: pointer;
     user-select: none;
   }
 
-  /* ================================================
-     ACCESSIBILITY
-     ================================================ */
+  /* ==========================================================================
+     ACCESSIBILITY — Focus states
+     ========================================================================== */
 
-  /* Focus visible for clickable cards */
-  :where([data-card][data-clickable]:focus-visible) {
-    outline: var(--focus-width, 2px) solid var(--card-focus-ring);
-    outline-offset: var(--focus-offset, 2px);
+  .card[data-clickable]:focus-visible {
+    outline: var(--focus-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-offset);
   }
 
-  /* ================================================
-     CARD SECTIONS (Header, Footer, Media)
-     ================================================ */
+  /* ==========================================================================
+     CARD PARTS — Media, Title, Meta
+     ========================================================================== */
 
-  /* Card header with bottom border */
-  :where([data-card-header]) {
-    padding-block-end: var(--space-16);
-    border-block-end: 1px solid var(--border-subtle);
+  /* Card media (full-bleed images at top) */
+  .card__media {
+    margin-block-start: calc(-1 * var(--rc-pad));
+    margin-inline: calc(-1 * var(--rc-pad));
     margin-block-end: 0;
+    border-start-start-radius: calc(var(--rc-radius) - 6px);
+    border-start-end-radius: calc(var(--rc-radius) - 6px);
+    overflow: clip;
   }
 
-  /* Card footer with top border */
-  :where([data-card-footer]) {
-    padding-block-start: var(--space-16);
-    border-block-start: 1px solid var(--border-subtle);
-    margin-block-start: 0;
-  }
-
-  /* Card media (full-bleed images) with logical properties */
-  :where([data-card-media]) {
-    margin-block-start: calc(-1 * var(--card-padding));
-    margin-inline: calc(-1 * var(--card-padding));
-    margin-block-end: 0;
-    border-start-start-radius: var(--card-radius);
-    border-start-end-radius: var(--card-radius);
-    overflow: hidden;
-  }
-
-  /* Ensure images in card media fill container */
-  :where([data-card-media] > img),
-  :where([data-card-media] > picture > img) {
+  .card__media > img,
+  .card__media > picture > img {
     display: block;
     inline-size: 100%;
     block-size: auto;
   }
 
-  /* ================================================
-     FORCED-COLORS MODE (High Contrast)
-     ================================================ */
+  /* Card title */
+  .card__title {
+    font-size: var(--size-xl);
+    line-height: var(--line-tight);
+    font-weight: var(--weight-semibold);
+    color: var(--text-primary);
+  }
+
+  /* Card meta (secondary text) */
+  .card__meta {
+    opacity: 0.8;
+    font-size: var(--size-sm);
+    color: var(--text-secondary);
+  }
+
+  /* ==========================================================================
+     HIGH CONTRAST MODE (forced-colors)
+     ========================================================================== */
 
   @media (forced-colors: active) {
-    :where([data-card]) {
+    .card {
       border: 1px solid ButtonBorder;
       background: Canvas;
       color: CanvasText;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-    }
-
-    :where([data-card][data-glass]) {
-      background: Canvas;
     }
   }
 
-  /* ================================================
+  /* ==========================================================================
      REDUCED MOTION
-     ================================================ */
+     ========================================================================== */
 
   @media (prefers-reduced-motion: reduce) {
-    :where([data-card]) {
+    .card {
       transition: none;
     }
 
-    :where([data-card][data-hover="lift"]:is(:hover, :focus-visible)),
-    :where([data-card][data-hover="glow"]:is(:hover, :focus-visible)),
-    :where([data-card][data-clickable]:is(:hover, :focus-visible)) {
-      transform: none;
-    }
-
-    :where([data-card][data-hover="lift"]:active),
-    :where([data-card][data-clickable]:active) {
+    .card[data-hover="lift"]:where(:hover, :focus-visible),
+    .card[data-hover="glow"]:where(:hover, :focus-visible),
+    .card[data-clickable]:where(:hover, :focus-visible),
+    .card[data-hover="lift"]:active,
+    .card[data-clickable]:active {
       transform: none;
     }
   }

@@ -1,0 +1,54 @@
+@layer primitives {
+  /* ==========================================================================
+     SPINNER PRIMITIVE — Loading Animation
+     ==========================================================================
+     Features:
+     - Keyframe animation for rotation
+     - currentColor inheritance for theming
+     - Reduced motion support (opacity pulse fallback)
+     - Used by Button component (.button__spinner)
+     ========================================================================== */
+
+  /* Keyframe animation: 360deg rotation */
+  @keyframes spinner-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Keyframe animation: opacity pulse (reduced motion fallback) */
+  @keyframes spinner-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Spinner styling (used within Button) */
+  .button__spinner {
+    animation: spinner-rotate 0.8s linear infinite;
+    will-change: transform;
+  }
+
+  /* SVG circle inherits currentColor */
+  .button__spinner circle {
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* ==========================================================================
+     REDUCED MOTION — Opacity pulse instead of rotation
+     ========================================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .button__spinner {
+      animation: spinner-pulse 1.5s ease-in-out infinite;
+      will-change: opacity;
+    }
+  }
+}

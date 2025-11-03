@@ -28,6 +28,9 @@
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';
 
+/* Spinner primitive (loading animation used by Button) */
+@import './spinner.css';
+
 /* Badge primitive (inline label/tag component) */
 @import './badge.css';
 

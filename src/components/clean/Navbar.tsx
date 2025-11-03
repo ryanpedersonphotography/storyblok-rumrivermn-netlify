@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react'
 import { storyblokEditable } from '@storyblok/react'
-import ThemeToggle from '@/components/ThemeToggle'
+import ThemeSwitch from '@/components/ui/ThemeSwitch'
 
 interface NavItem {
   _uid?: string
@@ -124,7 +124,7 @@ export default function Navbar({ blok }: { blok?: NavbarBlok }) {
                 {item.label}
               </a>
             ))}
-            <ThemeToggle />
+            <ThemeSwitch />
             {showCta && (
               <a
                 href={ctaUrl}
@@ -177,7 +177,7 @@ export default function Navbar({ blok }: { blok?: NavbarBlok }) {
           </a>
         ))}
         <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
-          <ThemeToggle />
+          <ThemeSwitch />
         </div>
         {showCta && (
           <a

@@ -1,8 +1,13 @@
 /* ==========================================================================
-   THEME PROVIDER — React Context for Theme Management
+   THEME PROVIDER — Unified React Context for Theme Management
    ==========================================================================
    Provides theme and brand state to all components via React context.
-   Syncs with localStorage and responds to OS preference changes.
+   Supports system theme detection with OS sync and cross-tab synchronization.
+
+   Key Concepts:
+   - choice: User selection ("light" | "dark" | "system")
+   - effective: Computed theme ("light" | "dark") that tokens respond to
+   - When choice === "system", effective is computed from OS preference
    ========================================================================== */
 
 'use client'
@@ -13,90 +18,121 @@ import {
   BRAND_REGISTRY,
   STORAGE_KEYS,
   preferredSystemTheme,
-  clampTheme,
+  clampThemeChoice,
   clampBrand,
   type ThemeId,
+  type ThemeChoice,
   type BrandId
 } from '@/lib/theme/registry'
 
 type ThemeContextValue = {
-  theme: ThemeId
-  setTheme: (theme: ThemeId) => void
+  choice: ThemeChoice           // user selection: "light" | "dark" | "system"
+  effective: ThemeId            // computed: "light" | "dark"
+  setChoice: (c: ThemeChoice) => void
   brand: BrandId
-  setBrand: (brand: BrandId) => void
+  setBrand: (b: BrandId) => void
+  cycle: () => void             // convenience: light → dark → system → light
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
+function applyTheme(choice: ThemeChoice) {
+  if (typeof document === 'undefined') return
+  const root = document.documentElement
+  const effective: ThemeId = choice === 'system' ? preferredSystemTheme() : choice
+
+  // Reflect attributes for CSS/tokens + UA
+  THEME_REGISTRY[effective].apply(root)
+  root.style.setProperty('color-scheme', effective === 'dark' ? 'dark' : 'light')
+  root.setAttribute('data-theme-choice', choice) // optional diagnostic hook
+}
+
+function applyBrand(brand: BrandId) {
+  if (typeof document === 'undefined') return
+  BRAND_REGISTRY[brand].apply(document.documentElement)
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Initialize from DOM attributes (set by pre-paint script)
-  const initialTheme: ThemeId = typeof document !== 'undefined'
-    ? clampTheme(document.documentElement.getAttribute('data-theme'))
-    : 'light'
+  // Initialize from DOM attributes set by pre-paint script (or fallbacks)
+  const initialChoice: ThemeChoice = typeof document !== 'undefined'
+    ? clampThemeChoice(document.documentElement.getAttribute('data-theme-choice'))
+    : 'system'
   const initialBrand: BrandId = typeof document !== 'undefined'
     ? clampBrand(document.documentElement.getAttribute('data-brand'))
     : 'romantic'
 
-  const [theme, setThemeState] = useState<ThemeId>(initialTheme)
+  const [choice, setChoiceState] = useState<ThemeChoice>(initialChoice)
   const [brand, setBrandState] = useState<BrandId>(initialBrand)
 
-  /* Set theme: update state, DOM, and localStorage */
-  const setTheme = (next: ThemeId) => {
-    if (next === theme) return // no-op if unchanged
-    setThemeState(next)
-    if (typeof document !== 'undefined') {
-      THEME_REGISTRY[next].apply(document.documentElement)
-      localStorage.setItem(STORAGE_KEYS.theme, next)
+  const effective: ThemeId = useMemo(
+    () => (choice === 'system' ? preferredSystemTheme() : choice),
+    [choice]
+  )
+
+  // Write choice → DOM + storage
+  const setChoice = (next: ThemeChoice) => {
+    if (next === choice) return
+    setChoiceState(next)
+    if (typeof window !== 'undefined') {
+      try { localStorage.setItem(STORAGE_KEYS.themeChoice, next) } catch {}
     }
+    applyTheme(next)
   }
 
-  /* Set brand: update state, DOM, and localStorage */
+  // Write brand → DOM + storage
   const setBrand = (next: BrandId) => {
-    if (next === brand) return // no-op if unchanged
+    if (next === brand) return
     setBrandState(next)
-    if (typeof document !== 'undefined') {
-      BRAND_REGISTRY[next].apply(document.documentElement)
-      localStorage.setItem(STORAGE_KEYS.brand, next)
+    if (typeof window !== 'undefined') {
+      try { localStorage.setItem(STORAGE_KEYS.brand, next) } catch {}
     }
+    applyBrand(next)
   }
 
-  /* Sync across tabs and respond to OS preference changes */
+  // Cross-tab sync + OS changes (only when choice === 'system')
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // Cross-tab sync via storage events
     const onStorage = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEYS.theme && e.newValue) {
-        const nv = clampTheme(e.newValue)
-        if (nv !== theme) setTheme(nv)
+      if (e.key === STORAGE_KEYS.themeChoice && e.newValue) {
+        const nv = clampThemeChoice(e.newValue)
+        if (nv !== choice) setChoice(nv)
       }
       if (e.key === STORAGE_KEYS.brand && e.newValue) {
-        const nv = clampBrand(e.newValue)
-        if (nv !== brand) setBrand(nv)
+        const nb = clampBrand(e.newValue)
+        if (nb !== brand) setBrand(nb)
       }
     }
 
-    // OS preference change detection
     const mql = window.matchMedia('(prefers-color-scheme: dark)')
-    const onMqlChange = () => {
-      // Only auto-switch if user hasn't explicitly set a theme
-      if (!localStorage.getItem(STORAGE_KEYS.theme)) {
-        setTheme(preferredSystemTheme())
-      }
-    }
+    const onMqlChange = () => { if (choice === 'system') applyTheme('system') }
 
     window.addEventListener('storage', onStorage)
-    mql.addEventListener('change', onMqlChange)
+    mql.addEventListener?.('change', onMqlChange)
+    // Safari legacy fallback
+    // @ts-ignore
+    mql.addListener?.(onMqlChange)
 
     return () => {
       window.removeEventListener('storage', onStorage)
-      mql.removeEventListener('change', onMqlChange)
+      mql.removeEventListener?.('change', onMqlChange)
+      // @ts-ignore
+      mql.removeListener?.(onMqlChange)
     }
-  }, [theme, brand])
+  }, [choice, brand])
+
+  // Ensure DOM reflects current state after first paint (guards against weird SSR)
+  useEffect(() => {
+    applyTheme(choice)
+    applyBrand(brand)
+  }, []) // eslint-disable-line
+
+  const cycle = () =>
+    setChoice(choice === 'light' ? 'dark' : choice === 'dark' ? 'system' : 'light')
 
   const value = useMemo(
-    () => ({ theme, setTheme, brand, setBrand }),
-    [theme, brand]
+    () => ({ choice, effective, setChoice, brand, setBrand, cycle }),
+    [choice, effective, brand]
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
@@ -104,9 +140,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 /* useTheme Hook — Access theme context */
 export function useTheme() {
-  const context = useContext(ThemeContext)
-  if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider')
-  }
-  return context
+  const ctx = useContext(ThemeContext)
+  if (!ctx) throw new Error('useTheme must be used within ThemeProvider')
+  return ctx
 }
