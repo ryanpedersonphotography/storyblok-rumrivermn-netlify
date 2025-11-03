@@ -1,0 +1,10 @@
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES — Minimal text helpers
+   Uses role tokens only (no recipe contracts)
+   ========================================================================== */
+@layer utilities {
+  /* Muted text (secondary/de-emphasized) */
+  .muted {
+    color: var(--text-secondary);
+  }
+}

@@ -1,17 +1,23 @@
 // src/app/layout.tsx
-// Root layout: tokens + primitives + globals + recipes + providers
+// Root layout: tokens + theme bridge + primitives + globals + recipes + utilities + providers
 
 // 1) Tokens define @layer order
 import '@/styles/tokens/theme.tokens.v3.css'
 
-// 2) Primitives for components
+// 2) Theme bridge (UA color-scheme + native control harmony)
+import '@/styles/theme-bridge.css'
+
+// 3) Primitives for components
 import '@/styles/primitives/index.css'
 
-// 3) Base globals (reset/typography)
+// 4) Base globals (reset/typography)
 import '@/styles/globals.css'
 
-// 4) Recipes for semantic color/spacing combos
+// 5) Recipes for semantic color/spacing combos
 import '@/styles/recipes.css'
+
+// 6) Utilities (card-region, glass-bed, typography helpers)
+import '@/styles/utilities/index.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'

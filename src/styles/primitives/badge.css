@@ -1,0 +1,17 @@
+/* ==========================================================================
+   BADGE PRIMITIVE — Inline label/tag component
+   Uses role tokens only (no recipe contracts)
+   ========================================================================== */
+@layer primitives {
+  .badge {
+    display: inline-block;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-1);
+    color: var(--text-primary);
+    font-size: var(--size-sm);
+    line-height: var(--line-normal);
+    font-weight: var(--weight-medium);
+  }
+}

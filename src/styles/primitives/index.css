@@ -28,6 +28,9 @@
 /* Button primitive (variants, sizes, loading, accessibility) */
 @import './button.css';
 
+/* Badge primitive (inline label/tag component) */
+@import './badge.css';
+
 /* Dialog/Modal primitive (scrim, panel, focus trap support) */
 @import './dialog.css';
 
@@ -37,24 +40,8 @@
 /* Auxiliary utilities (sr-only, aspect-ratio) */
 @import './aux.css';
 
+/* Gradient primitive (recipe-contract gradient system) */
+@import './gradient.css';
+
 /* Accessibility guards (reduced motion, forced colors, capability queries) */
 @import './a11y-guards.css';
-
-/* Recipe system (section-level theme/density combos) */
-@import '../recipes.css';
-
-/* Typography recipes (recipe-driven text colors) */
-@import '../recipes/typography-recipes.css';
-
-/* Glass bed recipes (backdrop wrapper colors) */
-@import '../recipes/glass-bed-recipes.css';
-
-/* Theme bridge (UA color-scheme integration) */
-@import '../theme-bridge.css';
-
-/* Card region utility (container query support) */
-@import '../utilities/card-region.css';
-
-/* Glass bed utility (backdrop wrapper for glass cards) */
-@import '../utilities/glass-bed.css';
-@import "./gradients.css";

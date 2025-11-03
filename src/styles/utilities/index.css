@@ -1,0 +1,13 @@
+/* ==========================================================================
+   UTILITIES SYSTEM (Aggregator)
+   Import once in your app layout.
+   ========================================================================== */
+
+/* Card region utility (container query support) */
+@import './card-region.css';
+
+/* Glass bed utility (backdrop wrapper for glass cards) */
+@import './glass-bed.css';
+
+/* Typography utilities (muted, etc.) */
+@import './typography.css';
