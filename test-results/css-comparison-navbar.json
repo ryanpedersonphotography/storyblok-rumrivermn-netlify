@@ -1,0 +1,252 @@
+{
+  "section": "navbar",
+  "timestamp": "2025-11-02T20:18:31.310Z",
+  "hotfixUrl": "https://localhost:9999/",
+  "cleanUrl": "https://localhost:9999/clean",
+  "matches": [
+    {
+      "property": "position",
+      "hotfixValue": "fixed",
+      "cleanValue": "fixed",
+      "severity": "match"
+    },
+    {
+      "property": "display",
+      "hotfixValue": "block",
+      "cleanValue": "block",
+      "severity": "match"
+    },
+    {
+      "property": "flexDirection",
+      "hotfixValue": "row",
+      "cleanValue": "row",
+      "severity": "match"
+    },
+    {
+      "property": "alignItems",
+      "hotfixValue": "normal",
+      "cleanValue": "normal",
+      "severity": "match"
+    },
+    {
+      "property": "justifyContent",
+      "hotfixValue": "normal",
+      "cleanValue": "normal",
+      "severity": "match"
+    },
+    {
+      "property": "gap",
+      "hotfixValue": "normal",
+      "cleanValue": "normal",
+      "severity": "match"
+    },
+    {
+      "property": "width",
+      "hotfixValue": "1280px",
+      "cleanValue": "1280px",
+      "severity": "match"
+    },
+    {
+      "property": "height",
+      "hotfixValue": "85px",
+      "cleanValue": "85px",
+      "severity": "match"
+    },
+    {
+      "property": "minWidth",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "maxWidth",
+      "hotfixValue": "none",
+      "cleanValue": "none",
+      "severity": "match"
+    },
+    {
+      "property": "minHeight",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "maxHeight",
+      "hotfixValue": "none",
+      "cleanValue": "none",
+      "severity": "match"
+    },
+    {
+      "property": "padding",
+      "hotfixValue": "24px 0px",
+      "cleanValue": "24px 0px",
+      "severity": "match"
+    },
+    {
+      "property": "paddingTop",
+      "hotfixValue": "24px",
+      "cleanValue": "24px",
+      "severity": "match"
+    },
+    {
+      "property": "paddingRight",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "paddingBottom",
+      "hotfixValue": "24px",
+      "cleanValue": "24px",
+      "severity": "match"
+    },
+    {
+      "property": "paddingLeft",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "margin",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "marginTop",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "marginRight",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "marginBottom",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "marginLeft",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "backgroundColor",
+      "hotfixValue": "rgba(0, 0, 0, 0)",
+      "cleanValue": "rgba(0, 0, 0, 0)",
+      "severity": "match"
+    },
+    {
+      "property": "fontFamily",
+      "hotfixValue": "Montserrat, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "cleanValue": "Montserrat, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "severity": "match"
+    },
+    {
+      "property": "fontSize",
+      "hotfixValue": "16px",
+      "cleanValue": "16px",
+      "severity": "match"
+    },
+    {
+      "property": "fontWeight",
+      "hotfixValue": "400",
+      "cleanValue": "400",
+      "severity": "match"
+    },
+    {
+      "property": "lineHeight",
+      "hotfixValue": "24px",
+      "cleanValue": "24px",
+      "severity": "match"
+    },
+    {
+      "property": "letterSpacing",
+      "hotfixValue": "normal",
+      "cleanValue": "normal",
+      "severity": "match"
+    },
+    {
+      "property": "textAlign",
+      "hotfixValue": "start",
+      "cleanValue": "start",
+      "severity": "match"
+    },
+    {
+      "property": "textTransform",
+      "hotfixValue": "none",
+      "cleanValue": "none",
+      "severity": "match"
+    },
+    {
+      "property": "border",
+      "hotfixValue": "",
+      "cleanValue": "",
+      "severity": "match"
+    },
+    {
+      "property": "borderRadius",
+      "hotfixValue": "0px",
+      "cleanValue": "0px",
+      "severity": "match"
+    },
+    {
+      "property": "boxShadow",
+      "hotfixValue": "none",
+      "cleanValue": "none",
+      "severity": "match"
+    },
+    {
+      "property": "opacity",
+      "hotfixValue": "1",
+      "cleanValue": "1",
+      "severity": "match"
+    },
+    {
+      "property": "transform",
+      "hotfixValue": "none",
+      "cleanValue": "none",
+      "severity": "match"
+    },
+    {
+      "property": "transition",
+      "hotfixValue": "0.4s, background 0.2s, box-shadow 0.2s, border-color 0.2s",
+      "cleanValue": "0.4s, background 0.2s, box-shadow 0.2s, border-color 0.2s",
+      "severity": "match"
+    },
+    {
+      "property": "zIndex",
+      "hotfixValue": "1000",
+      "cleanValue": "1000",
+      "severity": "match"
+    }
+  ],
+  "differences": [
+    {
+      "property": "color",
+      "hotfixValue": "rgb(107, 78, 61)",
+      "cleanValue": "rgb(0, 0, 0)",
+      "severity": "warning"
+    },
+    {
+      "property": "borderColor",
+      "hotfixValue": "rgb(107, 78, 61) rgb(107, 78, 61) rgba(0, 0, 0, 0)",
+      "cleanValue": "rgb(0, 0, 0) rgb(0, 0, 0) rgba(0, 0, 0, 0)",
+      "severity": "warning"
+    }
+  ],
+  "summary": {
+    "totalProperties": 39,
+    "matches": 37,
+    "differences": 2,
+    "minorDiffs": 0,
+    "warningDiffs": 2,
+    "criticalDiffs": 0
+  }
+}

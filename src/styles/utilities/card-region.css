@@ -1,0 +1,69 @@
+/* ==========================================================================
+   CARD REGION UTILITY — Container Query Support for Cards
+   ==========================================================================
+   Usage:
+   <div class="card-region card-grid">
+     <article data-card>...</article>
+     <article data-card>...</article>
+   </div>
+
+   Features:
+   - .card-region enables container queries for auto-responsive card density
+   - .card-grid provides responsive grid layout with auto-fit
+   - Cards inside .card-region automatically adjust padding/gap via container queries
+
+   Dependencies:
+   - Container query support (with viewport fallback in recipes.css)
+   ========================================================================== */
+
+@layer utilities {
+  /* ================================================
+     CARD REGION — Named Container for Explicit Queries
+     ================================================ */
+
+  .card-region {
+    container: cards / inline-size; /* name + type */
+    width: 100%;
+    min-width: 0;           /* flex safety: allow shrinking below min-content */
+    flex: 1 1 auto;         /* if nested in flex rows, let it grow/shrink */
+    box-sizing: border-box;
+  }
+
+  /* ================================================
+     CARD GRID — Responsive Grid Layout (RAM Pattern)
+     ================================================ */
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-min, 20rem), 1fr));
+    gap: var(--grid-gap, var(--space-24));
+    width: 100%;
+  }
+
+  /* Belt & suspenders: ensure each card claims a slot even with auto-fit */
+  .card-grid > [data-card] {
+    min-inline-size: var(--card-min, 20rem);
+  }
+
+  /* ================================================
+     CARD MEDIA — Default Aspect Ratio
+     ================================================ */
+
+  .card-grid [data-card-media] {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ================================================
+     DENSITY VARIANTS
+     ================================================ */
+
+  .card-grid[data-density="compact"] {
+    --grid-gap: var(--space-16);
+    --card-min: 16rem;
+  }
+
+  .card-grid[data-density="spacious"] {
+    --grid-gap: var(--space-32);
+    --card-min: 22rem;
+  }
+}

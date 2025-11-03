@@ -1,0 +1,211 @@
+/* ==========================================================================
+   ACCESSIBILITY GUARDS (@layer primitives)
+   ==========================================================================
+   Global accessibility accommodations for motion, contrast, and input modes.
+
+   Features:
+   - Reduced motion support (respects prefers-reduced-motion)
+   - Forced colors mode (Windows High Contrast)
+   - Capability queries (hover/pointer for touch devices)
+   - Focus visibility enhancements
+
+   Reference:
+   - https://web.dev/prefers-reduced-motion/
+   - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+   - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
+   ========================================================================== */
+
+@layer primitives {
+  /* ================================================
+     REDUCED MOTION
+     ================================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Disable ALL transitions and animations globally */
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Explicitly disable motion on primitives */
+    :where(.button, .card, [data-card], [data-hover]) {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    /* Glass effects should still work, just without animation */
+    :where([data-glass]) {
+      transition: none !important;
+    }
+  }
+
+  /* ================================================
+     FORCED COLORS (High Contrast Mode)
+     ================================================ */
+
+  @media (forced-colors: active) {
+    /* Ensure all interactive elements have visible borders */
+    :where(.button, [data-card], .card, a) {
+      border: 1px solid CanvasText !important;
+    }
+
+    /* Remove custom backgrounds in favor of system colors */
+    :where([data-recipe], [data-card], .card) {
+      background: Canvas !important;
+      color: CanvasText !important;
+      border-color: CanvasText !important;
+    }
+
+    /* Ensure focus indicators are always visible */
+    :where(:focus-visible) {
+      outline: 2px solid CanvasText !important;
+      outline-offset: 2px !important;
+    }
+
+    /* Disable glass/blur effects (not supported in forced-colors) */
+    :where([data-glass]) {
+      backdrop-filter: none !important;
+      background: Canvas !important;
+      border: 2px solid CanvasText !important;
+    }
+
+    /* Badges and inline elements need borders */
+    :where(.badge, .inline > *) {
+      border: 1px solid CanvasText !important;
+    }
+
+    /* Ensure recipe sections maintain structure */
+    :where([data-recipe]) {
+      border-block-start: 2px solid CanvasText;
+    }
+  }
+
+  /* ================================================
+     CAPABILITY QUERIES (Touch Device Guards)
+     ================================================ */
+
+  /* Only apply hover effects on devices that support hover */
+  @media (hover: none) {
+    :where([data-hover="lift"], [data-hover="glow"]) {
+      /* Disable hover effects on touch devices to prevent janky interactions */
+      transform: none !important;
+      box-shadow: var(--card-shadow) !important;
+    }
+
+    :where(.button:hover) {
+      /* Prevent hover state on touch devices */
+      transform: none !important;
+    }
+  }
+
+  /* Fine pointer devices get enhanced interactions */
+  @media (hover: hover) and (pointer: fine) {
+    /* Enhance button press states for precise input */
+    :where(.button:active) {
+      transform: translateY(1px);
+    }
+
+    /* Card lift effect */
+    :where([data-hover="lift"]:hover) {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Coarse pointer devices (touch) get larger tap targets */
+  @media (pointer: coarse) {
+    :where(.button, [data-clickable]) {
+      min-block-size: 44px; /* WCAG 2.5.5 Target Size minimum */
+      min-inline-size: 44px;
+    }
+  }
+
+  /* ================================================
+     FOCUS VISIBILITY
+     ================================================ */
+
+  /* Enhanced focus indicators for keyboard navigation */
+  :where(:focus-visible) {
+    outline: 2px solid var(--focus-ring, currentColor);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm, 4px);
+  }
+
+  /* Remove focus outline for mouse users (only show for keyboard) */
+  :where(:focus:not(:focus-visible)) {
+    outline: none;
+  }
+
+  /* Ensure interactive cards have visible focus */
+  :where([data-clickable]:focus-visible, .button:focus-visible) {
+    outline: 2px solid var(--focus-ring, currentColor);
+    outline-offset: 2px;
+  }
+
+  /* ================================================
+     CONTRAST ENHANCEMENTS
+     ================================================ */
+
+  @media (prefers-contrast: high) {
+    /* Increase border weights for better visibility */
+    :where([data-card], .card, .button) {
+      border-width: 2px !important;
+    }
+
+    /* Ensure sufficient contrast for muted text */
+    :where([data-ui="text"][data-muted], .muted) {
+      opacity: 0.85; /* More visible than default 0.7 */
+    }
+
+    /* Enhance shadow contrast */
+    :where([data-elevation]) {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+  }
+
+  /* ================================================
+     TRANSPARENCY REDUCTION
+     ================================================ */
+
+  @media (prefers-reduced-transparency) {
+    /* Remove glass/blur effects */
+    :where([data-glass]) {
+      backdrop-filter: none !important;
+      background: var(--card-surface) !important;
+    }
+
+    /* Remove alpha transparency from overlays */
+    :where([data-overlay]) {
+      opacity: 1 !important;
+      background: var(--surface-1) !important;
+    }
+  }
+
+  /* ================================================
+     PRINT STYLES
+     ================================================ */
+
+  @media print {
+    /* Remove interactive affordances for print */
+    :where([data-hover], .button:hover) {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Ensure cards have borders for print */
+    :where([data-card], .card) {
+      border: 1px solid #000 !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Remove backgrounds to save ink */
+    :where([data-recipe], [data-card]) {
+      background: white !important;
+      color: black !important;
+    }
+  }
+}

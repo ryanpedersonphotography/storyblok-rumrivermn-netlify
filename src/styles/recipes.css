@@ -1,0 +1,205 @@
+/* ================================================
+   RECIPE RULESET (@layer recipes)
+   Approved color/spacing combos for sections
+   Apply via: <Section ... data-recipe="surface-rose" data-density="compact" />
+   ================================================ */
+@layer recipes {
+  /* Contract vars every section can rely on */
+  [data-recipe] {
+    --rc-bg: var(--bg-surface, var(--surface-1));
+    --rc-card: var(--surface-1);
+    --rc-fg: var(--text-primary);
+    --rc-fg-muted: var(--text-secondary);
+    --rc-accent: var(--accent-rose);
+    --rc-border: var(--border-subtle);
+    --rc-gap: var(--space-32);
+    --rc-flow: var(--space-24);
+
+    /* Apply to wrapper + low-specificity hookups for primitives */
+    background: var(--rc-bg);
+    color: var(--rc-fg);
+  }
+
+  /* Hook into primitives with low specificity */
+  [data-recipe] :where(.stack)  { gap: var(--rc-flow); }
+  [data-recipe] :where(.cluster, .grid) { gap: var(--rc-gap); }
+  [data-recipe] :where(.card) {
+    background: var(--rc-card);
+    border: 1px solid var(--rc-border);
+    border-radius: 12px;
+  }
+
+  /* ---------- LIGHT SURFACES ---------- */
+  [data-recipe="surface-rose"] {
+    --rc-bg: var(--bg-surface);
+    --rc-card: var(--surface-1);
+    --rc-fg: var(--text-primary);
+    --rc-fg-muted: var(--text-secondary);
+    --rc-accent: var(--accent-rose);
+    --rc-border: var(--border-subtle);
+  }
+
+  [data-recipe="surface-sage"] {
+    --rc-bg: var(--bg-surface);
+    --rc-card: var(--surface-1);
+    --rc-fg: var(--text-primary);
+    --rc-fg-muted: var(--text-secondary);
+    --rc-accent: var(--theme-accent-sage, rgb(176 196 182));
+    --rc-border: var(--border-subtle);
+  }
+
+  /* ---------- TINTS (with fallbacks before color-mix) ---------- */
+  [data-recipe="tint-rose"] {
+    /* Fallback first (older engines) */
+    --rc-bg: var(--surface-1);
+    /* Safer perceptual blend; oklch preferred if you switch your palette */
+    --rc-bg: color-mix(in srgb, var(--surface-1) 92%, var(--accent-rose) 8%);
+  }
+
+  [data-recipe="tint-sage"] {
+    --rc-bg: var(--surface-1);
+    --rc-bg: color-mix(in srgb, var(--surface-1) 92%, var(--theme-accent-sage, rgb(176 196 182)) 8%);
+  }
+
+  /* ---------- DARK / HERO ---------- */
+  [data-recipe="hero-dark"] {
+    /* Fallback color + gradient overlay */
+    --rc-bg: #2C2416;
+    --rc-bg: linear-gradient(135deg, #2C2416, #3D2F22);
+    --rc-card: color-mix(in srgb, #000 20%, var(--surface-1));
+    --rc-fg: var(--text-inverse, #fff);
+    --rc-fg-muted: color-mix(in srgb, var(--rc-fg) 75%, transparent);
+    --rc-accent: var(--accent-gold, #E4C896);
+    --rc-border: rgba(255, 255, 255, 0.16);
+    color-scheme: dark;
+  }
+
+  /* ---------- DENSITY CONTROLS ---------- */
+  [data-recipe][data-density="tight"]   { --rc-gap: var(--space-16); --rc-flow: var(--space-16); }
+  [data-recipe][data-density="compact"] { --rc-gap: var(--space-24); --rc-flow: var(--space-20); }
+  [data-recipe][data-density="loose"]   { --rc-gap: var(--space-40); --rc-flow: var(--space-32); }
+  [data-recipe][data-density="airy"]    { --rc-gap: var(--space-56); --rc-flow: var(--space-40); }
+
+  /* ---------- DARK THEME TWEAKS ---------- */
+  html[data-theme="dark"] [data-recipe="surface-rose"],
+  html[data-theme="dark"] [data-recipe="surface-sage"] {
+    --rc-bg: var(--surface-2, rgb(26 20 16));
+    --rc-card: var(--surface-1, rgb(26 20 16));
+    --rc-fg: var(--text-inverse, #fff);
+    --rc-fg-muted: color-mix(in srgb, var(--rc-fg) 75%, transparent);
+    --rc-border: rgba(255, 255, 255, 0.12);
+    color-scheme: dark;
+  }
+
+  /* ================================================
+     CARD RECIPES - Semantic Variables + Container-Responsive Density
+     ================================================ */
+
+  /* Default card recipe variables (single source of truth) */
+  :root {
+    --card-surface: var(--surface-1);
+    --card-border: var(--border-subtle);
+    --card-radius: var(--radius-md);
+    --card-padding: var(--space-24);
+    --card-gap: var(--space-16);
+    --card-shadow: var(--shadow-sm);
+    --card-focus-ring: var(--focus-ring);
+  }
+
+  /* Attribute-driven padding overrides */
+  :where([data-card][data-padding="compact"]) {
+    --card-padding: var(--space-16);
+    --card-gap: var(--space-12);
+  }
+
+  :where([data-card][data-padding="spacious"]) {
+    --card-padding: var(--space-32);
+    --card-gap: var(--space-20);
+  }
+
+  :where([data-card][data-padding="none"]) {
+    --card-padding: 0;
+  }
+
+  /* Elevation semantics */
+  :where([data-card][data-elevation="flat"]) {
+    --card-shadow: none;
+  }
+
+  :where([data-card][data-elevation="raised"]) {
+    --card-shadow: var(--shadow-sm);
+    --card-border: var(--border-medium);
+  }
+
+  :where([data-card][data-elevation="elevated"]) {
+    --card-shadow: var(--shadow-md);
+    --card-border: var(--border-strong);
+  }
+
+  :where([data-card][data-elevation="floating"]) {
+    --card-shadow: var(--shadow-lg);
+    --card-border: transparent;
+  }
+
+  /* Surface tints */
+  :where([data-card][data-surface="rose"]) {
+    --card-surface: color-mix(in oklch, var(--surface-1) 94%, var(--accent-rose) 6%);
+    --card-border: color-mix(in oklch, var(--accent-rose) 30%, transparent);
+  }
+
+  :where([data-card][data-surface="gold"]) {
+    --card-surface: color-mix(in oklch, var(--surface-1) 94%, var(--accent-gold) 6%);
+    --card-border: color-mix(in oklch, var(--accent-gold) 30%, transparent);
+  }
+
+  :where([data-card][data-surface="sage"]) {
+    --card-surface: color-mix(in oklch, var(--surface-1) 94%, var(--theme-accent-sage, rgb(176 196 182)) 6%);
+    --card-border: color-mix(in oklch, var(--theme-accent-sage, rgb(176 196 182)) 30%, transparent);
+  }
+
+  /* ================================================
+     CONTAINER QUERY AUTO-RESPONSIVE DENSITY
+     Cards automatically adjust padding/gap based on container width
+     Named container "cards" targets .card-region explicitly
+     ================================================ */
+
+  @container cards (inline-size < 380px) {
+    :where([data-card]) {
+      --card-padding: var(--space-16);
+      --card-gap: var(--space-12);
+    }
+  }
+
+  @container cards (inline-size > 900px) {
+    :where([data-card]) {
+      --card-padding: var(--space-32);
+      --card-gap: var(--space-20);
+    }
+  }
+
+  /* Viewport fallback for browsers without container query support */
+  @supports not (container-type: inline-size) {
+    @media (max-width: 420px) {
+      :where([data-card]) {
+        --card-padding: var(--space-16);
+        --card-gap: var(--space-12);
+      }
+    }
+
+    @media (min-width: 1120px) {
+      :where([data-card]) {
+        --card-padding: var(--space-32);
+        --card-gap: var(--space-20);
+      }
+    }
+  }
+
+  /* ---------- HIGH CONTRAST ---------- */
+  @media (forced-colors: active) {
+    [data-recipe] {
+      background: Canvas;
+      color: CanvasText;
+    }
+    [data-recipe] :where(.card) { border-color: CanvasText; }
+  }
+}

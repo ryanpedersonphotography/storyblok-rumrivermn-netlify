@@ -1,0 +1,27 @@
+/* ================================================
+   INLINE PRIMITIVE
+   Wraps small inline chips/tags with consistent gap
+   ================================================ */
+@layer primitives {
+  .inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, var(--space-12));
+    align-items: var(--align, center);
+    row-gap: var(--row-gap, var(--gap, var(--space-12)));
+    column-gap: var(--col-gap, var(--gap, var(--space-12)));
+  }
+
+  .inline[data-align="start"]   { align-items: flex-start; }
+  .inline[data-align="center"]  { align-items: center; }
+  .inline[data-align="end"]     { align-items: flex-end; }
+  .inline[data-align="baseline"]{ align-items: baseline; }
+
+  /* Motion & contrast accommodations */
+  @media (prefers-reduced-motion: reduce) {
+    .inline > * { transition: none !important; }
+  }
+  @media (forced-colors: active) {
+    .inline > * { border: 1px solid CanvasText; }
+  }
+}

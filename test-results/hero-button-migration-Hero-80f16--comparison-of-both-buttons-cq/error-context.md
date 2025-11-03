@@ -1,0 +1,89 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "RR Rum River Barn" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: RR
+          - generic [ref=e7]: Rum River Barn
+        - button "Open mobile menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - heading "Hero Button Migration Demo" [level=1] [ref=e12]
+        - paragraph [ref=e13]: "Side-by-side comparison: Original (component CSS) vs Primitives-Only (tokens + inline styles)"
+        - generic [ref=e14]:
+          - 'heading "Goal: 95%+ Visual Similarity" [level=3] [ref=e15]'
+          - paragraph [ref=e16]: Both buttons should be pixel-perfect matches. The primitives version uses ZERO component CSS classes, relying entirely on design tokens and inline styles.
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - heading "Original (Component CSS)" [level=2] [ref=e20]
+            - paragraph [ref=e21]:
+              - text: "Uses:"
+              - code [ref=e22]: .hero-cta
+              - text: +
+              - code [ref=e23]: .hero-cta-secondary
+              - text: from hero.css
+          - link "Schedule Your Visit" [ref=e25] [cursor=pointer]:
+            - /url: "#contact"
+          - generic [ref=e26]:
+            - heading "Code:" [level=3] [ref=e27]
+            - generic [ref=e28]: <a href="#contact" className="hero-cta hero-cta-secondary" > Schedule Your Visit </a>
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - heading "Primitives-Only Version" [level=2] [ref=e31]
+            - paragraph [ref=e32]: "Uses: Design tokens + inline styles only (zero CSS classes)"
+          - link "Schedule Your Visit" [ref=e34] [cursor=pointer]:
+            - /url: "#contact"
+          - generic [ref=e35]:
+            - heading "Code:" [level=3] [ref=e36]
+            - generic [ref=e37]: "<a href=\"#contact\" style={{ padding: 'var(--space-md) var(--space-2xl)', background: 'transparent', color: 'var(--btn-outline-fg)', border: '2px solid var(--btn-outline-border)', borderRadius: 'var(--btn-radius)', fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: 'var(--size-sm)', letterSpacing: '0.08em', textTransform: 'uppercase', // ... hover states handled via onMouseEnter/Leave }} > Schedule Your Visit </a>"
+      - generic [ref=e38]:
+        - heading "Design Token Mapping" [level=2] [ref=e39]
+        - table [ref=e41]:
+          - rowgroup [ref=e42]:
+            - row "CSS Property Design Token Computed Value" [ref=e43]:
+              - cell "CSS Property" [ref=e44]
+              - cell "Design Token" [ref=e45]
+              - cell "Computed Value" [ref=e46]
+          - rowgroup [ref=e47]:
+            - row "padding var(--space-md) var(--space-2xl) 16px 40px" [ref=e48]:
+              - cell "padding" [ref=e49]
+              - cell "var(--space-md) var(--space-2xl)" [ref=e50]
+              - cell "16px 40px" [ref=e51]
+            - row "border-radius var(--btn-radius) 9999px" [ref=e52]:
+              - cell "border-radius" [ref=e53]
+              - cell "var(--btn-radius)" [ref=e54]
+              - cell "9999px" [ref=e55]
+            - 'row "color var(--btn-outline-fg) #FFF8E7" [ref=e56]':
+              - cell "color" [ref=e57]
+              - cell "var(--btn-outline-fg)" [ref=e58]
+              - cell "#FFF8E7" [ref=e59]
+            - 'row "border 2px solid var(--btn-outline-border) 2px solid #E4C896" [ref=e60]':
+              - cell "border" [ref=e61]
+              - cell "2px solid var(--btn-outline-border)" [ref=e62]
+              - 'cell "2px solid #E4C896" [ref=e63]'
+            - row "font-family var(--font-sans) ui-sans-serif, system-ui..." [ref=e64]:
+              - cell "font-family" [ref=e65]
+              - cell "var(--font-sans)" [ref=e66]
+              - cell "ui-sans-serif, system-ui..." [ref=e67]
+            - row "font-size var(--size-sm) 0.875rem (14px)" [ref=e68]:
+              - cell "font-size" [ref=e69]
+              - cell "var(--size-sm)" [ref=e70]
+              - cell "0.875rem (14px)" [ref=e71]
+            - row "transition 200ms ease (var(--duration-normal)) 200ms" [ref=e72]:
+              - cell "transition" [ref=e73]
+              - cell "200ms ease (var(--duration-normal))" [ref=e74]
+              - cell "200ms" [ref=e75]
+      - generic [ref=e77]:
+        - heading "Run Playwright Test" [level=3] [ref=e78]
+        - code [ref=e79]: npx playwright test tests/hero-button-migration.spec.ts
+        - paragraph [ref=e80]: "This will compare both buttons and generate a similarity report. Target: 95%+ match."
+  - alert [ref=e81]
+  - button "Open Next.js Dev Tools" [ref=e87] [cursor=pointer]:
+    - img [ref=e88]
+```

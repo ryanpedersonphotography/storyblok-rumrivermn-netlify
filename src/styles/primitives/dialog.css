@@ -1,0 +1,253 @@
+/* ==========================================================================
+   DIALOG PRIMITIVE - Accessible Modal Dialog + Scrim
+   ==========================================================================
+   Purpose: Modal dialog with scrim overlay, mobile-first, CQ-aligned.
+   Depends: Phase 6 tokens (--mix-*, --glass-backdrop), spacing/radius/shadows.
+
+   Features:
+   - ARIA: role="dialog", aria-modal="true", proper labeling
+   - Focus trap: Tab cycling within panel
+   - Keyboard: ESC to close
+   - Mouse: Outside-click on scrim closes
+   - Scroll-lock: html[data-modal-open="true"] prevents body scroll
+   - CQ-aware: Panel padding adjusts at container query breakpoint
+   - Sizes: sm (32rem), md (48rem), lg (64rem), xl (80rem)
+   - Tokens: Uses --mix-deep, --glass-backdrop, --radius-xl, --shadow-2
+
+   Usage:
+   <div class="scrim" data-scrim-for="my-dialog"></div>
+   <div class="dialog" id="my-dialog" role="dialog" aria-modal="true"
+        aria-labelledby="title" aria-describedby="desc">
+     <div class="dialog__panel" data-size="md" tabindex="-1">
+       <header class="dialog__header">
+         <h2 id="title" class="dialog__title">Title</h2>
+         <button class="dialog__close" aria-label="Close"
+                 data-dialog-close="my-dialog">×</button>
+       </header>
+       <div id="desc" class="dialog__body">Content</div>
+       <footer class="dialog__footer">Actions</footer>
+     </div>
+   </div>
+   ========================================================================== */
+
+@layer components {
+  /* =========================================================
+     Z-INDEX SCALE (optional - use project tokens if defined)
+     ========================================================= */
+  :root {
+    --z-base: 0;
+    --z-sticky: 100;
+    --z-overlay: 1000;
+    --z-modal: 1100;
+  }
+
+  /* =========================================================
+     SCROLL LOCK
+     ========================================================= */
+  html[data-modal-open="true"] {
+    overflow: hidden;
+  }
+
+  /* =========================================================
+     SCRIM (background overlay)
+     ========================================================= */
+  [data-clean-root="true"] .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    background: var(--mix-deep);
+    backdrop-filter: var(--glass-backdrop);
+    -webkit-backdrop-filter: var(--glass-backdrop);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease-out;
+  }
+
+  /* Reduce motion: disable transitions */
+  @media (prefers-reduced-motion: reduce) {
+    [data-clean-root="true"] .scrim {
+      transition: none;
+    }
+  }
+
+  /* Open state */
+  [data-clean-root="true"] .scrim[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* =========================================================
+     DIALOG WRAPPER (centering)
+     ========================================================= */
+  [data-clean-root="true"] .dialog {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: var(--z-modal);
+    pointer-events: none; /* Allow outside-click on scrim only */
+  }
+
+  /* =========================================================
+     PANEL (the actual modal)
+     ========================================================= */
+  [data-clean-root="true"] .dialog__panel {
+    pointer-events: auto;
+    background: var(--theme-bg, oklch(0.98 0 95));
+    color: var(--theme-text, oklch(0.22 0.02 95));
+    border: 1px solid var(--mix-subtle);
+    border-radius: var(--radius-xl, 16px);
+    box-shadow:
+      0 4px 12px var(--mix-subtle),
+      0 12px 40px var(--mix-soft);
+    width: min(92vw, 64rem);
+    max-height: 90vh;
+    overflow: auto;
+    transform: translateY(8px);
+    opacity: 0;
+    transition:
+      opacity 180ms ease-out,
+      transform 180ms ease-out;
+  }
+
+  /* Reduce motion: disable transitions */
+  @media (prefers-reduced-motion: reduce) {
+    [data-clean-root="true"] .dialog__panel {
+      transition: none;
+    }
+  }
+
+  /* Open state */
+  [data-clean-root="true"] .dialog[data-open="true"] .dialog__panel {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* =========================================================
+     SIZE VARIANTS
+     ========================================================= */
+  [data-clean-root="true"] .dialog__panel[data-size="sm"] {
+    width: min(92vw, 32rem);
+  }
+
+  [data-clean-root="true"] .dialog__panel[data-size="md"] {
+    width: min(92vw, 48rem);
+  }
+
+  [data-clean-root="true"] .dialog__panel[data-size="lg"] {
+    width: min(92vw, 64rem);
+  }
+
+  [data-clean-root="true"] .dialog__panel[data-size="xl"] {
+    width: min(92vw, 80rem);
+  }
+
+  /* =========================================================
+     PANEL REGIONS
+     ========================================================= */
+
+  /* Header */
+  [data-clean-root="true"] .dialog__header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--space-16);
+    padding: var(--space-24) var(--space-24) 0 var(--space-24);
+  }
+
+  /* Title */
+  [data-clean-root="true"] .dialog__title {
+    font: inherit;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    margin: 0;
+  }
+
+  /* Close button */
+  [data-clean-root="true"] .dialog__close {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    inline-size: 40px;
+    block-size: 40px;
+    border-radius: var(--radius-full, 999px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  [data-clean-root="true"] .dialog__close:hover {
+    background: var(--mix-soft);
+  }
+
+  /* Body */
+  [data-clean-root="true"] .dialog__body {
+    padding: var(--space-20) var(--space-24);
+  }
+
+  /* Footer */
+  [data-clean-root="true"] .dialog__footer {
+    padding: 0 var(--space-24) var(--space-24);
+    display: flex;
+    gap: var(--space-12);
+    justify-content: flex-end;
+  }
+
+  /* =========================================================
+     CONTAINER-AWARE REFINEMENTS
+     ========================================================= */
+
+  /* Tablet-up: relax inner padding slightly */
+  @container section (min-width: var(--cq-md, 48rem)) {
+    [data-clean-root="true"] .dialog__body {
+      padding: var(--space-24) var(--space-28);
+    }
+
+    [data-clean-root="true"] .dialog__footer {
+      padding: 0 var(--space-28) var(--space-28);
+    }
+  }
+
+  /* =========================================================
+     FALLBACK FOR NO-CONTAINER-QUERY ENGINES
+     ========================================================= */
+  @supports not (container-type: inline-size) {
+    @media (min-width: 768px) {
+      [data-clean-root="true"] .dialog__body {
+        padding: var(--space-24) var(--space-28);
+      }
+
+      [data-clean-root="true"] .dialog__footer {
+        padding: 0 var(--space-28) var(--space-28);
+      }
+    }
+  }
+
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
+
+  /* Focus visible for close button */
+  [data-clean-root="true"] .dialog__close:focus-visible {
+    outline: var(--focus-width, 2px) solid var(--focus-ring);
+    outline-offset: var(--focus-offset, 2px);
+  }
+
+  /* High contrast mode: ensure visibility */
+  @media (forced-colors: active) {
+    [data-clean-root="true"] .dialog__panel {
+      border: 1px solid ButtonBorder;
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    [data-clean-root="true"] .scrim {
+      background: CanvasText;
+      opacity: .3;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+}

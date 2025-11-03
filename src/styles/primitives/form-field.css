@@ -1,0 +1,247 @@
+/* ==========================================================================
+   FORM FIELD PRIMITIVE - Label/Input/Hint/Error System
+   ==========================================================================
+   Purpose: Consistent form field styling with states, sizes, and layouts.
+   Features:
+   - States: Default, hover, focus, disabled, invalid
+   - Layouts: Stack (default), inline (at tablet-up via container query)
+   - Sizes: sm, md (default), lg
+   - Components: label, input/textarea/select, hint, error, required indicator
+   - Focus ring: Neutral --mix-strong, switches to error ring when invalid
+   - CQ-aware: Inline layout at @container section (min-width: 48rem)
+
+   Usage:
+   <div class="field" data-clean-root="true" data-size="md" data-layout="stack">
+     <label for="email" class="field__label">
+       Email <span class="field__required" aria-hidden="true">*</span>
+     </label>
+     <div class="field__control">
+       <input id="email" name="email" type="email" class="field__input"
+              required aria-describedby="email-hint">
+     </div>
+     <p id="email-hint" class="field__hint">We'll never share your email.</p>
+   </div>
+
+   Invalid state:
+   <div class="field" data-clean-root="true" aria-invalid="true">
+     ...
+     <p id="email-err" class="field__error">Please enter a valid email.</p>
+   </div>
+   ========================================================================== */
+
+@layer components {
+  /* =========================================================
+     FIELD TOKENS
+     ========================================================= */
+  :root {
+    --field-bg: var(--theme-bg, oklch(0.98 0 95));
+    --field-text: var(--theme-text, oklch(0.22 0.02 95));
+    --field-border: var(--mix-subtle);
+    --field-border-hover: var(--mix-soft);
+    --field-ring: var(--mix-strong);         /* Neutral focus mat */
+    --field-error: oklch(0.58 0.18 25);      /* Fallback if no --accent-error */
+    --field-error-ring: color-mix(in oklch, var(--field-error) 30%, transparent);
+
+    --field-radius: var(--radius-lg, 12px);
+    --field-pad-y: 12px;
+    --field-pad-x: 14px;
+    --field-gap: var(--space-8);
+    --field-row-gap: var(--space-12);
+    --field-font: 1rem;
+    --field-line: 1.5;
+  }
+
+  /* =========================================================
+     ROOT WRAPPER
+     ========================================================= */
+  [data-clean-root="true"] .field {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--field-gap);
+  }
+
+  /* =========================================================
+     LABEL
+     ========================================================= */
+  [data-clean-root="true"] .field__label {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: var(--field-text);
+  }
+
+  [data-clean-root="true"] .field__required {
+    color: var(--field-error);
+    margin-inline-start: 0.25ch;
+  }
+
+  /* =========================================================
+     CONTROL WRAPPER
+     ========================================================= */
+  [data-clean-root="true"] .field__control {
+    position: relative;
+  }
+
+  /* =========================================================
+     INPUT CONTROLS (input, textarea, select)
+     ========================================================= */
+  [data-clean-root="true"] .field__input,
+  [data-clean-root="true"] .field__textarea,
+  [data-clean-root="true"] .field__select {
+    width: 100%;
+    background: var(--field-bg);
+    color: var(--field-text);
+    border: 1px solid var(--field-border);
+    border-radius: var(--field-radius);
+    padding: var(--field-pad-y) var(--field-pad-x);
+    font-size: var(--field-font);
+    line-height: var(--field-line);
+    font-family: inherit;
+    transition:
+      border-color 120ms ease-out,
+      box-shadow 120ms ease-out,
+      background 120ms ease-out;
+  }
+
+  [data-clean-root="true"] .field__textarea {
+    resize: vertical;
+    min-height: 9rem;
+  }
+
+  /* =========================================================
+     HOVER STATE
+     ========================================================= */
+  [data-clean-root="true"] .field__input:hover,
+  [data-clean-root="true"] .field__textarea:hover,
+  [data-clean-root="true"] .field__select:hover {
+    border-color: var(--field-border-hover);
+  }
+
+  /* =========================================================
+     FOCUS STATE
+     ========================================================= */
+  [data-clean-root="true"] .field__input:focus-visible,
+  [data-clean-root="true"] .field__textarea:focus-visible,
+  [data-clean-root="true"] .field__select:focus-visible {
+    outline: none;
+    border-color: var(--field-ring);
+    box-shadow: 0 0 0 3px var(--field-ring);
+  }
+
+  /* =========================================================
+     DISABLED STATE
+     ========================================================= */
+  [data-clean-root="true"] .field[aria-disabled="true"] .field__input,
+  [data-clean-root="true"] .field[aria-disabled="true"] .field__textarea,
+  [data-clean-root="true"] .field[aria-disabled="true"] .field__select,
+  [data-clean-root="true"] .field__input:disabled,
+  [data-clean-root="true"] .field__textarea:disabled,
+  [data-clean-root="true"] .field__select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* =========================================================
+     HINT & ERROR TEXT
+     ========================================================= */
+  [data-clean-root="true"] .field__hint {
+    color: color-mix(in oklch, var(--field-text) 70%, transparent);
+    font-size: 0.875rem;
+  }
+
+  [data-clean-root="true"] .field__error {
+    color: var(--field-error);
+    font-size: 0.875rem;
+  }
+
+  /* =========================================================
+     INVALID STATE
+     ========================================================= */
+  [data-clean-root="true"] .field[aria-invalid="true"] .field__input,
+  [data-clean-root="true"] .field[aria-invalid="true"] .field__textarea,
+  [data-clean-root="true"] .field[aria-invalid="true"] .field__select,
+  [data-clean-root="true"] .field[data-invalid="true"] .field__input,
+  [data-clean-root="true"] .field[data-invalid="true"] .field__textarea,
+  [data-clean-root="true"] .field[data-invalid="true"] .field__select {
+    border-color: var(--field-error);
+    box-shadow: 0 0 0 3px var(--field-error-ring);
+  }
+
+  /* =========================================================
+     SIZE VARIANTS
+     ========================================================= */
+  [data-clean-root="true"] .field[data-size="sm"] {
+    --field-pad-y: 10px;
+    --field-pad-x: 12px;
+    --field-font: 0.95rem;
+  }
+
+  [data-clean-root="true"] .field[data-size="lg"] {
+    --field-pad-y: 14px;
+    --field-pad-x: 16px;
+    --field-font: 1.0625rem;
+  }
+
+  /* =========================================================
+     INLINE LAYOUT (label left, control right at tablet-up)
+     ========================================================= */
+  @container section (min-width: var(--cq-md, 48rem)) {
+    [data-clean-root="true"] .field[data-layout="inline"] {
+      grid-template-columns: 0.35fr 1fr;
+      align-items: center;
+      column-gap: var(--space-16);
+    }
+
+    [data-clean-root="true"] .field[data-layout="inline"] .field__hint,
+    [data-clean-root="true"] .field[data-layout="inline"] .field__error {
+      grid-column: 2 / -1;
+    }
+  }
+
+  /* =========================================================
+     FALLBACK FOR NO-CONTAINER-QUERY ENGINES
+     ========================================================= */
+  @supports not (container-type: inline-size) {
+    @media (min-width: 768px) {
+      [data-clean-root="true"] .field[data-layout="inline"] {
+        grid-template-columns: 0.35fr 1fr;
+        align-items: center;
+        column-gap: var(--space-16);
+      }
+
+      [data-clean-root="true"] .field[data-layout="inline"] .field__hint,
+      [data-clean-root="true"] .field[data-layout="inline"] .field__error {
+        grid-column: 2 / -1;
+      }
+    }
+  }
+
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
+
+  /* Reduce motion: disable transitions */
+  @media (prefers-reduced-motion: reduce) {
+    [data-clean-root="true"] .field__input,
+    [data-clean-root="true"] .field__textarea,
+    [data-clean-root="true"] .field__select {
+      transition: none;
+    }
+  }
+
+  /* High contrast mode: ensure visibility */
+  @media (forced-colors: active) {
+    [data-clean-root="true"] .field__input,
+    [data-clean-root="true"] .field__textarea,
+    [data-clean-root="true"] .field__select {
+      border: 1px solid ButtonBorder;
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    [data-clean-root="true"] .field[aria-invalid="true"] .field__input,
+    [data-clean-root="true"] .field[aria-invalid="true"] .field__textarea,
+    [data-clean-root="true"] .field[aria-invalid="true"] .field__select {
+      border: 2px solid CanvasText;
+    }
+  }
+}

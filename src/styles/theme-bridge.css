@@ -1,0 +1,24 @@
+/* ==========================================================================
+   THEME BRIDGE - UA Color Scheme Integration
+   Ensures native UI elements (scrollbars, form controls) match theme
+   ========================================================================== */
+
+/* UA color-scheme handshake so native UI matches theme */
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="dark"]  { color-scheme: dark;  }
+
+/* Optional: minimal badges used in demo */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  border-radius: 999px;
+  border: 1px solid var(--rc-border, var(--border-subtle, currentColor));
+  background: var(--rc-card, var(--surface-1));
+  font-size: var(--ts-sm, 0.875rem);
+}
+
+/* Minor text helpers */
+.muted { color: var(--rc-fg-muted, var(--text-secondary)); }
+
+/* Ensure .section is neutral and lets recipes do the work */
+.section { isolation: isolate; }

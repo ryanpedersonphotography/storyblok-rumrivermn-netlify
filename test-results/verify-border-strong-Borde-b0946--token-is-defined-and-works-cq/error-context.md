@@ -1,0 +1,161 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "RR Rum River Barn" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: RR
+          - generic [ref=e7]: Rum River Barn
+        - button "Open mobile menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - main [ref=e10]:
+      - generic [ref=e14]:
+        - paragraph [ref=e15]: Where Dreams Begin
+        - heading "Rum River Wedding Barn" [level=1] [ref=e16]:
+          - text: Rum River
+          - text: Wedding Barn
+        - paragraph [ref=e17]: Nestled along Minnesota's scenic Rum River, our historic barn offers the perfect blend of rustic charm and modern elegance for your once-in-a-lifetime celebration.
+        - generic [ref=e18]:
+          - link "Schedule Your Visit" [ref=e19] [cursor=pointer]:
+            - /url: "#contact"
+          - link "View Gallery" [ref=e20] [cursor=pointer]:
+            - /url: "#gallery"
+        - button "Discover Your Perfect Day ↓" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: Discover Your Perfect Day
+          - generic [ref=e23]: ↓
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Primitives + Recipes Migration" [level=1] [ref=e26]
+          - generic [ref=e27]:
+            - button "Toggle theme" [ref=e28]: 🖥️ System (light)
+            - generic [ref=e29]:
+              - button "Light" [ref=e30]
+              - button "Dark" [ref=e31]
+              - button "System" [pressed] [ref=e32]
+        - generic [ref=e36]:
+          - heading "Surface • Rose (compact)" [level=2] [ref=e37]
+          - paragraph [ref=e38]: "Light surface with rose accent. Compact density (--rc-gap: 24px, --rc-flow: 20px)"
+          - generic [ref=e39]:
+            - article [ref=e40]:
+              - heading "Card A" [level=3] [ref=e41]
+              - paragraph [ref=e42]: Container queries auto-adjust padding
+              - generic [ref=e43]:
+                - generic [ref=e44]: Rustic
+                - generic [ref=e45]: Romantic
+                - generic [ref=e46]: Outdoor
+            - article [ref=e47]:
+              - heading "Card B" [level=3] [ref=e48]
+              - paragraph [ref=e49]: No manual data-padding needed
+              - generic [ref=e50]:
+                - generic [ref=e51]: Item 1
+                - generic [ref=e52]: Item 2
+                - generic [ref=e53]: Item 3
+            - article [ref=e54]:
+              - heading "Card C" [level=3] [ref=e55]
+              - paragraph [ref=e56]: Recipe-driven styling
+              - generic [ref=e58]: 16:9
+        - generic [ref=e62]:
+          - heading "Surface • Sage (loose)" [level=2] [ref=e63]
+          - paragraph [ref=e64]: "Light surface with sage accent. Loose density (--rc-gap: 40px, --rc-flow: 32px)"
+          - generic [ref=e65]:
+            - article [ref=e66]:
+              - heading "Why Couples Love It" [level=3] [ref=e67]
+              - paragraph [ref=e68]: Vertical rhythm, readable measure (~65ch), and tokenized spacing make long-form content look sharp in both themes.
+              - blockquote [ref=e69]: "\"Best venue ever. The space was magical!\" — A Happy Couple"
+              - list [ref=e70]:
+                - listitem [ref=e71]: Stunning natural surroundings
+                - listitem [ref=e72]: Flexible ceremony options
+                - listitem [ref=e73]: Full-service coordination
+            - generic [ref=e74]:
+              - generic [ref=e76]: 4:3 placeholder
+              - generic [ref=e77]:
+                - generic [ref=e78]: Vineyard
+                - generic [ref=e79]: Barn
+                - generic [ref=e80]: Nature
+        - generic [ref=e84]:
+          - heading "Tint • Rose (compact)" [level=2] [ref=e85]
+          - paragraph [ref=e86]: Subtle rose tint background with color-mix fallback. Compact density.
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - heading "Inline Primitive" [level=3] [ref=e89]
+              - paragraph [ref=e90]: Wraps tags with consistent gap
+              - generic [ref=e91]:
+                - generic [ref=e92]: Tag A
+                - generic [ref=e93]: Tag B
+                - generic [ref=e94]: Tag C
+                - generic [ref=e95]: Tag D
+                - generic [ref=e96]: Tag E
+            - generic [ref=e97]:
+              - heading "Stack Layout" [level=3] [ref=e98]
+              - generic [ref=e99]:
+                - generic [ref=e100]: Item 1
+                - generic [ref=e101]: Item 2
+                - generic [ref=e102]: Item 3
+        - generic [ref=e106]:
+          - heading "Tint • Sage (tight)" [level=2] [ref=e107]
+          - paragraph [ref=e108]: "Subtle sage tint background. Tight density (--rc-gap: 16px, --rc-flow: 16px)"
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - heading "Feature A" [level=4] [ref=e111]
+              - paragraph [ref=e112]: Auto-responsive density
+            - generic [ref=e113]:
+              - heading "Feature B" [level=4] [ref=e114]
+              - paragraph [ref=e115]: Recipe-driven colors
+            - generic [ref=e116]:
+              - heading "Feature C" [level=4] [ref=e117]
+              - paragraph [ref=e118]: Container queries
+        - generic [ref=e122]:
+          - heading "Hero • Dark (airy)" [level=2] [ref=e123]
+          - paragraph [ref=e124]: "This section demonstrates tone-aware tokens with inverse text. Dark gradient background with gold accent. Airy density (--rc-gap: 56px, --rc-flow: 40px)."
+          - generic [ref=e125]:
+            - link "Book a Tour" [ref=e126] [cursor=pointer]:
+              - /url: /contact
+            - link "See Pricing" [ref=e127] [cursor=pointer]:
+              - /url: /pricing
+          - generic:
+            - generic [ref=e128]:
+              - heading "Dark Card A" [level=3] [ref=e129]
+              - paragraph [ref=e130]: Recipe system ensures consistent colors
+            - generic [ref=e131]:
+              - heading "Dark Card B" [level=3] [ref=e132]
+              - paragraph [ref=e133]: Works in both light and dark themes
+        - generic [ref=e137]:
+          - heading "Switcher Primitive Showcase" [level=2] [ref=e138]
+          - paragraph [ref=e139]: Auto-switches from horizontal to vertical based on container width (container queries, no media queries)
+          - generic [ref=e140]:
+            - paragraph [ref=e141]: Container width controlled (resize to see switch at 320px threshold)
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - heading "Column A" [level=3] [ref=e144]
+                - paragraph [ref=e145]: Switches based on container
+              - generic [ref=e146]:
+                - heading "Column B" [level=3] [ref=e147]
+                - paragraph [ref=e148]: Not viewport width
+              - generic [ref=e149]:
+                - heading "Column C" [level=3] [ref=e150]
+                - paragraph [ref=e151]: Auto-responsive padding
+        - generic [ref=e155]:
+          - heading "Typography System" [level=2] [ref=e156]
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - heading "Heading Sizes" [level=3] [ref=e159]
+              - generic [ref=e160]:
+                - paragraph [ref=e161]: XL Heading
+                - paragraph [ref=e162]: LG Heading
+                - paragraph [ref=e163]: MD Heading
+                - paragraph [ref=e164]: SM Heading
+                - paragraph [ref=e165]: XS Heading
+            - generic [ref=e166]:
+              - heading "Text Sizes" [level=3] [ref=e167]
+              - generic [ref=e168]:
+                - paragraph [ref=e169]: LG Text - Larger body copy with loose leading
+                - paragraph [ref=e170]: MD Text - Default body copy size
+                - paragraph [ref=e171]: SM Text - Smaller labels and captions
+                - paragraph [ref=e172]: XS Text - Fine print and metadata
+  - alert [ref=e173]
+  - button "Open Next.js Dev Tools" [ref=e179] [cursor=pointer]:
+    - img [ref=e180]
+```

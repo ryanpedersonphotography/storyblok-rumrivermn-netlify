@@ -1,0 +1,67 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "RR Rum River Barn" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: RR
+          - generic [ref=e7]: Rum River Barn
+        - button "Open mobile menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - main [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - heading "Dialog + Form Field Primitives Demo" [level=1] [ref=e13]
+          - paragraph [ref=e14]: This page demonstrates the Dialog/Scrim and Form Field primitives with full accessibility support, container query awareness, and Phase 6 token integration.
+        - generic [ref=e15]:
+          - heading "Dialog Primitive" [level=2] [ref=e16]
+          - paragraph [ref=e17]: Click the button below to open a modal dialog with focus trap, ESC close, and outside-click close.
+          - button "Open Contact Dialog" [active] [ref=e18] [cursor=pointer]
+        - generic [ref=e19]:
+          - heading "Standalone Form Fields" [level=2] [ref=e20]
+          - generic [ref=e21]:
+            - generic [ref=e22]:
+              - generic [ref=e23]: Your name *
+              - textbox "Your name" [ref=e25]
+              - paragraph [ref=e26]: This is a standard stack-layout field.
+            - generic [ref=e27]:
+              - generic [ref=e28]: Email
+              - textbox "Email" [ref=e30]
+              - paragraph [ref=e31]: This field switches to inline layout at tablet-up (via container query).
+            - generic [ref=e32]:
+              - generic [ref=e33]: Invalid Example
+              - textbox "Invalid Example" [ref=e35]: invalid@
+              - paragraph [ref=e36]: Please enter a valid email address.
+            - generic [ref=e37]:
+              - generic [ref=e38]: Message
+              - textbox "Message" [ref=e40]
+      - dialog "Book a Tour":
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - heading "Book a Tour" [level=2] [ref=e43]
+            - button "Close dialog" [ref=e44] [cursor=pointer]: ×
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - generic [ref=e48]: Your name *
+              - textbox "Your name" [ref=e50]
+              - paragraph [ref=e51]: We'll use this to address you in emails.
+            - generic [ref=e52]:
+              - generic [ref=e53]: Email
+              - textbox "Email" [ref=e55]
+            - generic [ref=e56]:
+              - generic [ref=e57]: Phone
+              - textbox "Phone" [ref=e59]
+              - paragraph [ref=e60]: Optional
+            - generic [ref=e61]:
+              - generic [ref=e62]: Message
+              - textbox "Message" [ref=e64]
+          - generic [ref=e65]:
+            - button "Cancel" [ref=e66] [cursor=pointer]
+            - button "Send Message" [ref=e67] [cursor=pointer]
+  - alert [ref=e68]
+  - button "Open Next.js Dev Tools" [ref=e74] [cursor=pointer]:
+    - img [ref=e75]
+```

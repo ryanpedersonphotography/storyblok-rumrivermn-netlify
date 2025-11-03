@@ -1,0 +1,107 @@
+/* ==========================================================================
+   TYPOGRAPHY RECIPES — Recipe-Driven Text Colors
+   ==========================================================================
+   Usage: Apply via [data-ui] attributes; recipes own colors, not JSX.
+
+   Benefits:
+   - Zero inline color styles in JSX
+   - Theme switching via recipe layer
+   - Consistent color semantics
+   - RTL/writing-mode ready with logical properties
+   ========================================================================== */
+
+@layer recipes {
+  /* Safe fallbacks for demos/standalone usage */
+  :root {
+    --rc-fg: CanvasText;
+    --rc-fg-muted: color-mix(in oklch, CanvasText 65%, transparent);
+  }
+
+  /* ================================================
+     HEADINGS
+     ================================================ */
+
+  /* All headings inherit recipe foreground */
+  :where([data-ui="heading"]) {
+    color: var(--rc-fg);
+  }
+
+  /* Size variants with fluid scaling */
+  :where([data-ui="heading"][data-size="xl"]) {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+  }
+
+  :where([data-ui="heading"][data-size="lg"]) {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    line-height: 1.2;
+  }
+
+  :where([data-ui="heading"][data-size="md"]) {
+    font-size: clamp(1.25rem, 2.8vw, 1.5rem);
+    line-height: 1.25;
+  }
+
+  :where([data-ui="heading"][data-size="sm"]) {
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    line-height: 1.25;
+  }
+
+  :where([data-ui="heading"][data-size="xs"]) {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.3;
+  }
+
+  /* ================================================
+     BODY TEXT
+     ================================================ */
+
+  /* Default text inherits recipe foreground */
+  :where([data-ui="text"]) {
+    color: var(--rc-fg);
+  }
+
+  /* Muted text uses recipe muted variable */
+  :where([data-ui="text"][data-muted]),
+  :where([data-ui="text"].muted) {
+    color: var(--rc-fg-muted);
+  }
+
+  /* Size variants */
+  :where([data-ui="text"][data-size="lg"]) {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  :where([data-ui="text"][data-size="md"]) {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  :where([data-ui="text"][data-size="sm"]) {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  :where([data-ui="text"][data-size="xs"]) {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  /* ================================================
+     LOGICAL SPACING UTILITIES
+     ================================================ */
+
+  /* Block-end spacing for rhythm */
+  :where([data-ui][data-block-end="spaced"]) {
+    margin-block-end: var(--space-16);
+  }
+
+  :where([data-ui][data-block-end="compact"]) {
+    margin-block-end: var(--space-12);
+  }
+
+  :where([data-ui][data-block-end="loose"]) {
+    margin-block-end: var(--space-24);
+  }
+}

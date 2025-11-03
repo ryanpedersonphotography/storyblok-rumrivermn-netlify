@@ -1,0 +1,1341 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "RR Rum River Barn" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: RR
+          - generic [ref=e7]: Rum River Barn
+        - button "Open mobile menu" [active] [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e13]:
+          - paragraph [ref=e14]: Token Verification
+          - 'heading "Spacing Tokens: Hardcoded vs Computed" [level=2] [ref=e15]'
+          - paragraph [ref=e16]: Verify all tokens are loading correctly
+        - generic [ref=e19]:
+          - paragraph [ref=e20]:
+            - strong [ref=e21]: "Legend:"
+            - text: ✓ = Token loads correctly | ✗ = Mismatch or missing | Visual bar shows actual rendered width
+          - generic [ref=e22]:
+            - heading "Fixed Scale" [level=3] [ref=e23]
+            - table [ref=e25]:
+              - rowgroup [ref=e26]:
+                - row "Token Name Hardcoded Value Computed Value OK? Visual" [ref=e27]:
+                  - cell "Token Name" [ref=e28]
+                  - cell "Hardcoded Value" [ref=e29]
+                  - cell "Computed Value" [ref=e30]
+                  - cell "OK?" [ref=e31]
+                  - cell "Visual" [ref=e32]
+              - rowgroup [ref=e33]:
+                - row "--space-0 0 0 ✓" [ref=e34]:
+                  - cell "--space-0" [ref=e35]
+                  - cell "0" [ref=e36]
+                  - cell "0" [ref=e37]
+                  - cell "✓" [ref=e38]
+                  - cell [ref=e39]
+                - row "--space-2 0.125rem (2px) 0.125rem ✓" [ref=e41]:
+                  - cell "--space-2" [ref=e42]
+                  - cell "0.125rem (2px)" [ref=e43]
+                  - cell "0.125rem" [ref=e44]
+                  - cell "✓" [ref=e45]
+                  - cell [ref=e46]
+                - row "--space-4 0.25rem (4px) 0.25rem ✓" [ref=e48]:
+                  - cell "--space-4" [ref=e49]
+                  - cell "0.25rem (4px)" [ref=e50]
+                  - cell "0.25rem" [ref=e51]
+                  - cell "✓" [ref=e52]
+                  - cell [ref=e53]
+                - row "--space-8 0.5rem (8px) 0.5rem ✓" [ref=e55]:
+                  - cell "--space-8" [ref=e56]
+                  - cell "0.5rem (8px)" [ref=e57]
+                  - cell "0.5rem" [ref=e58]
+                  - cell "✓" [ref=e59]
+                  - cell [ref=e60]
+                - row "--space-12 0.75rem (12px) 0.75rem ✓" [ref=e62]:
+                  - cell "--space-12" [ref=e63]
+                  - cell "0.75rem (12px)" [ref=e64]
+                  - cell "0.75rem" [ref=e65]
+                  - cell "✓" [ref=e66]
+                  - cell [ref=e67]
+                - row "--space-16 1rem (16px) 1rem ✓" [ref=e69]:
+                  - cell "--space-16" [ref=e70]
+                  - cell "1rem (16px)" [ref=e71]
+                  - cell "1rem" [ref=e72]
+                  - cell "✓" [ref=e73]
+                  - cell [ref=e74]
+                - row "--space-20 1.25rem (20px) 1.25rem ✓" [ref=e76]:
+                  - cell "--space-20" [ref=e77]
+                  - cell "1.25rem (20px)" [ref=e78]
+                  - cell "1.25rem" [ref=e79]
+                  - cell "✓" [ref=e80]
+                  - cell [ref=e81]
+                - row "--space-24 1.5rem (24px) 1.5rem ✓" [ref=e83]:
+                  - cell "--space-24" [ref=e84]
+                  - cell "1.5rem (24px)" [ref=e85]
+                  - cell "1.5rem" [ref=e86]
+                  - cell "✓" [ref=e87]
+                  - cell [ref=e88]
+                - row "--space-32 2rem (32px) 2rem ✓" [ref=e90]:
+                  - cell "--space-32" [ref=e91]
+                  - cell "2rem (32px)" [ref=e92]
+                  - cell "2rem" [ref=e93]
+                  - cell "✓" [ref=e94]
+                  - cell [ref=e95]
+                - row "--space-40 2.5rem (40px) 2.5rem ✓" [ref=e97]:
+                  - cell "--space-40" [ref=e98]
+                  - cell "2.5rem (40px)" [ref=e99]
+                  - cell "2.5rem" [ref=e100]
+                  - cell "✓" [ref=e101]
+                  - cell [ref=e102]
+                - row "--space-48 3rem (48px) 3rem ✓" [ref=e104]:
+                  - cell "--space-48" [ref=e105]
+                  - cell "3rem (48px)" [ref=e106]
+                  - cell "3rem" [ref=e107]
+                  - cell "✓" [ref=e108]
+                  - cell [ref=e109]
+                - row "--space-56 3.5rem (56px) 3.5rem ✓" [ref=e111]:
+                  - cell "--space-56" [ref=e112]
+                  - cell "3.5rem (56px)" [ref=e113]
+                  - cell "3.5rem" [ref=e114]
+                  - cell "✓" [ref=e115]
+                  - cell [ref=e116]
+                - row "--space-64 4rem (64px) 4rem ✓" [ref=e118]:
+                  - cell "--space-64" [ref=e119]
+                  - cell "4rem (64px)" [ref=e120]
+                  - cell "4rem" [ref=e121]
+                  - cell "✓" [ref=e122]
+                  - cell [ref=e123]
+                - row "--space-80 5rem (80px) 5rem ✓" [ref=e125]:
+                  - cell "--space-80" [ref=e126]
+                  - cell "5rem (80px)" [ref=e127]
+                  - cell "5rem" [ref=e128]
+                  - cell "✓" [ref=e129]
+                  - cell [ref=e130]
+                - row "--space-96 6rem (96px) 6rem ✓" [ref=e132]:
+                  - cell "--space-96" [ref=e133]
+                  - cell "6rem (96px)" [ref=e134]
+                  - cell "6rem" [ref=e135]
+                  - cell "✓" [ref=e136]
+                  - cell [ref=e137]
+          - generic [ref=e139]:
+            - heading "Legacy Aliases" [level=3] [ref=e140]
+            - table [ref=e142]:
+              - rowgroup [ref=e143]:
+                - row "Token Name Hardcoded Value Computed Value OK? Visual" [ref=e144]:
+                  - cell "Token Name" [ref=e145]
+                  - cell "Hardcoded Value" [ref=e146]
+                  - cell "Computed Value" [ref=e147]
+                  - cell "OK?" [ref=e148]
+                  - cell "Visual" [ref=e149]
+              - rowgroup [ref=e150]:
+                - row "--space-2xs var(--space-4) 0.25rem ✓" [ref=e151]:
+                  - cell "--space-2xs" [ref=e152]
+                  - cell "var(--space-4)" [ref=e153]
+                  - cell "0.25rem" [ref=e154]
+                  - cell "✓" [ref=e155]
+                  - cell [ref=e156]
+                - row "--space-xs var(--space-8) 0.5rem ✓" [ref=e158]:
+                  - cell "--space-xs" [ref=e159]
+                  - cell "var(--space-8)" [ref=e160]
+                  - cell "0.5rem" [ref=e161]
+                  - cell "✓" [ref=e162]
+                  - cell [ref=e163]
+                - row "--space-sm var(--space-12) 0.75rem ✓" [ref=e165]:
+                  - cell "--space-sm" [ref=e166]
+                  - cell "var(--space-12)" [ref=e167]
+                  - cell "0.75rem" [ref=e168]
+                  - cell "✓" [ref=e169]
+                  - cell [ref=e170]
+                - row "--space-md var(--space-16) 1rem ✓" [ref=e172]:
+                  - cell "--space-md" [ref=e173]
+                  - cell "var(--space-16)" [ref=e174]
+                  - cell "1rem" [ref=e175]
+                  - cell "✓" [ref=e176]
+                  - cell [ref=e177]
+                - row "--space-lg var(--space-20) 1.25rem ✓" [ref=e179]:
+                  - cell "--space-lg" [ref=e180]
+                  - cell "var(--space-20)" [ref=e181]
+                  - cell "1.25rem" [ref=e182]
+                  - cell "✓" [ref=e183]
+                  - cell [ref=e184]
+                - row "--space-xl var(--space-32) 2rem ✓" [ref=e186]:
+                  - cell "--space-xl" [ref=e187]
+                  - cell "var(--space-32)" [ref=e188]
+                  - cell "2rem" [ref=e189]
+                  - cell "✓" [ref=e190]
+                  - cell [ref=e191]
+                - row "--space-2xl var(--space-40) 2.5rem ✓" [ref=e193]:
+                  - cell "--space-2xl" [ref=e194]
+                  - cell "var(--space-40)" [ref=e195]
+                  - cell "2.5rem" [ref=e196]
+                  - cell "✓" [ref=e197]
+                  - cell [ref=e198]
+                - row "--space-3xl var(--space-48) 3rem ✓" [ref=e200]:
+                  - cell "--space-3xl" [ref=e201]
+                  - cell "var(--space-48)" [ref=e202]
+                  - cell "3rem" [ref=e203]
+                  - cell "✓" [ref=e204]
+                  - cell [ref=e205]
+                - row "--space-4xl var(--space-64) 4rem ✓" [ref=e207]:
+                  - cell "--space-4xl" [ref=e208]
+                  - cell "var(--space-64)" [ref=e209]
+                  - cell "4rem" [ref=e210]
+                  - cell "✓" [ref=e211]
+                  - cell [ref=e212]
+                - row "--space-5xl var(--space-96) 6rem ✓" [ref=e214]:
+                  - cell "--space-5xl" [ref=e215]
+                  - cell "var(--space-96)" [ref=e216]
+                  - cell "6rem" [ref=e217]
+                  - cell "✓" [ref=e218]
+                  - cell [ref=e219]
+          - generic [ref=e221]:
+            - heading "Fluid (Responsive)" [level=3] [ref=e222]
+            - table [ref=e224]:
+              - rowgroup [ref=e225]:
+                - row "Token Name Hardcoded Value Computed Value OK? Visual" [ref=e226]:
+                  - cell "Token Name" [ref=e227]
+                  - cell "Hardcoded Value" [ref=e228]
+                  - cell "Computed Value" [ref=e229]
+                  - cell "OK?" [ref=e230]
+                  - cell "Visual" [ref=e231]
+              - rowgroup [ref=e232]:
+                - row "--space-fluid-1 clamp(var(--space-16), 1.5vw, var(--space-24)) clamp(1rem, 1.5vw, 1.5rem) ✓" [ref=e233]:
+                  - cell "--space-fluid-1" [ref=e234]
+                  - cell "clamp(var(--space-16), 1.5vw, var(--space-24))" [ref=e235]
+                  - cell "clamp(1rem, 1.5vw, 1.5rem)" [ref=e236]
+                  - cell "✓" [ref=e237]
+                  - cell [ref=e238]
+                - row "--space-fluid-2 clamp(var(--space-24), 2vw, var(--space-40)) clamp(1.5rem, 2vw, 2.5rem) ✓" [ref=e240]:
+                  - cell "--space-fluid-2" [ref=e241]
+                  - cell "clamp(var(--space-24), 2vw, var(--space-40))" [ref=e242]
+                  - cell "clamp(1.5rem, 2vw, 2.5rem)" [ref=e243]
+                  - cell "✓" [ref=e244]
+                  - cell [ref=e245]
+                - row "--space-fluid-3 clamp(var(--space-32), 3vw, var(--space-56)) clamp(2rem, 3vw, 3.5rem) ✓" [ref=e247]:
+                  - cell "--space-fluid-3" [ref=e248]
+                  - cell "clamp(var(--space-32), 3vw, var(--space-56))" [ref=e249]
+                  - cell "clamp(2rem, 3vw, 3.5rem)" [ref=e250]
+                  - cell "✓" [ref=e251]
+                  - cell [ref=e252]
+                - row "--space-fluid-4 clamp(var(--space-48), 5vw, var(--space-80)) clamp(3rem, 5vw, 5rem) ✓" [ref=e254]:
+                  - cell "--space-fluid-4" [ref=e255]
+                  - cell "clamp(var(--space-48), 5vw, var(--space-80))" [ref=e256]
+                  - cell "clamp(3rem, 5vw, 5rem)" [ref=e257]
+                  - cell "✓" [ref=e258]
+                  - cell [ref=e259]
+                - row "--space-fluid-5 clamp(var(--space-64), 6vw, var(--space-96)) clamp(4rem, 6vw, 6rem) ✓" [ref=e261]:
+                  - cell "--space-fluid-5" [ref=e262]
+                  - cell "clamp(var(--space-64), 6vw, var(--space-96))" [ref=e263]
+                  - cell "clamp(4rem, 6vw, 6rem)" [ref=e264]
+                  - cell "✓" [ref=e265]
+                  - cell [ref=e266]
+          - generic [ref=e268]:
+            - heading "Semantic Section Padding" [level=3] [ref=e269]
+            - table [ref=e271]:
+              - rowgroup [ref=e272]:
+                - row "Token Name Hardcoded Value Computed Value OK? Visual" [ref=e273]:
+                  - cell "Token Name" [ref=e274]
+                  - cell "Hardcoded Value" [ref=e275]
+                  - cell "Computed Value" [ref=e276]
+                  - cell "OK?" [ref=e277]
+                  - cell "Visual" [ref=e278]
+              - rowgroup [ref=e279]:
+                - row "--space-section-xs 35px 35px ✓" [ref=e280]:
+                  - cell "--space-section-xs" [ref=e281]
+                  - cell "35px" [ref=e282]
+                  - cell "35px" [ref=e283]
+                  - cell "✓" [ref=e284]
+                  - cell [ref=e285]
+                - row "--space-section-sm 50px 50px ✓" [ref=e287]:
+                  - cell "--space-section-sm" [ref=e288]
+                  - cell "50px" [ref=e289]
+                  - cell "50px" [ref=e290]
+                  - cell "✓" [ref=e291]
+                  - cell [ref=e292]
+                - row "--space-section-md 60px 60px ✓" [ref=e294]:
+                  - cell "--space-section-md" [ref=e295]
+                  - cell "60px" [ref=e296]
+                  - cell "60px" [ref=e297]
+                  - cell "✓" [ref=e298]
+                  - cell [ref=e299]
+                - row "--space-section-lg var(--space-80) 5rem ✓" [ref=e301]:
+                  - cell "--space-section-lg" [ref=e302]
+                  - cell "var(--space-80)" [ref=e303]
+                  - cell "5rem" [ref=e304]
+                  - cell "✓" [ref=e305]
+                  - cell [ref=e306]
+                - row "--space-section-xl var(--space-96) 6rem ✓" [ref=e308]:
+                  - cell "--space-section-xl" [ref=e309]
+                  - cell "var(--space-96)" [ref=e310]
+                  - cell "6rem" [ref=e311]
+                  - cell "✓" [ref=e312]
+                  - cell [ref=e313]
+                - row "--space-section-fluid var(--section-pad-fluid) clamp(3rem, 6vw, 6rem) ✓" [ref=e315]:
+                  - cell "--space-section-fluid" [ref=e316]
+                  - cell "var(--section-pad-fluid)" [ref=e317]
+                  - cell "clamp(3rem, 6vw, 6rem)" [ref=e318]
+                  - cell "✓" [ref=e319]
+                  - cell [ref=e320]
+          - generic [ref=e322]:
+            - heading "Semantic Fluid" [level=3] [ref=e323]
+            - table [ref=e325]:
+              - rowgroup [ref=e326]:
+                - row "Token Name Hardcoded Value Computed Value OK? Visual" [ref=e327]:
+                  - cell "Token Name" [ref=e328]
+                  - cell "Hardcoded Value" [ref=e329]
+                  - cell "Computed Value" [ref=e330]
+                  - cell "OK?" [ref=e331]
+                  - cell "Visual" [ref=e332]
+              - rowgroup [ref=e333]:
+                - row "--section-pad-fluid clamp(var(--space-48), 6vw, var(--space-96)) clamp(3rem, 6vw, 6rem) ✓" [ref=e334]:
+                  - cell "--section-pad-fluid" [ref=e335]
+                  - cell "clamp(var(--space-48), 6vw, var(--space-96))" [ref=e336]
+                  - cell "clamp(3rem, 6vw, 6rem)" [ref=e337]
+                  - cell "✓" [ref=e338]
+                  - cell [ref=e339]
+                - row "--stack-gap-fluid-lg clamp(var(--space-24), 3vw, var(--space-40)) clamp(1.5rem, 3vw, 2.5rem) ✓" [ref=e341]:
+                  - cell "--stack-gap-fluid-lg" [ref=e342]
+                  - cell "clamp(var(--space-24), 3vw, var(--space-40))" [ref=e343]
+                  - cell "clamp(1.5rem, 3vw, 2.5rem)" [ref=e344]
+                  - cell "✓" [ref=e345]
+                  - cell [ref=e346]
+                - row "--hero-pad-fluid clamp(var(--space-56), 8vw, var(--space-96)) clamp(3.5rem, 8vw, 6rem) ✓" [ref=e348]:
+                  - cell "--hero-pad-fluid" [ref=e349]
+                  - cell "clamp(var(--space-56), 8vw, var(--space-96))" [ref=e350]
+                  - cell "clamp(3.5rem, 8vw, 6rem)" [ref=e351]
+                  - cell "✓" [ref=e352]
+                  - cell [ref=e353]
+      - generic [ref=e355]:
+        - generic [ref=e357]:
+          - paragraph [ref=e358]: Layout Primitives
+          - 'heading "Stack: Default Spacing" [level=2] [ref=e359]'
+          - paragraph [ref=e360]: Using .stack with default 32px gap
+        - generic [ref=e363]:
+          - generic [ref=e364]: Item 1
+          - generic [ref=e365]: Item 2
+          - generic [ref=e366]: Item 3
+      - generic [ref=e367]:
+        - generic [ref=e369]:
+          - 'heading "Stack: Density Variants" [level=2] [ref=e370]'
+          - paragraph [ref=e371]: Tight (16px) → Compact (24px) → Loose (40px) → Airy (56px)
+        - generic [ref=e374]:
+          - generic [ref=e375]:
+            - paragraph [ref=e376]: is-tight
+            - generic [ref=e377]:
+              - generic [ref=e378]: A
+              - generic [ref=e379]: B
+              - generic [ref=e380]: C
+          - generic [ref=e381]:
+            - paragraph [ref=e382]: is-compact
+            - generic [ref=e383]:
+              - generic [ref=e384]: A
+              - generic [ref=e385]: B
+              - generic [ref=e386]: C
+          - generic [ref=e387]:
+            - paragraph [ref=e388]: is-loose
+            - generic [ref=e389]:
+              - generic [ref=e390]: A
+              - generic [ref=e391]: B
+              - generic [ref=e392]: C
+          - generic [ref=e393]:
+            - paragraph [ref=e394]: is-airy
+            - generic [ref=e395]:
+              - generic [ref=e396]: A
+              - generic [ref=e397]: B
+              - generic [ref=e398]: C
+      - generic [ref=e399]:
+        - generic [ref=e401]:
+          - 'heading "Grid: Auto-fit Layout" [level=2] [ref=e402]'
+          - paragraph [ref=e403]: Responsive grid without media queries
+        - generic [ref=e406]:
+          - generic [ref=e407]: Card 1
+          - generic [ref=e408]: Card 2
+          - generic [ref=e409]: Card 3
+          - generic [ref=e410]: Card 4
+      - generic [ref=e411]:
+        - generic [ref=e413]:
+          - paragraph [ref=e414]: Demo 1
+          - heading "Surface Background, Centered, Prose Width" [level=2] [ref=e415]
+          - paragraph [ref=e416]: "Props: align=\"center\" | width=\"prose\" | paddingY=\"lg\" | background=\"surface\""
+        - generic [ref=e419]:
+          - paragraph [ref=e420]: This section demonstrates the default prose width (48ch) optimized for reading. The content is centered and uses surface background.
+          - paragraph [ref=e421]: Perfect for text-heavy content like blog posts or documentation. Notice the comfortable reading width.
+      - generic [ref=e422]:
+        - generic [ref=e424]:
+          - paragraph [ref=e425]: Demo 2
+          - heading "Tint-Rose Background, Content Width" [level=2] [ref=e426]
+          - paragraph [ref=e427]: "Props: align=\"center\" | width=\"content\" | paddingY=\"lg\" | background=\"tint-rose\""
+        - generic [ref=e430]:
+          - paragraph [ref=e431]: Using the tint-rose background creates a warm, elegant feel. The content width provides more horizontal space than prose while still maintaining structure.
+          - generic [ref=e432]:
+            - button "Primary Action" [ref=e433] [cursor=pointer]
+            - button "Secondary" [ref=e434] [cursor=pointer]
+      - generic [ref=e435]:
+        - generic [ref=e437]:
+          - paragraph [ref=e438]: Demo 3
+          - heading "Tint-Sage Background, Wide Layout" [level=2] [ref=e439]
+          - paragraph [ref=e440]: "Props: align=\"center\" | width=\"wide\" | paddingY=\"xl\" | background=\"tint-sage\""
+        - generic [ref=e443]:
+          - generic [ref=e444]:
+            - generic [ref=e445]: "1"
+            - heading "Feature 1" [level=3] [ref=e446]
+            - paragraph [ref=e447]: The sage tint provides a calming, natural aesthetic. Wide layout gives cards breathing room.
+          - generic [ref=e448]:
+            - generic [ref=e449]: "2"
+            - heading "Feature 2" [level=3] [ref=e450]
+            - paragraph [ref=e451]: The sage tint provides a calming, natural aesthetic. Wide layout gives cards breathing room.
+          - generic [ref=e452]:
+            - generic [ref=e453]: "3"
+            - heading "Feature 3" [level=3] [ref=e454]
+            - paragraph [ref=e455]: The sage tint provides a calming, natural aesthetic. Wide layout gives cards breathing room.
+      - generic [ref=e456]:
+        - generic [ref=e458]:
+          - paragraph [ref=e459]: Demo 4
+          - heading "Dark Gradient Hero" [level=2] [ref=e460]
+          - paragraph [ref=e461]: "Props: width=\"full\" | height=\"screen\" | background=\"dark-gradient\" | tone=\"dark\" | divider=\"thread-gold\""
+        - generic [ref=e464]:
+          - paragraph [ref=e465]: Full-screen hero section with dark gradient background. Perfect for landing pages and impactful opening sections.
+          - generic [ref=e466]:
+            - button "Get Started" [ref=e467] [cursor=pointer]
+            - button "Learn More" [ref=e468] [cursor=pointer]
+      - generic [ref=e469]:
+        - generic [ref=e471]:
+          - paragraph [ref=e472]: Demo 5
+          - heading "Header Centered, Content Left-Aligned" [level=2] [ref=e473]
+          - paragraph [ref=e474]: "Variant: \"header-center-content-left\" — Great for lists, features, or structured content"
+        - generic [ref=e477]:
+          - generic [ref=e478]:
+            - generic [ref=e479]: ✓
+            - generic [ref=e480]:
+              - heading "First Point" [level=3] [ref=e481]
+              - paragraph [ref=e482]: This layout works well for features, benefits, or any structured list content where you want to center attention on the header but keep content scannable.
+          - generic [ref=e483]:
+            - generic [ref=e484]: ✓
+            - generic [ref=e485]:
+              - heading "Second Point" [level=3] [ref=e486]
+              - paragraph [ref=e487]: This layout works well for features, benefits, or any structured list content where you want to center attention on the header but keep content scannable.
+          - generic [ref=e488]:
+            - generic [ref=e489]: ✓
+            - generic [ref=e490]:
+              - heading "Third Point" [level=3] [ref=e491]
+              - paragraph [ref=e492]: This layout works well for features, benefits, or any structured list content where you want to center attention on the header but keep content scannable.
+      - generic [ref=e494]:
+        - generic [ref=e496]:
+          - paragraph [ref=e497]: Demo 6
+          - heading "Alternating Blocks - Real Implementation" [level=2] [ref=e498]
+          - paragraph [ref=e499]: Using actual .alternating-blocks__* classes and --why-* tokens with zigzag alignment, direction RTL reversal, and hover effects
+        - generic [ref=e501]:
+          - generic [ref=e502]:
+            - generic [ref=e503]:
+              - generic [ref=e504]:
+                - generic [ref=e505]: "01"
+                - heading "A Picturesque Location" [level=3] [ref=e506]
+                - paragraph [ref=e507]: Near Milaca, Saint Paul, St Cloud, and Brainerd MN
+                - paragraph [ref=e508]: When it comes to special occasions such as weddings, birthday parties, or other events, it is important to have the perfect setting. You want to ensure that your event is at a location that people will remember.
+                - paragraph [ref=e509]: Here at Rum River Barn, we understand the importance of your special occasion. We are different from other special event venues because we allow you to pretty much run the show.
+              - img "Venue image 1" [ref=e511]
+            - generic [ref=e512]:
+              - generic [ref=e513]:
+                - generic [ref=e514]: "02"
+                - heading "Rum River Barn & Vineyard" [level=3] [ref=e515]
+                - paragraph [ref=e516]: Milaca, St. Cloud, Saint Paul, and Brainerd MN
+                - paragraph [ref=e517]: Our goal is to help you have your perfect day. The barn features beautiful exposed beam architecture, elegant lighting, and a warm, inviting atmosphere that creates the perfect backdrop for your celebration.
+                - paragraph [ref=e518]: From intimate gatherings to grand celebrations, our versatile space adapts to your vision while maintaining its rustic charm and natural beauty.
+              - img "Venue image 2" [ref=e520]
+          - generic [ref=e521]:
+            - heading "Real Implementation Features" [level=4] [ref=e522]
+            - generic [ref=e524]:
+              - generic [ref=e525]: ✓ Uses .alternating-blocks__container wrapper
+              - generic [ref=e526]: "✓ Each block: .alternating-blocks__item (with --reverse modifier)"
+              - generic [ref=e527]: ✓ Zigzag alignment via nth-child(odd) left, nth-child(even) right
+              - generic [ref=e528]: ✓ Direction RTL trick for image/content reversal
+              - generic [ref=e529]: "✓ Semantic classes: __number, __title, __lead, __paragraph, __image"
+              - generic [ref=e530]: "✓ Token system: --why-card, --why-border, --why-shadow, --why-number, --why-text"
+              - generic [ref=e531]: "✓ Hover effect: transform scale(1.02) on image"
+              - generic [ref=e532]: "✓ Responsive: 2-column grid → 1-column on mobile"
+              - generic [ref=e533]: "✓ Dark mode: glassmorphism cards with backdrop-filter"
+      - generic [ref=e534]:
+        - generic [ref=e536]:
+          - paragraph [ref=e537]: Demo 7
+          - heading "FAQ-Style Accordion" [level=2] [ref=e538]
+          - paragraph [ref=e539]: "Props: align=\"center\" | width=\"prose\" | background=\"surface\" — Using .stack for vertical flow"
+        - generic [ref=e542]:
+          - generic [ref=e544]:
+            - heading "How does it work?" [level=3] [ref=e545]
+            - generic [ref=e546]: ↓
+          - generic [ref=e548]:
+            - heading "What are the benefits?" [level=3] [ref=e549]
+            - generic [ref=e550]: ↓
+          - generic [ref=e552]:
+            - heading "Is it customizable?" [level=3] [ref=e553]
+            - generic [ref=e554]: ↓
+      - generic [ref=e556]:
+        - generic [ref=e558]:
+          - paragraph [ref=e559]: Demo 8
+          - heading "Gallery Grid Layout" [level=2] [ref=e560]
+          - paragraph [ref=e561]: Using .grid primitive with auto-fit for responsive image gallery
+        - generic [ref=e564]:
+          - generic [ref=e565] [cursor=pointer]: "1"
+          - generic [ref=e566] [cursor=pointer]: "2"
+          - generic [ref=e567] [cursor=pointer]: "3"
+          - generic [ref=e568] [cursor=pointer]: "4"
+          - generic [ref=e569] [cursor=pointer]: "5"
+          - generic [ref=e570] [cursor=pointer]: "6"
+      - generic [ref=e571]:
+        - generic [ref=e573]:
+          - paragraph [ref=e574]: Demo 9
+          - heading "Cluster Primitive Variants" [level=2] [ref=e575]
+          - paragraph [ref=e576]: Demonstrating .cluster with different justify and align attributes
+        - generic [ref=e579]:
+          - generic [ref=e580]:
+            - paragraph [ref=e581]: data-justify="between"
+            - generic [ref=e582]:
+              - generic [ref=e583]: Left
+              - generic [ref=e584]: Middle
+              - generic [ref=e585]: Right
+          - generic [ref=e586]:
+            - paragraph [ref=e587]: data-justify="center"
+            - generic [ref=e588]:
+              - generic [ref=e589]: Tag 1
+              - generic [ref=e590]: Tag 2
+              - generic [ref=e591]: Tag 3
+          - generic [ref=e592]:
+            - paragraph [ref=e593]: data-justify="end"
+            - generic [ref=e594]:
+              - generic [ref=e595]: Action 1
+              - generic [ref=e596]: Action 2
+      - generic [ref=e597]:
+        - generic [ref=e599]:
+          - paragraph [ref=e600]: Demo 10
+          - heading "Section Padding Sizes (Visual)" [level=2] [ref=e601]
+          - paragraph [ref=e602]: Each box below uses different padding to show actual size differences
+        - generic [ref=e605]:
+          - generic [ref=e607]:
+            - generic [ref=e608]:
+              - generic [ref=e609]: paddingY="xs"
+              - generic [ref=e610]: 35px
+            - paragraph [ref=e611]: "token: --space-section-xs"
+          - generic [ref=e613]:
+            - generic [ref=e614]:
+              - generic [ref=e615]: paddingY="sm"
+              - generic [ref=e616]: 50px
+            - paragraph [ref=e617]: "token: --space-section-sm"
+          - generic [ref=e619]:
+            - generic [ref=e620]:
+              - generic [ref=e621]: paddingY="md"
+              - generic [ref=e622]: 60px
+            - paragraph [ref=e623]: "token: --space-section-md"
+          - generic [ref=e625]:
+            - generic [ref=e626]:
+              - generic [ref=e627]: paddingY="lg"
+              - generic [ref=e628]: var(--space-80) = 80px
+            - paragraph [ref=e629]: "token: --space-section-lg"
+          - generic [ref=e631]:
+            - generic [ref=e632]:
+              - generic [ref=e633]: paddingY="xl"
+              - generic [ref=e634]: var(--space-96) = 96px
+            - paragraph [ref=e635]: "token: --space-section-xl"
+          - generic [ref=e637]:
+            - generic [ref=e638]:
+              - generic [ref=e639]: paddingY="fluid"
+              - generic [ref=e640]: clamp(48px, 6vw, 96px)
+            - paragraph [ref=e641]: "token: --space-section-fluid"
+      - generic [ref=e643]:
+        - generic [ref=e645]:
+          - paragraph [ref=e646]: Demo 11
+          - heading "Combined Primitives Pattern" [level=2] [ref=e647]
+          - paragraph [ref=e648]: Stack + Cluster + Grid working together like real site sections
+        - generic [ref=e651]:
+          - generic [ref=e652]:
+            - generic [ref=e653]:
+              - heading "200+" [level=3] [ref=e654]
+              - paragraph [ref=e655]: Weddings
+            - generic [ref=e656]:
+              - heading "5⭐" [level=3] [ref=e657]
+              - paragraph [ref=e658]: Rating
+            - generic [ref=e659]:
+              - heading "10" [level=3] [ref=e660]
+              - paragraph [ref=e661]: Acres
+          - generic [ref=e662]:
+            - generic [ref=e663]:
+              - generic [ref=e664]: ✨
+              - heading "Flexible" [level=3] [ref=e665]
+              - paragraph [ref=e666]: This card demonstrates Stack primitive for vertical spacing inside Grid primitive for responsive layout.
+            - generic [ref=e667]:
+              - generic [ref=e668]: ✨
+              - heading "Beautiful" [level=3] [ref=e669]
+              - paragraph [ref=e670]: This card demonstrates Stack primitive for vertical spacing inside Grid primitive for responsive layout.
+            - generic [ref=e671]:
+              - generic [ref=e672]: ✨
+              - heading "Professional" [level=3] [ref=e673]
+              - paragraph [ref=e674]: This card demonstrates Stack primitive for vertical spacing inside Grid primitive for responsive layout.
+      - generic [ref=e675]:
+        - generic [ref=e677]:
+          - paragraph [ref=e678]: Demo 12
+          - 'heading "Real Section: Brand Proof (Recreated)" [level=2] [ref=e679]'
+          - paragraph [ref=e680]: Recreating the actual BrandProof section using only primitives - no component CSS needed!
+        - generic [ref=e683]:
+          - generic [ref=e684]:
+            - generic [ref=e685]: THE KNOT
+            - generic [ref=e686]: WEDDINGWIRE
+            - generic [ref=e687]: MARTHA STEWART
+            - generic [ref=e688]: MINNESOTA BRIDE
+          - generic [ref=e689]:
+            - blockquote [ref=e690]: "\"Rum River Barn isn't just a venue—it's where dreams come to life. Their commitment to saying 'yes' to every couple's vision sets them apart as Minnesota's most accommodating wedding destination.\""
+            - paragraph [ref=e691]: — Featured in leading wedding publications
+      - generic [ref=e693]:
+        - generic [ref=e694]:
+          - paragraph [ref=e695]: Demo 13
+          - heading "100vw Edge-to-Edge (Truly Flush)" [level=2] [ref=e696]
+          - paragraph [ref=e697]: "Props: width=\"full\" | container=\"wrapper\""
+        - generic [ref=e699]:
+          - paragraph [ref=e701]: This section is truly flush on both sides. The gradient line above extends all the way to the viewport edges with zero horizontal padding or margin. Perfect for full-width image carousels, video heroes, or dramatic visual breaks.
+          - generic [ref=e702]:
+            - generic [ref=e703]: "1"
+            - generic [ref=e704]: "2"
+            - generic [ref=e705]: "3"
+            - generic [ref=e706]: "4"
+            - generic [ref=e707]: "5"
+            - generic [ref=e708]: "6"
+          - paragraph [ref=e710]: "\"The background, borders, and grid tiles all extend to the absolute edges of the viewport. No gutters, no margins—just pure full-width design.\""
+      - generic [ref=e711]:
+        - generic [ref=e713]:
+          - paragraph [ref=e714]: Demo 14
+          - heading "Button System & Tokens" [level=2] [ref=e715]
+          - paragraph [ref=e716]: Complete button styles using design tokens - no custom CSS needed
+        - generic [ref=e719]:
+          - generic [ref=e720]:
+            - heading "Button Design Tokens" [level=3] [ref=e721]
+            - generic [ref=e722]:
+              - generic [ref=e723]:
+                - generic [ref=e724]: "Shape & Spacing:"
+                - generic [ref=e725]: "--btn-radius: 9999px"
+                - generic [ref=e726]: "--btn-pad-y: 0.9rem"
+                - generic [ref=e727]: "--btn-pad-x: 2.25rem"
+              - generic [ref=e728]:
+                - generic [ref=e729]: "Primary (Gold):"
+                - generic [ref=e730]: "--btn-bg-gold: #E4C896"
+                - generic [ref=e731]: "--btn-fg-on-gold: #2C241A"
+                - generic [ref=e732]: "--btn-bg-gold-hover: (darker)"
+              - generic [ref=e733]:
+                - generic [ref=e734]: "Outline:"
+                - generic [ref=e735]: "--btn-outline-fg: #FFF8E7"
+                - generic [ref=e736]: "--btn-outline-border: #E4C896"
+          - generic [ref=e737]:
+            - heading "Primary Buttons (Gold)" [level=4] [ref=e738]
+            - generic [ref=e739]:
+              - button "Book Your Tour" [ref=e740] [cursor=pointer]
+              - button "Medium Size" [ref=e741] [cursor=pointer]
+              - button "Small" [ref=e742] [cursor=pointer]
+          - generic [ref=e743]:
+            - heading "Outline Buttons" [level=4] [ref=e744]
+            - generic [ref=e745]:
+              - button "Learn More" [ref=e746] [cursor=pointer]
+              - button "Rose Variant" [ref=e747] [cursor=pointer]
+          - generic [ref=e748]:
+            - heading "Buttons on Image Backgrounds (with safety mat)" [level=4] [ref=e749]
+            - generic [ref=e751]:
+              - button "Explore Gallery" [ref=e752] [cursor=pointer]
+              - button "Get Started" [ref=e753] [cursor=pointer]
+          - generic [ref=e754]:
+            - heading "Button Groups (using .cluster primitive)" [level=4] [ref=e755]
+            - generic [ref=e756]:
+              - paragraph [ref=e757]: "Centered group:"
+              - generic [ref=e758]:
+                - button "Primary" [ref=e759] [cursor=pointer]
+                - button "Secondary" [ref=e760] [cursor=pointer]
+              - paragraph [ref=e761]: "Space between (toolbar style):"
+              - generic [ref=e762]:
+                - button "Cancel" [ref=e763] [cursor=pointer]
+                - generic [ref=e764]:
+                  - button "Save Draft" [ref=e765] [cursor=pointer]
+                  - button "Publish" [ref=e766] [cursor=pointer]
+          - generic [ref=e767]:
+            - heading "Usage Example" [level=4] [ref=e768]
+            - generic [ref=e769]: "<button style={{ padding: 'var(--btn-pad-y) var(--btn-pad-x)', background: 'var(--btn-bg-gold)', color: 'var(--btn-fg-on-gold)', border: 'none', borderRadius: 'var(--btn-radius)', fontSize: '1rem', fontWeight: 600, cursor: 'pointer', transition: 'all var(--duration-fast) ease' }}> Book Your Tour </button>"
+      - generic [ref=e770]:
+        - generic [ref=e772]:
+          - paragraph [ref=e773]: Demo 15
+          - heading "Hero Button Migration" [level=2] [ref=e774]
+          - paragraph [ref=e775]: Home hero button recreated using only primitives and design tokens
+        - generic [ref=e778]:
+          - generic [ref=e779]:
+            - heading "Hero Button Contract Requirements" [level=3] [ref=e780]
+            - generic [ref=e781]:
+              - generic [ref=e782]:
+                - generic [ref=e783]: "Layout:"
+                - generic [ref=e784]: "border-radius: var(--btn-radius)"
+                - generic [ref=e785]: "padding: var(--space-md) var(--space-2xl)"
+                - generic [ref=e786]: "background: transparent"
+              - generic [ref=e787]:
+                - generic [ref=e788]: "Typography:"
+                - generic [ref=e789]: "font-family: var(--font-sans)"
+                - generic [ref=e790]: "font-weight: 500 (medium)"
+                - generic [ref=e791]: "font-size: var(--size-sm)"
+                - generic [ref=e792]: "text-transform: uppercase"
+                - generic [ref=e793]: "letter-spacing: 0.08em"
+              - generic [ref=e794]:
+                - generic [ref=e795]: "Colors:"
+                - generic [ref=e796]: "color: var(--btn-outline-fg)"
+                - generic [ref=e797]: "border: 2px solid var(--btn-outline-border)"
+                - generic [ref=e798]: "hover-bg: var(--btn-bg-gold)"
+                - generic [ref=e799]: "hover-color: var(--btn-fg-on-gold)"
+          - generic [ref=e800]:
+            - heading "Hero Button (Recreated with Primitives)" [level=4] [ref=e801]
+            - link "Schedule Your Visit" [ref=e804] [cursor=pointer]:
+              - /url: "#contact"
+          - generic [ref=e805]:
+            - heading "Side-by-Side Comparison" [level=4] [ref=e806]
+            - generic [ref=e808]:
+              - paragraph [ref=e809]: "Original Hero Button (using hero.css):"
+              - link "Schedule Your Visit" [ref=e810] [cursor=pointer]:
+                - /url: "#contact"
+              - paragraph [ref=e812]: "Alternative with Standard Button Tokens:"
+              - button "Schedule Your Visit" [ref=e813] [cursor=pointer]
+          - generic [ref=e814]:
+            - heading "Usage Example (Primitives Only)" [level=4] [ref=e815]
+            - generic [ref=e816]: "<a href=\"#contact\" className=\"hero-cta hero-cta-secondary\" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--space-md) var(--space-2xl)', // 1rem 2.5rem background: 'transparent', color: 'var(--btn-outline-fg)', border: '2px solid var(--btn-outline-border)', borderRadius: 'var(--btn-radius)', fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: 'var(--size-sm)', letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', cursor: 'pointer', transition: 'transform var(--duration-normal) ease, background-color var(--duration-normal) ease', boxShadow: '0 4px 15px rgba(157, 107, 123, 0.15)' }} > Schedule Your Visit </a>"
+          - generic [ref=e817]:
+            - heading "Playwright Test Contract Compliance" [level=4] [ref=e818]
+            - generic [ref=e819]:
+              - generic [ref=e820]: "✓ border-radius: var(--btn-radius) = 9999px ✓"
+              - generic [ref=e821]: "✓ padding-y: var(--space-md) = 1rem (16px) ✓"
+              - generic [ref=e822]: "✓ padding-x: var(--space-2xl) = 2.5rem (40px) ✓"
+              - generic [ref=e823]: "✓ font-family: var(--font-sans) ✓"
+              - generic [ref=e824]: "✓ font-weight: 500 (≥ 400 required) ✓"
+              - generic [ref=e825]: "✓ color: var(--btn-outline-fg) ✓"
+              - generic [ref=e826]: "✓ border: 2px solid var(--btn-outline-border) ✓"
+              - generic [ref=e827]: "✓ background: transparent ✓"
+      - generic [ref=e828]:
+        - generic [ref=e830]:
+          - paragraph [ref=e831]: Theme Colors
+          - heading "Color Token System" [level=2] [ref=e832]
+          - paragraph [ref=e833]: Complete color palette with automatic light/dark mode support
+        - generic [ref=e837]:
+          - generic [ref=e838]:
+            - generic [ref=e839]: Token Name
+            - generic [ref=e840]: Swatch
+            - generic [ref=e841]: Definition
+            - generic [ref=e842]: Category
+          - generic [ref=e843]:
+            - generic [ref=e844]: Surfaces (5)
+            - generic [ref=e845]:
+              - code [ref=e846]: "--surface-0"
+              - generic [ref=e848]: rgb(244 228 225) [light] / rgb(15 12 10) [dark]
+              - generic [ref=e849]: Surfaces
+            - generic [ref=e850]:
+              - code [ref=e851]: "--surface-1"
+              - generic [ref=e853]: rgb(255 255 255) [light] / rgb(26 20 16) [dark]
+              - generic [ref=e854]: Surfaces
+            - generic [ref=e855]:
+              - code [ref=e856]: "--surface-2"
+              - generic [ref=e858]: rgb(244 228 225) [light] / oklch walnut-750 [dark]
+              - generic [ref=e859]: Surfaces
+            - generic [ref=e860]:
+              - code [ref=e861]: "--surface-3"
+              - generic [ref=e863]: rgb(250 246 242) [light] / rgb(44 36 22) [dark]
+              - generic [ref=e864]: Surfaces
+            - generic [ref=e865]:
+              - code [ref=e866]: "--surface-4"
+              - generic [ref=e868]: rgb(246 240 234) [light] / rgb(55 45 27) [dark]
+              - generic [ref=e869]: Surfaces
+          - generic [ref=e870]:
+            - generic [ref=e871]: Text (3)
+            - generic [ref=e872]:
+              - code [ref=e873]: "--text-primary"
+              - generic [ref=e875]: rgb(107 78 61) [light] / rgb(255 255 255) [dark]
+              - generic [ref=e876]: Text
+            - generic [ref=e877]:
+              - code [ref=e878]: "--text-secondary"
+              - generic [ref=e880]: rgb(68 57 50) [light] / color-mix [dark]
+              - generic [ref=e881]: Text
+            - generic [ref=e882]:
+              - code [ref=e883]: "--text-inverse"
+              - generic [ref=e885]: rgb(255 255 255) [light] / rgb(26 20 16) [dark]
+              - generic [ref=e886]: Text
+          - generic [ref=e887]:
+            - generic [ref=e888]: Accents (3)
+            - generic [ref=e889]:
+              - code [ref=e890]: "--accent-rose"
+              - generic [ref=e892]: rgb(157 107 123) [light] / rgb(216 155 174) [dark]
+              - generic [ref=e893]: Accents
+            - generic [ref=e894]:
+              - code [ref=e895]: "--accent-rose-soft"
+              - generic [ref=e897]: rgb(216 155 174)
+              - generic [ref=e898]: Accents
+            - generic [ref=e899]:
+              - code [ref=e900]: "--accent-gold"
+              - generic [ref=e902]: rgb(240 217 168)
+              - generic [ref=e903]: Accents
+          - generic [ref=e904]:
+            - generic [ref=e905]: Borders (2)
+            - generic [ref=e906]:
+              - code [ref=e907]: "--border-subtle"
+              - generic [ref=e909]: rgba(0, 0, 0, 0.08) [light] / rgba(255, 255, 255, 0.08) [dark]
+              - generic [ref=e910]: Borders
+            - generic [ref=e911]:
+              - code [ref=e912]: "--border-medium"
+              - generic [ref=e914]: rgba(0, 0, 0, 0.16) [light] / rgba(255, 255, 255, 0.16) [dark]
+              - generic [ref=e915]: Borders
+          - generic [ref=e916]:
+            - generic [ref=e917]: Backgrounds (4)
+            - generic [ref=e918]:
+              - code [ref=e919]: "--bg-surface"
+              - generic [ref=e921]: "var(--theme-bg-primary, #FFFCF8)"
+              - generic [ref=e922]: Backgrounds
+            - generic [ref=e923]:
+              - code [ref=e924]: "--bg-tint-rose"
+              - generic [ref=e926]: color-mix(in srgb, surface 92%, rose 8%)
+              - generic [ref=e927]: Backgrounds
+            - generic [ref=e928]:
+              - code [ref=e929]: "--bg-tint-sage"
+              - generic [ref=e931]: color-mix(in srgb, surface 92%, sage 8%)
+              - generic [ref=e932]: Backgrounds
+            - generic [ref=e933]:
+              - code [ref=e934]: "--bg-dark-grad"
+              - generic [ref=e936]: "linear-gradient(135deg, #2C2416, #3D2F22)"
+              - generic [ref=e937]: Backgrounds
+          - generic [ref=e938]:
+            - generic [ref=e939]: States (1)
+            - generic [ref=e940]:
+              - code [ref=e941]: "--focus-ring"
+              - generic [ref=e943]: rgb(107 78 61) [light] / var(--accent-gold) [dark]
+              - generic [ref=e944]: States
+          - generic [ref=e945]:
+            - generic [ref=e946]: Legacy Aliases (8)
+            - generic [ref=e947]:
+              - code [ref=e948]: "--theme-bg-primary"
+              - generic [ref=e950]: var(--surface-1)
+              - generic [ref=e951]: Legacy Aliases
+            - generic [ref=e952]:
+              - code [ref=e953]: "--theme-bg-secondary"
+              - generic [ref=e955]: var(--surface-2)
+              - generic [ref=e956]: Legacy Aliases
+            - generic [ref=e957]:
+              - code [ref=e958]: "--theme-bg-card"
+              - generic [ref=e960]: var(--surface-1)
+              - generic [ref=e961]: Legacy Aliases
+            - generic [ref=e962]:
+              - code [ref=e963]: "--theme-text-primary"
+              - generic [ref=e965]: var(--text-primary)
+              - generic [ref=e966]: Legacy Aliases
+            - generic [ref=e967]:
+              - code [ref=e968]: "--theme-text-secondary"
+              - generic [ref=e970]: var(--text-secondary)
+              - generic [ref=e971]: Legacy Aliases
+            - generic [ref=e972]:
+              - code [ref=e973]: "--theme-accent-rose"
+              - generic [ref=e975]: var(--accent-rose)
+              - generic [ref=e976]: Legacy Aliases
+            - generic [ref=e977]:
+              - code [ref=e978]: "--theme-accent-gold"
+              - generic [ref=e980]: var(--accent-gold)
+              - generic [ref=e981]: Legacy Aliases
+            - generic [ref=e982]:
+              - code [ref=e983]: "--theme-accent-sage"
+              - generic [ref=e985]: rgb(176 196 182)
+              - generic [ref=e986]: Legacy Aliases
+      - generic [ref=e987]:
+        - generic [ref=e989]:
+          - paragraph [ref=e990]: Light Mode
+          - heading "Background Color Options" [level=2] [ref=e991]
+          - paragraph [ref=e992]: Section background variants available via the background prop
+        - generic [ref=e995]:
+          - generic [ref=e996]:
+            - heading "background=\"surface\"" [level=3] [ref=e997]
+            - paragraph [ref=e998]: "var(--bg-surface) = var(--theme-bg-primary, #FFFCF8)"
+          - generic [ref=e999]:
+            - heading "background=\"tint-rose\"" [level=3] [ref=e1000]
+            - paragraph [ref=e1001]: var(--bg-tint-rose) = color-mix(in srgb, surface 92%, rose 8%)
+          - generic [ref=e1002]:
+            - heading "background=\"tint-sage\"" [level=3] [ref=e1003]
+            - paragraph [ref=e1004]: var(--bg-tint-sage) = color-mix(in srgb, surface 92%, sage 8%)
+          - generic [ref=e1005]:
+            - heading "background=\"dark-gradient\"" [level=3] [ref=e1006]
+            - paragraph [ref=e1007]: "var(--bg-dark-grad) = linear-gradient(135deg, #2C2416, #3D2F22)"
+      - generic [ref=e1008]:
+        - generic [ref=e1010]:
+          - paragraph [ref=e1011]: Component Integration
+          - heading "Using Section Background Props" [level=2] [ref=e1012]
+          - paragraph [ref=e1013]: How to use background color options in the Section component
+        - generic [ref=e1016]:
+          - generic [ref=e1017]:
+            - heading "Section Component Props" [level=3] [ref=e1018]
+            - generic [ref=e1019]:
+              - generic [ref=e1020]: <Section background="surface">
+              - generic [ref=e1021]: <Section background="tint-rose">
+              - generic [ref=e1022]: <Section background="tint-sage">
+              - generic [ref=e1023]: <Section background="dark-gradient">
+              - generic [ref=e1024]: "<Section background=\"image\" image={{ src: \"/path.jpg\" }}>"
+          - paragraph [ref=e1026]: All background options automatically adapt to light and dark themes, ensuring consistent visual hierarchy and readability across theme modes.
+      - generic [ref=e1030]:
+        - paragraph [ref=e1031]: Dark Mode Preview
+        - paragraph [ref=e1032]:
+          - text: To see dark mode colors in action, add
+          - code [ref=e1033]: data-theme="dark"
+          - text: to the
+          - code [ref=e1034]: <html>
+          - text: element or use your browser's DevTools to toggle the OS color scheme preference.
+      - generic [ref=e1035]:
+        - generic [ref=e1037]:
+          - paragraph [ref=e1038]: Demo 16
+          - heading "Measure Utilities" [level=2] [ref=e1039]
+          - paragraph [ref=e1040]: Control line length for optimal readability using .measure classes
+        - generic [ref=e1043]:
+          - generic [ref=e1044]:
+            - heading ".measure--tight (52ch)" [level=3] [ref=e1045]
+            - paragraph [ref=e1047]: This paragraph demonstrates the tight measure utility, which limits line length to 52 characters. This is ideal for shorter text blocks, captions, or sidebars where a narrower column creates better readability. The tight measure prevents lines from becoming too long and helps maintain reader focus on compact content areas.
+            - generic [ref=e1048]: "max-width: var(--measure-tight) = 52ch"
+          - generic [ref=e1049]:
+            - heading ".measure (66ch) - Optimal Reading Width" [level=3] [ref=e1050]
+            - paragraph [ref=e1052]: This paragraph uses the default measure utility, set at 66 characters per line. Research shows this is the optimal line length for body text, balancing readability with efficient use of space. Lines that are too long cause readers to lose their place when moving to the next line, while lines that are too short create choppy, inefficient reading. The 66-character measure hits the sweet spot for comfortable, sustained reading of longer content like blog posts, articles, or documentation.
+            - generic [ref=e1053]: "max-width: var(--measure) = 66ch"
+          - generic [ref=e1054]:
+            - heading ".measure--loose (72ch)" [level=3] [ref=e1055]
+            - paragraph [ref=e1057]: This paragraph demonstrates the loose measure utility at 72 characters. This wider measure is appropriate for larger text sizes where the increased font size naturally improves readability even with longer lines. Use this for text that needs to feel more spacious or for larger type where the standard measure might feel cramped. The loose measure also works well for text with generous line-height where the vertical spacing helps guide the eye back to the start of each line.
+            - generic [ref=e1058]: "max-width: var(--measure-loose) = 72ch"
+          - generic [ref=e1059]:
+            - heading "Usage in JSX" [level=3] [ref=e1060]
+            - generic [ref=e1061]: <div className="measure"> <Text size="md"> Long paragraph text that needs optimal reading width (66ch) </Text> </div> <div className="measure--tight"> <Text size="sm">Shorter text with tight measure (52ch)</Text> </div> <div className="measure--loose"> <Text size="lg">Large text with loose measure (72ch)</Text> </div>
+      - generic [ref=e1062]:
+        - generic [ref=e1064]:
+          - paragraph [ref=e1065]: Demo 17
+          - heading "Muted Text Variants" [level=2] [ref=e1066]
+          - paragraph [ref=e1067]: Reduce emphasis with automatic opacity adjustment for secondary content
+        - generic [ref=e1070]:
+          - generic [ref=e1071]:
+            - heading "Heading Variants" [level=3] [ref=e1072]
+            - generic [ref=e1073]:
+              - generic [ref=e1074]: "Normal (100% opacity):"
+              - heading "Primary Heading - Full Emphasis" [level=2] [ref=e1075]
+            - generic [ref=e1076]:
+              - generic [ref=e1077]: "Muted (70% opacity):"
+              - heading "Secondary Heading - Reduced Emphasis" [level=2] [ref=e1078]
+            - generic [ref=e1079]:
+              - generic [ref=e1080]: "--text-muted: color-mix(in oklch, var(--text-primary) 70%, transparent)"
+              - generic [ref=e1081]: "Dark mode: 65% opacity for better contrast"
+          - generic [ref=e1082]:
+            - heading "Body Text Variants" [level=3] [ref=e1083]
+            - generic [ref=e1084]:
+              - generic [ref=e1085]: "Normal text:"
+              - paragraph [ref=e1086]: This is standard body text with full color emphasis. Use this for primary content that needs maximum readability and prominence. Perfect for main paragraphs, important announcements, or key information.
+            - generic [ref=e1087]:
+              - generic [ref=e1088]: "Muted text:"
+              - paragraph [ref=e1089]: This is muted body text with reduced color emphasis. Use this for secondary information like descriptions, captions, metadata, or supporting details that complement but don't compete with primary content.
+          - generic [ref=e1090]:
+            - heading "Common Use Cases" [level=3] [ref=e1091]
+            - generic [ref=e1092]:
+              - generic [ref=e1093]:
+                - heading "Article Title" [level=3] [ref=e1094]
+                - heading "Subtitle or Secondary Information" [level=4] [ref=e1095]
+                - paragraph [ref=e1096]: Main article content goes here with full emphasis...
+                - paragraph [ref=e1097]: Posted 2 days ago · 5 min read
+              - generic [ref=e1099]: "<Heading as={3} size=\"sm\" muted> Secondary Heading (70% opacity) </Heading> <Text size=\"sm\" muted> Muted body text for less emphasis </Text>"
+      - generic [ref=e1100]:
+        - generic [ref=e1102]:
+          - paragraph [ref=e1103]: Demo 18
+          - heading "Text Balance Control" [level=2] [ref=e1104]
+          - paragraph [ref=e1105]: Prevent orphaned words and create visually balanced headings
+        - generic [ref=e1108]:
+          - generic [ref=e1109]:
+            - 'heading "Balanced (Default) - text-wrap: balance" [level=3] [ref=e1110]'
+            - heading "This Heading Uses Text Wrap Balance for Better Typography" [level=2] [ref=e1112]
+            - generic [ref=e1114]:
+              - generic [ref=e1115]: ✓ Lines have similar length
+              - generic [ref=e1116]: ✓ No orphaned words
+              - generic [ref=e1117]: ✓ Visually balanced appearance
+              - generic [ref=e1118]: "text-wrap: balance (browser automatically balances line breaks)"
+          - generic [ref=e1119]:
+            - 'heading "Not Balanced - balance={false}" [level=3] [ref=e1120]'
+            - heading "This Heading Uses Text Wrap Balance for Better Typography" [level=2] [ref=e1122]
+            - generic [ref=e1124]:
+              - generic [ref=e1125]: ✗ Uneven line lengths
+              - generic [ref=e1126]: ✗ May have orphaned words
+              - generic [ref=e1127]: ✗ Natural browser wrapping (less visually balanced)
+              - generic [ref=e1128]: "text-wrap: normal (standard browser line breaking)"
+          - generic [ref=e1129]:
+            - heading "When to Use Each Variant" [level=3] [ref=e1130]
+            - generic [ref=e1131]:
+              - generic [ref=e1132]:
+                - heading "Use Balance (Default)" [level=4] [ref=e1133]
+                - paragraph [ref=e1134]:
+                  - text: ✓ Headlines and page titles
+                  - text: ✓ Card titles and section headers
+                  - text: ✓ Any heading where visual balance matters
+                  - text: ✓ Marketing copy and hero text
+              - generic [ref=e1135]:
+                - 'heading "Use balance={false}" [level=4] [ref=e1136]'
+                - paragraph [ref=e1137]:
+                  - text: ✓ Very long headings (6+ words)
+                  - text: ✓ Headings that need natural flow
+                  - text: ✓ Technical documentation titles
+                  - text: ✓ When you specifically want natural wrapping
+          - generic [ref=e1138]:
+            - heading "Progressive Enhancement" [level=3] [ref=e1139]
+            - paragraph [ref=e1140]:
+              - text: For browsers that don't support
+              - code [ref=e1141]: "text-wrap: balance"
+              - text: ", headings automatically enable"
+              - code [ref=e1142]: "hyphens: auto"
+              - text: as a fallback to prevent orphaned words.
+          - generic [ref=e1143]:
+            - heading "Usage in JSX" [level=3] [ref=e1144]
+            - generic [ref=e1145]: "{/* Default: balanced text wrapping */} <Heading as={2} size=\"lg\"> This heading will use text-wrap: balance </Heading> {/* Opt out of text balancing */} <Heading as={2} size=\"lg\" balance={false}> This heading will NOT use text-wrap: balance </Heading>"
+      - generic [ref=e1146]:
+        - generic [ref=e1148]:
+          - 'heading "Demo 19: Glass Primitive" [level=2] [ref=e1149]'
+          - paragraph [ref=e1150]: Glassmorphism effects with token-driven blur, transparency, and elevation variants
+        - generic [ref=e1153]:
+          - generic [ref=e1154]:
+            - generic [ref=e1155]:
+              - heading "Small Elevation" [level=4] [ref=e1156]
+              - paragraph [ref=e1157]: data-glass data-elevation="sm"
+            - generic [ref=e1158]:
+              - heading "Medium (Default)" [level=4] [ref=e1159]
+              - paragraph [ref=e1160]: data-glass data-elevation="md"
+            - generic [ref=e1161]:
+              - heading "Large Elevation" [level=4] [ref=e1162]
+              - paragraph [ref=e1163]: data-glass data-elevation="lg"
+            - generic [ref=e1164]:
+              - heading "Extra Large" [level=4] [ref=e1165]
+              - paragraph [ref=e1166]: data-glass data-elevation="xl"
+          - generic [ref=e1167]:
+            - generic [ref=e1168]:
+              - heading "Normal Opacity" [level=4] [ref=e1169]
+              - paragraph [ref=e1170]: data-glass data-elevation="md"
+            - generic [ref=e1171]:
+              - heading "Strong (More Opaque)" [level=4] [ref=e1172]
+              - paragraph [ref=e1173]: data-glass data-elevation="md" data-strong
+          - generic [ref=e1174]:
+            - generic [ref=e1175]:
+              - heading "Rose Tint" [level=4] [ref=e1176]
+              - paragraph [ref=e1177]: data-glass data-surface="rose"
+            - generic [ref=e1178]:
+              - heading "Gold Tint" [level=4] [ref=e1179]
+              - paragraph [ref=e1180]: data-glass data-surface="gold"
+            - generic [ref=e1181]:
+              - heading "Sage Tint" [level=4] [ref=e1182]
+              - paragraph [ref=e1183]: data-glass data-surface="sage"
+          - generic [ref=e1185] [cursor=pointer]:
+            - heading "Hover to Lift" [level=4] [ref=e1186]
+            - paragraph [ref=e1187]: data-glass data-hover="lift"
+          - generic [ref=e1188]:
+            - heading "Glass Primitive Usage" [level=3] [ref=e1189]
+            - generic [ref=e1190]: "// HTML with data attributes <div data-glass data-elevation=\"lg\" data-strong> Glass effect with large blur </div> // React component (optional) import Glass from '@/components/primitives/Glass' <Glass elevation=\"lg\" strong surface=\"rose\"> Type-safe glass component </Glass> // Tokens used: --blur-sm: 6px --blur-md: 10px --blur-lg: 14px --blur-xl: 22px --alpha-subtle: 0.20 --alpha-mid: 0.32 --alpha-strong: 0.45 --saturate-low/med/high: 1.05 - 1.25"
+      - generic [ref=e1191]:
+        - generic [ref=e1193]:
+          - 'heading "Demo 20: Card Primitive" [level=2] [ref=e1194]'
+          - paragraph [ref=e1195]: Flexible container primitive with elevation, padding, and interactive variants
+        - generic [ref=e1198]:
+          - generic [ref=e1199]:
+            - generic [ref=e1200]:
+              - heading "Flat (Default)" [level=4] [ref=e1201]
+              - paragraph [ref=e1202]: No shadow, minimal border. Best for subtle containers.
+            - generic [ref=e1203]:
+              - heading "Raised" [level=4] [ref=e1204]
+              - paragraph [ref=e1205]: Subtle shadow for lifted appearance.
+            - generic [ref=e1206]:
+              - heading "Elevated" [level=4] [ref=e1207]
+              - paragraph [ref=e1208]: Medium shadow for clear elevation.
+            - generic [ref=e1209]:
+              - heading "Floating" [level=4] [ref=e1210]
+              - paragraph [ref=e1211]: Large shadow for dramatic elevation.
+          - generic [ref=e1212]:
+            - heading "Compact Padding" [level=4] [ref=e1214]
+            - heading "Normal (Default)" [level=4] [ref=e1216]
+            - heading "Spacious Padding" [level=4] [ref=e1218]
+          - generic [ref=e1219]:
+            - generic [ref=e1220] [cursor=pointer]:
+              - 'heading "Hover: Lift" [level=4] [ref=e1221]'
+              - paragraph [ref=e1222]: Elevates on hover for interactive feedback
+            - generic [ref=e1223] [cursor=pointer]:
+              - 'heading "Hover: Glow" [level=4] [ref=e1224]'
+              - paragraph [ref=e1225]: Glows on hover with accent color
+            - generic [ref=e1226] [cursor=pointer]:
+              - heading "Clickable" [level=4] [ref=e1227]
+              - paragraph [ref=e1228]: Fully interactive with keyboard support
+          - generic [ref=e1229]:
+            - generic [ref=e1230]:
+              - heading "Card + Glass" [level=4] [ref=e1231]
+              - paragraph [ref=e1232]: Combines card structure with glassmorphism
+            - generic [ref=e1233]:
+              - heading "Glass + Strong" [level=4] [ref=e1234]
+              - paragraph [ref=e1235]: More opaque for better readability
+            - generic [ref=e1236]:
+              - heading "Glass + Tint" [level=4] [ref=e1237]
+              - paragraph [ref=e1238]: Tinted glassmorphism with accent color
+          - generic [ref=e1239]:
+            - generic [ref=e1240]:
+              - heading "Rose Surface" [level=4] [ref=e1241]
+              - paragraph [ref=e1242]: Tinted background with rose accent
+            - generic [ref=e1243]:
+              - heading "Gold Surface" [level=4] [ref=e1244]
+              - paragraph [ref=e1245]: Tinted background with gold accent
+            - generic [ref=e1246]:
+              - heading "Sage Surface" [level=4] [ref=e1247]
+              - paragraph [ref=e1248]: Tinted background with sage accent
+          - generic [ref=e1249]:
+            - heading "Card Primitive Usage" [level=3] [ref=e1250]
+            - generic [ref=e1251]: "// HTML with data attributes <div data-card data-elevation=\"raised\" data-padding=\"spacious\"> <h3>Card Title</h3> <p>Card content</p> </div> // Interactive card <div data-card data-elevation=\"elevated\" data-clickable> Clickable with keyboard support </div> // Glass composition <div data-card data-glass data-elevation=\"raised\"> Card structure + glassmorphism </div> // React component (optional) import Card, { CardHeader, CardFooter } from '@/components/primitives/Card' <Card elevation=\"raised\" padding=\"spacious\" hover=\"lift\"> <CardHeader>Header</CardHeader> <p>Content</p> <CardFooter>Footer</CardFooter> </Card> // Tokens used: Elevation: --shadow-sm/md/lg/xl Padding: --space-16/24/32 Borders: --border-subtle/medium/strong Radius: --radius-md"
+      - generic [ref=e1252]:
+        - generic [ref=e1254]:
+          - 'heading "Demo 21: Reel Primitive" [level=2] [ref=e1255]'
+          - paragraph [ref=e1256]: Horizontal snap-scrolling container without JavaScript
+        - generic [ref=e1259]:
+          - heading "Basic Reel" [level=3] [ref=e1260]
+          - generic [ref=e1261]:
+            - generic [ref=e1262]:
+              - generic [ref=e1263]: Item 1
+              - generic [ref=e1265]: Snap scroll →
+            - generic [ref=e1266]:
+              - generic [ref=e1267]: Item 2
+              - generic [ref=e1269]: Snap scroll →
+            - generic [ref=e1270]:
+              - generic [ref=e1271]: Item 3
+              - generic [ref=e1273]: Snap scroll →
+            - generic [ref=e1274]:
+              - generic [ref=e1275]: Item 4
+              - generic [ref=e1277]: Snap scroll →
+            - generic [ref=e1278]:
+              - generic [ref=e1279]: Item 5
+              - generic [ref=e1281]: Snap scroll →
+            - generic [ref=e1282]:
+              - generic [ref=e1283]: Item 6
+              - generic [ref=e1285]: Snap scroll →
+            - generic [ref=e1286]:
+              - generic [ref=e1287]: Item 7
+              - generic [ref=e1289]: Snap scroll →
+            - generic [ref=e1290]:
+              - generic [ref=e1291]: Item 8
+              - generic [ref=e1293]: Snap scroll →
+            - generic [ref=e1294]:
+              - generic [ref=e1295]: Item 9
+              - generic [ref=e1297]: Snap scroll →
+            - generic [ref=e1298]:
+              - generic [ref=e1299]: Item 10
+              - generic [ref=e1301]: Snap scroll →
+          - heading "Enhanced Reel (Edge Fades + Quiet Scrollbars)" [level=3] [ref=e1302]
+          - generic [ref=e1303]:
+            - generic [ref=e1304]:
+              - generic [ref=e1305]: Enhanced 1
+              - generic [ref=e1307]: Subtle scrollbar, edge fades
+            - generic [ref=e1308]:
+              - generic [ref=e1309]: Enhanced 2
+              - generic [ref=e1311]: Subtle scrollbar, edge fades
+            - generic [ref=e1312]:
+              - generic [ref=e1313]: Enhanced 3
+              - generic [ref=e1315]: Subtle scrollbar, edge fades
+            - generic [ref=e1316]:
+              - generic [ref=e1317]: Enhanced 4
+              - generic [ref=e1319]: Subtle scrollbar, edge fades
+            - generic [ref=e1320]:
+              - generic [ref=e1321]: Enhanced 5
+              - generic [ref=e1323]: Subtle scrollbar, edge fades
+            - generic [ref=e1324]:
+              - generic [ref=e1325]: Enhanced 6
+              - generic [ref=e1327]: Subtle scrollbar, edge fades
+            - generic [ref=e1328]:
+              - generic [ref=e1329]: Enhanced 7
+              - generic [ref=e1331]: Subtle scrollbar, edge fades
+            - generic [ref=e1332]:
+              - generic [ref=e1333]: Enhanced 8
+              - generic [ref=e1335]: Subtle scrollbar, edge fades
+            - generic [ref=e1336]:
+              - generic [ref=e1337]: Enhanced 9
+              - generic [ref=e1339]: Subtle scrollbar, edge fades
+            - generic [ref=e1340]:
+              - generic [ref=e1341]: Enhanced 10
+              - generic [ref=e1343]: Subtle scrollbar, edge fades
+          - generic [ref=e1344]:
+            - heading "Usage" [level=4] [ref=e1345]
+            - generic [ref=e1346]: "<!-- Basic Reel --> <div className=\"reel\"> <Card /> <Card /> <Card /> </div> <!-- Enhanced Reel with optional features --> <div className=\"reel\" data-fade-edges=\"true\" data-quiet-scrollbars=\"true\"> <Card /> <Card /> <Card /> </div> Features: - Horizontal scroll with snap points - Touch-friendly overflow scrolling - Container query responsive gaps - Scroll refinements (padding, margins, snap-stop) - Performance optimizations (contain, content-visibility) - Optional edge fades (pure CSS mask) - Optional quiet scrollbars - Reduced motion support - No JavaScript required Tokens used: Gap: --reel-gap (default: --space-24) Padding: --reel-pad (default: --space-16) Container breakpoint: 700px → --space-16 Optional Attributes: data-fade-edges=\"true\" - CSS mask edge fades data-quiet-scrollbars=\"true\" - Minimal scrollbar"
+      - generic [ref=e1347]:
+        - generic [ref=e1349]:
+          - 'heading "Demo 22: Sidebar Primitive" [level=2] [ref=e1350]'
+          - paragraph [ref=e1351]: Responsive main + rail layout using container queries
+        - generic [ref=e1354]:
+          - heading "Basic Sidebar" [level=3] [ref=e1355]
+          - generic [ref=e1356]:
+            - generic [ref=e1357]:
+              - heading "Main Content" [level=3] [ref=e1358]
+              - paragraph [ref=e1359]: This area stretches to fill available space and is first in source order. Resize your browser to see it collapse to a single column layout.
+              - generic [ref=e1360]:
+                - generic [ref=e1361]:
+                  - generic [ref=e1362]: Feature 1
+                  - paragraph [ref=e1363]: Token-driven spacing and borders.
+                - generic [ref=e1364]:
+                  - generic [ref=e1365]: Feature 2
+                  - paragraph [ref=e1366]: Token-driven spacing and borders.
+                - generic [ref=e1367]:
+                  - generic [ref=e1368]: Feature 3
+                  - paragraph [ref=e1369]: Token-driven spacing and borders.
+            - complementary [ref=e1370]:
+              - heading "Sidebar Rail" [level=4] [ref=e1371]
+              - list [ref=e1372]:
+                - listitem [ref=e1373]:
+                  - link "Getting Started Guide" [ref=e1374] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e1375]:
+                  - link "Pricing & Plans" [ref=e1376] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e1377]:
+                  - link "Frequently Asked Questions" [ref=e1378] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e1379]:
+                  - link "Contact Support" [ref=e1380] [cursor=pointer]:
+                    - /url: "#"
+          - heading "Sidebar with Sticky Rail" [level=3] [ref=e1381]
+          - generic [ref=e1382]:
+            - generic [ref=e1383]:
+              - heading "Main Content (Scroll to See Sticky Effect)" [level=3] [ref=e1384]
+              - paragraph [ref=e1385]: The sidebar rail on the right will stick to the top as you scroll down. This is perfect for navigation, table of contents, or related links that should remain accessible.
+              - generic [ref=e1386]:
+                - generic [ref=e1387]:
+                  - heading "Section 1" [level=4] [ref=e1388]
+                  - paragraph [ref=e1389]: Scroll down to see the sidebar rail stick to the top of the viewport. This creates a persistent navigation experience without any JavaScript.
+                - generic [ref=e1390]:
+                  - heading "Section 2" [level=4] [ref=e1391]
+                  - paragraph [ref=e1392]: Scroll down to see the sidebar rail stick to the top of the viewport. This creates a persistent navigation experience without any JavaScript.
+                - generic [ref=e1393]:
+                  - heading "Section 3" [level=4] [ref=e1394]
+                  - paragraph [ref=e1395]: Scroll down to see the sidebar rail stick to the top of the viewport. This creates a persistent navigation experience without any JavaScript.
+                - generic [ref=e1396]:
+                  - heading "Section 4" [level=4] [ref=e1397]
+                  - paragraph [ref=e1398]: Scroll down to see the sidebar rail stick to the top of the viewport. This creates a persistent navigation experience without any JavaScript.
+                - generic [ref=e1399]:
+                  - heading "Section 5" [level=4] [ref=e1400]
+                  - paragraph [ref=e1401]: Scroll down to see the sidebar rail stick to the top of the viewport. This creates a persistent navigation experience without any JavaScript.
+            - complementary [ref=e1402]:
+              - heading "Sticky Navigation" [level=4] [ref=e1403]
+              - paragraph [ref=e1404]: This rail stays visible as you scroll.
+              - list [ref=e1405]:
+                - listitem [ref=e1406]:
+                  - link "→ Jump to Section 1" [ref=e1407] [cursor=pointer]:
+                    - /url: "#section-1"
+                - listitem [ref=e1408]:
+                  - link "→ Jump to Section 2" [ref=e1409] [cursor=pointer]:
+                    - /url: "#section-2"
+                - listitem [ref=e1410]:
+                  - link "→ Jump to Section 3" [ref=e1411] [cursor=pointer]:
+                    - /url: "#section-3"
+                - listitem [ref=e1412]:
+                  - link "→ Jump to Section 4" [ref=e1413] [cursor=pointer]:
+                    - /url: "#section-4"
+                - listitem [ref=e1414]:
+                  - link "→ Jump to Section 5" [ref=e1415] [cursor=pointer]:
+                    - /url: "#section-5"
+          - generic [ref=e1416]:
+            - heading "Usage" [level=4] [ref=e1417]
+            - generic [ref=e1418]: "<!-- Basic Sidebar --> <div className=\"sidebar\"> <main> Main content area </main> <aside> Sidebar rail </aside> </div> <!-- Reverse variant (rail comes first) --> <div className=\"sidebar\" data-reverse=\"true\"> <aside>Rail</aside> <main>Main</main> </div> <!-- Sticky Rail variant --> <div className=\"sidebar\"> <main> Main content </main> <aside data-rail-sticky=\"true\"> This rail sticks to top </aside> </div> <!-- Custom sticky offset --> <aside data-rail-sticky=\"true\" style={{ '--rail-top': '4rem' }}> Custom sticky top offset </aside> Features: - Two-column grid layout - Fixed sidebar width (28rem max, 32vw) - Container query responsive collapse - Optional sticky rail variant - Performance optimizations (contain) - Forced-colors mode support - Source order independence - Token-based gaps Tokens used: Gap: --sidebar-gap (default: --space-32) Rail width: min(28rem, 32vw) Rail sticky top: --rail-top (default: 2rem) Container breakpoint: 980px collapse Optional Attributes: data-rail-sticky=\"true\" - Makes rail sticky data-reverse=\"true\" - Rail comes first in layout"
+      - generic [ref=e1422]:
+        - 'heading "Demo 23: Container Queries (Phase 5)" [level=2] [ref=e1423]'
+        - paragraph [ref=e1424]: Container queries enable composition-first responsive design. Components respond to their container width, not the viewport.
+        - generic [ref=e1425]:
+          - generic [ref=e1426]:
+            - heading "Container Query vs Viewport Query" [level=3] [ref=e1427]
+            - paragraph [ref=e1428]: Resize your browser to see the difference. The container query box responds to its container width, while viewport query responds to window width.
+            - generic [ref=e1429]:
+              - generic [ref=e1430]:
+                - heading "🎯 Container Query" [level=4] [ref=e1431]
+                - generic [ref=e1433]:
+                  - text: 📱 Tablet layout (400-600px)
+                  - generic [ref=e1434]: Box 1
+                  - generic [ref=e1435]: Box 2
+                  - generic [ref=e1436]: Box 3
+                - paragraph [ref=e1437]: Responds to container width ↑
+              - generic [ref=e1438]:
+                - heading "📏 Viewport Query (Old Way)" [level=4] [ref=e1439]
+                - generic [ref=e1441]:
+                  - text: 🖥️ Desktop (viewport > 1024px)
+                  - generic [ref=e1442]: Box 1
+                  - generic [ref=e1443]: Box 2
+                  - generic [ref=e1444]: Box 3
+                - paragraph [ref=e1445]: Responds to viewport width ↑
+          - generic [ref=e1446]:
+            - heading "Code Examples" [level=3] [ref=e1447]
+            - generic [ref=e1448]:
+              - generic [ref=e1449]:
+                - heading "1. Enable Container Queries" [level=4] [ref=e1450]
+                - generic [ref=e1451]: "/* Enable on any container */ .section { container-type: inline-size; container-name: section; }"
+              - generic [ref=e1452]:
+                - heading "2. Use Container Queries" [level=4] [ref=e1453]
+                - generic [ref=e1454]: "/* Narrow container layout */ @container section (max-width: 48rem) { .section__actions { flex-direction: column; } } /* Mobile container layout */ @container section (max-width: 28rem) { .section__title { font-size: clamp(1.75rem, 4vw, 2.25rem); } }"
+              - generic [ref=e1455]:
+                - heading "3. Fallback Support" [level=4] [ref=e1456]
+                - generic [ref=e1457]: "/* Fallback for older browsers */ @supports not (container-type: inline-size) { @media (max-width: 768px) { .section__actions { flex-direction: column; } } }"
+              - generic [ref=e1458]:
+                - heading "4. Container Query Tokens" [level=4] [ref=e1459]
+                - generic [ref=e1460]: "/* Available in theme.css */ --cq-xs: 28rem; /* ~448px - mobile */ --cq-sm: 36rem; /* ~576px - small tablet */ --cq-md: 48rem; /* ~768px - tablet */ --cq-lg: 64rem; /* ~1024px - desktop */ --cq-xl: 80rem; /* ~1280px - wide desktop */ /* Usage with tokens */ @container (max-width: var(--cq-md)) { /* Styles */ }"
+          - generic [ref=e1461]:
+            - generic [ref=e1462]:
+              - heading "✨ Benefits" [level=4] [ref=e1463]
+              - list [ref=e1464]:
+                - listitem [ref=e1465]:
+                  - strong [ref=e1466]: "Composition-First:"
+                  - text: Components respond to their container, not viewport
+                - listitem [ref=e1467]:
+                  - strong [ref=e1468]: "Better Reusability:"
+                  - text: Same component works in sidebars, grids, or full-width
+                - listitem [ref=e1469]:
+                  - strong [ref=e1470]: "Scoped Breakpoints:"
+                  - text: Each section can have different responsive behavior
+                - listitem [ref=e1471]:
+                  - strong [ref=e1472]: "Progressive Enhancement:"
+                  - text: Automatic fallback for older browsers
+            - generic [ref=e1473]:
+              - heading "🛡️ CI Guardrail" [level=4] [ref=e1474]
+              - paragraph [ref=e1475]: "Enforce container query policy in your CI pipeline:"
+              - generic [ref=e1476]: npm run lint:cq
+              - paragraph [ref=e1477]: This script detects viewport media queries outside @supports fallback blocks and ensures container queries are used for composition-first design.
+        - generic [ref=e1479]: "Phase 5 Implementation Summary: ✅ Pass 1 - Foundations: • Container query tokens: --cq-xs through --cq-xl (already in theme.css) • Enabled container-type: inline-size on .section by default • Added container-name: section for scoped queries • @supports fallback for browsers without CQ support ✅ Pass 2 - Migration: • Migrated section.css from viewport MQs to container queries • @media (max-width: 768px) → @container section (max-width: 48rem) • @media (max-width: 480px) → @container section (max-width: 28rem) • Preserved viewport MQs in @supports fallback block ✅ Pass 3 - Validation: • Created Playwright tests (tests/container-queries.spec.ts) • Tests verify container-type, container-name, responsive behavior • CI guardrail script (scripts/check-container-queries.mjs) • npm run lint:cq enforces CQ policy Browser Support: ✓ Chrome 105+ ✓ Edge 105+ ✓ Safari 16+ ✓ Firefox 110+ ✓ Fallback for older browsers via @supports + viewport MQs Files Modified: • src/styles/components/section.css (container queries + fallback) • package.json (added lint:cq script) • scripts/check-container-queries.mjs (new CI guardrail) • tests/container-queries.spec.ts (new Playwright tests)"
+      - generic [ref=e1480]:
+        - generic [ref=e1482]:
+          - heading "Migration Test Cards" [level=2] [ref=e1483]
+          - paragraph [ref=e1484]: Cards migrated from primitives-migration page - testing data-ui attributes
+        - generic [ref=e1487]:
+          - generic [ref=e1488]:
+            - article [ref=e1489]:
+              - heading "Card A" [level=3] [ref=e1490]
+              - paragraph [ref=e1491]: Uses rc vars for bg/fg/border
+              - generic [ref=e1492]:
+                - generic [ref=e1493]: Rustic
+                - generic [ref=e1494]: Romantic
+                - generic [ref=e1495]: Outdoor
+            - article [ref=e1496]:
+              - heading "Card B" [level=3] [ref=e1497]
+              - paragraph [ref=e1498]: Test switcher in narrow containers
+              - generic [ref=e1499]:
+                - generic [ref=e1500]: Item 1
+                - generic [ref=e1501]: Item 2
+                - generic [ref=e1502]: Item 3
+            - article [ref=e1503]:
+              - heading "Card C" [level=3] [ref=e1504]
+              - paragraph [ref=e1505]: Aspect ratio utilities
+              - generic [ref=e1507]: 16:9
+          - generic [ref=e1508]:
+            - heading "Inline Primitive Test" [level=3] [ref=e1509]
+            - generic [ref=e1510]:
+              - generic [ref=e1511]:
+                - heading "Inline Primitive" [level=3] [ref=e1512]
+                - paragraph [ref=e1513]: Wraps tags with consistent gap
+                - generic [ref=e1514]:
+                  - generic [ref=e1515]: Tag A
+                  - generic [ref=e1516]: Tag B
+                  - generic [ref=e1517]: Tag C
+                  - generic [ref=e1518]: Tag D
+                  - generic [ref=e1519]: Tag E
+              - generic [ref=e1520]:
+                - heading "Stack Layout" [level=3] [ref=e1521]
+                - generic [ref=e1522]:
+                  - generic [ref=e1523]: Item 1
+                  - generic [ref=e1524]: Item 2
+                  - generic [ref=e1525]: Item 3
+  - alert [ref=e1526]
+  - button "Open Next.js Dev Tools" [ref=e1532] [cursor=pointer]:
+    - img [ref=e1533]
+```

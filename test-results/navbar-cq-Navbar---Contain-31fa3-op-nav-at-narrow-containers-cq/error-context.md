@@ -1,0 +1,626 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "RR Rum River Barn" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: RR
+          - generic [ref=e7]: Rum River Barn
+        - button "Open mobile menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Rum River Wedding Barn
+        - generic [ref=e13]:
+          - generic [ref=e14]: Where Dreams Begin
+          - heading "Rum River Wedding Barn" [level=1] [ref=e15]:
+            - text: Rum River
+            - text: Wedding Barn
+          - paragraph [ref=e16]: Nestled along Minnesota's scenic Rum River, our historic barn offers the perfect blend of rustic charm and modern elegance for your once-in-a-lifetime celebration.
+          - link "Schedule Your Visit" [ref=e18] [cursor=pointer]:
+            - /url: "#contact"
+        - generic [ref=e19] [cursor=pointer]:
+          - generic [ref=e20]: Discover Your Perfect Day
+          - generic [ref=e21]: ↓
+      - generic [ref=e23]:
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: Your Perfect Setting
+          - heading "Discover Our Spaces" [level=2] [ref=e27]
+          - paragraph [ref=e28]: Every corner tells a story, every space creates memories
+        - generic "Venue spaces showcase" [ref=e30]:
+          - generic [ref=e31]:
+            - button "The Historic Barn" [ref=e32] [cursor=pointer]
+            - button "Bridal Suite" [ref=e33] [cursor=pointer]
+            - button "Groom's Quarters" [ref=e34] [cursor=pointer]
+            - button "Garden Pavilion" [ref=e35] [cursor=pointer]
+          - generic [ref=e36]:
+            - generic [ref=e37]:
+              - img "The Historic Barn" [ref=e38]
+              - button "←" [ref=e39] [cursor=pointer]
+              - button "→" [ref=e40] [cursor=pointer]
+            - generic [ref=e41]:
+              - heading "The Historic Barn" [level=3] [ref=e42]
+              - paragraph [ref=e43]: Our crown jewel, this beautifully restored barn features soaring ceilings, original timber beams, and modern amenities seamlessly integrated into its historic charm.
+              - generic [ref=e44]:
+                - generic [ref=e45]:
+                  - heading "Capacity" [level=5] [ref=e46]
+                  - paragraph [ref=e47]: Up to 300 guests
+                - generic [ref=e48]:
+                  - heading "Built" [level=5] [ref=e49]
+                  - paragraph [ref=e50]: 1920s architecture
+                - generic [ref=e51]:
+                  - heading "Features" [level=5] [ref=e52]
+                  - paragraph [ref=e53]: Climate controlled
+                - generic [ref=e54]:
+                  - heading "Style" [level=5] [ref=e55]
+                  - paragraph [ref=e56]: Rustic elegance
+      - generic [ref=e58]:
+        - generic [ref=e60]:
+          - paragraph [ref=e61]: Your Perfect Venue
+          - heading "Why Choose Rum River Barn" [level=2] [ref=e62]
+          - paragraph [ref=e63]: Discover what makes our venue the perfect setting for your unforgettable celebration
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: "01"
+              - heading "A Picturesque Location For Your Special Event" [level=3] [ref=e70]
+              - paragraph [ref=e71]: Nedddar Milaca, Saint Paul, St Cloud, and Brainerd MN
+              - paragraph [ref=e72]: When it comes to special occasions such as weddings, birthday parties, or other events, it is important to have the perfect setting. You want to ensure that your event is at a location that people will remember.
+              - paragraph [ref=e73]: Here at Rum River Barn, we understand the importance of your special occasion. We are different from other special event venues because we allow you to pretty much run the show. When you choose us, you do not have to worry about us saying no.
+              - paragraph [ref=e74]:
+                - text: Our goal is to help you have your perfect day. We tend to book up fast, so don't wait—call us today at
+                - strong [ref=e75]: 612-801-0546
+                - text: "!"
+            - img "Special event venue with beautiful ceiling beams" [ref=e77]
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: "02"
+              - heading "Rum River Barn & Vineyard" [level=3] [ref=e81]
+              - paragraph [ref=e82]: Milaca, St. Cloud, Saint Paul, and Brainerd MN
+              - paragraph [ref=e83]: Nestled within 400 acres of pure country and rustic charm, this is the perfect barn wedding venue in Minnesota. On a peaceful hillside overlooking grape vineyards, mile-long manicured old oak forests, and white pines next to a whispering brook, we offer Minnesota's premier barn wedding venue and country special events venue for your custom special event.
+              - paragraph [ref=e84]: Enjoy the serenity, peacefulness, and amazing beauty which has been carved out of the forests and developed for the past 100 years.
+            - img "Rum River Barn and Vineyard with natural wildflowers" [ref=e86]
+      - generic [ref=e88]:
+        - generic [ref=e90]:
+          - paragraph [ref=e91]: The Rum River Experience
+          - heading "More Than a Venue" [level=2] [ref=e92]
+          - paragraph [ref=e93]: At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story.
+        - generic "Venue experience and features" [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - generic [ref=e98]:
+                - paragraph [ref=e99]: The Rum River Experience
+                - heading "More Than a Venue" [level=2] [ref=e100]
+                - paragraph [ref=e101]: At Rum River Barn, we believe your wedding day should be more than just beautiful—it should be unforgettable. Nestled along the banks of the historic Rum River, our venue offers a unique blend of rustic charm and natural elegance that creates the perfect backdrop for your love story.
+              - generic [ref=e102]:
+                - generic [ref=e103] [cursor=pointer]:
+                  - img [ref=e105]
+                  - generic [ref=e107]:
+                    - heading "Natural Beauty" [level=3] [ref=e108]
+                    - paragraph [ref=e109]: Surrounded by pristine woodlands and the scenic Rum River
+                - generic [ref=e110] [cursor=pointer]:
+                  - img [ref=e112]
+                  - generic [ref=e114]:
+                    - heading "Authentic Charm" [level=3] [ref=e115]
+                    - paragraph [ref=e116]: Rustic elegance that captures the spirit of Minnesota
+                - generic [ref=e117] [cursor=pointer]:
+                  - img [ref=e119]
+                  - generic [ref=e121]:
+                    - heading "Personal Touch" [level=3] [ref=e122]
+                    - paragraph [ref=e123]: Dedicated team committed to bringing your vision to life
+                - generic [ref=e124] [cursor=pointer]:
+                  - img [ref=e126]
+                  - generic [ref=e128]:
+                    - heading "Complete Experience" [level=3] [ref=e129]
+                    - paragraph [ref=e130]: Everything you need for an unforgettable celebration
+            - img "Wedding celebration at Rum River Barn" [ref=e132]
+      - generic [ref=e134]:
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: Real Love Stories
+          - heading "Weddings at the Barn" [level=2] [ref=e138]
+          - paragraph [ref=e139]: Every celebration tells a unique story of love, laughter, and happily ever after.
+        - generic "Wedding gallery showcase" [ref=e141]:
+          - generic [ref=e142]:
+            - link "Anthony & Linnea — Summer 2024" [ref=e143] [cursor=pointer]:
+              - /url: "#"
+              - img "Anthony & Linnea at Rum River Barn" [ref=e144]
+              - generic [ref=e145]:
+                - generic [ref=e146]: Anthony & Linnea
+                - generic [ref=e147]: Summer 2024
+            - link "Loria & Jason Rolstad — Summer 2024" [ref=e148] [cursor=pointer]:
+              - /url: "#"
+              - img "Loria & Jason Rolstad at Rum River Barn" [ref=e149]
+              - generic [ref=e150]:
+                - generic [ref=e151]: Loria & Jason Rolstad
+                - generic [ref=e152]: Summer 2024
+            - link "Mattea Courtney — Summer 2024" [ref=e153] [cursor=pointer]:
+              - /url: "#"
+              - img "Mattea Courtney at Rum River Barn" [ref=e154]
+              - generic [ref=e155]:
+                - generic [ref=e156]: Mattea Courtney
+                - generic [ref=e157]: Summer 2024
+            - link "Kyle Carrie — Summer 2024" [ref=e158] [cursor=pointer]:
+              - /url: "#"
+              - img "Kyle Carrie at Rum River Barn" [ref=e159]
+              - generic [ref=e160]:
+                - generic [ref=e161]: Kyle Carrie
+                - generic [ref=e162]: Summer 2024
+            - link "Emily & Barron Nixon — Summer 2024" [ref=e163] [cursor=pointer]:
+              - /url: "#"
+              - img "Emily & Barron Nixon at Rum River Barn" [ref=e164]
+              - generic [ref=e165]:
+                - generic [ref=e166]: Emily & Barron Nixon
+                - generic [ref=e167]: Summer 2024
+            - link "Joshua & Teri — Summer 2024" [ref=e168] [cursor=pointer]:
+              - /url: "#"
+              - img "Joshua & Teri at Rum River Barn" [ref=e169]
+              - generic [ref=e170]:
+                - generic [ref=e171]: Joshua & Teri
+                - generic [ref=e172]: Summer 2024
+      - generic "Brand endorsements and testimonial" [ref=e176]:
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - generic [ref=e179]: THE KNOT YESSS
+            - generic [ref=e180]: WEDDINGWIRE
+            - generic [ref=e181]: MARTHA STEWART
+            - generic [ref=e182]: MINNESOTA BRIDE
+          - paragraph [ref=e183]: “Rum River Barn isn't just a venue—it's where dreams come to life. Their commitment to saying 'yes' to every couple's vision sets them apart as Minnesota's most accommodating wedding destination.”
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - generic [ref=e187]: Through the Years
+          - heading "Journey Through Our History" [level=2] [ref=e188]
+          - paragraph [ref=e189]: Authentic photographs from the Selmer family archives spanning 100+ years
+        - generic [ref=e191]:
+          - button "Go to 1914" [ref=e193] [cursor=pointer]:
+            - generic [ref=e194]: "1914"
+          - button "Go to 1920s" [ref=e196] [cursor=pointer]:
+            - generic [ref=e197]: 1920s
+          - button "Go to 1932" [ref=e199] [cursor=pointer]:
+            - generic [ref=e200]: "1932"
+          - button "Go to 1935" [ref=e202] [cursor=pointer]:
+            - generic [ref=e203]: "1935"
+          - button "Go to 1940s" [ref=e205] [cursor=pointer]:
+            - generic [ref=e206]: 1940s
+          - button "Go to 1942" [ref=e208] [cursor=pointer]:
+            - generic [ref=e209]: "1942"
+        - generic [ref=e211]:
+          - button "Previous photos" [ref=e212] [cursor=pointer]:
+            - img [ref=e213]
+          - button "Next photos" [ref=e215] [cursor=pointer]:
+            - img [ref=e216]
+          - button "Play slideshow" [ref=e218] [cursor=pointer]:
+            - img [ref=e219]
+          - generic [ref=e222]:
+            - generic [ref=e224]:
+              - img "Norwegian Settlers Arrive (1914)" [ref=e226]
+              - generic [ref=e227]:
+                - heading "Norwegian Settlers Arrive" [level=3] [ref=e228]
+                - paragraph [ref=e229]: Sigvart and Helga Selmer settled the land
+            - generic [ref=e231]:
+              - img "Early Farm Life (1920s)" [ref=e233]
+              - generic [ref=e234]:
+                - heading "Early Farm Life" [level=3] [ref=e235]
+                - paragraph [ref=e236]: Building the foundation of the farm
+            - generic [ref=e238]:
+              - img "Discovery of the Giant White Pine (1932)" [ref=e240]
+              - generic [ref=e241]:
+                - heading "Discovery of the Giant White Pine" [level=3] [ref=e242]
+                - paragraph [ref=e243]: A massive white pine that took seven horses to pull
+            - generic [ref=e245]:
+              - img "Farm Expansion (1935)" [ref=e247]
+              - generic [ref=e248]:
+                - heading "Farm Expansion" [level=3] [ref=e249]
+                - paragraph [ref=e250]: Growing the agricultural operations
+            - generic [ref=e252]:
+              - img "War Years (1940s)" [ref=e254]
+              - generic [ref=e255]:
+                - heading "War Years" [level=3] [ref=e256]
+                - paragraph [ref=e257]: Maintaining the farm during challenging times
+            - generic [ref=e259]:
+              - img "White Barn Construction Begins (1942)" [ref=e261]
+              - generic [ref=e262]:
+                - heading "White Barn Construction Begins" [level=3] [ref=e263]
+                - paragraph [ref=e264]: Using lumber from the giant white pine
+            - generic [ref=e266]:
+              - img "Post-War Growth (1945)" [ref=e268]
+              - generic [ref=e269]:
+                - heading "Post-War Growth" [level=3] [ref=e270]
+                - paragraph [ref=e271]: Expanding after World War II
+            - generic [ref=e273]:
+              - img "Family Traditions (1950)" [ref=e275]
+              - generic [ref=e276]:
+                - heading "Family Traditions" [level=3] [ref=e277]
+                - paragraph [ref=e278]: Generations working the land together
+            - generic [ref=e280]:
+              - img "White Barn Completed (1952)" [ref=e282]
+              - generic [ref=e283]:
+                - heading "White Barn Completed" [level=3] [ref=e284]
+                - paragraph [ref=e285]: The iconic barn finished after 10 years
+            - generic [ref=e287]:
+              - img "Dairy Operations (1955)" [ref=e289]
+              - generic [ref=e290]:
+                - heading "Dairy Operations" [level=3] [ref=e291]
+                - paragraph [ref=e292]: Establishing the dairy farm
+            - generic [ref=e294]:
+              - img "Harold Selmer Era (1959)" [ref=e296]
+              - generic [ref=e297]:
+                - heading "Harold Selmer Era" [level=3] [ref=e298]
+                - paragraph [ref=e299]: Harold takes over farm operations
+            - generic [ref=e301]:
+              - img "Modern Farming (1960s)" [ref=e303]
+              - generic [ref=e304]:
+                - heading "Modern Farming" [level=3] [ref=e305]
+                - paragraph [ref=e306]: Adopting new agricultural techniques
+            - generic [ref=e308]:
+              - img "Community Gatherings (1965)" [ref=e310]
+              - generic [ref=e311]:
+                - heading "Community Gatherings" [level=3] [ref=e312]
+                - paragraph [ref=e313]: The barn becomes a community center
+            - generic [ref=e315]:
+              - img "Third Generation (1970)" [ref=e317]
+              - generic [ref=e318]:
+                - heading "Third Generation" [level=3] [ref=e319]
+                - paragraph [ref=e320]: Family legacy continues
+            - generic [ref=e322]:
+              - img "Farm Improvements (1975)" [ref=e324]
+              - generic [ref=e325]:
+                - heading "Farm Improvements" [level=3] [ref=e326]
+                - paragraph [ref=e327]: Modernizing facilities
+            - generic [ref=e329]:
+              - img "Oak Forest Conservation (1980)" [ref=e331]
+              - generic [ref=e332]:
+                - heading "Oak Forest Conservation" [level=3] [ref=e333]
+                - paragraph [ref=e334]: Preserving the mile-long oak forests
+            - generic [ref=e336]:
+              - img "Vineyard Planted (1985)" [ref=e338]
+              - generic [ref=e339]:
+                - heading "Vineyard Planted" [level=3] [ref=e340]
+                - paragraph [ref=e341]: Beginning grape cultivation
+            - generic [ref=e343]:
+              - img "Sustainable Practices (1990)" [ref=e345]
+              - generic [ref=e346]:
+                - heading "Sustainable Practices" [level=3] [ref=e347]
+                - paragraph [ref=e348]: Implementing eco-friendly farming
+            - generic [ref=e350]:
+              - img "Heritage Preservation (1995)" [ref=e352]
+              - generic [ref=e353]:
+                - heading "Heritage Preservation" [level=3] [ref=e354]
+                - paragraph [ref=e355]: Maintaining historical structures
+            - generic [ref=e357]:
+              - img "New Millennium (2000)" [ref=e359]
+              - generic [ref=e360]:
+                - heading "New Millennium" [level=3] [ref=e361]
+                - paragraph [ref=e362]: Preparing for the next chapter
+            - generic [ref=e364]:
+              - img "Harold Selmer Legacy (2003)" [ref=e366]
+              - generic [ref=e367]:
+                - heading "Harold Selmer Legacy" [level=3] [ref=e368]
+                - paragraph [ref=e369]: 44 years of dedicated farming
+            - generic [ref=e371]:
+              - img "First Wedding Event (2006)" [ref=e373]
+              - generic [ref=e374]:
+                - heading "First Wedding Event" [level=3] [ref=e375]
+                - paragraph [ref=e376]: Beginning of event venue era
+            - generic [ref=e378]:
+              - img "Venue Renovations (2008)" [ref=e380]
+              - generic [ref=e381]:
+                - heading "Venue Renovations" [level=3] [ref=e382]
+                - paragraph [ref=e383]: Transforming for celebrations
+            - generic [ref=e385]:
+              - img "Growing Reputation (2010)" [ref=e387]
+              - generic [ref=e388]:
+                - heading "Growing Reputation" [level=3] [ref=e389]
+                - paragraph [ref=e390]: Becoming known for weddings
+            - generic [ref=e392]:
+              - img "Landscape Development (2012)" [ref=e394]
+              - generic [ref=e395]:
+                - heading "Landscape Development" [level=3] [ref=e396]
+                - paragraph [ref=e397]: Creating picturesque settings
+            - generic [ref=e399]:
+              - img "Premier Venue Status (2015)" [ref=e401]
+              - generic [ref=e402]:
+                - heading "Premier Venue Status" [level=3] [ref=e403]
+                - paragraph [ref=e404]: Recognized throughout Minnesota
+            - generic [ref=e406]:
+              - img "Vineyard Maturity (2018)" [ref=e408]
+              - generic [ref=e409]:
+                - heading "Vineyard Maturity" [level=3] [ref=e410]
+                - paragraph [ref=e411]: Grapes flourishing on the hillside
+            - generic [ref=e413]:
+              - img "Resilience (2020)" [ref=e415]
+              - generic [ref=e416]:
+                - heading "Resilience" [level=3] [ref=e417]
+                - paragraph [ref=e418]: Adapting through challenges
+            - generic [ref=e420]:
+              - img "Continued Excellence (2022)" [ref=e422]
+              - generic [ref=e423]:
+                - heading "Continued Excellence" [level=3] [ref=e424]
+                - paragraph [ref=e425]: Serving couples with dedication
+            - generic [ref=e427]:
+              - img "Looking Forward (2024)" [ref=e429]
+              - generic [ref=e430]:
+                - heading "Looking Forward" [level=3] [ref=e431]
+                - paragraph [ref=e432]: Creating memories for years to come
+            - generic [ref=e434]:
+              - img "Minnesota's Premier Barn Venue (Today)" [ref=e436]
+              - generic [ref=e437]:
+                - heading "Minnesota's Premier Barn Venue" [level=3] [ref=e438]
+                - paragraph [ref=e439]: Where dreams come true
+      - generic [ref=e441]:
+        - generic [ref=e442]:
+          - text: Plan Your Visit
+          - heading "Schedule a Tour" [level=2] [ref=e443]
+          - paragraph [ref=e444]: Experience the magic of Rum River Barn in person. Book your private tour today.
+        - generic [ref=e445]:
+          - generic [ref=e446]:
+            - generic [ref=e447]:
+              - generic [ref=e448]: Your Name *
+              - textbox "Your Name *" [ref=e449]:
+                - /placeholder: John & Jane Doe
+            - generic [ref=e450]:
+              - generic [ref=e451]: Email Address *
+              - textbox "Email Address *" [ref=e452]:
+                - /placeholder: your@email.com
+          - generic [ref=e453]:
+            - generic [ref=e454]:
+              - generic [ref=e455]: Phone Number
+              - textbox "Phone Number" [ref=e456]:
+                - /placeholder: (555) 123-4567
+            - generic [ref=e457]:
+              - generic [ref=e458]: Preferred Date
+              - textbox "Preferred Date" [ref=e459]
+          - generic [ref=e460]:
+            - generic [ref=e461]: Expected Guest Count
+            - combobox "Expected Guest Count" [ref=e462]:
+              - option "Select guest count" [selected]
+              - option "1-50 guests"
+              - option "51-100 guests"
+              - option "101-150 guests"
+              - option "151-200 guests"
+              - option "200+ guests"
+          - generic [ref=e463]:
+            - generic [ref=e464]: Tell Us About Your Vision
+            - textbox "Tell Us About Your Vision" [ref=e465]:
+              - /placeholder: Share your dream wedding details, special requests, or questions...
+          - button "Schedule Your Tour" [ref=e466] [cursor=pointer]
+      - generic [ref=e468]:
+        - generic "Location and contact information" [ref=e470]:
+          - paragraph [ref=e471]: Find Us
+          - heading "Visit Rum River Barn" [level=2] [ref=e472]
+          - paragraph [ref=e473]: Located in the heart of Minnesota, easily accessible from the Twin Cities
+        - generic [ref=e476]:
+          - generic [ref=e477]:
+            - img [ref=e479]
+            - generic [ref=e482]:
+              - heading "Our Location" [level=4] [ref=e483]
+              - paragraph [ref=e484]: 12345 Rum River Road, Princeton, MN 55371
+          - generic [ref=e485]:
+            - img [ref=e487]
+            - generic [ref=e489]:
+              - heading "Tour Hours" [level=4] [ref=e490]
+              - paragraph [ref=e491]: "Mon-Sat: 10am - 5pm, Sun: By Appointment"
+          - generic [ref=e492]:
+            - img [ref=e494]
+            - generic [ref=e496]:
+              - heading "Call Us" [level=4] [ref=e497]
+              - paragraph [ref=e498]: (763) 555-0123
+          - iframe [ref=e500]
+          - generic [ref=e501]:
+            - img [ref=e503]
+            - generic [ref=e505]:
+              - heading "Email" [level=4] [ref=e506]
+              - paragraph [ref=e507]: info@rumriverbarn.com
+          - generic [ref=e508]:
+            - img [ref=e510]
+            - generic [ref=e512]:
+              - heading "Indoor & Outdoor" [level=4] [ref=e513]
+              - paragraph [ref=e514]: Beautiful spaces for any weather
+          - generic [ref=e515]:
+            - img [ref=e517]
+            - generic [ref=e519]:
+              - heading "Full Catering" [level=4] [ref=e520]
+              - paragraph [ref=e521]: Professional kitchen and dining facilities
+      - generic [ref=e522]:
+        - generic [ref=e524]:
+          - paragraph [ref=e525]: Questions?
+          - heading "Frequently Asked Questions" [level=2] [ref=e526]
+        - generic "Frequently asked questions list" [ref=e528]:
+          - generic [ref=e529]:
+            - generic [ref=e530]:
+              - button "Can we bring our own vendors?" [expanded] [ref=e531] [cursor=pointer]:
+                - heading "Can we bring our own vendors?" [level=3] [ref=e532]
+                - generic [ref=e533]: ↓
+              - region [ref=e534]:
+                - generic [ref=e535]: Absolutely! We believe in giving you complete creative freedom for your wedding day. You're welcome to work with any caterer, photographer, florist, DJ, or other vendors you choose.
+            - generic [ref=e536]:
+              - button "What's included with the venue rental?" [ref=e537] [cursor=pointer]:
+                - heading "What's included with the venue rental?" [level=3] [ref=e538]
+                - generic [ref=e539]: ↓
+              - region:
+                - generic [ref=e540]: Your rental includes exclusive use of our historic barn, bridal suite, groom's quarters, outdoor ceremony sites, and tables and chairs for up to 200 guests. We also provide parking, setup time, and day-of coordination assistance.
+            - generic [ref=e541]:
+              - button "Do you have indoor and outdoor options?" [ref=e542] [cursor=pointer]:
+                - heading "Do you have indoor and outdoor options?" [level=3] [ref=e543]
+                - generic [ref=e544]: ↓
+              - region:
+                - generic [ref=e545]: Yes! Our property offers multiple ceremony sites including our beautiful garden pavilion, riverside clearing, and the barn itself. This gives you backup options regardless of weather.
+            - generic [ref=e546]:
+              - button "Is there lodging nearby for guests?" [ref=e547] [cursor=pointer]:
+                - heading "Is there lodging nearby for guests?" [level=3] [ref=e548]
+                - generic [ref=e549]: ↓
+              - region:
+                - generic [ref=e550]: We have partnerships with several nearby hotels and bed & breakfasts that offer group rates. We're also happy to provide a list of recommended accommodations in the area for your out-of-town guests.
+      - generic [ref=e552]:
+        - generic [ref=e553]:
+          - generic [ref=e554]: Investment in Forever
+          - heading "Wedding Packages & Pricing" [level=2] [ref=e555]
+          - generic [ref=e556]: Saturdays from $6,200 • Fridays/Sundays from $5,500 • Weekdays from $4,500
+          - paragraph [ref=e557]: Transparent pricing with no hidden fees. Every package includes tables, chairs, setup, teardown, and on-site coordination.
+        - generic [ref=e558]:
+          - article "Essentials package" [ref=e559]:
+            - generic [ref=e560]:
+              - heading "Essentials" [level=3] [ref=e561]
+              - generic [ref=e562]:
+                - generic [ref=e563]:
+                  - text: $4,500
+                  - generic [ref=e564]: Fri–Sun
+                - generic [ref=e565]:
+                  - text: $3,800
+                  - generic [ref=e566]: Weekdays
+              - paragraph [ref=e567]: Weekend price listed for Friday through Sunday; weekday price listed for Monday through Thursday.
+            - list [ref=e568]:
+              - listitem [ref=e569]:
+                - img [ref=e570]
+                - generic [ref=e572]: Venue rental for 8 hours
+              - listitem [ref=e573]:
+                - img [ref=e574]
+                - generic [ref=e576]: Tables, chairs & linens included
+              - listitem [ref=e577]:
+                - img [ref=e578]
+                - generic [ref=e580]: Setup & breakdown service
+              - listitem [ref=e581]:
+                - img [ref=e582]
+                - generic [ref=e584]: On-site coordination
+              - listitem [ref=e585]:
+                - img [ref=e586]
+                - generic [ref=e588]: Bridal suite access
+              - listitem [ref=e589]:
+                - img [ref=e590]
+                - generic [ref=e592]: Sound system & microphones
+              - listitem [ref=e593]:
+                - img [ref=e594]
+                - generic [ref=e596]: Basic lighting package
+            - generic [ref=e597]:
+              - link "Check Your Date" [ref=e598] [cursor=pointer]:
+                - /url: "#schedule"
+                - img [ref=e599]
+                - generic [ref=e601]: Check Your Date
+              - link "Book a Tour" [ref=e602] [cursor=pointer]:
+                - /url: "#contact"
+          - article "Celebration package" [ref=e603]:
+            - generic "Most popular" [ref=e604]:
+              - img [ref=e605]
+              - generic [ref=e607]: "Most Popular:"
+              - text: Most Popular
+            - generic [ref=e608]:
+              - heading "Celebration" [level=3] [ref=e609]
+              - generic [ref=e610]:
+                - generic [ref=e611]:
+                  - text: $6,200
+                  - generic [ref=e612]: Fri–Sun
+                - generic [ref=e613]:
+                  - text: $5,500
+                  - generic [ref=e614]: Weekdays
+              - paragraph [ref=e615]: Weekend price listed for Friday through Sunday; weekday price listed for Monday through Thursday.
+            - list [ref=e616]:
+              - listitem [ref=e617]:
+                - img [ref=e618]
+                - generic [ref=e620]: Everything in Essentials
+              - listitem [ref=e621]:
+                - img [ref=e622]
+                - generic [ref=e624]: Extended 10-hour venue rental
+              - listitem [ref=e625]:
+                - img [ref=e626]
+                - generic [ref=e628]: Upgraded lighting & ambiance
+              - listitem [ref=e629]:
+                - img [ref=e630]
+                - generic [ref=e632]: Groom's quarters access
+              - listitem [ref=e633]:
+                - img [ref=e634]
+                - generic [ref=e636]: Complimentary rehearsal
+              - listitem [ref=e637]:
+                - img [ref=e638]
+                - generic [ref=e640]: Premium bar setup included
+              - listitem [ref=e641]:
+                - img [ref=e642]
+                - generic [ref=e644]: Vendor coordination service
+              - listitem [ref=e645]:
+                - img [ref=e646]
+                - generic [ref=e648]: Late-night snack station
+            - generic [ref=e649]:
+              - link "Check Your Date" [ref=e650] [cursor=pointer]:
+                - /url: "#schedule"
+                - img [ref=e651]
+                - generic [ref=e653]: Check Your Date
+              - link "Book a Tour" [ref=e654] [cursor=pointer]:
+                - /url: "#contact"
+          - article "Luxe Experience package" [ref=e655]:
+            - generic [ref=e656]:
+              - heading "Luxe Experience" [level=3] [ref=e657]
+              - generic [ref=e658]:
+                - generic [ref=e659]:
+                  - text: $8,800
+                  - generic [ref=e660]: Fri–Sun
+                - generic [ref=e661]:
+                  - text: $7,900
+                  - generic [ref=e662]: Weekdays
+              - paragraph [ref=e663]: Weekend price listed for Friday through Sunday; weekday price listed for Monday through Thursday.
+            - list [ref=e664]:
+              - listitem [ref=e665]:
+                - img [ref=e666]
+                - generic [ref=e668]: Everything in Celebration
+              - listitem [ref=e669]:
+                - img [ref=e670]
+                - generic [ref=e672]: Full weekend access
+              - listitem [ref=e673]:
+                - img [ref=e674]
+                - generic [ref=e676]: Garden pavilion ceremony
+              - listitem [ref=e677]:
+                - img [ref=e678]
+                - generic [ref=e680]: Professional photography areas
+              - listitem [ref=e681]:
+                - img [ref=e682]
+                - generic [ref=e684]: Premium floral arrangements
+              - listitem [ref=e685]:
+                - img [ref=e686]
+                - generic [ref=e688]: Champagne welcome service
+              - listitem [ref=e689]:
+                - img [ref=e690]
+                - generic [ref=e692]: Dedicated day-of planner
+              - listitem [ref=e693]:
+                - img [ref=e694]
+                - generic [ref=e696]: Transportation coordination
+            - generic [ref=e697]:
+              - link "Check Your Date" [ref=e698] [cursor=pointer]:
+                - /url: "#schedule"
+                - img [ref=e699]
+                - generic [ref=e701]: Check Your Date
+              - link "Book a Tour" [ref=e702] [cursor=pointer]:
+                - /url: "#contact"
+      - contentinfo [ref=e703]:
+        - generic [ref=e704]:
+          - generic [ref=e705]:
+            - generic [ref=e706]:
+              - heading "Rum River Wedding Barn" [level=3] [ref=e707]
+              - paragraph [ref=e708]: Where dreams come to life along Minnesota's scenic Rum River. Historic charm meets modern elegance for your perfect celebration.
+            - generic [ref=e709]:
+              - heading "Contact Information" [level=4] [ref=e710]
+              - generic [ref=e711]:
+                - paragraph [ref=e712]:
+                  - img [ref=e713]
+                  - text: 42618 78th Street, Hillman, MN 56338
+                - link "612-801-0546" [ref=e716] [cursor=pointer]:
+                  - /url: tel:6128010546
+                  - img [ref=e717]
+                  - text: 612-801-0546
+                - link "info@rumriverbarn.com" [ref=e719] [cursor=pointer]:
+                  - /url: mailto:info@rumriverbarn.com
+                  - img [ref=e720]
+                  - text: info@rumriverbarn.com
+            - generic [ref=e723]:
+              - heading "Connect With Us" [level=4] [ref=e724]
+              - generic [ref=e725]:
+                - link "Follow us on Facebook" [ref=e726] [cursor=pointer]:
+                  - /url: https://facebook.com/rumriverbarn
+                  - img [ref=e727]
+                - link "Follow us on Instagram" [ref=e729] [cursor=pointer]:
+                  - /url: https://instagram.com/rumriverbarn
+                  - img [ref=e730]
+          - generic [ref=e734]: © 2025 Rum River Wedding Barn. All rights reserved.
+  - alert [ref=e735]
+  - button "Open Next.js Dev Tools" [ref=e741] [cursor=pointer]:
+    - img [ref=e742]
+```
