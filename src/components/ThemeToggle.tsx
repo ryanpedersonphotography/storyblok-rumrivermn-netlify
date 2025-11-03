@@ -102,7 +102,7 @@ export default function ThemeToggle() {
         :global(.theme-toggle-icon) {
           width: 24px;
           height: 24px;
-          color: var(--navbar-link, var(--navbar-text));
+          color: var(--text-primary);
           transition: color 150ms ease, transform 200ms ease;
         }
         button:hover :global(.theme-toggle-icon) {

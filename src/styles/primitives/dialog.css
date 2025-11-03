@@ -93,8 +93,8 @@
      ========================================================= */
   [data-clean-root="true"] .dialog__panel {
     pointer-events: auto;
-    background: var(--theme-bg, oklch(0.98 0 95));
-    color: var(--theme-text, oklch(0.22 0.02 95));
+    background: var(--surface-1);
+    color: var(--text-primary);
     border: 1px solid var(--mix-subtle);
     border-radius: var(--radius-xl, 16px);
     box-shadow:

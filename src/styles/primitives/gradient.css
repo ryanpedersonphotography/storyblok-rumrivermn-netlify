@@ -1,0 +1,55 @@
+/* ==========================================================================
+   GRADIENT PRIMITIVE — Recipe-contract gradient system
+   ==========================================================================
+   Uses recipe-local --rc-grad-* contracts for computed gradient stops.
+   Recipes define color-mix() blends; primitive provides structure.
+   ========================================================================== */
+
+@layer primitives {
+  /* Base gradient structure */
+  .gradient {
+    background-image: linear-gradient(
+      var(--rc-grad-angle, 135deg),
+      var(--rc-grad-start, transparent) 0%,
+      var(--rc-grad-mid, transparent) 50%,
+      var(--rc-grad-end, transparent) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Prominent gradient variant (hero/header sections) */
+  .gradient--prominent {
+    --rc-grad-angle: 135deg;
+    --rc-grad-start: color-mix(in oklch, var(--surface-1) 88%, var(--accent-rose) 12%);
+    --rc-grad-mid:   color-mix(in oklch, var(--surface-1) 92%, var(--accent-gold) 8%);
+    --rc-grad-end:   var(--surface-0);
+    background-image: linear-gradient(
+      var(--rc-grad-angle),
+      var(--rc-grad-start),
+      var(--rc-grad-mid) 40%,
+      var(--rc-grad-end)
+    );
+  }
+
+  /* Soft gradient variant (subtle sections) */
+  .gradient--soft {
+    --rc-grad-angle: 180deg;
+    --rc-grad-start: color-mix(in oklch, var(--surface-1) 96%, var(--accent-rose) 4%);
+    --rc-grad-end:   var(--surface-0);
+    background-image: linear-gradient(
+      var(--rc-grad-angle),
+      var(--rc-grad-start),
+      var(--rc-grad-end)
+    );
+  }
+
+  /* Radial gradient variant */
+  .gradient--radial {
+    background-image: radial-gradient(
+      ellipse at top,
+      var(--rc-grad-start, color-mix(in oklch, var(--surface-1) 90%, var(--accent-gold) 10%)),
+      var(--rc-grad-end, var(--surface-0)) 70%
+    );
+  }
+}

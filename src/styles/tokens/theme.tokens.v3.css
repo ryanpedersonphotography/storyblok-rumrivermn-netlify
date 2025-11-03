@@ -1,0 +1,236 @@
+/* ==========================================================================
+   FILE: src/styles/tokens/theme.tokens.v3.css
+   PURPOSE: Minimal, durable design tokens (light+dark, brand-able)
+            - OKLCH-first with sRGB fallbacks
+            - Role-based tokens only (surface/text/accent/border)
+            - Fixed spacing scale (4px grid)
+            - Motion, radius, shadows, container breakpoints
+            - No section/hero/tone/legacy aliases
+   NOTES:  Import this before primitives/components. Uses cascade layers.
+   UPDATED: 2025-11-02
+ * ========================================================================== */
+
+/* Ordered cascade layers: keep this at the very top of your CSS import chain */
+@layer reset, base, tokens, primitives, recipes, components, utilities;
+
+/* ----------------------------- TOKENS ------------------------------------ */
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* ---------- sRGB anchor fallbacks (for older browsers) ---------- */
+    /* Neutrals */
+    --walnut-900-rgb: 15 12 10;    /* #0F0C0A */
+    --walnut-800-rgb: 26 20 16;    /* #1A1410 */
+    --walnut-700-rgb: 44 36 26;    /* #2C241A */
+    --walnut-650-rgb: 55 45 27;    /* ~#372D1B */
+    --cream-100-rgb: 244 228 225;  /* #F4E4E1 */
+    --white-rgb: 255 255 255;
+    --black-rgb: 0 0 0;
+
+    /* Brand accents */
+    --rose-500-rgb: 157 107 123;   /* #9D6B7B */
+    --gold-400-rgb: 240 217 168;   /* #F0D9A8 */
+    --sage-400-rgb: 176 196 182;   /* #B0C4B6 */
+
+    /* ---------- Preferred OKLCH (overrides when supported) ---------- */
+    /* See: CSS Color (oklch/oklab); falls back to sRGB above */
+    @supports (color: oklch(0.5 0 0)) {
+      /* Neutrals */
+      --walnut-900: oklch(0.18 0.03 65);
+      --walnut-800: oklch(0.22 0.03 65);
+      --walnut-700: oklch(0.28 0.04 65);
+      --walnut-650: oklch(0.31 0.04 65);
+      --cream-100:  oklch(0.95 0.02 25);
+
+      /* Accents (Romantic defaults) */
+      --rose-500:   oklch(0.69 0.12 350);
+      --gold-400:   oklch(0.84 0.10 85);
+      --sage-400:   oklch(0.78 0.05 160);
+    }
+
+    /* ---------- Role tokens (LIGHT) ---------- */
+    --surface-0: rgb(var(--cream-100-rgb));  /* page backdrop */
+    --surface-1: rgb(255 255 255);           /* cards/contrasting blocks */
+    --surface-2: rgb(250 246 242);           /* subtle lift */
+    --surface-3: rgb(246 240 234);
+    --surface-4: rgb(240 234 228);
+
+    --text-primary:   rgb(107 78 61);        /* brand walnut text */
+    --text-secondary: rgb(68 57 50);
+    --text-inverse:   rgb(var(--white-rgb));
+
+    --accent-rose: rgb(var(--rose-500-rgb));
+    --accent-gold: rgb(var(--gold-400-rgb));
+    --accent-sage: rgb(var(--sage-400-rgb));
+
+    --border-subtle: color-mix(in oklab, currentColor 12%, transparent);
+    --border-medium: color-mix(in oklab, currentColor 18%, transparent);
+    --border-strong: color-mix(in oklab, currentColor 26%, transparent);
+
+    --focus-width: 3px;
+    --focus-offset: 3px;
+    --focus-ring-color: color-mix(in oklab, var(--accent-rose) 35%, transparent);
+
+    /* ---------- Fixed spacing scale (4px base) ---------- */
+    --space-0: 0;
+    --space-2: 0.125rem;  /* 2px  */
+    --space-4: 0.25rem;   /* 4px  */
+    --space-8: 0.5rem;    /* 8px  */
+    --space-12: 0.75rem;  /* 12px */
+    --space-16: 1rem;     /* 16px */
+    --space-20: 1.25rem;  /* 20px */
+    --space-24: 1.5rem;   /* 24px */
+    --space-32: 2rem;     /* 32px */
+    --space-40: 2.5rem;   /* 40px */
+    --space-48: 3rem;     /* 48px */
+    --space-56: 3.5rem;   /* 56px */
+    --space-64: 4rem;     /* 64px */
+    --space-80: 5rem;     /* 80px */
+    --space-96: 6rem;     /* 96px */
+
+    /* ---------- Radius ---------- */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-pill: 9999px;
+
+    /* ---------- Shadows ---------- */
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.12), 0 1px 2px rgb(0 0 0 / 0.08);
+    --shadow-md: 0 4px 8px rgb(0 0 0 / 0.12), 0 2px 4px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 20px 60px rgb(0 0 0 / 0.18);
+    --shadow-xl: 0 24px 72px rgb(0 0 0 / 0.20), 0 12px 24px rgb(0 0 0 / 0.12);
+
+    /* ---------- Motion ---------- */
+    --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-snap:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-bounce: cubic-bezier(0.33, 0.66, 0.04, 1.3);
+
+    --duration-micro: 120ms;   /* taps, icon nudge */
+    --duration-fast:  180ms;   /* small hover/press */
+    --duration-normal:240ms;   /* card lifts, dropdowns */
+    --duration-slow:  360ms;   /* modals, large panels */
+    --duration-ultra: 600ms;   /* page transitions */
+
+    --motion-hover-duration: var(--duration-fast);
+    --motion-hover-ease: var(--ease-smooth);
+    --motion-press-duration: var(--duration-micro);
+    --motion-press-ease: var(--ease-snap);
+    --motion-enter-duration: var(--duration-normal);
+    --motion-enter-ease: var(--ease-spring);
+    --motion-exit-duration: var(--duration-fast);
+    --motion-exit-ease: var(--ease-smooth);
+
+    /* ---------- Container query breakpoints (rem) ---------- */
+    --cq-xs: 28rem;  /* ~448px */
+    --cq-sm: 36rem;  /* ~576px */
+    --cq-md: 48rem;  /* ~768px */
+    --cq-lg: 64rem;  /* ~1024px */
+    --cq-xl: 80rem;  /* ~1280px */
+
+    /* ---------- Minimal typography ---------- */
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    --size-sm:   0.875rem;
+    --size-base: 1rem;
+    --size-lg:   1.125rem;
+    --size-xl:   1.25rem;
+    --size-2xl:  1.5rem;
+    --size-3xl:  1.75rem;
+
+    --line-tight:  1.2;
+    --line-normal: 1.5;
+    --line-loose:  1.8;
+
+    --weight-light:   300;
+    --weight-regular: 400;
+    --weight-medium:  500;
+
+  }
+
+  /* ---------- Dark theme overrides ---------- */
+  html[data-theme="dark"] {
+    --surface-0: rgb(var(--walnut-900-rgb));
+    --surface-1: rgb(var(--walnut-800-rgb));
+    --surface-2: rgb(var(--walnut-700-rgb));
+    --surface-3: rgb(var(--walnut-650-rgb));
+    --surface-4: color-mix(in oklab, rgb(var(--walnut-650-rgb)) 85%, white 15%);
+
+    --text-primary:   rgb(var(--white-rgb));
+    --text-secondary: color-mix(in oklch, rgb(var(--white-rgb)) 86%, rgb(var(--gold-400-rgb)) 14%);
+    --text-inverse:   rgb(var(--walnut-800-rgb));
+
+    --border-subtle: color-mix(in oklab, currentColor 14%, transparent);
+    --border-medium: rgb(255 255 255 / 0.16);
+    --border-strong: rgb(255 255 255 / 0.32);
+    --focus-ring-color: color-mix(in oklab, var(--accent-gold) 35%, transparent);
+
+    /* Dark-adapted shadows */
+    --shadow-md: 0 3px 6px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.35);
+    --shadow-lg: 0 18px 40px rgb(0 0 0 / 0.55);
+  }
+
+  /* ---------- Brand accents (light+dark) ---------- */
+  /* Swap brand without changing components */
+  html[data-brand="romantic"] {
+    --accent-rose: var(--rose-500, rgb(var(--rose-500-rgb)));
+    --accent-gold: var(--gold-400, rgb(var(--gold-400-rgb)));
+    --accent-sage: var(--sage-400, rgb(var(--sage-400-rgb)));
+  }
+
+  html[data-brand="modern"] {
+    /* Cooler champagne/coral/teal */
+    @supports (color: oklch(0.5 0 0)) {
+      --accent-rose: oklch(0.72 0.10 10);
+      --accent-gold: oklch(0.86 0.07 95);
+      --accent-sage: oklch(0.80 0.07 190);
+    }
+    @supports not (color: oklch(0.5 0 0)) {
+      --accent-rose: rgb(230 140 130);
+      --accent-gold: rgb(240 225 190);
+      --accent-sage: rgb(150 190 190);
+    }
+  }
+}
+
+/* ---------------------- Usage examples (optional) --------------------------
+Button primitive (consume role tokens, not brand names):
+
+.button {
+  --btn-bg: var(--accent-gold);
+  --btn-fg: var(--text-inverse);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border-radius: var(--radius-pill);
+  padding: var(--space-12) var(--space-24);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--motion-press-duration) var(--motion-press-ease),
+              box-shadow var(--motion-hover-duration) var(--motion-hover-ease);
+}
+.button:focus-visible {
+  outline: var(--focus-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-offset);
+}
+.button:hover { box-shadow: var(--shadow-lg); }
+.button:active { transform: translateY(1px); }
+
+Card primitive:
+
+.card {
+  background: var(--surface-1);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-24);
+  container-type: inline-size;                 /* enable @container */
+}
+@container (min-width: var(--cq-md)) {
+  .card { padding: var(--space-32); }
+}
+--------------------------------------------------------------------------- */

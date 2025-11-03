@@ -54,7 +54,7 @@
     font-weight: var(--fw-medium);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--theme-accent-rose, currentColor);
+    color: var(--accent-rose);
   }
 
   /* Optional block margins (opt-in) */

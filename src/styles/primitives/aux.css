@@ -34,15 +34,6 @@
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-2xl, 16px);
-    box-shadow: var(--shadow-romantic-md);
-  }
-}
-@layer primitives {
-  [data-glass="true"] {
-    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-2xl, 16px);
-    box-shadow: var(--shadow-romantic-md);
+    box-shadow: var(--shadow-md);
   }
 }

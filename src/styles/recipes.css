@@ -6,7 +6,7 @@
 @layer recipes {
   /* Contract vars every section can rely on */
   [data-recipe] {
-    --rc-bg: var(--bg-surface, var(--surface-1));
+    --rc-bg: var(--surface-0);
     --rc-card: var(--surface-1);
     --rc-fg: var(--text-primary);
     --rc-fg-muted: var(--text-secondary);
@@ -31,7 +31,7 @@
 
   /* ---------- LIGHT SURFACES ---------- */
   [data-recipe="surface-rose"] {
-    --rc-bg: var(--bg-surface);
+    --rc-bg: var(--surface-0);
     --rc-card: var(--surface-1);
     --rc-fg: var(--text-primary);
     --rc-fg-muted: var(--text-secondary);
@@ -40,11 +40,11 @@
   }
 
   [data-recipe="surface-sage"] {
-    --rc-bg: var(--bg-surface);
+    --rc-bg: var(--surface-0);
     --rc-card: var(--surface-1);
     --rc-fg: var(--text-primary);
     --rc-fg-muted: var(--text-secondary);
-    --rc-accent: var(--theme-accent-sage, rgb(176 196 182));
+    --rc-accent: var(--accent-sage);
     --rc-border: var(--border-subtle);
   }
 
@@ -58,7 +58,7 @@
 
   [data-recipe="tint-sage"] {
     --rc-bg: var(--surface-1);
-    --rc-bg: color-mix(in srgb, var(--surface-1) 92%, var(--theme-accent-sage, rgb(176 196 182)) 8%);
+    --rc-bg: color-mix(in srgb, var(--surface-1) 92%, var(--accent-sage) 8%);
   }
 
   /* ---------- DARK / HERO ---------- */
@@ -70,6 +70,8 @@
     --rc-fg: var(--text-inverse, #fff);
     --rc-fg-muted: color-mix(in srgb, var(--rc-fg) 75%, transparent);
     --rc-accent: var(--accent-gold, #E4C896);
+    --rc-accent-contrast: #2C2416;  /* Dark text on gold accent */
+    --rc-fg-hero: var(--text-inverse, #fff);  /* Hero foreground text */
     --rc-border: rgba(255, 255, 255, 0.16);
     color-scheme: dark;
   }
@@ -153,8 +155,8 @@
   }
 
   :where([data-card][data-surface="sage"]) {
-    --card-surface: color-mix(in oklch, var(--surface-1) 94%, var(--theme-accent-sage, rgb(176 196 182)) 6%);
-    --card-border: color-mix(in oklch, var(--theme-accent-sage, rgb(176 196 182)) 30%, transparent);
+    --card-surface: color-mix(in oklch, var(--surface-1) 94%, var(--accent-sage) 6%);
+    --card-border: color-mix(in oklch, var(--accent-sage) 30%, transparent);
   }
 
   /* ================================================

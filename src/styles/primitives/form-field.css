@@ -34,8 +34,8 @@
      FIELD TOKENS
      ========================================================= */
   :root {
-    --field-bg: var(--theme-bg, oklch(0.98 0 95));
-    --field-text: var(--theme-text, oklch(0.22 0.02 95));
+    --field-bg: var(--surface-1);
+    --field-text: var(--text-primary);
     --field-border: var(--mix-subtle);
     --field-border-hover: var(--mix-soft);
     --field-ring: var(--mix-strong);         /* Neutral focus mat */

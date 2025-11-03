@@ -73,7 +73,7 @@ export default function HeroPrimitive({
           textAlign: align === 'center' ? 'center' : align === 'end' ? 'right' : 'left',
           maxWidth: 800,
           margin: align === 'center' ? '0 auto' : '0',
-          boxShadow: glass ? 'var(--shadow-romantic-lg)' : undefined,
+          boxShadow: glass ? 'var(--shadow-lg)' : undefined,
         }}
       >
         {/* Eyebrow */}

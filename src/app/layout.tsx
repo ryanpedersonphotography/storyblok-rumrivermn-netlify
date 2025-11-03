@@ -2,7 +2,7 @@
 // Root layout: tokens + primitives + globals + recipes + providers
 
 // 1) Tokens define @layer order
-import '@/styles/tokens/theme.css'
+import '@/styles/tokens/theme.tokens.v3.css'
 
 // 2) Primitives for components
 import '@/styles/primitives/index.css'
