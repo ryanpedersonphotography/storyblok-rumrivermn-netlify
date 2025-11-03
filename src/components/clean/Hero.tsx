@@ -1,111 +1,64 @@
-// ───────────────────────────────────────────────────────────────────────────────
-// 1) CLEAN HERO (Storyblok-ready)  src/components/clean/Hero.tsx
-// - storyblokEditable(blok) for inline editing
-// - Field mapping for clean architecture (kicker/title/title_accent/description/bg_image)
-// - Safe image handling (asset object or string)
-// - Sets --hero-bg-url for CSS layer
-// ───────────────────────────────────────────────────────────────────────────────
-'use client'
-import React from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import React from 'react';
+import HeroPrimitive, { type HeroPrimitiveProps } from '@/components/primitive/HeroPrimitive';
 
-type SBAsset = { filename?: string; alt?: string } | string | undefined
+/**
+ * Adapter that preserves your current clean/Hero API (blok-driven)
+ * and maps it to the pure primitives Hero.
+ *
+ * If your actual blok field names differ, adjust the mappings below.
+ */
+type CleanHeroProps = {
+  // If your current component receives `blok`, keep it:
+  blok?: {
+    eyebrow?: string;
+    title?: string;
+    accent?: string;
+    lead?: string;
+    overlay?: 'none' | 'soft' | 'strong';
+    height?: 'auto' | 'screen';
+    align?: 'start' | 'center' | 'end';
+    density?: 'compact' | 'normal' | 'airy';
+    paddingY?: 'sm' | 'md' | 'lg' | 'xl';
+    background_image?: { filename: string; alt?: string; focal_x?: string; focal_y?: string };
+    primary_cta_label?: string;
+    primary_cta_href?: string;
+    secondary_cta_label?: string;
+    secondary_cta_href?: string;
+    show_scroll_indicator?: boolean;
+  } | undefined;
 
-interface HeroBlok {
-  _uid?: string
-  component?: string
-  // common field aliases for content mapping:
-  kicker?: string
-  title?: string
-  title_accent?: string
-  description?: string
-  background_image?: SBAsset
-  hero_image?: SBAsset
-  bg_image?: SBAsset
-  primary_cta_text?: string
-  scroll_text?: string
-  [key: string]: any
-}
+  // Or if you already had a prop shape, keep it and map similarly.
+} & Partial<HeroPrimitiveProps>;
 
-function assetUrl(a: SBAsset): string | undefined {
-  if (!a) return undefined
-  if (typeof a === 'string') return a
-  return a.filename
-}
-function assetAlt(a: SBAsset, fallback: string): string {
-  if (!a) return fallback
-  if (typeof a === 'string') return fallback
-  return a.alt || fallback
-}
+export default function Hero({ blok }: CleanHeroProps) {
+  const props: HeroPrimitiveProps = {
+    eyebrow: blok?.eyebrow ?? '',
+    title: blok?.title ?? 'Your Dream Wedding',
+    accent: blok?.accent ?? '',
+    lead: blok?.lead ?? '',
+    overlay: (blok?.overlay as HeroPrimitiveProps['overlay']) ?? 'soft',
+    height: (blok?.height as HeroPrimitiveProps['height']) ?? 'screen',
+    align: (blok?.align as HeroPrimitiveProps['align']) ?? 'center',
+    density: (blok?.density as HeroPrimitiveProps['density']) ?? 'normal',
+    paddingY: (blok?.paddingY as HeroPrimitiveProps['paddingY']) ?? 'lg',
+    image: blok?.background_image?.filename
+      ? {
+          src: blok.background_image.filename,
+          alt: blok.background_image.alt,
+          focalX: blok.background_image.focal_x,
+          focalY: blok.background_image.focal_y,
+          position: 'cover',
+          attachment: 'fixed',
+        }
+      : undefined,
+    primaryCta: blok?.primary_cta_label && blok?.primary_cta_href
+      ? { label: blok.primary_cta_label, href: blok.primary_cta_href }
+      : undefined,
+    secondaryCta: blok?.secondary_cta_label && blok?.secondary_cta_href
+      ? { label: blok.secondary_cta_label, href: blok.secondary_cta_href }
+      : undefined,
+    showScrollIndicator: Boolean(blok?.show_scroll_indicator),
+  };
 
-export default function Hero({ blok }: { blok: HeroBlok }) {
-  const bg =
-    assetUrl(blok.background_image) ||
-    assetUrl(blok.hero_image) ||
-    assetUrl(blok.bg_image) ||
-    '/images/barn-exterior-full-deck-view-evening.jpg'
-
-  const bgAlt =
-    assetAlt(blok.background_image, '') ||
-    assetAlt(blok.hero_image, '') ||
-    assetAlt(blok.bg_image, 'Rum River Wedding Barn')
-
-  const style = { '--hero-bg-url': `url("${bg}")` } as React.CSSProperties
-
-  const kicker = blok.kicker || 'Where Dreams Begin'
-  const title = blok.title || 'Rum River'
-  const titleAccent = blok.title_accent || 'Wedding Barn'
-  const lead =
-    blok.description ||
-    "Nestled along Minnesota's scenic Rum River, our historic barn offers the perfect blend of rustic charm and modern elegance for your once-in-a-lifetime celebration."
-  const ctaLabel = blok.primary_cta_text || 'Schedule Your Visit'
-  const scrollText = blok.scroll_text || 'Discover Your Perfect Day'
-
-  // smooth scroll (no Bridge conflicts)
-  const onScrollClick = () => {
-    const html = document.documentElement
-    const prev = html.style.scrollBehavior
-    html.style.scrollBehavior = 'auto'
-    const start = window.pageYOffset
-    const amount = window.innerHeight * 0.9
-    const duration = 850
-    const t0 = performance.now()
-    const ease = (t: number) => t * (2 - t)
-    const step = (t1: number) => {
-      const p = Math.min((t1 - t0) / duration, 1)
-      window.scrollTo({ top: start + amount * ease(p), behavior: 'auto' })
-      if (p < 1) requestAnimationFrame(step)
-      else html.style.scrollBehavior = prev
-    }
-    requestAnimationFrame(step)
-  }
-
-  return (
-    <section className="hero" data-section="hero" style={style} {...storyblokEditable(blok)}>
-      <span className="sr-only">{bgAlt}</span>
-
-      <div className="hero-content">
-        <div className="hero-eyebrow">{kicker}</div>
-
-        <h1 className="hero-title">
-          {title}
-          <br />
-          <span className="hero-title-accent">{titleAccent}</span>
-        </h1>
-
-        <p className="hero-lead">{lead}</p>
-
-        <div className="hero-ctas">
-          <a href="#contact" className="hero-cta hero-cta-secondary">
-            {ctaLabel}
-          </a>
-        </div>
-      </div>
-
-      <div className="hero-scroll" onClick={onScrollClick}>
-        <div className="hero-scroll-text">{scrollText}</div>
-        <div className="hero-scroll-arrow">↓</div>
-      </div>
-    </section>
-  )
+  return <HeroPrimitive {...props} />;
 }
