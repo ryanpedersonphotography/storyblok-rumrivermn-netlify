@@ -1,14 +1,11 @@
+/* ========================================================================
+   FILE: src/components/ui/SectionLayout.tsx
+   PURPOSE: Content orchestration (header/content/actions/media/grid)
+   - No theme logic; emits classes + data-attrs + CSS variables
+   - Grid is exposed via CSS vars for recipes to consume (not JSON strings)
+   ======================================================================== */
 import * as React from 'react'
 
-/* ============================================================================
-   SECTION LAYOUT COMPONENT
-   - Content orchestration (header/title/lead/actions/media/grid)
-   - Named layout patterns for common use cases
-   - Declarative API with escape hatches via slots
-   - Works with SectionShell for complete section composition
-   ============================================================================ */
-
-/** High-level canned layouts you'll reuse across pages */
 export type LayoutVariant =
   | 'legacy-full-centered'
   | 'header-center-content-left'
@@ -24,46 +21,47 @@ export type LayoutVariant =
 
 export type RailWidth = 'prose' | 'content' | 'wide' | 'full'
 export type RailAlign = 'left' | 'center' | 'right'
+export type Overlay = 'none' | 'soft' | 'strong'
+export type MediaPlacement = 'left' | 'right' | 'behind'
 
 export interface HeaderProps {
-  kicker?: string // a.k.a. scriptAccent/eyebrow
+  kicker?: string
   title?: React.ReactNode
   lead?: React.ReactNode
   align?: 'left' | 'center' | 'right'
-  max?: RailWidth | 'none' // override clamp/prose
+  max?: RailWidth | 'none'
 }
 
 export interface ActionsProps {
   align?: 'start' | 'center' | 'end'
   gap?: 'sm' | 'md' | 'lg'
-  stackAt?: 'sm' | 'md' | 'lg' // switch row→column
+  stackAt?: 'sm' | 'md' | 'lg'
   children?: React.ReactNode
 }
 
 export interface RailsProps {
   headerWidth?: RailWidth
   contentWidth?: RailWidth
-  align?: RailAlign // aligns rails to left/center/right origin
+  align?: RailAlign
 }
 
 export interface GridProps {
-  /** Declarative grid for content area */
-  columns?: { base: 1; sm?: 1 | 2; md?: 1 | 2 | 3; lg?: 1 | 2 | 3 | 4 }
+  columns?: { base: number; sm?: number; md?: number; lg?: number; xl?: number }
   gap?: 'xs' | 'sm' | 'md' | 'lg'
   rowHeight?: number | 'auto'
-  useSubgrid?: boolean // try subgrid when supported
+  useSubgrid?: boolean
 }
 
 export interface MediaProps {
   src?: string
-  alt?: string // only for <img> in content; not for bg
-  placement?: 'left' | 'right' | 'behind'
+  alt?: string
+  placement?: MediaPlacement
   aspect?: '16/9' | '4/3' | '1/1' | 'auto'
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
-  overlay?: 'none' | 'soft' | 'strong'
+  overlay?: Overlay
 }
 
-export interface SectionLayoutProps {
+export interface SectionLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: LayoutVariant
   rails?: RailsProps
   header?: HeaderProps
@@ -71,7 +69,6 @@ export interface SectionLayoutProps {
   grid?: GridProps
   media?: MediaProps
 
-  /** Slots for full control escape hatch */
   children?: React.ReactNode
   HeaderSlot?: React.ReactNode
   ContentSlot?: React.ReactNode
@@ -89,26 +86,38 @@ export function SectionLayout({
   ContentSlot,
   ActionsSlot,
   children,
+  style,
+  className = '',
+  ...rest
 }: SectionLayoutProps) {
-  // Determine header alignment based on variant or explicit props
+  // Header + actions alignment derived from rails unless explicitly set
   const headerAlign = header?.align ?? (rails.align === 'center' ? 'center' : 'left')
-
-  // Determine actions alignment based on rails alignment
   const actionsAlign = actions?.align ?? (rails.align === 'center' ? 'center' : 'start')
+
+  // Expose grid as CSS variables (recipes read these)
+  const gridVars: React.CSSProperties = {
+    ['--grid-cols-base' as any]: (grid.columns?.base ?? 1).toString(),
+    ...(grid.columns?.sm ? { ['--grid-cols-sm' as any]: grid.columns.sm.toString() } : null),
+    ...(grid.columns?.md ? { ['--grid-cols-md' as any]: grid.columns.md.toString() } : null),
+    ...(grid.columns?.lg ? { ['--grid-cols-lg' as any]: grid.columns.lg.toString() } : null),
+    ...(grid.columns?.xl ? { ['--grid-cols-xl' as any]: grid.columns.xl.toString() } : null),
+    ...(grid.rowHeight && grid.rowHeight !== 'auto'
+      ? { ['--grid-row-h' as any]: `${grid.rowHeight}px` }
+      : { ['--grid-row-h' as any]: 'auto' }),
+  }
 
   return (
     <div
-      className="section-layout"
+      className={`section-layout ${className}`.trim()}
+      style={{ ...style, ...gridVars }}
       data-variant={variant}
       data-hwidth={rails.headerWidth}
       data-cwidth={rails.contentWidth}
       data-ralign={rails.align}
-      data-gridcols={JSON.stringify(grid.columns)}
       data-gridgap={grid.gap}
-      data-rowh={grid.rowHeight}
       data-subgrid={grid.useSubgrid ? 'true' : undefined}
+      {...rest}
     >
-      {/* Header */}
       {(header || HeaderSlot) && (
         <header
           className="section-layout__header"
@@ -117,21 +126,15 @@ export function SectionLayout({
         >
           {HeaderSlot ?? (
             <>
-              {header?.kicker && (
-                <p className="section-layout__kicker">{header.kicker}</p>
-              )}
-              {header?.title && (
-                <h2 className="section-layout__title">{header.title}</h2>
-              )}
-              {header?.lead && (
-                <p className="section-layout__lead">{header.lead}</p>
-              )}
+              {header?.kicker && <p className="section-layout__kicker">{header.kicker}</p>}
+              {header?.title && <h2 className="section-layout__title">{header.title}</h2>}
+              {header?.lead && <p className="section-layout__lead">{header.lead}</p>}
             </>
           )}
         </header>
       )}
 
-      {/* Media (if placement is 'behind', it goes before content) */}
+      {/* Media 'behind' renders before content so overlay can sit beneath */}
       {media && media.placement === 'behind' && (
         <div
           className="section-layout__media"
@@ -139,25 +142,19 @@ export function SectionLayout({
           data-aspect={media.aspect}
           data-radius={media.radius}
         >
-          <img src={media.src} alt={media.alt || ''} />
+          {media.src && <img src={media.src} alt={media.alt || ''} />}
           {media.overlay && media.overlay !== 'none' && (
-            <div
-              className="section-layout__media-overlay"
-              data-overlay={media.overlay}
-              aria-hidden="true"
-            />
+            <div className="section-layout__media-overlay" data-overlay={media.overlay} aria-hidden="true" />
           )}
         </div>
       )}
 
-      {/* Content rail */}
       {(children || ContentSlot) && (
         <div className="section-layout__content" data-variant={variant}>
           {ContentSlot ?? children}
         </div>
       )}
 
-      {/* Media (if placement is left/right, it's in the content flow) */}
       {media && (media.placement === 'left' || media.placement === 'right') && (
         <div
           className="section-layout__media"
@@ -165,18 +162,13 @@ export function SectionLayout({
           data-aspect={media.aspect}
           data-radius={media.radius}
         >
-          <img src={media.src} alt={media.alt || ''} />
+          {media.src && <img src={media.src} alt={media.alt || ''} />}
           {media.overlay && media.overlay !== 'none' && (
-            <div
-              className="section-layout__media-overlay"
-              data-overlay={media.overlay}
-              aria-hidden="true"
-            />
+            <div className="section-layout__media-overlay" data-overlay={media.overlay} aria-hidden="true" />
           )}
         </div>
       )}
 
-      {/* Actions */}
       {(actions?.children || ActionsSlot) && (
         <div
           className="section-layout__actions"

@@ -17,6 +17,12 @@
     container-type: inline-size;
   }
 
+  /* Container queries (opt-in via data-cq="on") */
+  .section[data-cq="on"] .section__rail[data-rail="container"] {
+    container-type: inline-size;
+    container-name: var(--container-name, section);
+  }
+
   /* Container query: increase padding on larger sections */
   @container (min-width: 48rem) {
     .section {
@@ -32,6 +38,11 @@
       color-mix(in oklch, var(--surface-1) 96%, var(--accent-rose) 4%) 0%,
       var(--surface-0) 100%
     );
+  }
+
+  /* Soft variant with tint contract (tint-rose, tint-sage) */
+  .section[data-variant="soft"][style*="--rc-tint"] {
+    background: color-mix(in oklch, var(--surface-1) 94%, var(--rc-tint) 6%);
   }
 
   /* Contrast variant — inverted surface */

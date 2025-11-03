@@ -1,40 +1,39 @@
+/* ========================================================================
+   FILE: src/components/ui/SectionShell.tsx
+   PURPOSE: Visual frame + theming contract for sections (no layout logic)
+   - Emits `.section` + recipe data-attrs consumed by recipes/section.css
+   - Maps friendly background props → data-variant + recipe contract vars
+   - Zero legacy/global token references
+   ======================================================================== */
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
-
-/* ============================================================================
-   SECTION SHELL COMPONENT
-   - Token-driven layout system
-   - Visual "frame" for sections (semantics, theming, spacing, bleed, overlays)
-   - Separates visual concerns from content orchestration
-   - Uses Radix Slot for flexible element rendering
-   ============================================================================ */
 
 export type Align = 'left' | 'center' | 'right'
 export type Container = 'prose' | 'content' | 'wide' | 'full'
 export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
 export type Tone = 'auto' | 'light' | 'dark'
-export type Background =
-  | 'surface'
-  | 'tint-rose'
-  | 'tint-sage'
-  | { kind: 'gradient'; token?: string }
-  | { kind: 'image'; src: string; attachment?: 'fixed' | 'scroll'; fit?: 'cover' | 'contain'; position?: string; overlay?: 'none' | 'soft' | 'strong' }
-
 export type Divider = 'none' | 'hairline' | 'thread-gold'
 export type Height = 'auto' | 'screen'
+export type Radius = 'none' | 'sm' | 'md' | 'lg' | 'xl'
+export type Shadow = 'none' | 'sm' | 'md' | 'lg'
+export type Overlay = 'none' | 'soft' | 'strong'
+
+export type Background =
+  | 'surface'                    // plain section surface
+  | 'tint-rose'                  // soft tinted veil using --accent-rose
+  | 'tint-sage'                  // soft tinted veil using --accent-sage
+  | { kind: 'gradient'; token?: 'prominent' | string } // add .gradient--<token>
+  | { kind: 'image'; src: string; attachment?: 'fixed' | 'scroll'; fit?: 'cover' | 'contain'; position?: string; overlay?: Overlay }
 
 export interface SectionShellProps extends React.HTMLAttributes<HTMLElement> {
-  /** Render as custom element via Slot (Radix) */
   asChild?: boolean
   as?: keyof JSX.IntrinsicElements
 
-  /** Semantics & a11y */
   id?: string
   role?: 'region' | 'complementary' | 'navigation' | 'main' | 'contentinfo' | 'none'
   'aria-labelledby'?: string
   'aria-label'?: string
 
-  /** Layout frame (no content orchestration here) */
   align?: Align
   container?: Container
   paddingY?: PaddingY
@@ -44,11 +43,14 @@ export interface SectionShellProps extends React.HTMLAttributes<HTMLElement> {
   tone?: Tone
   background?: Background
   divider?: Divider
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
-  shadow?: 'none' | 'sm' | 'md' | 'lg'
+  radius?: Radius
+  shadow?: Shadow
 
-  /** Advanced layout hooks */
+  /** Enable container queries for the inner rail; name is optional */
+  containerQueries?: boolean
   containerName?: string
+
+  /** Sticky helper for hero bars, etc. */
   stickiness?: { top?: string }
 }
 
@@ -68,6 +70,7 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
       divider = 'none',
       radius = 'none',
       shadow = 'none',
+      containerQueries = false,
       containerName,
       stickiness,
       style,
@@ -79,14 +82,32 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
   ) => {
     const Comp: any = asChild ? Slot : Tag
 
-    // Normalize background
-    const bgKind = typeof background === 'string' ? background : background.kind
+    // ---- Map background prop → data-variant + recipe-local contract vars
+    let dataVariant: string | undefined
+    const rcVars: React.CSSProperties = {}
 
-    // Inline style for bg image and stickiness
+    if (typeof background === 'string') {
+      if (background === 'surface') {
+        dataVariant = undefined // base
+      } else if (background === 'tint-rose' || background === 'tint-sage') {
+        dataVariant = 'soft'
+        // recipe contract variable: tint color to mix into surface
+        rcVars['--rc-tint' as any] =
+          background === 'tint-rose' ? 'var(--accent-rose)' : 'var(--accent-sage)'
+      }
+    } else if (background.kind === 'gradient') {
+      dataVariant = 'soft'
+      // rely on primitives/gradient.css; allow custom token hook
+      rcVars['--rc-gradient-token' as any] = background.token ?? 'prominent'
+    } else if (background.kind === 'image') {
+      dataVariant = 'image'
+    }
+
+    // ---- Root inline style: stickiness + recipe vars + (optional) bg-image
     const sectionStyle: React.CSSProperties = {
       ...style,
       ...(stickiness && { position: 'sticky', top: stickiness.top }),
-      ...(containerName && { ['--container-name' as any]: containerName }),
+      ...rcVars,
       ...(typeof background === 'object' &&
         background.kind === 'image' && {
           backgroundImage: `url(${background.src})`,
@@ -100,8 +121,10 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
     return (
       <Comp
         ref={ref}
-        data-clean-root="true"
-        data-section="shell"
+        className={`section ${className}`.trim()}
+        style={sectionStyle}
+        data-section="unified"
+        data-variant={dataVariant}
         data-align={align}
         data-container={container}
         data-padding-y={paddingY}
@@ -109,38 +132,32 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
         data-height={height}
         data-bleed={bleed ? 'true' : undefined}
         data-tone={tone}
-        data-bg={typeof background === 'string' ? background : undefined}
-        data-bg-kind={bgKind}
         data-divider={divider}
         data-radius={radius}
         data-shadow={shadow}
+        data-cq={containerQueries ? 'on' : undefined}
         data-container-name={containerName}
-        className={`section-shell ${className}`.trim()}
-        style={sectionStyle}
         {...rest}
       >
-        {/* Optional overlay for bg images/gradients */}
+        {/* Overlay layer for image backgrounds */}
         {typeof background === 'object' &&
           background.kind === 'image' &&
           background.overlay &&
           background.overlay !== 'none' && (
-            <div
-              className="section-shell__overlay"
-              data-overlay={background.overlay}
-              aria-hidden="true"
-            />
+            <div className="section__overlay" data-overlay={background.overlay} aria-hidden="true" />
           )}
 
-        <div className="section-shell__rail" data-rail="container">
+        {/* Container rail. recipes/section.css should set:
+           [data-cq="on"] .section__rail[data-rail="container"] {
+             container-type: inline-size;
+             container-name: var(--container-name, section);
+           } */}
+        <div className="section__rail" data-rail="container">
           {children}
         </div>
 
         {divider !== 'none' && (
-          <div
-            className="section-shell__divider"
-            data-divider={divider}
-            aria-hidden="true"
-          />
+          <div className="section__divider" data-divider={divider} aria-hidden="true" />
         )}
       </Comp>
     )
@@ -148,5 +165,4 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
 )
 
 SectionShell.displayName = 'SectionShell'
-
 export default SectionShell
