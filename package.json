@@ -19,6 +19,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-slot": "^1.2.3",
+    "@storyblok/preview-bridge": "^2.1.6",
     "@storyblok/react": "4.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
