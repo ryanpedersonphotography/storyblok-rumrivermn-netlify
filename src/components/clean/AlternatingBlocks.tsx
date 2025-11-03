@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 import Section from '@/components/ui/SectionEnhanced'
 
 interface AlternatingBlocksBlok {

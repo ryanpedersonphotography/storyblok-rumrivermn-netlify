@@ -6,7 +6,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 import { renderRichText } from '@storyblok/js'
 import Section from '@/components/ui/SectionEnhanced'
 
