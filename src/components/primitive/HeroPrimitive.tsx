@@ -1,33 +1,32 @@
+import React from 'react';
+
 import Section from '@/components/ui/SectionEnhanced';
-import type { CSSVars } from '@/types/css-vars';
 
 export type HeroPrimitiveProps = {
   eyebrow?: string;
   title: string;
-  accent?: string;           // portion of title to accent (optional)
+  accent?: string;
   lead?: string;
   height?: 'auto' | 'screen';
   overlay?: 'none' | 'soft' | 'strong';
+  align?: 'start' | 'center' | 'end';
+  density?: 'compact' | 'normal' | 'airy';
+  paddingY?: 'sm' | 'md' | 'lg' | 'xl';
+  tone?: 'prominent' | 'hero'; // hero is back-compat alias
   image?: {
     src: string;
     alt?: string;
     position?: 'cover' | 'contain';
     attachment?: 'fixed' | 'scroll';
-    focalX?: string; // e.g., '50%'
-    focalY?: string; // e.g., '40%'
+    focalX?: string;
+    focalY?: string;
   };
   primaryCta?: { label: string; href: string; rel?: string; target?: string };
   secondaryCta?: { label: string; href: string; rel?: string; target?: string };
   showScrollIndicator?: boolean;
-  align?: 'start' | 'center' | 'end';
-  density?: 'compact' | 'normal' | 'airy';     // ties into your primitives density rules
-  paddingY?: 'sm' | 'md' | 'lg' | 'xl';
+  glass?: boolean; // turn on frosted glass behind text
 };
 
-/**
- * Pure-primitives Hero. No legacy CSS.
- * Uses only primitives from the migration layer.
- */
 export default function HeroPrimitive({
   eyebrow,
   title,
@@ -35,137 +34,122 @@ export default function HeroPrimitive({
   lead,
   height = 'screen',
   overlay = 'soft',
-  image,
-  primaryCta,
-  secondaryCta,
-  showScrollIndicator = false,
   align = 'center',
   density = 'normal',
   paddingY = 'lg',
+  tone = 'prominent',
+  image,
+  primaryCta,
+  secondaryCta,
+  showScrollIndicator = true,
+  glass = false,
 }: HeroPrimitiveProps) {
+  // Map align values: start/end → left/right for Section
+  const sectionAlign = align === 'start' ? 'left' : align === 'end' ? 'right' : 'center';
 
   return (
     <Section
-      recipe="hero-dark"
-      density={density}
       height={height}
-      align={align}
+      align={sectionAlign}
       paddingY={paddingY}
       image={image ? {
         src: image.src,
         alt: image.alt || '',
-        position: image.position,
-        attachment: image.attachment
+        position: image.position ?? 'cover',
+        attachment: image.attachment ?? 'fixed',
       } : undefined}
       overlay={overlay}
+      {...{ 'data-recipe': 'hero-dark', 'data-density': density, 'data-gradient': 'auto', 'data-tone': tone }}
     >
-      <div className="stack" style={{
-        ["--stack-gap" as CSSVars]: "var(--space-32)",
-        alignItems: align === 'center' ? 'center' : align === 'end' ? 'flex-end' : 'flex-start',
-        textAlign: align === 'center' ? 'center' : align === 'end' ? 'right' : 'left',
-        maxWidth: "800px",
-        margin: align === 'center' ? "0 auto" : "0",
-        position: "relative",
-        zIndex: 10
-      }}>
-        {/* Eyebrow - using text primitive */}
+      <div
+        className="stack"
+        data-container="lg"
+        {...(glass ? { 'data-glass': 'true' } : {})}
+        style={{
+          ['--stack-gap' as any]: 'var(--space-32)',
+          alignItems:
+            align === 'center' ? 'center' :
+            align === 'end'    ? 'flex-end' : 'flex-start',
+          textAlign: align === 'center' ? 'center' : align === 'end' ? 'right' : 'left',
+          maxWidth: 800,
+          margin: align === 'center' ? '0 auto' : '0',
+          boxShadow: glass ? 'var(--shadow-romantic-lg)' : undefined,
+        }}
+      >
+        {/* Eyebrow */}
         {eyebrow && (
-          <p
-            data-ui="text"
-            data-size="lg"
-            style={{
-              fontFamily: "var(--font-script, 'Dancing Script', cursive)",
-              fontSize: "clamp(1.5rem, 4vw, 2rem)",
-              color: "var(--rc-accent)",
-              fontWeight: 400
-            }}
-          >
+          <p className="text-script" data-ui="text" data-size="lg" style={{ color: 'var(--rc-accent)' }}>
             {eyebrow}
           </p>
         )}
 
-        {/* Title - using heading primitive */}
-        <h1
-          data-ui="heading"
-          data-size="xl"
-          style={{
-            fontSize: "clamp(3rem, 8vw, 5.5rem)",
-            lineHeight: 1.1,
-            marginBlock: "var(--space-16)"
-          }}
-        >
+        {/* Title + optional accent */}
+        <h1 className="text-display" data-ui="heading" data-size="xl" style={{
+          fontSize: 'clamp(3rem, 8vw, 5.5rem)',
+          marginBlock: 'var(--space-16)',
+        }}>
           {title}
-          {accent && (
+          {accent ? (
             <>
               <br />
-              <span style={{
-                fontFamily: "var(--font-script, 'Dancing Script', cursive)",
-                fontWeight: 400,
-                fontSize: "0.85em",
-                color: "var(--rc-accent)"
-              }}>
+              <span data-accent="true" style={{ color: 'var(--rc-accent)' }}>
                 {accent}
               </span>
             </>
-          )}
+          ) : null}
         </h1>
 
-        {/* Lead text - using text primitive */}
+        {/* Lead */}
         {lead && (
-          <p
-            data-ui="text"
-            data-size="lg"
-            style={{
-              maxWidth: "65ch",
-              opacity: 0.95,
-              lineHeight: 1.7,
-              margin: align === 'center' ? "0 auto" : "0"
-            }}
-          >
+          <p data-ui="text" data-size="lg" style={{
+            maxWidth: '65ch',
+            opacity: 0.95,
+            lineHeight: 1.7,
+            margin: align === 'center' ? '0 auto' : '0',
+          }}>
             {lead}
           </p>
         )}
 
-        {/* CTAs - using button primitive */}
+        {/* CTAs */}
         {(primaryCta || secondaryCta) && (
           <div className="cluster" style={{
-            ["--cluster-gap" as CSSVars]: "var(--space-20)",
-            marginBlockStart: "var(--space-24)",
-            justifyContent: align === 'center' ? 'center' : align === 'end' ? 'flex-end' : 'flex-start'
+            ['--cluster-gap' as any]: 'var(--space-20)',
+            marginBlockStart: 'var(--space-24)',
+            justifyContent:
+              align === 'center' ? 'center' :
+              align === 'end'    ? 'flex-end' : 'flex-start',
           }}>
             {primaryCta && (
-              <a 
+              <a
+                className="button"
+                data-ui="button"
+                data-variant="solid"
+                data-size="lg"
+                data-corner="pill"
                 href={primaryCta.href}
                 rel={primaryCta.rel}
                 target={primaryCta.target}
-                className="button" 
-                data-ui="button"
-                data-variant="solid" 
-                data-size="lg"
-                data-corner="pill"
                 style={{
-                  background: "var(--rc-accent)",
-                  color: "var(--rc-accent-contrast)",
-                  border: "1px solid var(--rc-accent)"
+                  background: 'var(--rc-accent)',
+                  color: 'var(--rc-accent-contrast)',
+                  border: '1px solid var(--rc-accent)',
                 }}
               >
                 {primaryCta.label}
               </a>
             )}
             {secondaryCta && (
-              <a 
+              <a
+                className="button"
+                data-ui="button"
+                data-variant="ghost"
+                data-size="lg"
+                data-corner="pill"
                 href={secondaryCta.href}
                 rel={secondaryCta.rel}
                 target={secondaryCta.target}
-                className="button" 
-                data-ui="button"
-                data-variant="ghost" 
-                data-size="lg"
-                data-corner="pill"
-                style={{
-                  color: "var(--rc-fg)",
-                  border: "1px solid currentColor"
-                }}
+                style={{ color: 'var(--rc-fg-hero)', border: '1px solid currentColor' }}
               >
                 {secondaryCta.label}
               </a>
@@ -173,7 +157,7 @@ export default function HeroPrimitive({
           </div>
         )}
 
-        {/* Scroll indicator (server-safe) */}
+        {/* Scroll indicator */}
         {showScrollIndicator && (
           <a
             href="#next-section"
@@ -182,38 +166,23 @@ export default function HeroPrimitive({
             data-variant="ghost"
             aria-label="Scroll down"
             style={{
-              marginBlockStart: "var(--space-56)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--space-8)",
-              alignItems: "center",
-              textDecoration: "none",
-              color: "var(--rc-fg)",
-              opacity: 0.9
+              marginBlockStart: 'var(--space-56)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-8)',
+              alignItems: 'center',
+              textDecoration: 'none',
+              color: 'var(--rc-fg-hero)',
+              opacity: 0.9,
             }}
           >
-            <span data-ui="text" data-size="sm" style={{ 
-              textTransform: "uppercase", 
-              letterSpacing: "0.1em" 
-            }}>
-              {showScrollIndicator === true ? 'Discover Your Perfect Day' : 'Scroll'}
+            <span data-ui="text" data-size="sm" style={{ textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              Discover Your Perfect Day
             </span>
-            <span style={{ 
-              fontSize: "1.5rem", 
-              animation: "heroScrollBounce 2s infinite" 
-            }}>
-              ↓
-            </span>
+            <span data-anim="hero-bounce" style={{ fontSize: '1.5rem' }}>↓</span>
           </a>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes heroScrollBounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(10px); }
-        }
-      `}</style>
     </Section>
   );
 }

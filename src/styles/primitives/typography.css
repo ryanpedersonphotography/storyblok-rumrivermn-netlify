@@ -247,3 +247,25 @@
    to prevent cascade conflicts with scrollbar-gutter.
    See: font-variation-settings, font-synthesis-weight
    ========================================================= */
+@layer primitives {
+  .text-script {
+    font-family: var(--font-script, 'Dancing Script', cursive);
+    font-weight: 400;
+  }
+  .text-display {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+}
+@layer primitives {
+  .text-script {
+    font-family: var(--font-script, 'Dancing Script', cursive);
+    font-weight: 400;
+  }
+  .text-display {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+}

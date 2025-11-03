@@ -20,9 +20,10 @@
     "lint:rgba": "stylelint \"src/**/*.css\" --config stylelint.extend.cjs",
     "guard:legacy-imports": "node scripts/check-legacy-imports.mjs",
     "guard:legacy-layering": "node scripts/check-legacy-layering.mjs",
-    "guard:all": "npm run guard:legacy-imports && npm run guard:legacy-layering && npm run guard:protected && npm run guard:hero-adapter",
+    "guard:all": "npm run guard:legacy-imports && npm run guard:legacy-layering && npm run guard:protected && npm run guard:hero-adapter && npm run guard:no-hero-tone",
     "guard:protected": "node scripts/check-protected-files.mjs",
-    "guard:hero-adapter": "node scripts/check-hero-adapter-hash.mjs"
+    "guard:hero-adapter": "node scripts/check-hero-adapter-hash.mjs",
+    "guard:no-hero-tone": "node scripts/check-no-hero-tone.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -49,8 +50,11 @@
     "@types/pngjs": "^6.0.5",
     "@types/react": "19.2.2",
     "cross-env": "^10.1.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "^15.3.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-regexp": "^2.10.0",
+    "eslint-plugin-unicorn": "^62.0.0",
     "fast-glob": "^3.3.3",
     "lighthouse": "^12.8.2",
     "pa11y-ci": "^4.0.1",
@@ -60,10 +64,13 @@
     "pngjs": "^7.0.0",
     "postcss": "^8.5.6",
     "postcss-safe-parser": "^7.0.1",
+    "postcss-scss": "^4.0.9",
     "start-server-and-test": "^2.1.2",
     "style-dictionary": "^4.4.0",
     "stylelint": "^16.25.0",
+    "stylelint-config-recommended-scss": "^16.0.2",
     "stylelint-config-standard": "^39.0.1",
-    "stylelint-declaration-strict-value": "^1.10.11"
+    "stylelint-declaration-strict-value": "^1.10.11",
+    "stylelint-order": "^7.0.0"
   }
 }

@@ -972,3 +972,124 @@ html[data-brand="modern"][data-theme="dark"],
     --why-shadow:   0 14px 36px rgba(0,0,0,.45);
   }
 }
+/* === HERO PRIMITIVE TOKENS (append-only, last wins) === */
+:root {
+  /* Accent + contrast used by CTAs and accent spans */
+  --rc-accent: oklch(0.78 0.12 80);
+  --rc-accent-contrast: oklch(0.27 0.05 60);
+
+  /* Hero foreground for high-contrast text over overlays */
+  --rc-fg-hero: oklch(0.98 0.01 95);
+
+  /* Optional hero gradient overlay stops (tuned for romantic palette) */
+  --hero-overlay-start: color-mix(in oklch, var(--rc-bg, oklch(0.2 0.03 60)) 85%, transparent);
+  --hero-overlay-mid:   color-mix(in oklch, var(--rc-accent) 45%, transparent);
+  --hero-overlay-end:   color-mix(in oklch, var(--rc-fg, oklch(0.97 0.02 95)) 20%, transparent);
+
+  /* Glass defaults (content card behind type, if enabled) */
+  --glass-blur: 8px;
+  --glass-saturate: 1.15;
+  --glass-bg: color-mix(in oklch, var(--rc-bg, black) 6%, transparent);
+  --glass-border: color-mix(in oklch, white 20%, transparent);
+
+  /* Romantic shadow ladder (subtle, warm) */
+  --shadow-romantic-sm: 0 4px 12px rgba(40,30,20,.12);
+  --shadow-romantic-md: 0 10px 26px rgba(40,30,20,.18);
+  --shadow-romantic-lg: 0 18px 46px rgba(40,30,20,.22);
+}
+html[data-theme="dark"] {
+  /* Dark-mode balances */
+  --rc-accent: oklch(0.72 0.12 80);
+  --rc-accent-contrast: oklch(0.94 0.01 95);
+  --rc-fg-hero: oklch(0.98 0.01 95);
+
+  --hero-overlay-start: color-mix(in oklch, var(--rc-bg, oklch(0.18 0.03 60)) 88%, transparent);
+  --hero-overlay-mid:   color-mix(in oklch, var(--rc-accent) 40%, transparent);
+  --hero-overlay-end:   color-mix(in oklch, var(--rc-fg, oklch(0.98 0.01 95)) 12%, transparent);
+
+  --glass-bg: color-mix(in oklch, var(--rc-bg, black) 12%, transparent);
+}
+/* === HERO PRIMITIVE TOKENS (append-only, last wins) === */
+:root {
+  /* Accent + contrast used by CTAs and accent spans */
+  --rc-accent: oklch(0.78 0.12 80);
+  --rc-accent-contrast: oklch(0.27 0.05 60);
+
+  /* Hero foreground for high-contrast text over overlays */
+  --rc-fg-hero: oklch(0.98 0.01 95);
+
+  /* Optional hero gradient overlay stops (tuned for romantic palette) */
+  --hero-overlay-start: color-mix(in oklch, var(--rc-bg, oklch(0.2 0.03 60)) 85%, transparent);
+  --hero-overlay-mid:   color-mix(in oklch, var(--rc-accent) 45%, transparent);
+  --hero-overlay-end:   color-mix(in oklch, var(--rc-fg, oklch(0.97 0.02 95)) 20%, transparent);
+
+  /* Glass defaults (content card behind type, if enabled) */
+  --glass-blur: 8px;
+  --glass-saturate: 1.15;
+  --glass-bg: color-mix(in oklch, var(--rc-bg, black) 6%, transparent);
+  --glass-border: color-mix(in oklch, white 20%, transparent);
+
+  /* Romantic shadow ladder (subtle, warm) */
+  --shadow-romantic-sm: 0 4px 12px rgba(40,30,20,.12);
+  --shadow-romantic-md: 0 10px 26px rgba(40,30,20,.18);
+  --shadow-romantic-lg: 0 18px 46px rgba(40,30,20,.22);
+}
+html[data-theme="dark"] {
+  /* Dark-mode balances */
+  --rc-accent: oklch(0.72 0.12 80);
+  --rc-accent-contrast: oklch(0.94 0.01 95);
+  --rc-fg-hero: oklch(0.98 0.01 95);
+
+  --hero-overlay-start: color-mix(in oklch, var(--rc-bg, oklch(0.18 0.03 60)) 88%, transparent);
+  --hero-overlay-mid:   color-mix(in oklch, var(--rc-accent) 40%, transparent);
+  --hero-overlay-end:   color-mix(in oklch, var(--rc-fg, oklch(0.98 0.01 95)) 12%, transparent);
+
+  --glass-bg: color-mix(in oklch, var(--rc-bg, black) 12%, transparent);
+}
+/* =========================
+   TONE: PROMINENT (gradient)
+   Brand + theme remap these semantic tokens globally.
+   Components consume ONLY --tone-prominent-* (not brand names).
+   ========================= */
+html[data-brand="romantic"] {
+  --tone-prominent-start: var(--rom-hero-start);
+  --tone-prominent-mid:   var(--rom-hero-mid);
+  --tone-prominent-end:   var(--rom-hero-end);
+  --tone-prominent-fg:    var(--rom-hero-fg);
+  --tone-accent:          var(--rom-accent);
+  --tone-accent-contrast: var(--rom-accent-contrast);
+}
+html[data-brand="modern"] {
+  --tone-prominent-start: var(--mod-hero-start);
+  --tone-prominent-mid:   var(--mod-hero-mid);
+  --tone-prominent-end:   var(--mod-hero-end);
+  --tone-prominent-fg:    var(--mod-hero-fg);
+  --tone-accent:          var(--mod-accent);
+  --tone-accent-contrast: var(--mod-accent-contrast);
+}
+html[data-brand="forest"] {
+  --tone-prominent-start: var(--for-hero-start);
+  --tone-prominent-mid:   var(--for-hero-mid);
+  --tone-prominent-end:   var(--for-hero-end);
+  --tone-prominent-fg:    var(--for-hero-fg);
+  --tone-accent:          var(--for-accent);
+  --tone-accent-contrast: var(--for-accent-contrast);
+}
+
+/* Safe defaults if data-brand missing */
+:root {
+  --tone-prominent-start: var(--rom-hero-start);
+  --tone-prominent-mid:   var(--rom-hero-mid);
+  --tone-prominent-end:   var(--rom-hero-end);
+  --tone-prominent-fg:    var(--rom-hero-fg);
+  --tone-accent:          var(--rom-accent);
+  --tone-accent-contrast: var(--rom-accent-contrast);
+}
+
+/* Temporary alias: keep older "hero" tone working during migration */
+:root {
+  --tone-hero-start: var(--tone-prominent-start);
+  --tone-hero-mid:   var(--tone-prominent-mid);
+  --tone-hero-end:   var(--tone-prominent-end);
+  --tone-hero-fg:    var(--tone-prominent-fg);
+}

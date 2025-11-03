@@ -57,3 +57,4 @@
 
 /* Glass bed utility (backdrop wrapper for glass cards) */
 @import '../utilities/glass-bed.css';
+@import "./gradients.css";
