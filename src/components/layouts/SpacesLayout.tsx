@@ -1,6 +1,6 @@
 import React from 'react'
-import Section from '@/components/ui/SectionEnhanced'
-import type { SectionProps, Background, Tone, PaddingY, Divider } from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
+import type { SectionProps, Background, Tone, PaddingY, Divider } from '@/components/ui/Section'
 
 interface SpacesLayoutProps {
   children: React.ReactNode

@@ -1,92 +1,88 @@
-import React from 'react'
-import type { AlignBlock } from './types'
+// src/components/ui/Section.tsx
+import * as React from 'react';
+import { cx } from '@/lib/react-interop';
+import { PropsSlot } from '@/components/primitives/PropsSlot';
+import type { AlignBlock } from './types';
 
-/* ============================================================================
-   UNIFIED SECTION COMPONENT
-   - Token-driven layout system
-   - Props-based API for all section variations
-   - Named variant presets for common patterns
-   - Data attributes for CSS targeting
-   - Backward compatible with existing [data-clean-root] scoping
-   ============================================================================ */
+export type Align = AlignBlock;  // for backwards compat
+export type RailWidth = 'prose' | 'content' | 'wide' | 'full';
+export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid';
+export type Background = 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient' | 'image';
+export type Tone = 'light' | 'dark' | 'auto';
+export type Divider = 'none' | 'hairline' | 'thread-gold';
+export type Overlay = 'none' | 'soft' | 'strong';
+export type Height = 'auto' | 'screen';
+export type Container = 'rails' | 'wrapper';
 
-// Type definitions
-export type Align = AlignBlock  // for backwards compat
-export type Width = 'prose' | 'content' | 'wide' | 'full'
-export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
-export type Background = 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient' | 'image'
-export type Tone = 'light' | 'dark' | 'auto'
-export type Divider = 'none' | 'hairline' | 'thread-gold'
-export type Overlay = 'none' | 'soft' | 'strong'
-export type Height = 'auto' | 'screen'
-export type Container = 'rails' | 'wrapper'
-
-/** Named, easy-to-remember layout presets. */
 export type Variant =
-  | 'legacy-full-centered'         // Legacy: everything centered, full feel
-  | 'centered'                     // Header centered, content centered (content rail)
-  | 'header-center-content-left'   // Header centered (prose), content left (content/wide)
-  | 'header-center-content-center' // Header centered (prose), content centered (content)
-  | 'alternating-blocks-luxe'      // Luxe alternating blocks with gold accents
-  | 'home-hero-2024'               // Your original home hero baseline
-  | 'right-rail'                   // Quick right-rail demo
-  | 'left-rail'                    // Quick left-rail demo
+  | 'legacy-full-centered'
+  | 'centered'
+  | 'header-center-content-left'
+  | 'header-center-content-center'
+  | 'alternating-blocks-luxe'
+  | 'home-hero-2024'
+  | 'right-rail'
+  | 'left-rail';
 
 export interface SectionHeaderProps {
-  scriptAccent?: string
-  title?: string
-  lead?: string
-  align?: Align
+  scriptAccent?: string;
+  title?: string;
+  lead?: string;
+  align?: Align;
 }
 
 export interface SectionImageProps {
-  src: string
-  alt?: string
-  attachment?: 'fixed' | 'scroll'
-  position?: 'cover' | 'contain'
+  src: string;
+  alt?: string;
+  attachment?: 'fixed' | 'scroll';
+  position?: 'cover' | 'contain';
 }
 
-export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  // Core HTML
-  as?: keyof JSX.IntrinsicElements
-  id?: string
+export interface SectionProps<TTag extends React.ElementType = 'section'>
+  extends Omit<React.ComponentPropsWithoutRef<TTag>, 'as' | 'color'> {
+  as?: TTag;
 
-  /** High-level preset name OR space-separated variant tokens. Accepts 'string' or ['a','b']. */
-  variant?: string | string[]
+  /** Named preset or space-separated tokens (first token used to pick preset). */
+  variant?: Variant | string | string[];
 
-  // Layout - Dual Rail System
-  align?: Align
-  width?: Width              // Deprecated: use headerWidth + contentWidth instead
-  headerWidth?: Width        // Width of header rail (default: width value)
-  contentWidth?: Width       // Width of content rail (default: width value)
-  paddingY?: PaddingY
-  height?: Height            // Preferred for hero: screen = 100vh with rail centering
-  bleed?: boolean
-  wideRail?: boolean         // Deprecated: use contentWidth='wide' instead
+  // Layout rails
+  align?: Align;
+  /** @deprecated use headerWidth/contentWidth. Kept for migration. */
+  width?: RailWidth;
+  headerWidth?: RailWidth;
+  contentWidth?: RailWidth;
+  paddingY?: PaddingY;
+  height?: Height;
+  bleed?: boolean;
+  /** @deprecated prefer contentWidth='wide'. Kept for migration. */
+  wideRail?: boolean;
 
-  // Container Mode (wrapper vs dual rails)
-  container?: Container      // 'rails' (default) | 'wrapper'
-  wrapperMax?: string       // Custom max-width for wrapper (default: var(--rail-content))
-  wrapperGutter?: string    // Custom gutter for wrapper (default: var(--rail-gutter))
+  container?: Container;
+  wrapperMax?: string;
+  wrapperGutter?: string;
 
-  // Visual
-  background?: Background
-  tone?: Tone
-  divider?: Divider
-  image?: SectionImageProps
-  overlay?: Overlay
+  // Visuals
+  background?: Background;
+  tone?: Tone;
+  divider?: Divider;
+  image?: SectionImageProps;
+  overlay?: Overlay;
 
   // Content
-  header?: SectionHeaderProps
-  actions?: React.ReactNode
-  children?: React.ReactNode
+  header?: SectionHeaderProps;
+  actions?: React.ReactNode;
+  children?: React.ReactNode;
+
+  // Optional slots & flags
+  contentWrapper?: boolean;      // legacy inner wrapper helper
+  containerQueries?: boolean;    // emits data-cq="on" for @container rules
+
+  headerSlotProps?: React.HTMLAttributes<HTMLElement>;
+  contentSlotProps?: React.HTMLAttributes<HTMLElement>;
+  actionsSlotProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-/* -----------------------------
-   Variant defaults (opinionated)
-   ----------------------------- */
 const PRESETS: Record<Variant, Partial<SectionProps>> = {
-  // Legacy "full centered": centered header + centered content; ample padding
   'legacy-full-centered': {
     align: 'center',
     headerWidth: 'content',
@@ -96,9 +92,7 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     tone: 'auto',
     divider: 'none',
   },
-
-  // Centered everything, but more modern content measure (content rail)
-  'centered': {
+  centered: {
     align: 'center',
     headerWidth: 'prose',
     contentWidth: 'content',
@@ -106,19 +100,15 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     background: 'surface',
     tone: 'auto',
   },
-
-  // Your requested "all centered header while content below aligns left"
   'header-center-content-left': {
-    align: 'left',               // content/actions left
-    header: { align: 'center' }, // header center
+    align: 'left',
+    header: { align: 'center' },
     headerWidth: 'prose',
     contentWidth: 'content',
     paddingY: 'lg',
     background: 'surface',
     tone: 'auto',
   },
-
-  // Centered header (prose) with centered content (content rail)
   'header-center-content-center': {
     align: 'center',
     header: { align: 'center' },
@@ -128,8 +118,6 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     background: 'surface',
     tone: 'auto',
   },
-
-  // Luxe alternating blocks: tint bg, fluid vertical rhythm, center header
   'alternating-blocks-luxe': {
     align: 'center',
     header: { align: 'center' },
@@ -139,8 +127,6 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     background: 'tint-rose',
     tone: 'auto',
   },
-
-  // Original home hero: full-bleed, dark gradient, hero height, centered header
   'home-hero-2024': {
     align: 'center',
     header: { align: 'center' },
@@ -153,8 +139,6 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     tone: 'dark',
     divider: 'thread-gold',
   },
-
-  // Quick showcasing rails: right edge locked to rail
   'right-rail': {
     align: 'right',
     header: { align: 'right' },
@@ -162,8 +146,6 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     contentWidth: 'wide',
     paddingY: 'lg',
   },
-
-  // Quick showcasing rails: left edge locked to rail
   'left-rail': {
     align: 'left',
     header: { align: 'left' },
@@ -171,89 +153,94 @@ const PRESETS: Record<Variant, Partial<SectionProps>> = {
     contentWidth: 'wide',
     paddingY: 'lg',
   },
-}
+};
 
-/* Deep-merge helper for the header object */
 function mergeHeader(a?: SectionHeaderProps, b?: SectionHeaderProps): SectionHeaderProps | undefined {
-  if (!a && !b) return undefined
+  if (!a && !b) return undefined;
   return {
     scriptAccent: b?.scriptAccent ?? a?.scriptAccent,
     title:        b?.title        ?? a?.title,
     lead:         b?.lead         ?? a?.lead,
     align:        b?.align        ?? a?.align,
-  }
+  };
 }
 
-export function Section({
-  as: Tag = 'section',
-  id,
-  variant,
+export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) => {
+  const {
+    as,
+    id,
+    className,
+    style,
+    variant,
 
-  align,
-  width = 'content',
-  headerWidth,
-  contentWidth,
-  paddingY,
-  height = 'auto',
-  bleed,
-  wideRail = false,
+    // rails
+    align,
+    width,                 // deprecated
+    headerWidth,
+    contentWidth,
+    paddingY,
+    height = 'auto',
+    bleed,
+    wideRail,              // deprecated
+    container = 'rails',
+    wrapperMax,
+    wrapperGutter,
 
-  container = 'rails',
-  wrapperMax,
-  wrapperGutter,
+    // visuals
+    background,
+    tone = 'auto',
+    divider = 'none',
+    image,
+    overlay = 'none',
 
-  background,
-  tone = 'auto',
-  divider = 'none',
-  image,
-  overlay = 'none',
+    // content
+    header,
+    actions,
+    children,
 
-  header,
-  actions,
-  children,
-  className = '',
-  style,
-  ...rest
-}: SectionProps) {
-  // 1) Pull preset if provided (check first token for preset match)
-  const firstVariant = Array.isArray(variant) ? variant[0] : typeof variant === 'string' ? variant.split(/\s+/)[0] : undefined
-  const preset = firstVariant && PRESETS[firstVariant as Variant] ? PRESETS[firstVariant as Variant] : undefined
+    // helpers/slots
+    contentWrapper = false,
+    containerQueries = false,
+    headerSlotProps,
+    contentSlotProps,
+    actionsSlotProps,
 
-  // 2) Resolve props (explicit props override preset)
-  const resolvedAlign        = align        ?? preset?.align        ?? 'center'
-  const resolvedHeaderWidth  = headerWidth  ?? preset?.headerWidth  ?? width
-  const resolvedContentWidth = contentWidth ?? preset?.contentWidth ?? (wideRail ? 'wide' : width)
-  const resolvedPaddingY     = paddingY     ?? preset?.paddingY     ?? 'md'
-  const resolvedHeight       = height       ?? preset?.height       ?? 'auto'
-  const resolvedBleed        = typeof bleed === 'boolean' ? bleed : (preset?.bleed ?? false)
-  const resolvedBackground   = background   ?? preset?.background   ?? 'surface'
-  const resolvedTone         = tone         ?? preset?.tone         ?? 'auto'
-  const resolvedDivider      = divider      ?? preset?.divider      ?? 'none'
-  const resolvedHeader       = mergeHeader(preset?.header, header)
+    ...rest
+  } = props;
 
-  // 3) Build data attributes for CSS targeting
-  // Allow multiple tokens: data-variant="token-a token-b"
-  const variantAttr =
-    Array.isArray(variant) ? variant.filter(Boolean).join(' ') : (variant || undefined)
+  // DEV deprecation messages
+  if (process.env.NODE_ENV !== 'production') {
+    if (typeof width !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn('Section: `width` is deprecated. Use `headerWidth`/`contentWidth` instead.');
+    }
+    if (typeof wideRail !== 'undefined') {
+      // eslint-disable-next-line no-console
+      console.warn('Section: `wideRail` is deprecated. Use `contentWidth="wide"` instead.');
+    }
+  }
 
-  const dataAttrs = {
-    'data-section': 'unified',
-    'data-variant': variantAttr,
-    'data-align': resolvedAlign,
-    'data-width': width,                      // Keep for backward compat
-    'data-hwidth': resolvedHeaderWidth,
-    'data-cwidth': resolvedContentWidth,
-    'data-padding-y': resolvedPaddingY,
-    'data-height': resolvedHeight,
-    'data-bg': resolvedBackground,
-    'data-tone': resolvedTone,
-    'data-divider': resolvedDivider,
-    'data-overlay': image ? overlay : undefined,
-    'data-bleed': resolvedBleed ? 'true' : undefined,
-    'data-container': container,
-  } as Record<string, string | undefined>
+  const Tag = (as || 'section') as React.ElementType;
 
-  // Build inline styles for background image + wrapper custom properties
+  // Preset resolution
+  const firstVariant =
+    Array.isArray(variant) ? variant[0] : typeof variant === 'string' ? variant.split(/\s+/)[0] : undefined;
+  const preset = firstVariant && PRESETS[firstVariant as Variant] ? PRESETS[firstVariant as Variant] : undefined;
+
+  // Resolve layout + visuals
+  const resolvedAlign        = align        ?? preset?.align        ?? 'center';
+  const resolvedHeaderWidth  = headerWidth  ?? preset?.headerWidth  ?? (width ?? 'content');
+  const resolvedContentWidth = contentWidth ?? preset?.contentWidth ?? ((wideRail ? 'wide' : undefined) ?? (width ?? 'content'));
+  const resolvedPaddingY     = paddingY     ?? preset?.paddingY     ?? 'md';
+  const resolvedHeight       = height       ?? preset?.height       ?? 'auto';
+  const resolvedBleed        = typeof bleed === 'boolean' ? bleed : (preset?.bleed ?? false);
+  // Map legacy 'dark-gradient' background to a recipe-friendly data value
+  const resolvedBackground   = (background ?? preset?.background ?? 'surface') as Background;
+  const resolvedTone         = tone         ?? preset?.tone         ?? 'auto';
+  const resolvedDivider      = divider      ?? preset?.divider      ?? 'none';
+  const resolvedHeader       = mergeHeader(preset?.header, header);
+
+  // Inline style only for bg image + wrapper custom props (tokens handled by CSS)
   const sectionStyle: React.CSSProperties = {
     ...style,
     ...(wrapperMax && { ['--wrapper-max' as any]: wrapperMax }),
@@ -265,96 +252,129 @@ export function Section({
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }),
-  }
+  };
+
+  // Data attributes = recipe contract
+  const variantAttr = Array.isArray(variant) ? variant.filter(Boolean).join(' ') : (variant || undefined);
+  const dataAttrs = {
+    'data-section': 'unified',
+    'data-variant': variantAttr,
+    'data-align': resolvedAlign,
+    'data-hwidth': resolvedHeaderWidth,
+    'data-cwidth': resolvedContentWidth,
+    'data-padding-y': resolvedPaddingY,
+    'data-height': resolvedHeight,
+    'data-bg': resolvedBackground === 'dark-gradient' ? 'dark' : resolvedBackground,
+    'data-tone': resolvedTone,
+    'data-divider': resolvedDivider,
+    'data-overlay': image ? overlay : undefined,
+    'data-bleed': resolvedBleed ? 'true' : undefined,
+    'data-container': container,
+    'data-cq': containerQueries ? 'on' : undefined,
+  } as Record<string, string | undefined>;
+
+  const rootClass = cx('section', className);
+
+  const LegacyWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+    contentWrapper ? (
+      <div className="content-wrapper" data-legacy-wrapper="true">
+        {children}
+      </div>
+    ) : (
+      <>{children}</>
+    );
 
   return (
-    <Tag
-      id={id}
-      className={`section ${className}`.trim()}
-      style={sectionStyle}
-      {...dataAttrs}
-      {...rest}
-    >
-      {/* Overlay layer (if using background image) - positioned behind content */}
+    <Tag id={id} ref={ref as any} className={rootClass} style={sectionStyle} {...dataAttrs} {...rest}>
+      {/* Image overlay layer (rendered behind rails) */}
       {image && overlay !== 'none' && (
         <div className="section__overlay" data-overlay={overlay} aria-hidden="true" />
       )}
 
       {container === 'wrapper' ? (
-        /* === WRAPPER MODE: Simple centered container === */
         <div className="section__wrapper">
           {resolvedHeader && (
-            <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
-              {resolvedHeader.scriptAccent && (
-                <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>
-              )}
-              {resolvedHeader.title && (
-                <h2 className="section__title">{resolvedHeader.title}</h2>
-              )}
-              {resolvedHeader.lead && (
-                <p className="section__lead">{resolvedHeader.lead}</p>
-              )}
+            <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign} {...headerSlotProps}>
+              {resolvedHeader.scriptAccent && <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>}
+              {resolvedHeader.title && <h2 className="section__title">{resolvedHeader.title}</h2>}
+              {resolvedHeader.lead && <p className="section__lead">{resolvedHeader.lead}</p>}
             </header>
           )}
 
           {children && (
-            <div className="section__content" data-align={resolvedAlign}>
+            <div className="section__content" data-align={resolvedAlign} {...contentSlotProps}>
               {children}
             </div>
           )}
 
           {actions && (
-            <div className="section__actions" data-align={resolvedAlign}>
+            <div className="section__actions" data-align={resolvedAlign} {...actionsSlotProps}>
               {actions}
             </div>
           )}
         </div>
       ) : (
-        /* === RAILS MODE: Dual rail system === */
-        <>
-          {/* Header rail (independent width from content) */}
+        <LegacyWrapper>
+          {/* HEADER RAIL */}
           {resolvedHeader && (
             <div className="section__rail section__rail--header" data-width={resolvedHeaderWidth}>
-              <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
-                {resolvedHeader.scriptAccent && (
-                  <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>
-                )}
-                {resolvedHeader.title && (
-                  <h2 className="section__title">{resolvedHeader.title}</h2>
-                )}
-                {resolvedHeader.lead && (
-                  <p className="section__lead">{resolvedHeader.lead}</p>
-                )}
-              </header>
+              {headerSlotProps ? (
+                <PropsSlot inject={headerSlotProps as any}>
+                  <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
+                    {resolvedHeader.scriptAccent && <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>}
+                    {resolvedHeader.title && <h2 className="section__title">{resolvedHeader.title}</h2>}
+                    {resolvedHeader.lead && <p className="section__lead">{resolvedHeader.lead}</p>}
+                  </header>
+                </PropsSlot>
+              ) : (
+                <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
+                  {resolvedHeader.scriptAccent && <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>}
+                  {resolvedHeader.title && <h2 className="section__title">{resolvedHeader.title}</h2>}
+                  {resolvedHeader.lead && <p className="section__lead">{resolvedHeader.lead}</p>}
+                </header>
+              )}
             </div>
           )}
 
-          {/* Content rail (independent width from header) */}
+          {/* CONTENT RAIL */}
           {children && (
             <div className="section__rail section__rail--content" data-width={resolvedContentWidth}>
-              <div className="section__content">
-                {children}
-              </div>
+              {contentSlotProps ? (
+                <PropsSlot inject={contentSlotProps as any}>
+                  <div className="section__content">{children}</div>
+                </PropsSlot>
+              ) : (
+                <div className="section__content">{children}</div>
+              )}
             </div>
           )}
 
-          {/* Actions rail (shares width with header for alignment) */}
+          {/* ACTIONS RAIL */}
           {actions && (
             <div className="section__rail section__rail--actions" data-width={resolvedHeaderWidth}>
-              <div className="section__actions" data-align={resolvedAlign}>
-                {actions}
-              </div>
+              {actionsSlotProps ? (
+                <PropsSlot inject={actionsSlotProps as any}>
+                  <div className="section__actions" data-align={resolvedAlign}>
+                    {actions}
+                  </div>
+                </PropsSlot>
+              ) : (
+                <div className="section__actions" data-align={resolvedAlign}>
+                  {actions}
+                </div>
+              )}
             </div>
           )}
-        </>
+        </LegacyWrapper>
       )}
 
-      {/* Divider line (if specified) */}
+      {/* Divider */}
       {resolvedDivider !== 'none' && (
         <div className="section__divider" data-divider={resolvedDivider} aria-hidden="true" />
       )}
     </Tag>
-  )
-}
+  );
+});
+Section.displayName = 'Section';
 
-export default Section
+export default Section;

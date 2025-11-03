@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Section from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
 import { Heading } from '@/components/ui/Heading'
 import { Text } from '@/components/ui/Text'
 

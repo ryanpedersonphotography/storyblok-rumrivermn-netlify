@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import { renderRichText } from '@storyblok/js'
-import Section from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
 
 type Blok = Record<string, any>
 

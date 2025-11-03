@@ -1,7 +1,7 @@
 // FILE: src/components/clean/Gallery.tsx
 'use client'
 
-import Section from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
 
 type WeddingItem = {
   couple: string

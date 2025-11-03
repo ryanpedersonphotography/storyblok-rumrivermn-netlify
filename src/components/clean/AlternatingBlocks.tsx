@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { storyblokEditable } from '@storyblok/react'
-import Section from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
 
 interface AlternatingBlocksBlok {
   _uid?: string

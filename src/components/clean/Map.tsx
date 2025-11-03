@@ -1,7 +1,7 @@
 import { MapPinIcon, ClockIcon, PhoneIcon, EnvelopeIcon, HomeIcon, CakeIcon } from '@heroicons/react/24/outline'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { SbBlokData } from '@storyblok/react/rsc'
-import Section from '@/components/ui/SectionEnhanced'
+import Section from '@/components/ui/Section'
 
 interface LocationStoryblok {
   icon?: string

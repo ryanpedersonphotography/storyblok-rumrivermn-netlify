@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Section from '@/components/ui/SectionEnhanced';
+import Section from '@/components/ui/Section';
 
 export type HeroPrimitiveProps = {
   eyebrow?: string;
