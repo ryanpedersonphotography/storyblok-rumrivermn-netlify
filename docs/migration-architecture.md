@@ -20,7 +20,7 @@ High-level phases
 	9.	Cleanup & flatten (optional)
 
 ⸻
-
+ 
 One-Shot Automation Script (zsh)
 
 Paste this entire block into your terminal (macOS zsh) or pipe into your agent. It is idempotent and pauses at checkpoints so you can test locally between phases.
@@ -561,6 +561,4 @@ Reference Docs
 	•	Next.js App Router – Route Groups: https://nextjs.org/docs/app/building-your-application/routing/route-groups￼
 	•	Next.js App Router – Layouts & Nesting: https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts￼
 	•	CSS Cascade Layers (@layer) – MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@layer￼
-
-⸻
 
