@@ -1,4 +1,5 @@
 import React from 'react'
+import type { AlignBlock } from './types'
 
 /* ============================================================================
    UNIFIED SECTION COMPONENT
@@ -10,7 +11,7 @@ import React from 'react'
    ============================================================================ */
 
 // Type definitions
-export type Align = 'left' | 'center' | 'right'
+export type Align = AlignBlock  // for backwards compat
 export type Width = 'prose' | 'content' | 'wide' | 'full'
 export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
 export type Background = 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient' | 'image'

@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { cx } from '@/lib/react-interop'
 import { PropsSlot } from '@/components/primitives/PropsSlot'
+import type { AlignBlock } from './types'
 
-export type Align = 'left' | 'center' | 'right'
+export type Align = AlignBlock  // for backwards compat
 export type Width = 'prose' | 'content' | 'wide' | 'full'
 export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
 export type Background = 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient' | 'image'

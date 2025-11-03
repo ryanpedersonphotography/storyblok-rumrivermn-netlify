@@ -7,8 +7,9 @@
    ======================================================================== */
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
+import type { AlignBlock } from './types'
 
-export type Align = 'left' | 'center' | 'right'
+export type Align = AlignBlock  // for backwards compat
 export type Container = 'prose' | 'content' | 'wide' | 'full'
 export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
 export type Tone = 'auto' | 'light' | 'dark'
