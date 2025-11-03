@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import '@/styles/components/hero.css'
 
 export default function HeroButtonMigrationPage() {
   const [hoveredOriginal, setHoveredOriginal] = useState(false)

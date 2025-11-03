@@ -1,3 +1,4 @@
+@layer components {
 /* SPACES SECTION STYLES - Tokenized for Dark Mode */
 /* NOTE: Section wrapper, background, padding, and header styles now handled by Section component */
 /* This file only contains Spaces-specific interactive elements (tabs, carousel, venue details) */
@@ -345,4 +346,5 @@ html[data-theme="dark"] [data-clean-root="true"] .venue-feature p {
   :root:not([data-theme="light"]) [data-clean-root="true"] .venue-feature p {
     color: var(--theme-text-secondary, #E8D4BC);
   }
+}
 }

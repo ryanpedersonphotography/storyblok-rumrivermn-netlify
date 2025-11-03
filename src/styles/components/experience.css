@@ -1,3 +1,4 @@
+@layer components {
 /* 📦 Design Tokens - Rum River Experience Section */
 :root {
   /* Theme Variables - Using global theme tokens */
@@ -360,4 +361,5 @@ html[data-theme="dark"] [data-clean-root="true"] .feature-icon .icon-svg {
   :root:not([data-theme="light"]) [data-clean-root="true"] .feature-icon .icon-svg {
     color: var(--theme-accent-rose, #D89BAE);
   }
+}
 }

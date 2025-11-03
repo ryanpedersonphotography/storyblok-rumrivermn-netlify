@@ -1,3 +1,4 @@
+@layer components {
 /* BRAND SOCIAL PROOF SECTION STYLES - Fully Tokenized
    MIGRATED: Padding, breakout, and background now handled by unified Section component
    Keeping: Glassomorphic effects, borders, shadows */
@@ -215,4 +216,5 @@ html[data-theme="dark"] [data-clean-root="true"] .brand-quote-text .highlight:ho
     font-size: 1.25rem; /* 20px */
     line-height: 1.6;
   }
+}
 }

@@ -1,3 +1,4 @@
+@layer components {
 /* MAP SECTION STYLES - Clean architecture implementation
    MIGRATED: Wrapper and header styles removed - now using unified Section component */
 
@@ -357,4 +358,5 @@ html[data-theme="dark"] [data-clean-root="true"] .map-section .map-embed::after 
   [data-clean-root="true"] .location-text p {
     font-size: 0.8rem;
   }
+}
 }
