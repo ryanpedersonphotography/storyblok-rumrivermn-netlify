@@ -100,7 +100,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
   const [internalActive, setInternalActive] = React.useState(() => activeSectionId ?? sections[0]?.id ?? '')
   const [pointerInside, setPointerInside] = React.useState(false)
   const [focusInside, setFocusInside] = React.useState(false)
-  const [autoSectionId, setAutoSectionId] = React.useState<string | null>(null)
   // Use a pointer gate so keyboard focus can expand the panel without pointer clicks keeping it open.
   const pointerFocusGate = React.useRef(false)
   const panelId = React.useId()
@@ -123,12 +122,12 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     }
   }, [activeSectionId])
 
-  const shouldAutoExpand = React.useMemo(
-    () => autoSectionId !== null && (pointerInside || focusInside),
-    [autoSectionId, pointerInside, focusInside],
+  const autoExpand = React.useMemo(
+    () => (pointerInside || focusInside) && Boolean(activeSection?.items?.length),
+    [pointerInside, focusInside, activeSection],
   )
 
-  const expanded = manualPinned || shouldAutoExpand
+  const expanded = manualPinned || autoExpand
 
   React.useEffect(() => {
     const root = document.documentElement
@@ -144,14 +143,8 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
       setInternalActive(sectionId)
       onSectionChange?.(sectionId)
 
-      const section = sections.find((item) => item.id === sectionId)
-      if (section?.items?.length) {
-        setAutoSectionId(sectionId)
-      } else {
-        setAutoSectionId(null)
-      }
     },
-    [onSectionChange, sections],
+    [onSectionChange],
   )
 
   const handleItemClick = React.useCallback(
@@ -174,7 +167,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         pointerFocusGate.current = false
         if (!manualPinned) {
           setFocusInside(false)
-          setAutoSectionId(null)
         }
       }}
       onPointerDownCapture={() => {
@@ -195,9 +187,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setFocusInside(false)
-          if (!manualPinned) {
-            setAutoSectionId(null)
-          }
         }
       }}
     >
@@ -236,15 +225,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
           <button
             type="button"
             className="glass-toolbar__toggle"
-            onClick={() =>
-              setManualPinned((prev) => {
-                const next = !prev
-                if (!next && !pointerInside && !focusInside) {
-                  setAutoSectionId(null)
-                }
-                return next
-              })
-            }
+            onClick={() => setManualPinned((prev) => !prev)}
             aria-controls={panelId}
             aria-expanded={expanded}
             aria-label={expanded ? 'Collapse toolbar' : 'Expand toolbar'}
@@ -264,7 +245,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
               setManualPinned(false)
               setPointerInside(false)
               setFocusInside(false)
-              setAutoSectionId(null)
             }}
             aria-label="Collapse toolbar"
           >
