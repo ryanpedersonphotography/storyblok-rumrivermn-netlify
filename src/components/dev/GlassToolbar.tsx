@@ -10,6 +10,8 @@ import {
   ChevronDoubleRightIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
+import { motion, useReducedMotion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 import { cx } from '@/lib/react-interop'
 import '@/styles/components/glass-toolbar.css'
 
@@ -84,6 +86,53 @@ const DEFAULT_SECTIONS: ToolbarSection[] = [
   },
 ]
 
+const PANEL_VARIANTS_EXPRESSIVE: Variants = {
+  collapsed: {
+    x: '-100%',
+    opacity: 0,
+    boxShadow: 'none',
+    pointerEvents: 'none',
+    transition: {
+      type: 'tween',
+      ease: [0.3, 0.0, 1.0, 1.0],
+      duration: 0.2,
+      opacity: { ease: [0.26, 0, 0.4, 1], duration: 0.22 },
+    },
+    transitionEnd: { pointerEvents: 'none' },
+  },
+  expanded: {
+    x: '0%',
+    opacity: 1,
+    boxShadow: 'var(--glass-toolbar-shadow)',
+    pointerEvents: 'auto',
+    transition: {
+      type: 'spring',
+      stiffness: 380,
+      damping: 26,
+    },
+    transitionEnd: { pointerEvents: 'auto' },
+  },
+}
+
+const PANEL_VARIANTS_REDUCED: Variants = {
+  collapsed: {
+    x: '-100%',
+    opacity: 0,
+    boxShadow: 'none',
+    pointerEvents: 'none',
+    transition: { duration: 0.01 },
+    transitionEnd: { pointerEvents: 'none' },
+  },
+  expanded: {
+    x: '0%',
+    opacity: 1,
+    boxShadow: 'var(--glass-toolbar-shadow)',
+    pointerEvents: 'auto',
+    transition: { duration: 0.01 },
+    transitionEnd: { pointerEvents: 'auto' },
+  },
+}
+
 const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(function GlassToolbar(
   {
     sections = DEFAULT_SECTIONS,
@@ -103,6 +152,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
   // Use a pointer gate so keyboard focus can expand the panel without pointer clicks keeping it open.
   const pointerFocusGate = React.useRef(false)
   const panelId = React.useId()
+  const prefersReducedMotion = useReducedMotion()
 
   const activeSection = React.useMemo(
     () => sections.find((section) => section.id === internalActive) ?? sections[0],
@@ -138,11 +188,12 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     root.style.setProperty('--glass-toolbar-offset', expanded ? expandedWidth : railWidth)
   }, [expanded])
 
+  const panelVariants = prefersReducedMotion ? PANEL_VARIANTS_REDUCED : PANEL_VARIANTS_EXPRESSIVE
+
   const handleSectionClick = React.useCallback(
     (sectionId: string) => {
       setInternalActive(sectionId)
       onSectionChange?.(sectionId)
-
     },
     [onSectionChange],
   )
@@ -235,7 +286,14 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         </div>
       </div>
 
-      <div className="glass-toolbar__panel" id={panelId} aria-hidden={!expanded}>
+      <motion.div
+        className="glass-toolbar__panel"
+        id={panelId}
+        aria-hidden={!expanded}
+        initial={expanded ? 'expanded' : 'collapsed'}
+        animate={expanded ? 'expanded' : 'collapsed'}
+        variants={panelVariants}
+      >
         <div className="glass-toolbar__panel-header">
           <span className="glass-toolbar__brand">Workspace</span>
           <button
@@ -282,7 +340,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
             <span>Sign out</span>
           </button>
         </footer>
-      </div>
+      </motion.div>
     </aside>
   )
 })

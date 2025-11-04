@@ -3,9 +3,9 @@
   --glass-toolbar-panel-width: 320px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
   --glass-toolbar-shadow: 0 32px 70px rgba(8, 6, 10, 0.38);
-  --glass-toolbar-duration: 250ms;
-  --glass-toolbar-ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --glass-toolbar-fade: cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-toolbar-duration: 300ms;
+  --glass-toolbar-ease: cubic-bezier(0.2, 0, 0, 1);
+  --glass-toolbar-fade: cubic-bezier(0.26, 0, 0.4, 1);
   --glass-toolbar-panel-bg: color-mix(in oklch, var(--theme-bg-card, rgba(34, 30, 42, 0.92)) 82%, rgba(10, 8, 14, 0.72) 18%);
 }
 
@@ -22,6 +22,7 @@
   background: transparent;
   z-index: 60;
   isolation: isolate;
+  overflow: hidden;
   transition: width var(--glass-toolbar-duration) var(--glass-toolbar-ease),
     box-shadow var(--glass-toolbar-duration) var(--glass-toolbar-ease);
 }
@@ -36,6 +37,8 @@
   border-right: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 2;
   align-items: center;
   gap: var(--space-20, 20px);
   padding: var(--space-20, 20px) 0 var(--space-16, 16px);
@@ -175,22 +178,18 @@
   backdrop-filter: blur(24px) saturate(1.65);
   box-shadow: none;
   padding: var(--space-24, 24px);
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-16, 16px);
-  transform: translateX(calc(-100% + 1px));
+  transform: translateX(-100%);
   opacity: 0;
   pointer-events: none;
-  transition: transform var(--glass-toolbar-duration) var(--glass-toolbar-ease),
-    box-shadow var(--glass-toolbar-duration) var(--glass-toolbar-ease),
-    opacity 220ms var(--glass-toolbar-fade);
 }
 
 .glass-toolbar[data-expanded="true"] .glass-toolbar__panel {
-  transform: translateX(0);
-  opacity: 1;
   pointer-events: auto;
-  box-shadow: var(--glass-toolbar-shadow);
 }
 
 .glass-toolbar__panel-header {
@@ -342,14 +341,20 @@
 
 .glass-toolbar-layout__content {
   min-height: 100vh;
-  padding-left: var(--glass-toolbar-offset, var(--glass-toolbar-rail-width));
-  transition: padding-left 260ms var(--glass-toolbar-ease);
+  padding-left: var(--glass-toolbar-rail-width);
   position: relative;
   overflow-x: hidden;
 }
 
-.glass-toolbar-layout__content > *:first-child {
-  margin-left: calc(-1 * var(--glass-toolbar-offset, var(--glass-toolbar-rail-width)));
+@media (prefers-reduced-motion: reduce) {
+  .glass-toolbar,
+  .glass-toolbar__panel,
+  .glass-toolbar__pill svg,
+  .glass-toolbar__toggle,
+  .glass-toolbar__subnav button,
+  .glass-toolbar__footer-cta {
+    transition: none !important;
+  }
 }
 
 @media (max-width: 900px) {
