@@ -96,6 +96,7 @@ const PANEL_VARIANTS_EXPRESSIVE: Variants = {
       type: 'tween',
       ease: [0.4, 0.0, 0.2, 1.0],
       duration: 0.335,
+      delay: 0.04,
       opacity: { ease: [0.4, 0.0, 0.2, 1.0], duration: 0.23, delay: 0.085 },
     },
     transitionEnd: { pointerEvents: 'none' },
@@ -112,6 +113,7 @@ const PANEL_VARIANTS_EXPRESSIVE: Variants = {
       bounce: 0,
       restDelta: 0.5,
       restSpeed: 0.5,
+      delay: 0.06,
     },
     transitionEnd: { pointerEvents: 'auto' },
   },
@@ -152,10 +154,9 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
   const [internalActive, setInternalActive] = React.useState(() => activeSectionId ?? sections[0]?.id ?? '')
   const [pointerInside, setPointerInside] = React.useState(false)
   const [focusInside, setFocusInside] = React.useState(false)
+  const [hoverLock, setHoverLock] = React.useState(false)
   // Use a pointer gate so keyboard focus can expand the panel without pointer clicks keeping it open.
   const pointerFocusGate = React.useRef(false)
-  const navRef = React.useRef<HTMLElement | null>(null)
-  const panelRef = React.useRef<HTMLDivElement | null>(null)
   const panelId = React.useId()
   const prefersReducedMotion = useReducedMotion()
 
@@ -177,10 +178,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     }
   }, [activeSectionId])
 
-  const autoExpand = React.useMemo(
-    () => (pointerInside || focusInside) && Boolean(activeSection?.items?.length),
-    [pointerInside, focusInside, activeSection],
-  )
+  const autoExpand = React.useMemo(() => pointerInside || focusInside || hoverLock, [pointerInside, focusInside, hoverLock])
 
   const expanded = manualPinned || autoExpand
 
@@ -210,6 +208,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         transition: {
           duration: 0.24,
           ease: [0.2, 0.0, 0.0, 1.0],
+          delay: 0.05,
         },
       },
       exit: {
@@ -217,22 +216,34 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         transition: {
           duration: 0.2,
           ease: [0.4, 0.0, 1.0, 1.0],
+          delay: 0.02,
         },
       },
     }
   }, [prefersReducedMotion])
 
   const handleSectionClick = React.useCallback(
-    (sectionId: string) => {
+    (sectionId: string, hasChildren: boolean) => {
       setInternalActive(sectionId)
+      if (hasChildren) {
+        setHoverLock(true)
+        setPointerInside(true)
+      } else if (!manualPinned) {
+        setHoverLock(false)
+        setPointerInside(false)
+        setFocusInside(false)
+      }
       onSectionChange?.(sectionId)
     },
-    [onSectionChange],
+    [manualPinned, onSectionChange],
   )
 
   const handleSectionPointerEnter = React.useCallback(
-    (sectionId: string) => {
+    (sectionId: string, hasChildren: boolean) => {
       setPointerInside(true)
+      if (hasChildren) {
+        setHoverLock(true)
+      }
       setInternalActive(sectionId)
       onSectionChange?.(sectionId)
     },
@@ -267,7 +278,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         }
         const target = event.target as HTMLElement | null
         const isActivator = Boolean(target?.closest('.glass-toolbar__pill'))
-        const isPanel = Boolean(target && panelRef.current?.contains(target))
+        const isPanel = Boolean(target?.closest('.glass-toolbar__panel'))
         if (isActivator || isPanel) {
           setPointerInside(true)
         } else {
@@ -302,19 +313,8 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         </div>
 
         <nav
-          ref={navRef}
           className="glass-toolbar__primary"
           aria-label="Primary navigation"
-          onPointerLeave={(event) => {
-            if (manualPinned) {
-              return
-            }
-            const next = event.relatedTarget as Node | null
-            if (next && panelRef.current?.contains(next)) {
-              return
-            }
-            setPointerInside(false)
-          }}
         >
           {sections.map((section) => {
             const Icon = section.icon
@@ -325,8 +325,8 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
                 key={section.id}
                 type="button"
                 className={cx('glass-toolbar__pill', isActive && 'is-active')}
-                onClick={() => handleSectionClick(section.id)}
-                onPointerEnter={() => handleSectionPointerEnter(section.id)}
+                onClick={() => handleSectionClick(section.id, hasChildren)}
+                onPointerEnter={() => handleSectionPointerEnter(section.id, hasChildren)}
                 aria-pressed={isActive}
                 aria-label={section.label}
                 title={section.label}
@@ -354,7 +354,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
       </div>
 
       <motion.div
-        ref={panelRef}
         className="glass-toolbar__panel"
         id={panelId}
         aria-hidden={!expanded}
@@ -362,16 +361,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         animate={expanded ? 'expanded' : 'collapsed'}
         variants={panelVariants}
         onPointerEnter={() => setPointerInside(true)}
-        onPointerLeave={(event) => {
-          if (manualPinned) {
-            return
-          }
-          const next = event.relatedTarget as Node | null
-          if (next && navRef.current?.contains(next)) {
-            return
-          }
-          setPointerInside(false)
-        }}
       >
         <div className="glass-toolbar__panel-actions">
           <button
@@ -381,6 +370,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
               setManualPinned(false)
               setPointerInside(false)
               setFocusInside(false)
+              setHoverLock(false)
             }}
             aria-label="Collapse toolbar"
           >

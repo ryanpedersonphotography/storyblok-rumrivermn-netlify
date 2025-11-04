@@ -143,8 +143,19 @@
 .glass-toolbar__pill:hover svg,
 .glass-toolbar__pill:focus-visible svg {
   background: var(--glass-toolbar-icon-hover-bg);
+  color: var(--glass-toolbar-icon-active);
   transform: translateY(-2px);
   outline: none;
+}
+
+.glass-toolbar__pill:hover .glass-toolbar__pill-label,
+.glass-toolbar__pill:focus-visible .glass-toolbar__pill-label {
+  color: var(--glass-toolbar-pill-label-active);
+  font-variation-settings: "GRAD" 50;
+}
+
+.glass-toolbar__pill:active .glass-toolbar__pill-label {
+  font-variation-settings: "GRAD" -50;
 }
 
 .glass-toolbar__pill-label {
@@ -339,6 +350,17 @@
   background: var(--glass-toolbar-subnav-hover-bg);
   border-color: var(--glass-toolbar-subnav-hover-border);
   outline: none;
+}
+
+.glass-toolbar__subnav button:hover span,
+.glass-toolbar__subnav button:focus-visible span {
+  color: var(--glass-toolbar-subnav-text);
+  font-variation-settings: "GRAD" 75;
+}
+
+.glass-toolbar__subnav button:hover small,
+.glass-toolbar__subnav button:focus-visible small {
+  color: var(--glass-toolbar-subnav-subtext);
 }
 
 
