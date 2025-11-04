@@ -3,8 +3,8 @@
   --glass-toolbar-panel-width: 320px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
   --glass-toolbar-shadow: 0 32px 70px rgba(8, 6, 10, 0.38);
-  --glass-toolbar-duration: 0.3s;
-  --glass-toolbar-ease: cubic-bezier(0.2, 0, 0, 1);
+  --glass-toolbar-duration: 250ms;
+  --glass-toolbar-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --glass-toolbar-fade: cubic-bezier(0.4, 0, 0.2, 1);
   --glass-toolbar-panel-bg: color-mix(in oklch, var(--theme-bg-card, rgba(34, 30, 42, 0.92)) 82%, rgba(10, 8, 14, 0.72) 18%);
 }
