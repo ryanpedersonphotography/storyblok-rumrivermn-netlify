@@ -1,43 +1,25 @@
 import * as React from 'react'
-import { cx } from '@/lib/react-interop'
-import { PropsSlot } from '@/components/primitives/PropsSlot'
+import Surface from '@/components/primitives/Surface'
+import SectionLayout from '@/components/primitives/SectionLayout'
+import type {
+  Align,
+  Width,
+  PaddingY,
+  Background,
+  Tone,
+  Divider,
+  Height,
+  Container,
+  Variant,
+  SectionHeaderProps,
+  SectionImageProps,
+  SectionSlots,
+} from './section-types'
 
-export type Align = 'left' | 'center' | 'right'
-export type Width = 'prose' | 'content' | 'wide' | 'full'
-export type PaddingY = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
-export type Background = 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient' | 'image'
-export type Tone = 'light' | 'dark' | 'auto'
-export type Divider = 'none' | 'hairline' | 'thread-gold'
-export type Height = 'auto' | 'screen'
-export type Container = 'rails' | 'wrapper'
-
-/** Named, easy-to-remember layout presets. */
-export type Variant =
-  | 'legacy-full-centered'
-  | 'centered'
-  | 'header-center-content-left'
-  | 'header-center-content-center'
-  | 'alternating-blocks-luxe'
-  | 'home-hero-2024'
-  | 'right-rail'
-  | 'left-rail'
-
-export interface SectionHeaderProps {
-  scriptAccent?: string
-  title?: string
-  lead?: string
-  align?: Align
-}
-
-export interface SectionImageProps {
-  src: string
-  alt?: string
-  attachment?: 'fixed' | 'scroll'
-  position?: 'cover' | 'contain'
-}
-
-export interface SectionProps<TTag extends React.ElementType = 'section'>
-  extends Omit<React.ComponentPropsWithoutRef<TTag>, 'as' | 'color'> {
+export type SectionProps<TTag extends React.ElementType = 'section'> = Omit<
+  React.ComponentPropsWithoutRef<TTag>,
+  'as' | 'color'
+> & SectionSlots & {
   as?: TTag
 
   // Layout rails
@@ -78,11 +60,6 @@ export interface SectionProps<TTag extends React.ElementType = 'section'>
       Components adapt to parent width instead of viewport width.
       @default false */
   containerQueries?: boolean
-
-  // === OPTIONAL light-weight slots (advanced use only) ===
-  headerSlotProps?: React.HTMLAttributes<HTMLElement>
-  contentSlotProps?: React.HTMLAttributes<HTMLElement>
-  actionsSlotProps?: React.HTMLAttributes<HTMLElement>
 }
 
 // Preset configurations (keeping existing ones)
@@ -212,8 +189,6 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) 
     ...rest
   } = props
 
-  const Tag = (as || 'section') as React.ElementType
-
   // Pull preset if provided
   const firstVariant = Array.isArray(variant) ? variant[0] : typeof variant === 'string' ? variant.split(/\s+/)[0] : undefined
   const preset = firstVariant && PRESETS[firstVariant as Variant] ? PRESETS[firstVariant as Variant] : undefined
@@ -234,17 +209,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) 
     ...style,
     ...(wrapperMax && { ['--wrapper-max' as any]: wrapperMax }),
     ...(wrapperGutter && { ['--wrapper-gutter' as any]: wrapperGutter }),
-    ...(image && {
-      backgroundImage: `url(${image.src})`,
-      backgroundAttachment: image.attachment || 'scroll',
-      backgroundSize: image.position || 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }),
   }
 
-  // IMPORTANT: keep .section + data-* stable for existing CSS.
-  const rootClass = cx('section', className)
   const variantAttr = Array.isArray(variant) ? variant.filter(Boolean).join(' ') : (variant || undefined)
   
   const dataAttrs = {
@@ -265,112 +231,54 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>((props, ref) 
     'data-cq': containerQueries ? 'on' : undefined,
   } as Record<string, string | undefined>
 
-  const LegacyWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
-    contentWrapper ? (
-      <div className="content-wrapper" data-legacy-wrapper="true">
-        {children}
-      </div>
-    ) : (
-      <>{children}</>
-    )
-
   return (
-    <Tag id={id} ref={ref as any} className={rootClass} style={sectionStyle} {...dataAttrs} {...rest}>
-      {/* Overlay behind rails (if background image) */}
-      {image && overlay !== 'none' && (
-        <div className="section__overlay" data-overlay={overlay} aria-hidden="true" />
-      )}
+    <Surface
+      as={as}
+      id={id}
+      ref={ref}
+      className={className}
+      style={sectionStyle}
+      image={image}
+      overlay={overlay}
+      dataAttributes={dataAttrs}
+      {...rest}
+    >
+      <SectionLayout
+        container={container}
+        align={resolvedAlign}
+        headerWidth={resolvedHeaderWidth}
+        contentWidth={resolvedContentWidth}
+        header={resolvedHeader}
+        actions={actions}
+        contentWrapper={contentWrapper}
+        headerSlotProps={headerSlotProps}
+        contentSlotProps={contentSlotProps}
+        actionsSlotProps={actionsSlotProps}
+      >
+        {children}
+      </SectionLayout>
 
-      {container === 'wrapper' ? (
-        /* === WRAPPER MODE: Simple centered container === */
-        <div className="section__wrapper">
-          {resolvedHeader && (
-            <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
-              {resolvedHeader.scriptAccent && (
-                <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>
-              )}
-              {resolvedHeader.title && (
-                <h2 className="section__title">{resolvedHeader.title}</h2>
-              )}
-              {resolvedHeader.lead && (
-                <p className="section__lead">{resolvedHeader.lead}</p>
-              )}
-            </header>
-          )}
-
-          {children && (
-            <div className="section__content" data-align={resolvedAlign}>
-              {children}
-            </div>
-          )}
-
-          {actions && (
-            <div className="section__actions" data-align={resolvedAlign}>
-              {actions}
-            </div>
-          )}
-        </div>
-      ) : (
-        /* === RAILS MODE: Dual rail system === */
-        <LegacyWrapper>
-          {/* HEADER RAIL */}
-          {resolvedHeader && (
-            <div className="section__rail section__rail--header" data-width={resolvedHeaderWidth}>
-              {headerSlotProps ? (
-                <PropsSlot inject={headerSlotProps as any}>
-                  <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
-                    {resolvedHeader.scriptAccent && <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>}
-                    {resolvedHeader.title && <h2 className="section__title">{resolvedHeader.title}</h2>}
-                    {resolvedHeader.lead && <p className="section__lead">{resolvedHeader.lead}</p>}
-                  </header>
-                </PropsSlot>
-              ) : (
-                <header className="section__header" data-align={resolvedHeader.align ?? resolvedAlign}>
-                  {resolvedHeader.scriptAccent && <p className="section__script-accent">{resolvedHeader.scriptAccent}</p>}
-                  {resolvedHeader.title && <h2 className="section__title">{resolvedHeader.title}</h2>}
-                  {resolvedHeader.lead && <p className="section__lead">{resolvedHeader.lead}</p>}
-                </header>
-              )}
-            </div>
-          )}
-
-          {/* CONTENT RAIL */}
-          {children && (
-            <div className="section__rail section__rail--content" data-width={resolvedContentWidth}>
-              {contentSlotProps ? (
-                <PropsSlot inject={contentSlotProps as any}>
-                  <div className="section__content">{children}</div>
-                </PropsSlot>
-              ) : (
-                <div className="section__content">{children}</div>
-              )}
-            </div>
-          )}
-
-          {/* ACTIONS RAIL */}
-          {actions && (
-            <div className="section__rail section__rail--actions" data-width={resolvedHeaderWidth}>
-              {actionsSlotProps ? (
-                <PropsSlot inject={actionsSlotProps as any}>
-                  <div className="section__actions" data-align={resolvedAlign}>
-                    {actions}
-                  </div>
-                </PropsSlot>
-              ) : (
-                <div className="section__actions" data-align={resolvedAlign}>
-                  {actions}
-                </div>
-              )}
-            </div>
-          )}
-        </LegacyWrapper>
-      )}
-
-      {/* Divider */}
-      {resolvedDivider !== 'none' && <div className="section__divider" data-divider={resolvedDivider} aria-hidden="true" />}
-    </Tag>
+      {resolvedDivider !== 'none' ? (
+        <div className="section__divider" data-divider={resolvedDivider} aria-hidden="true" />
+      ) : null}
+    </Surface>
   )
 })
 Section.displayName = 'Section'
 
 export default Section
+
+export type {
+  Align,
+  Width,
+  PaddingY,
+  Background,
+  Tone,
+  Divider,
+  Height,
+  Container,
+  Variant,
+  SectionHeaderProps,
+  SectionImageProps,
+  SectionSlots,
+} from './section-types'

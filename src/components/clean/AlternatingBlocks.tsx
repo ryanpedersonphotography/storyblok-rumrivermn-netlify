@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
+import { storyblokEditable } from '@storyblok/react/rsc'
 import Section from '@/components/ui/SectionEnhanced'
 
 interface AlternatingBlocksBlok {
@@ -33,14 +33,16 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
     '/images/property-field-wildflowers-natural.jpg',
   ]
 
-  console.log('[AlternatingBlocks] blok:', blok)
-  console.log('[AlternatingBlocks] blocks count:', blok.blocks?.length || 0)
-  console.log('[AlternatingBlocks] first block:', blok.blocks?.[0])
-
   // Get styling from Storyblok or use defaults
   const backgroundVariant = blok.background_variant || 'tint-rose'
   const themeOverride = blok.theme_override || 'auto'
   const paddingSize = blok.padding_size || 'fluid'
+
+  // Keep anchor targets clear of the fixed navbar when linking into this section.
+  const headerSlotProps: React.HTMLAttributes<HTMLElement> & { 'data-testid': string } = {
+    'data-testid': 'alternating-blocks-header',
+    style: { scrollMarginTop: '96px' }
+  }
 
   return (
     <Section
@@ -62,10 +64,7 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
         lead: blok.description || 'Discover what makes our venue the perfect setting for your unforgettable celebration',
         align: 'center'
       }}
-      headerSlotProps={{
-        'data-test-id': 'alternating-blocks-header',
-        style: { scrollMarginTop: '96px' }  // Account for fixed navbar
-      }}
+      headerSlotProps={headerSlotProps}
       className="alternating-blocks"
       data-section="alternating-blocks"
       {...storyblokEditable(blok)}
@@ -113,6 +112,7 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
                 })}
               </div>
               <div className="alternating-blocks__image">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={imageUrl}
                   alt={block.image_alt || 'Venue image'}
