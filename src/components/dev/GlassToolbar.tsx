@@ -10,7 +10,7 @@ import {
   ChevronDoubleRightIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { cx } from '@/lib/react-interop'
 import '@/styles/components/glass-toolbar.css'
@@ -192,8 +192,43 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
   }, [expanded])
 
   const panelVariants = prefersReducedMotion ? PANEL_VARIANTS_REDUCED : PANEL_VARIANTS_EXPRESSIVE
+  const menuVariants = React.useMemo<Variants>(() => {
+    if (prefersReducedMotion) {
+      return {
+        hidden: { opacity: 1 },
+        enter: { opacity: 1 },
+        exit: { opacity: 1 },
+      }
+    }
+
+    return {
+      hidden: { opacity: 0 },
+      enter: {
+        opacity: 1,
+        transition: {
+          duration: 0.24,
+          ease: [0.2, 0.0, 0.0, 1.0],
+        },
+      },
+      exit: {
+        opacity: 0,
+        transition: {
+          duration: 0.2,
+          ease: [0.4, 0.0, 1.0, 1.0],
+        },
+      },
+    }
+  }, [prefersReducedMotion])
 
   const handleSectionClick = React.useCallback(
+    (sectionId: string) => {
+      setInternalActive(sectionId)
+      onSectionChange?.(sectionId)
+    },
+    [onSectionChange],
+  )
+
+  const handleSectionPointerEnter = React.useCallback(
     (sectionId: string) => {
       setInternalActive(sectionId)
       onSectionChange?.(sectionId)
@@ -263,6 +298,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
                 type="button"
                 className={cx('glass-toolbar__pill', isActive && 'is-active')}
                 onClick={() => handleSectionClick(section.id)}
+                onPointerEnter={() => handleSectionPointerEnter(section.id)}
                 aria-pressed={isActive}
                 aria-label={section.label}
                 title={section.label}
@@ -297,8 +333,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         animate={expanded ? 'expanded' : 'collapsed'}
         variants={panelVariants}
       >
-        <div className="glass-toolbar__panel-header">
-          <span className="glass-toolbar__brand">Workspace</span>
+        <div className="glass-toolbar__panel-actions">
           <button
             type="button"
             className="glass-toolbar__panel-close"
@@ -312,29 +347,40 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
             <XMarkIcon aria-hidden="true" />
           </button>
         </div>
-
         <div className="glass-toolbar__panel-body">
-          <div className="glass-toolbar__details">
-            <p className="glass-toolbar__details-kicker">{activeSection?.label}</p>
-            {activeSection?.description ? (
-              <p className="glass-toolbar__details-subtitle">{activeSection.description}</p>
-            ) : null}
-          </div>
-
-          {activeSection?.items && activeSection.items.length > 0 ? (
-            <ul className="glass-toolbar__subnav" aria-label={`${activeSection.label} shortcuts`}>
-              {activeSection.items.map((item) => (
-                <li key={item.id}>
-                  <button type="button" onClick={() => handleItemClick(item.id)}>
-                    <span>{item.label}</span>
-                    {item.description ? <small>{item.description}</small> : null}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="glass-toolbar__empty">No shortcuts configured yet.</p>
-          )}
+          <AnimatePresence initial={false} mode="wait">
+            {activeSection?.items && activeSection.items.length > 0 ? (
+              <motion.ul
+                key={activeSection.id}
+                className="glass-toolbar__subnav"
+                aria-label={`${activeSection.label} shortcuts`}
+                initial="hidden"
+                animate="enter"
+                exit="exit"
+                variants={menuVariants}
+              >
+                {activeSection.items.map((item) => (
+                  <li key={item.id}>
+                    <button type="button" onClick={() => handleItemClick(item.id)}>
+                      <span>{item.label}</span>
+                      {item.description ? <small>{item.description}</small> : null}
+                    </button>
+                  </li>
+                ))}
+              </motion.ul>
+            ) : (
+              <motion.p
+                key={`${activeSection?.id ?? 'none'}-empty`}
+                className="glass-toolbar__empty"
+                initial="hidden"
+                animate="enter"
+                exit="exit"
+                variants={menuVariants}
+              >
+                No shortcuts configured yet.
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
 
         <footer className="glass-toolbar__footer">
