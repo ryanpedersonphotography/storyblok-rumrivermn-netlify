@@ -17,7 +17,11 @@
   --glass-toolbar-pill-label-active: rgba(255, 255, 255, 0.82);
   --glass-toolbar-icon-hover-bg: rgba(255, 255, 255, 0.18);
   --glass-toolbar-icon-active: rgba(255, 255, 255, 0.92);
+  --glass-toolbar-pill-active-bg: rgba(255, 255, 255, 0.24);
   --glass-toolbar-chip-border: rgba(255, 255, 255, 0.2);
+:root:not([data-theme="dark"]) .glass-toolbar,
+html[data-theme="light"] .glass-toolbar {
+  --glass-toolbar-pill-active-bg: color-mix(in oklch, var(--theme-accent-rose, #d89bae) 28%, var(--theme-bg-primary, #ffffff) 72%);
   --glass-toolbar-chip-bg: rgba(255, 255, 255, 0.08);
   --glass-toolbar-chip-hover-border: rgba(255, 255, 255, 0.32);
   --glass-toolbar-chip-hover-bg: rgba(255, 255, 255, 0.12);
@@ -146,6 +150,16 @@
   color: var(--glass-toolbar-icon-active);
   transform: translateY(-2px);
   outline: none;
+}
+
+.glass-toolbar__pill.is-active svg {
+  background: var(--glass-toolbar-pill-active-bg);
+  color: var(--glass-toolbar-icon-active);
+}
+
+.glass-toolbar__pill.is-active:hover svg,
+.glass-toolbar__pill.is-active:focus-visible svg {
+  background: var(--glass-toolbar-pill-active-bg);
 }
 
 .glass-toolbar__pill:hover .glass-toolbar__pill-label,
