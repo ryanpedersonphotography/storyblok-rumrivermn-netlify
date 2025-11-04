@@ -1,5 +1,5 @@
 :root {
-  --glass-toolbar-rail-width: 86px;
+  --glass-toolbar-rail-width: 88px;
   --glass-toolbar-panel-width: 360px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
   --glass-toolbar-shadow: 0 32px 70px rgba(8, 6, 10, 0.38);
@@ -93,15 +93,21 @@
   transition: color 180ms var(--glass-toolbar-ease);
 }
 
+
 .glass-toolbar__pill svg {
-  width: 24px;
-  height: 24px;
-  padding: 9px;
-  border-radius: 14px;
+  width: 56px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 4px;
+  padding: 4px;
+  border-radius: 16px;
   background: transparent;
-  transition: background 220ms var(--glass-toolbar-ease),
-    color 220ms var(--glass-toolbar-ease),
-    transform 260ms var(--glass-toolbar-ease);
+  font-size: 24px;
+  transition: background 200ms var(--glass-toolbar-ease),
+    color 200ms var(--glass-toolbar-ease),
+    transform 220ms var(--glass-toolbar-ease);
 }
 
 .glass-toolbar__pill:hover svg,
@@ -112,11 +118,14 @@
 }
 
 .glass-toolbar__pill-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.58);
-  transition: color 220ms var(--glass-toolbar-ease);
+  font-size: 0.75rem;
+  line-height: 1.33;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 200ms var(--glass-toolbar-ease),
+    font-variation-settings 200ms var(--glass-toolbar-ease);
 }
 
 .glass-toolbar__pill.is-active svg {

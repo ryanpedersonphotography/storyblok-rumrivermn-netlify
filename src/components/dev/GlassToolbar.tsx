@@ -250,7 +250,6 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
       className={cx('glass-toolbar', className)}
       data-expanded={expanded ? 'true' : 'false'}
       style={style}
-      onPointerEnter={() => setPointerInside(true)}
       onPointerLeave={() => {
         setPointerInside(false)
         pointerFocusGate.current = false
@@ -279,7 +278,10 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         }
       }}
     >
-      <div className="glass-toolbar__rail">
+      <div
+        className="glass-toolbar__rail"
+        onPointerEnter={() => setPointerInside(true)}
+      >
         <div className="glass-toolbar__rail-top">
           <span className="glass-toolbar__mark" aria-hidden="true">
             RR
@@ -332,6 +334,7 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         initial={expanded ? 'expanded' : 'collapsed'}
         animate={expanded ? 'expanded' : 'collapsed'}
         variants={panelVariants}
+        onPointerEnter={() => setPointerInside(true)}
       >
         <div className="glass-toolbar__panel-actions">
           <button
