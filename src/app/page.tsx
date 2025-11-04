@@ -17,8 +17,16 @@ async function fetchStory(slug: string) {
 }
 
 import CleanStoryRenderer from '@/components/clean/CleanStoryRenderer'
+import GlassToolbar from '@/components/dev/GlassToolbar'
 
 export default async function HomePage() {
   const story = await fetchStory('home')
-  return <CleanStoryRenderer story={story} />
+  return (
+    <div className="glass-toolbar-layout">
+      <GlassToolbar />
+      <main className="glass-toolbar-layout__content">
+        <CleanStoryRenderer story={story} />
+      </main>
+    </div>
+  )
 }
