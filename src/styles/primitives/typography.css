@@ -1,0 +1,249 @@
+/* ==========================================================================
+   TYPOGRAPHY PRIMITIVES - Token-Driven Heading & Text Components
+
+   Features:
+   - Fluid typography with clamp() (Utopia-style scales)
+   - Semantic HTML elements (h1-h6, p, span, div)
+   - text-wrap: balance for nicer multi-line headings
+   - Token-driven sizes, weights, and leading
+   - Zero margins by default (composition over inheritance)
+   - OKLCH color integration for better perceptual control
+   ========================================================================== */
+
+@layer components {
+  :root {
+    /* ===== Type Scale (fluid, token-driven) ===== */
+    /* Base sizes with fluid scaling via clamp() */
+    --ts-xs:  clamp(0.8125rem, 0.6vw + 0.75rem, 0.875rem);   /* 13-14px */
+    --ts-sm:  clamp(0.9rem, 0.8vw + 0.8rem, 1rem);           /* 14.4-16px */
+    --ts-md:  clamp(1rem, 1vw + 0.9rem, 1.125rem);           /* 16-18px */
+    --ts-lg:  clamp(1.125rem, 1.2vw + 1rem, 1.25rem);        /* 18-20px */
+    --ts-xl:  clamp(1.375rem, 1.8vw + 1.15rem, 1.75rem);     /* 22-28px */
+    --ts-2xl: clamp(1.75rem, 2.6vw + 1.4rem, 2.25rem);       /* 28-36px */
+    --ts-3xl: clamp(2rem, 3.2vw + 1.6rem, 2.75rem);          /* 32-44px */
+    --ts-4xl: clamp(2.5rem, 3.8vw + 2rem, 3.25rem);          /* 40-52px */
+
+    /* ===== Line Height Tokens ===== */
+    --lh-tight:  1.15;  /* Headings */
+    --lh-normal: 1.5;   /* Body text */
+    --lh-loose:  1.7;   /* Large body text */
+
+    /* ===== Font Weight Tokens ===== */
+    --fw-regular:  400;
+    --fw-medium:   500;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+
+    /* ===== Text Color Tokens (muted variants) ===== */
+    --text-muted: color-mix(in oklch, var(--text-primary) 70%, transparent);
+  }
+
+  /* =========================================================
+     UTILITY CLASSES
+     ========================================================= */
+
+  /* Text balancing for nicer multi-line headings */
+  .t-balance {
+    text-wrap: balance;
+  }
+
+  /* Eyebrow/overline style (uppercase, tracked) */
+  .t-eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--ts-sm);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--theme-accent-rose, currentColor);
+  }
+
+  /* Optional block margins (opt-in) */
+  .t-block-margin {
+    margin-block: var(--space-16);
+  }
+
+  /* =========================================================
+     HEADING PRIMITIVE [data-ui="heading"]
+     ========================================================= */
+  [data-ui="heading"] {
+    /* Reset */
+    margin: 0;
+    padding: 0;
+
+    /* Typography */
+    font-family: var(--font-serif);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    letter-spacing: 0;
+    color: var(--text-primary);
+
+    /* Default: balance multi-line headings */
+    text-wrap: balance;
+  }
+
+  /* Size variants */
+  [data-ui="heading"][data-size="xs"] {
+    font-size: var(--ts-lg);
+  }
+
+  [data-ui="heading"][data-size="sm"] {
+    font-size: var(--ts-xl);
+  }
+
+  [data-ui="heading"][data-size="md"] {
+    font-size: var(--ts-2xl);
+  }
+
+  [data-ui="heading"][data-size="lg"] {
+    font-size: var(--ts-3xl);
+  }
+
+  [data-ui="heading"][data-size="xl"] {
+    font-size: var(--ts-4xl);
+  }
+
+  /* Alignment variants */
+  [data-ui="heading"][data-align="start"] {
+    text-align: start;
+  }
+
+  [data-ui="heading"][data-align="center"] {
+    text-align: center;
+  }
+
+  [data-ui="heading"][data-align="end"] {
+    text-align: end;
+  }
+
+  /* Muted color variant */
+  [data-ui="heading"][data-muted="true"] {
+    color: var(--text-muted);
+  }
+
+  /* Balance opt-out */
+  [data-ui="heading"][data-balance="false"] {
+    text-wrap: normal;
+  }
+
+  /* =========================================================
+     TEXT PRIMITIVE [data-ui="text"]
+     ========================================================= */
+  [data-ui="text"] {
+    /* Reset */
+    margin: 0;
+    padding: 0;
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-normal);
+    color: var(--text-primary);
+  }
+
+  /* Size variants */
+  [data-ui="text"][data-size="xs"] {
+    font-size: var(--ts-xs);
+  }
+
+  [data-ui="text"][data-size="sm"] {
+    font-size: var(--ts-sm);
+  }
+
+  [data-ui="text"][data-size="md"] {
+    font-size: var(--ts-md);
+  }
+
+  [data-ui="text"][data-size="lg"] {
+    font-size: var(--ts-lg);
+    line-height: var(--lh-loose); /* Larger text benefits from more leading */
+  }
+
+  /* Alignment variants */
+  [data-ui="text"][data-align="start"] {
+    text-align: start;
+  }
+
+  [data-ui="text"][data-align="center"] {
+    text-align: center;
+  }
+
+  [data-ui="text"][data-align="end"] {
+    text-align: end;
+  }
+
+  /* Muted color variant */
+  [data-ui="text"][data-muted="true"] {
+    color: var(--text-muted);
+  }
+
+  /* =========================================================
+     PROGRESSIVE ENHANCEMENT: HYPHENATION FALLBACK
+     ========================================================= */
+  @supports not (text-wrap: balance) {
+    [data-ui="heading"] {
+      hyphens: auto;
+    }
+  }
+
+  /* =========================================================
+     CONTAINER-AWARE TYPOGRAPHY
+     ========================================================= */
+  @supports (container-type: inline-size) {
+    /* Enable container queries on section content rails */
+    .section__rail--content {
+      container-type: inline-size;
+      container-name: content-rail;
+    }
+
+    /* Responsive heading sizes based on container width */
+    @container content-rail (max-width: 640px) {
+      [data-ui="heading"][data-size="xl"] {
+        font-size: var(--ts-3xl);
+      }
+      [data-ui="heading"][data-size="lg"] {
+        font-size: var(--ts-2xl);
+      }
+    }
+
+    @container content-rail (min-width: 1200px) {
+      [data-ui="heading"][data-size="xl"] {
+        font-size: var(--ts-4xl);
+      }
+    }
+  }
+
+  /* =========================================================
+     MEASURE UTILITIES - Readable Line Lengths
+     ========================================================= */
+  :root {
+    --measure-tight: 52ch;  /* Tight measure for short text */
+    --measure:       66ch;  /* Optimal reading width */
+    --measure-loose: 72ch;  /* Loose measure for large text */
+  }
+
+  .measure {
+    max-width: var(--measure);
+  }
+
+  .measure--tight {
+    max-width: var(--measure-tight);
+  }
+
+  .measure--loose {
+    max-width: var(--measure-loose);
+  }
+
+  /* =========================================================
+     DARK MODE ADAPTATIONS
+     ========================================================= */
+  html[data-theme="dark"] {
+    /* Adjust muted text for better contrast in dark mode */
+    --text-muted: color-mix(in oklch, var(--text-primary) 65%, transparent);
+  }
+}
+
+/* =========================================================
+   NOTE: Base-level html styles moved to globals.css @layer base
+   to prevent cascade conflicts with scrollbar-gutter.
+   See: font-variation-settings, font-synthesis-weight
+   ========================================================= */

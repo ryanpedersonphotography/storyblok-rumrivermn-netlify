@@ -1,233 +1,290 @@
-/* FILE: src/styles/components/gallery.css */
+/* ==========================================================================
+   LOVE STORIES GALLERY
+   - Now uses unified Section component for layout/header/spacing/background
+   - This CSS only handles the gallery grid and card styling
+   ========================================================================== */
+
 @layer components {
 
-/* ===== Section scope ===== */
-[data-clean-root] .love-stories-gallery {
-  background: var(--gallery-bg,
-    color-mix(in srgb, var(--theme-bg-primary, #FFFCF8) 92%, var(--gallery-rose, #9D6B7B) 8%)
-  );
-  padding: clamp(3.75rem, 8vw, 6.25rem) 0;
-  min-height: 100vh;
+/* Section component handles:
+   - Background via data-bg="surface"
+   - Padding via data-padding-y="lg"
+   - Header rendering (.section__header, .section__script-accent, etc.)
+   - Container max-width (wide = 1400px) and horizontal padding
+*/
 
-  /* full-bleed */
-  width: 100vw;
-  max-width: none;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-
-[data-clean-root] .love-stories-content { width: 100%; }
-
-[data-clean-root] .love-stories-header {
-  max-width: 1200px;
-  margin: 0 auto clamp(2rem, 6vw, 3rem);
-  padding: 0 clamp(1rem, 3vw, 2rem);
-  text-align: center;
-}
-
-[data-clean-root] .love-stories-header .script-accent {
-  font-family: var(--font-script, 'Dancing Script', cursive);
-  font-size: clamp(1.5rem, 3.5vw, 1.75rem);
-  color: var(--gallery-rose, var(--theme-accent-rose, #9D6B7B));
-  margin-bottom: .75rem;
-}
-
-[data-clean-root] .love-stories-header .love-section-title {
-  font-family: var(--font-serif, 'Playfair Display', serif);
-  font-size: clamp(2rem, 5.5vw, 3rem);
-  color: var(--gallery-text, var(--theme-text-primary, #6B4E3D));
-  margin: 0 0 1rem;
-}
-
-[data-clean-root] .love-stories-header .love-lead {
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
-  line-height: 1.7;
-  color: var(--gallery-text-soft, var(--theme-text-secondary, #6B4E3D));
-  opacity: .9;
-  max-width: 640px;
-  margin: 1rem auto 0;
-}
-
-/* ===== Grid ===== */
-[data-clean-root] .wedding-gallery {
-  max-width: 1200px;
-  margin: 0 auto clamp(2rem, 6vw, 3rem);
-  padding: 0 clamp(1rem, 3vw, 2rem);
+/* ===== Wedding Gallery Grid ===== */
+[data-clean-root="true"] .wedding-gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 300px;
-  gap: 16px;
+  grid-auto-flow: dense;
+  gap: clamp(12px, 1.6vw, 16px);
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-[data-clean-root] .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-[data-clean-root] .gallery-item:nth-child(6) { grid-column: span 2; }
+/* Featured items spanning multiple cells */
+[data-clean-root="true"] .gallery-item:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
 
-/* ===== Card ===== */
-[data-clean-root] .gallery-item {
+[data-clean-root="true"] .gallery-item:nth-child(6) {
+  grid-column: span 2;
+}
+
+/* ===== Gallery Item Card ===== */
+[data-clean-root="true"] .gallery-item {
   position: relative;
   display: block;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   background: color-mix(in srgb, var(--gallery-card-bg, #FFFFFF) 5%, transparent);
-  border: 1px solid color-mix(in srgb, var(--gallery-border, rgba(0,0,0,.08)) 50%, transparent);
-  box-shadow: var(--theme-shadow-lg, 0 25px 50px rgba(0,0,0,.3));
-  transition: transform .4s cubic-bezier(.25,.46,.45,.94), box-shadow .4s cubic-bezier(.25,.46,.45,.94), border-color .4s cubic-bezier(.25,.46,.45,.94);
+  border: 1px solid color-mix(in srgb, var(--gallery-border, rgba(0,0,0,.08)) 40%, transparent);
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  transition: transform .35s cubic-bezier(.2,.65,.3,1), box-shadow .35s cubic-bezier(.2,.65,.3,1), border-color .35s;
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   text-decoration: none;
+  outline: none;
 }
 
-[data-clean-root] .gallery-item img {
-  width: 100%; height: 100%; object-fit: cover;
+[data-clean-root="true"] .gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 1.2s cubic-bezier(.25,.46,.45,.94);
 }
 
-/* Overlay */
-[data-clean-root] .gallery-overlay {
-  position: absolute; inset: 0;
+/* ===== Gallery Overlay ===== */
+[data-clean-root="true"] .gallery-overlay {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--gallery-text, #6B4E3D) 40%, transparent) 0%,
-    color-mix(in srgb, var(--gallery-rose, #9D6B7B) 30%, transparent) 50%,
-    color-mix(in srgb, var(--gallery-gold, #E4C896) 20%, transparent) 100%
+    to top,
+    color-mix(in srgb, black 40%, transparent) 0%,
+    color-mix(in srgb, var(--gallery-rose, #9D6B7B) 22%, transparent) 40%,
+    transparent 68%
   );
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   border: 1px solid color-mix(in srgb, var(--gallery-border-strong, rgba(255,255,255,.15)) 50%, transparent);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1rem, 2.5vw, 2rem);
   opacity: 0;
   transition: opacity .4s cubic-bezier(.25,.46,.45,.94);
 }
 
-/* Hover/focus affordances */
-[data-clean-root] .gallery-item:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,.4); }
-[data-clean-root] .gallery-item:hover .gallery-overlay { opacity: 1; }
-[data-clean-root] .gallery-item:hover img { transform: scale(1.1); }
+/* ===== Hover/Focus States ===== */
+[data-clean-root="true"] .gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.24);
+  border-color: color-mix(in srgb, var(--gallery-border, rgba(0,0,0,.12)) 70%, transparent);
+}
 
-/* Focus makes overlay visible (keyboard) */
-[data-clean-root] .gallery-item:focus-visible .gallery-overlay,
-[data-clean-root] .gallery-item:focus-within .gallery-overlay { opacity: 1; }
+[data-clean-root="true"] .gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
 
-/* Shimmer */
-[data-clean-root] .gallery-item::before {
-  content: ''; position: absolute; top: 0; left: -100%;
-  width: 100%; height: 100%;
+[data-clean-root="true"] .gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Focus makes overlay visible (keyboard navigation) */
+[data-clean-root="true"] .gallery-item:focus-visible .gallery-overlay,
+[data-clean-root="true"] .gallery-item:focus-within .gallery-overlay {
+  opacity: 1;
+}
+
+[data-clean-root="true"] .gallery-item:focus-visible {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, #fff 85%, transparent),
+    0 0 0 4px color-mix(in srgb, var(--gallery-rose, #9D6B7B) 70%, transparent),
+    0 16px 36px rgba(0,0,0,.25);
+  transform: translateY(-2px);
+}
+
+/* ===== Shimmer Effect ===== */
+[data-clean-root="true"] .gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--gallery-on-dark, #FFF8E7) 30%, transparent) 50%, transparent 100%);
-  transition: left .8s ease-in-out; z-index: 10; border-radius: 12px; pointer-events: none;
+  transition: left .8s ease-in-out;
+  z-index: 10;
+  border-radius: 14px;
+  pointer-events: none;
 }
-[data-clean-root] .gallery-item:hover::before { left: 100%; }
 
-/* Text on overlay */
-[data-clean-root] .gallery-couple-names {
+[data-clean-root="true"] .gallery-item:hover::before {
+  left: 100%;
+}
+
+/* ===== Overlay Text ===== */
+[data-clean-root="true"] .gallery-couple-names {
   font-family: var(--font-script, 'Dancing Script', cursive);
-  font-size: 1.75rem;
+  font-size: clamp(1.35rem, 1rem + 1.2vw, 1.75rem);
   color: var(--gallery-on-dark, var(--theme-text-on-dark, #FFF8E7));
-  margin-bottom: .5rem;
+  margin-bottom: var(--space-8);
+  letter-spacing: .2px;
   text-shadow: 0 2px 8px rgba(0,0,0,.5);
-  position: relative; z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
-[data-clean-root] .gallery-season {
+[data-clean-root="true"] .gallery-season {
   font-family: var(--font-serif, 'Playfair Display', serif);
-  font-size: 1rem; font-weight: 500;
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--gallery-gold, var(--theme-accent-gold, #E4C896));
-  margin-bottom: .25rem;
+  margin-bottom: var(--space-4);
+  opacity: .95;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
-  position: relative; z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
-[data-clean-root] .gallery-details {
+[data-clean-root="true"] .gallery-details {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: .875rem; font-weight: 400;
+  font-size: .875rem;
+  font-weight: 400;
   color: var(--gallery-on-dark, var(--theme-text-on-dark, #FFF8E7));
-  opacity: .95; text-shadow: 0 1px 3px rgba(0,0,0,.7);
-  position: relative; z-index: 2;
+  opacity: .95;
+  text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  position: relative;
+  z-index: 2;
 }
 
-/* Focus ring */
-[data-clean-root] .gallery-item:focus-visible {
-  outline: var(--focus-width, 3px) solid var(--focus-ring, var(--gallery-gold, #E4C896));
-  outline-offset: 4px;
-}
+/* ============================================================================
+   Dark Mode
+   ============================================================================ */
 
-/* ===== Dark mode ===== */
-:root[data-theme="dark"] [data-clean-root] .love-stories-gallery {
-  background: var(--gallery-bg-dark, var(--rose-veil-8, #3D2F2A));
-}
-
-:root[data-theme="dark"] [data-clean-root] .love-stories-header .script-accent {
-  color: var(--gallery-rose-dark, #D89BAE);
-}
-
-:root[data-theme="dark"] [data-clean-root] .love-stories-header .love-section-title,
-:root[data-theme="dark"] [data-clean-root] .love-stories-header .love-lead {
-  color: var(--gallery-text-dark, #F5E6D3);
-}
-
-:root[data-theme="dark"] [data-clean-root] .gallery-item {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-item {
   background: color-mix(in srgb, var(--gallery-card-dark, #3D2F22) 15%, transparent);
   border-color: var(--gallery-border-dark, rgba(255,255,255,.12));
   box-shadow: var(--theme-shadow-dark-lg, 0 25px 50px rgba(0,0,0,.6));
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-item:hover {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-item:hover {
   border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.25));
   box-shadow: 0 30px 60px rgba(0,0,0,.6);
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-overlay {
-  background: linear-gradient(135deg, rgba(10,8,6,.94) 0%, rgba(26,20,16,.93) 50%, rgba(15,12,10,.92) 100%);
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(10,8,6,.82) 0%,
+    rgba(18,14,11,.6) 40%,
+    transparent 75%
+  );
   border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.18));
 }
 
-:root[data-theme="dark"] [data-clean-root] .gallery-season {
+:root[data-theme="dark"] [data-clean-root="true"] .gallery-season {
   color: var(--gallery-gold-dark, #F0D9A8);
 }
 
-/* Auto dark (OS) */
+/* Auto dark mode (OS preference) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .love-stories-gallery { background: var(--gallery-bg-dark, #3D2F2A); }
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-item {
+    background: color-mix(in srgb, var(--gallery-card-dark, #3D2F22) 15%, transparent);
+    border-color: var(--gallery-border-dark, rgba(255,255,255,.12));
+    box-shadow: var(--theme-shadow-dark-lg, 0 25px 50px rgba(0,0,0,.6));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-item:hover {
+    border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.25));
+    box-shadow: 0 30px 60px rgba(0,0,0,.6);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10,8,6,.82) 0%,
+      rgba(18,14,11,.6) 40%,
+      transparent 75%
+    );
+    border-color: var(--gallery-border-strong-dark, rgba(255,255,255,.18));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .gallery-season {
+    color: var(--gallery-gold-dark, #F0D9A8);
+  }
 }
 
-/* ===== Hoverless / reduced motion ===== */
+/* ============================================================================
+   Touch Devices & Reduced Motion
+   ============================================================================ */
+
+/* Touch devices: keep overlay always visible with simpler background */
 @media (hover: none) {
-  [data-clean-root] .gallery-item:hover { transform: none; }
-  [data-clean-root] .gallery-item:hover img { transform: none; }
-  [data-clean-root] .gallery-item:hover .gallery-overlay { opacity: 1; } /* keep details visible on touch */
-  [data-clean-root] .gallery-item::before { display: none; } /* drop shimmer on touch */
+  [data-clean-root="true"] .gallery-item:hover {
+    transform: none;
+  }
+
+  [data-clean-root="true"] .gallery-item:hover img {
+    transform: none;
+  }
+
+  [data-clean-root="true"] .gallery-overlay {
+    opacity: .95;
+    background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 50%, transparent 80%);
+  }
+
+  [data-clean-root="true"] .gallery-item:hover .gallery-overlay {
+    opacity: .95;
+  }
+
+  [data-clean-root="true"] .gallery-item::before {
+    display: none;
+  }
 }
 
+/* Reduced motion: disable all transitions */
 @media (prefers-reduced-motion: reduce) {
-  [data-clean-root] .gallery-item,
-  [data-clean-root] .gallery-item img,
-  [data-clean-root] .gallery-overlay {
+  [data-clean-root="true"] .gallery-item,
+  [data-clean-root="true"] .gallery-item img,
+  [data-clean-root="true"] .gallery-overlay {
     transition: none !important;
   }
-  [data-clean-root] .gallery-item::before { display: none; }
-}
 
-/* ===== Responsive ===== */
-@media (max-width: 1024px) {
-  [data-clean-root] .gallery-item:nth-child(1),
-  [data-clean-root] .gallery-item:nth-child(6) { grid-column: span 1; }
-}
-
-@media (max-width: 768px) {
-  [data-clean-root] .love-stories-gallery { padding: 80px 0; }
-  [data-clean-root] .wedding-gallery {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 300px; gap: 16px;
+  [data-clean-root="true"] .gallery-item::before {
+    display: none;
   }
-  [data-clean-root] .gallery-overlay { padding: 1.25rem; }
-  [data-clean-root] .gallery-couple-names { font-size: 1.5rem; }
-  [data-clean-root] .love-stories-header .love-section-title { font-size: 2.25rem; }
 }
 
-@media (max-width: 480px) {
-  [data-clean-root] .love-stories-gallery { padding: 60px 0; }
-  [data-clean-root] .love-stories-content { padding: 0 1rem; }
-  [data-clean-root] .love-stories-header .love-section-title { font-size: 2rem; }
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+/* Tablet: Reset featured item spans */
+@media (max-width: 1024px) {
+  [data-clean-root="true"] .gallery-item:nth-child(1),
+  [data-clean-root="true"] .gallery-item:nth-child(6) {
+    grid-column: span 1;
+  }
 }
 
-} /* @layer */
+/* Mobile: Single column layout */
+@media (max-width: 768px) {
+  [data-clean-root="true"] .wedding-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 300px;
+    gap: var(--space-16);
+  }
+
+  [data-clean-root="true"] .gallery-overlay {
+    padding: var(--space-20);
+  }
+
+  [data-clean-root="true"] .gallery-couple-names {
+    font-size: 1.5rem;
+  }
+}
+
+} /* End @layer components */

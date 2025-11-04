@@ -2,10 +2,12 @@
    FILE: src/styles/globals.css
    PURPOSE: Clean global reset + base, no visual mutation of components.
             Loads AFTER theme tokens in your layout.
+
+   NOTE: @layer declaration moved to theme.css for unified CSS layer system.
  * ========================================================================== */
 
-/* ===== Layer Declaration ===== */
-@layer base, components, utilities;
+/* ===== Component Imports ===== */
+/* buttons.css imported in layout.js - removed duplicate import */
 
 @layer base {
   /* 1) Modern reset with low specificity */
@@ -13,9 +15,19 @@
 *::before,
 *::after { box-sizing: border-box; }
 * { margin: 0; }
-html, body { height: 100%; }
+
+/* Fix 20px shift: Reserve space for scrollbar to prevent layout shift */
+html {
+  height: 100%;
+  scrollbar-gutter: stable both-edges;
+
+  /* Font rendering polish (variable fonts) */
+  font-variation-settings: 'opsz' auto;
+  font-synthesis-weight: none;
+}
 
 body {
+  height: 100%;
   line-height: var(--line-normal);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -63,7 +75,7 @@ a:hover { text-decoration: underline; }
 
 /* Reduced motion - global accessibility guard */
 @media (prefers-reduced-motion: reduce) {
-  [data-clean-root] * {
+  [data-clean-root="true"] * {
     animation: none !important;
     transition: none !important;
   }

@@ -1,12 +1,14 @@
 // ===============================================================
 // FILE: src/components/clean/FAQ.tsx
 // Clean FAQ with robust Storyblok field handling + per-item fallbacks
+// MIGRATED to unified Section component
 // ===============================================================
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 import { renderRichText } from '@storyblok/js'
+import Section from '@/components/ui/SectionEnhanced'
 
 type Blok = Record<string, any>
 
@@ -93,42 +95,57 @@ export default function FAQ({ blok }: { blok: Blok }) {
   // useEffect(() => { console.log('[FAQ blok]', JSON.parse(JSON.stringify(blok))) }, [blok])
 
   return (
-    <section {...storyblokEditable(blok)} className="faq-accordion" data-section="faq">
-        <div className="faq-container">
-        <div className="faq-header">
-          <p className="faq-script">{subtitle}</p>
-          <h2 className="faq-title">{title}</h2>
-        </div>
+    <Section
+      as="section"
+      align="center"
+      width="prose"
+      paddingY="lg"
+      background="surface"
+      header={{
+        scriptAccent: subtitle,
+        title: title,
+        align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'faq-header',
+        style: { scrollMarginTop: '80px' }  // Smooth scroll offset
+      }}
+      contentSlotProps={{
+        'data-test-id': 'faq-content',
+        'aria-label': 'Frequently asked questions list'
+      }}
+      className="faq-accordion"
+      data-section="faq"
+      {...storyblokEditable(blok)}
+    >
+      <div className="faq-list">
+        {items.map((it) => {
+          const isOpen = !!open[it.uid]
+          return (
+            <div key={it.uid} className={`faq-item ${isOpen ? 'is-open' : ''}`}>
+              <button
+                type="button"
+                className="faq-question"
+                onClick={() => toggle(it.uid)}
+                aria-expanded={isOpen}
+                aria-controls={`answer-${it.uid}`}
+              >
+                <h3>{it.question}</h3>
+                <span className="faq-toggle" aria-hidden>↓</span>
+              </button>
 
-        <div className="faq-list">
-          {items.map((it) => {
-            const isOpen = !!open[it.uid]
-            return (
-              <div key={it.uid} className={`faq-item ${isOpen ? 'is-open' : ''}`}>
-                <button
-                  type="button"
-                  className="faq-question"
-                  onClick={() => toggle(it.uid)}
-                  aria-expanded={isOpen}
-                  aria-controls={`answer-${it.uid}`}
-                >
-                  <h3>{it.question}</h3>
-                  <span className="faq-toggle" aria-hidden>↓</span>
-                </button>
-
-                <div
-                  id={`answer-${it.uid}`}
-                  className="faq-answer"
-                  role="region"
-                  aria-live="polite"
-                >
-                  <div className="faq-answer-body" dangerouslySetInnerHTML={{ __html: it.answerHTML }} />
-                </div>
+              <div
+                id={`answer-${it.uid}`}
+                className="faq-answer"
+                role="region"
+                aria-live="polite"
+              >
+                <div className="faq-answer-body" dangerouslySetInnerHTML={{ __html: it.answerHTML }} />
               </div>
-            )
-          })}
-        </div>
+            </div>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

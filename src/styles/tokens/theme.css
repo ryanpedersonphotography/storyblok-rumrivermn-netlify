@@ -6,6 +6,11 @@
             - Includes "legacy alias" variables to avoid breaking old code
  * ========================================================================== */
 
+/* ===== Unified CSS Layer Declaration ===== */
+/* IMPORTANT: This must be the FIRST layer declaration in the import chain */
+/* All subsequent files use these layers without redeclaring them */
+@layer base, tokens, components, utilities;
+
 /* ---------- Base (light mode by default) ---------------------------------- */
 :root {
   /* ===== Color Primitives (sRGB fallbacks) ===== */
@@ -49,19 +54,24 @@
   /* Base background */
   --hero-bg: #2c241a;
 
-  /* Text & accents on image */
-  --hero-text: var(--text-inverse, #FFF8E7);
-  --hero-accent: var(--accent-gold, #E4C896);
-  --hero-cta-text: var(--text-inverse, #FFF8E7);
-  --hero-cta-hover-text: var(--text-primary, #2C241A);
+  /* Text & accents - LIGHT THEME: Dark text on white gradient */
+  --hero-text: var(--text-primary, #6B4E3D);
+  --hero-accent: var(--accent-rose, #9D6B7B);
+  --hero-cta-text: var(--text-primary, #6B4E3D);
+  --hero-cta-hover-text: var(--text-inverse, #FFF8E7);
 
-  /* Overlay stops — matches your hotfix vibe, but tokenized */
-  --hero-overlay-start: rgba(44, 36, 22, 0.85);
-  --hero-overlay-mid:   rgba(107, 78, 61, 0.75);
-  --hero-overlay-end:   rgba(58, 74, 60, 0.80);
+  /* Overlay stops - LIGHT THEME: White gradient overlay for elegant look */
+  --hero-overlay-start: rgba(255, 255, 255, 0.88);
+  --hero-overlay-mid:   rgba(255, 248, 231, 0.85);
+  --hero-overlay-end:   rgba(244, 228, 225, 0.90);
 
   /* Parallax behavior (override in media queries if needed) */
   --hero-bg-attach: fixed;
+
+  /* Optional hero tint helpers (for variant flourishes) */
+  --hero-gold: #E4C896;
+  --hero-warm: #3A2D22;
+  --hero-rose: #9D6B7B;
 }
 
 /* === Hero tokens (dark) will be defined in main html[data-theme="dark"] block below === */
@@ -196,6 +206,64 @@
   --sticky-cta-shadow: 0 10px 26px rgba(0,0,0,0.25);
   --sticky-cta-border: transparent;
   --sticky-cta-z: 1000;
+
+  /* ===== Unified Button System ===== */
+  --btn-radius: 9999px;
+  --btn-pad-y: 0.9rem;
+  --btn-pad-x: 2.25rem;
+
+  --btn-fg-on-gold: #2C241A;
+  --btn-bg-gold: #E4C896;
+  --btn-bg-gold-hover: color-mix(in oklab, var(--btn-bg-gold) 88%, black 12%);
+
+  --btn-outline-fg: #FFF8E7;
+  --btn-outline-border: #E4C896;
+
+  /* Safety mat behind outline buttons on images */
+  --btn-outline-on-image-bg: rgba(0,0,0,.28);
+  --btn-outline-on-image-bg-hover: rgba(0,0,0,.36);
+
+  /* ===== Why Choose Section (Light) ===== */
+  --why-bg-start: #FFF8E7;      /* warm cream */
+  --why-bg-end:   #F4E4E1;      /* light rose beige */
+  --why-text:     #6B4E3D;      /* brand brown */
+  --why-text-soft:#7B5E4E;
+  --why-number:   #E4C896;      /* gold */
+  --why-card:     #FFFFFF;
+  --why-border:   rgba(0,0,0,.08);
+  --why-shadow:   0 12px 30px rgba(0,0,0,.10);
+
+  /* ===== Glass/Glassmorphism System ===== */
+  --blur-sm: 6px;
+  --blur-md: 10px;
+  --blur-lg: 14px;
+  --blur-xl: 22px;
+
+  /* Transparency Scale */
+  --alpha-subtle: 0.20;
+  --alpha-mid: 0.32;
+  --alpha-strong: 0.45;
+  --alpha-heavy: 0.60;
+
+  /* Saturation Boost */
+  --saturate-low: 1.05;
+  --saturate-med: 1.15;
+  --saturate-high: 1.25;
+
+  /* ===== Motion/Interaction Tokens ===== */
+  --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);     /* smooth deceleration */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);         /* bouncy spring */
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);       /* overshoot snap */
+
+  /* Interaction distances */
+  --distance-sm: 4px;
+  --distance-md: 8px;
+  --distance-lg: 12px;
+
+  /* Stagger delays for sequential animations */
+  --stagger-sm: 50ms;
+  --stagger-md: 100ms;
+  --stagger-lg: 150ms;
 }
 
 
@@ -225,9 +293,15 @@
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 400ms;
+
+  /* Border radius scale */
   --radius-sm: 6px;
   --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
 
   /* ===== Typography ===== */
@@ -252,17 +326,87 @@
   --weight-medium: 500;
   --weight-light: 300;
 
-  /* ===== Spacing Scale ===== */
-  --space-2xs: 0.25rem;
-  --space-xs:  0.5rem;
-  --space-sm:  0.75rem;
-  --space-md:  1rem;
-  --space-lg:  1.25rem;
-  --space-xl:  2rem;
-  --space-2xl: 2.5rem;
-  --space-3xl: 3rem;
-  --space-4xl: 4rem;
-  --space-5xl: 6.25rem; /* 100px */
+  /* =========================================================
+     SPACING SCALE & FLUID TOKENS — USAGE POLICY (2025)
+     ---------------------------------------------------------
+     1) Canonical scale:
+        - Use fixed tokens (e.g., --space-16, --space-32) for
+          components, cards, grids, and inner UI spacing.
+        - Do NOT add bespoke values to the global scale.
+
+     2) Fluid tokens:
+        - Use fluid tokens ONLY for macro layout:
+          • Section vertical padding
+          • Hero breathing room
+          • Large "stack" gaps between major blocks
+        - Define fluid tokens via clamp() between existing fixed
+          rungs. Never use raw px in clamp bounds.
+
+     3) Odd legacy values:
+        - Prefer nearest fixed rung or a local alias:
+          .component { --space-local-53: var(--space-56); }
+        - If "feel" matters more than exact px, use clamp().
+
+     4) Linting:
+        - gap/margin/padding MUST use var().
+        - Allowed exceptions: 0, auto, inherit.
+        - clamp() is allowed but must wrap fixed tokens.
+
+     5) Review checklist:
+        - No raw px in spacing declarations.
+        - No new globals unless reviewed and added to scale.
+        - Fluid tokens appear only in macro layout rules.
+     ========================================================= */
+
+  /* ===== Fixed Spacing Scale (4px base) ===== */
+  --space-0: 0;
+  --space-2: 0.125rem;  /* 2px  */
+  --space-4: 0.25rem;   /* 4px  */
+  --space-8: 0.5rem;    /* 8px  */
+  --space-12: 0.75rem;  /* 12px */
+  --space-16: 1rem;     /* 16px */
+  --space-20: 1.25rem;  /* 20px */
+  --space-24: 1.5rem;   /* 24px */
+  --space-32: 2rem;     /* 32px */
+  --space-40: 2.5rem;   /* 40px */
+  --space-48: 3rem;     /* 48px */
+  --space-56: 3.5rem;   /* 56px */
+  --space-64: 4rem;     /* 64px */
+  --space-80: 5rem;     /* 80px */
+  --space-96: 6rem;     /* 96px */
+
+  /* ===== Legacy Aliases (backward compatibility) ===== */
+  --space-2xs: var(--space-4);   /* 4px */
+  --space-xs:  var(--space-8);   /* 8px */
+  --space-sm:  var(--space-12);  /* 12px */
+  --space-md:  var(--space-16);  /* 16px */
+  --space-lg:  var(--space-20);  /* 20px */
+  --space-xl:  var(--space-32);  /* 32px */
+  --space-2xl: var(--space-40);  /* 40px */
+  --space-3xl: var(--space-48);  /* 48px */
+  --space-4xl: var(--space-64);  /* 64px */
+  --space-5xl: var(--space-96);  /* 96px */
+
+  /* ===== Fluid Spacing Tokens (for macro layout only) ===== */
+  /* Scale-relative fluid rungs (general purpose) */
+  --space-fluid-1: clamp(var(--space-16), 1.5vw, var(--space-24));
+  --space-fluid-2: clamp(var(--space-24), 2vw,   var(--space-40));
+  --space-fluid-3: clamp(var(--space-32), 3vw,   var(--space-56));
+  --space-fluid-4: clamp(var(--space-48), 5vw,   var(--space-80));
+  --space-fluid-5: clamp(var(--space-64), 6vw,   var(--space-96));
+
+  /* Semantic fluid tokens (plug-and-play for common patterns) */
+  --section-pad-fluid: clamp(var(--space-48), 6vw, var(--space-96));
+  --stack-gap-fluid-lg: clamp(var(--space-24), 3vw, var(--space-40));
+  --hero-pad-fluid: clamp(var(--space-56), 8vw, var(--space-96));
+
+  /* ===== Container Query Breakpoints (rem-based for scalability) ===== */
+  /* Use with @container rules for component-level responsiveness */
+  --cq-xs: 28rem;  /* ~448px - mobile component width */
+  --cq-sm: 36rem;  /* ~576px - small tablet component */
+  --cq-md: 48rem;  /* ~768px - tablet component */
+  --cq-lg: 64rem;  /* ~1024px - desktop component */
+  --cq-xl: 80rem;  /* ~1280px - wide desktop component */
 
   /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
   --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
@@ -282,6 +426,49 @@
   --theme-accent-sage: rgb(176 196 182); /* soft desaturated green */
   --theme-accent-gold: var(--accent-gold);
   --theme-shadow-dark-lg: 0 24px 70px rgba(0, 0, 0, 0.28); /* used on glass cards */
+
+  /* ===== Layout Tokens (moved from system/layout.css) ===== */
+  /* Page-level layout constraints */
+  --page-max: 1200px;                   /* unified content width */
+  --page-wide: 1400px;                  /* wide grids (gallery/pricing/maps) */
+  --gutter: clamp(16px, 4vw, 64px);     /* page side padding */
+  --prose-max: 68ch;                    /* readable text width */
+  --rail-offset: calc((100% - var(--page-max)) / 2 + var(--gutter));
+
+  /* ===== Unified Section System Tokens ===== */
+  /* Rails & Content Widths */
+  --rail-gutter: var(--gutter);         /* inherits from --gutter above */
+  --rail-prose: 65ch;                   /* readable text measure */
+  --rail-content: 1200px;               /* default content max */
+  --rail-wide: 1400px;                  /* wider grids (gallery/pricing) */
+
+  /* Vertical Rhythm (Section Padding Presets) */
+  --space-section-xs: 35px;
+  --space-section-sm: 50px;
+  --space-section-md: 60px;
+  --space-section-lg: var(--space-80);
+  --space-section-xl: var(--space-96);
+  --space-section-fluid: var(--section-pad-fluid); /* Now references semantic fluid token */
+
+  /* Background Helpers */
+  --bg-surface: var(--theme-bg-primary, #FFFCF8);
+  --bg-tint-rose: #FDF5F7; /* Fallback: light rose tint */
+  --bg-tint-sage: #F8FAF9; /* Fallback: light sage tint */
+  
+  /* Use color-mix if supported */
+  @supports (color: color-mix(in srgb, white 50%, black)) {
+    --bg-tint-rose: color-mix(in srgb, var(--bg-surface) 92%, var(--theme-accent-rose, #9D6B7B) 8%);
+    --bg-tint-sage: color-mix(in srgb, var(--bg-surface) 92%, #7A8B7F 8%);
+  }
+  --bg-dark-grad: linear-gradient(135deg, #2C2416 0%, #3D2F22 100%);
+
+  /* Overlay Strengths */
+  --overlay-soft: linear-gradient(to top, rgba(0,0,0,.45) 0%, rgba(0,0,0,.2) 50%, transparent 80%);
+  --overlay-strong: linear-gradient(to top, rgba(0,0,0,.66) 0%, rgba(0,0,0,.35) 50%, transparent 80%);
+
+  /* Dividers */
+  --divider-hairline: color-mix(in srgb, var(--theme-border-subtle, rgba(0,0,0,.12)) 75%, transparent);
+  --divider-gold: var(--theme-accent-gold, #E4C896);
 }
 
 /* ---------- Dark mode (explicit) ----------------------------------------- */
@@ -313,6 +500,17 @@ html[data-theme="dark"] {
     var(--surface-1) 100%
   );
   --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+  /* Accent veils for variety (OKLCH color-mix) */
+  --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
+  --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
+  --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
+
+  /* Enhanced hairline divider with gold accent */
+  --hairline-2: linear-gradient(180deg,
+    color-mix(in oklch, var(--accent-gold) 25%, transparent),
+    rgba(240, 217, 168, 0.05)
+  );
 
   /* Legacy aliases (DARK) */
   --theme-bg-primary: var(--surface-1);
@@ -475,6 +673,72 @@ html[data-theme="dark"] {
   --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
   --sticky-cta-border: oklch(0.78 0.10 90);
   --sticky-cta-z: 100;
+
+  /* ===== Unified Button System (Dark) ===== */
+  --btn-outline-on-image-bg: rgba(0,0,0,.35);
+  --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
+
+  /* ===== Why Choose Section (Dark) ===== */
+  --why-bg-start: oklch(0.27 0.04 70);
+  --why-bg-end:   oklch(0.25 0.05 30);
+  --why-text:     #F5E6D3;
+  --why-text-soft:#E8D8C4;
+  --why-card:     oklch(0.28 0.03 70);
+  --why-border:   rgba(255,255,255,.14);
+  --why-shadow:   0 14px 36px rgba(0,0,0,.45);
+
+  /* ===== Glass System (Dark) ===== */
+  /* Blur values same as light mode */
+  /* --blur-* inherited from :root */
+
+  /* Adjusted transparency for dark backgrounds */
+  --alpha-subtle: 0.15;    /* less transparent in dark mode */
+  --alpha-mid: 0.25;
+  --alpha-strong: 0.35;
+  --alpha-heavy: 0.50;
+
+  /* Higher saturation boost for dark glassmorphism */
+  --saturate-low: 1.08;
+  --saturate-med: 1.18;
+  --saturate-high: 1.30;
+}
+
+/* ============================================================================
+   BRAND VARIANTS — Romantic (Default) & Modern
+   ============================================================================
+   These override accent colors based on [data-brand] attribute.
+   Public site is fixed to "romantic" via pre-paint script.
+   Brand selector only visible in dev/admin environments.
+   ============================================================================ */
+
+html[data-brand="romantic"] {
+  /* Romantic Brand Palette (Light Mode) */
+  --accent-rose: oklch(0.69 0.12 350);   /* Softer, dusty rose */
+  --accent-gold: oklch(0.84 0.10 85);    /* Warm, buttery gold */
+  --accent-sage: oklch(0.78 0.05 160);   /* Muted sage green */
+}
+
+html[data-brand="romantic"][data-theme="dark"],
+:root:not([data-theme="light"])[data-brand="romantic"] {
+  /* Romantic Brand Palette (Dark Mode) */
+  --accent-rose: oklch(0.70 0.10 350);   /* Slightly brighter in dark */
+  --accent-gold: oklch(0.86 0.09 85);    /* More luminous */
+  --accent-sage: oklch(0.80 0.06 160);   /* Lifted for visibility */
+}
+
+html[data-brand="modern"] {
+  /* Modern Brand Palette (Light Mode) */
+  --accent-rose: oklch(0.72 0.10 10);    /* Coral/peach tint */
+  --accent-gold: oklch(0.86 0.07 95);    /* Cooler, champagne gold */
+  --accent-sage: oklch(0.80 0.07 190);   /* Teal-leaning sage */
+}
+
+html[data-brand="modern"][data-theme="dark"],
+:root:not([data-theme="light"])[data-brand="modern"] {
+  /* Modern Brand Palette (Dark Mode) */
+  --accent-rose: oklch(0.74 0.09 10);    /* Vibrant coral */
+  --accent-gold: oklch(0.88 0.08 95);    /* Bright champagne */
+  --accent-sage: oklch(0.82 0.08 190);   /* Vivid teal-sage */
 }
 
 /* ---------- Auto dark (OS preference) when you're not forcing a theme ---- */
@@ -504,6 +768,17 @@ html[data-theme="dark"] {
       var(--surface-1) 100%
     );
     --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
+
+    /* Accent veils for variety (OKLCH color-mix) */
+    --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
+    --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
+    --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
+
+    /* Enhanced hairline divider with gold accent */
+    --hairline-2: linear-gradient(180deg,
+      color-mix(in oklch, var(--accent-gold) 25%, transparent),
+      rgba(240, 217, 168, 0.05)
+    );
 
     --theme-bg-primary: var(--surface-1);
     --theme-bg-secondary: var(--surface-3);
@@ -646,5 +921,18 @@ html[data-theme="dark"] {
     --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
     --sticky-cta-border: oklch(0.78 0.10 90);
     --sticky-cta-z: 100;
+
+    /* ===== Unified Button System (Auto Dark) ===== */
+    --btn-outline-on-image-bg: rgba(0,0,0,.35);
+    --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
+
+    /* ===== Why Choose Section (Auto Dark) ===== */
+    --why-bg-start: oklch(0.27 0.04 70);
+    --why-bg-end:   oklch(0.25 0.05 30);
+    --why-text:     #F5E6D3;
+    --why-text-soft:#E8D8C4;
+    --why-card:     oklch(0.28 0.03 70);
+    --why-border:   rgba(255,255,255,.14);
+    --why-shadow:   0 14px 36px rgba(0,0,0,.45);
   }
 }

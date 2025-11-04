@@ -1,0 +1,20 @@
+/* =========================================================
+   PRIMITIVES SYSTEM
+
+   Aggregator for all primitive CSS modules.
+   Import this once in your app layout.
+
+   Architecture:
+   - One file per primitive (scalable, focused diffs)
+   - Token-driven (themeable, testable)
+   - Minimal styling (behavior + reset only)
+   ========================================================= */
+
+/* Layout primitives (stack, cluster, grid) */
+@import './layout.css';
+
+/* Typography primitives (heading, text, fluid scales) */
+@import './typography.css';
+
+/* Button primitive (variants, sizes, loading, accessibility) */
+@import './button.css';

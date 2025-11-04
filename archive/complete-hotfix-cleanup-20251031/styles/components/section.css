@@ -1,0 +1,394 @@
+/* ==========================================================================
+   UNIFIED SECTION SYSTEM (scoped to /clean via [data-clean-root])
+   - Token-driven layout & spacing
+   - Rail-based left alignment system
+   - Props-based variations via data attributes
+   ========================================================================== */
+
+@layer components {
+
+/* ===== Base Section ===== */
+[data-clean-root] .section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: clip; /* Bleed guard: prevent horizontal scroll */
+  contain: paint; /* Bleed guard: safer stacking context */
+}
+
+/* ===== Vertical Padding Presets ===== */
+[data-clean-root] .section[data-padding-y="xs"] {
+  padding: var(--space-section-xs) 0;
+}
+
+[data-clean-root] .section[data-padding-y="sm"] {
+  padding: var(--space-section-sm) 0;
+}
+
+[data-clean-root] .section[data-padding-y="md"] {
+  padding: var(--space-section-md) 0;
+}
+
+[data-clean-root] .section[data-padding-y="lg"] {
+  padding: var(--space-section-lg) 0;
+}
+
+[data-clean-root] .section[data-padding-y="xl"] {
+  padding: var(--space-section-xl) 0;
+}
+
+[data-clean-root] .section[data-padding-y="fluid"] {
+  padding: var(--space-section-fluid) 0;
+}
+
+/* ===== Hero Height ===== */
+[data-clean-root] .section[data-height="screen"] {
+  min-height: 100vh;
+  display: grid;
+  align-content: center; /* vertically centers stacked rails */
+}
+
+/* ===== Background Variations ===== */
+[data-clean-root] .section[data-bg="surface"] {
+  background: var(--bg-surface);
+}
+
+[data-clean-root] .section[data-bg="tint-rose"] {
+  background: var(--bg-tint-rose);
+}
+
+[data-clean-root] .section[data-bg="tint-sage"] {
+  background: var(--bg-tint-sage);
+}
+
+[data-clean-root] .section[data-bg="dark-gradient"] {
+  background: var(--bg-dark-grad);
+}
+
+[data-clean-root] .section[data-bg="image"] {
+  /* Background image set via inline style in component */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ===== Tone Hints (for text color adaptation + button contrast) ===== */
+[data-clean-root] .section[data-tone="dark"] {
+  color: var(--theme-text-on-dark, #FFF8E7);
+}
+
+[data-clean-root] .section[data-tone="light"] {
+  color: var(--theme-text-primary, #6B4E3D);
+}
+
+[data-clean-root] .section[data-tone="auto"] {
+  color: inherit;
+}
+
+/* Strict tone cascade for titles/lead on dark backgrounds */
+[data-clean-root] .section[data-tone="dark"] .section__title,
+[data-clean-root] .section[data-tone="dark"] .section__lead,
+[data-clean-root] .section[data-tone="dark"] .section__script-accent {
+  color: var(--theme-text-on-dark, #FFF8E7);
+}
+
+/* With overlay, ensure sufficient contrast for readability */
+[data-clean-root] .section[data-overlay="soft"] .section__title,
+[data-clean-root] .section[data-overlay="strong"] .section__title {
+  color: var(--theme-text-on-dark, #FFF8E7);
+  text-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+[data-clean-root] .section[data-overlay="soft"] .section__lead,
+[data-clean-root] .section[data-overlay="strong"] .section__lead {
+  color: var(--theme-text-on-dark, #FFF8E7);
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
+/* ===== Overlay Layer (for background images) ===== */
+[data-clean-root] .section__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-clean-root] .section__overlay[data-overlay="soft"] {
+  background: var(--overlay-soft);
+}
+
+[data-clean-root] .section__overlay[data-overlay="strong"] {
+  background: var(--overlay-strong);
+}
+
+/* ===== Dual Rail System (Independent Header + Content Widths) ===== */
+/* Each rail (header, content, actions) has independent width control via data-width attr */
+[data-clean-root] .section__rail {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 0;  /* Set per-alignment below */
+}
+
+/* Rail width: do NOT include gutter in max-width */
+[data-clean-root] .section__rail[data-width="prose"]   { max-width: var(--rail-prose); }
+[data-clean-root] .section__rail[data-width="content"] { max-width: var(--rail-content); }
+[data-clean-root] .section__rail[data-width="wide"]    { max-width: var(--rail-wide); }
+[data-clean-root] .section__rail[data-width="full"]    { max-width: none; }
+
+/* Left: rail hugs the left edge; gutter lives on the left only */
+[data-clean-root] .section[data-align="left"] .section__rail {
+  margin-left: 0;
+  margin-right: auto;
+  padding-inline-start: var(--rail-gutter);
+  padding-inline-end: 0;
+}
+
+/* Right: rail hugs the right edge; gutter lives on the right only */
+[data-clean-root] .section[data-align="right"] .section__rail {
+  margin-left: auto;
+  margin-right: 0;
+  padding-inline-start: 0;
+  padding-inline-end: var(--rail-gutter);
+}
+
+/* Center: symmetric gutter both sides */
+[data-clean-root] .section[data-align="center"] .section__rail {
+  margin-inline: auto;
+  padding-inline: var(--rail-gutter);
+}
+
+/* Bleed mode (full viewport width with breakout) */
+[data-clean-root] .section[data-bleed="true"] {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+/* ===== Header ===== */
+[data-clean-root] .section__header {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+[data-clean-root] .section__header[data-align="center"] {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+}
+
+[data-clean-root] .section__header[data-align="left"] {
+  text-align: left;
+  /* Left-aligned headers use rail-gutter offset for alignment */
+}
+
+[data-clean-root] .section__header[data-align="right"] {
+  text-align: right;
+  /* Right-aligned headers use rail-gutter offset for alignment */
+}
+
+/* Script accent */
+[data-clean-root] .section__script-accent {
+  font-family: var(--font-script, 'Dancing Script', cursive);
+  color: var(--theme-accent-rose, #9D6B7B);
+  font-size: clamp(1.5rem, 3.2vw, 1.75rem);
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
+/* Title */
+[data-clean-root] .section__title {
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: clamp(2.25rem, 4.8vw, 3rem);
+  color: inherit;
+  margin: 0 0 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Lead text */
+[data-clean-root] .section__lead {
+  color: var(--theme-text-secondary, #8B7355);
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.7;
+  max-width: 48ch;
+  margin: 0;
+}
+
+/* Center-aligned lead text */
+[data-clean-root] .section__header[data-align="center"] .section__lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Content ===== */
+[data-clean-root] .section__content {
+  /* Content inherits alignment from parent section */
+}
+
+/* Content alignment for rail mode */
+[data-clean-root] .section[data-align="center"] .section__content {
+  text-align: center;
+}
+
+[data-clean-root] .section[data-align="center"] .section__content > * {
+  margin-inline: auto;
+}
+
+[data-clean-root] .section[data-align="left"] .section__content {
+  text-align: left;
+}
+
+[data-clean-root] .section[data-align="right"] .section__content {
+  text-align: right;
+}
+
+/* ===== Actions (Buttons, Links) ===== */
+[data-clean-root] .section__actions {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+[data-clean-root] .section__actions[data-align="center"] {
+  justify-content: center;
+}
+
+[data-clean-root] .section__actions[data-align="left"] {
+  justify-content: flex-start;
+}
+
+[data-clean-root] .section__actions[data-align="right"] {
+  justify-content: flex-end;
+}
+
+/* ===== Dividers ===== */
+[data-clean-root] .section__divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Position divider at bottom by default */
+[data-clean-root] .section__divider[data-divider="hairline"],
+[data-clean-root] .section__divider[data-divider="thread-gold"] {
+  bottom: 0;
+}
+
+[data-clean-root] .section__divider[data-divider="hairline"] {
+  background: var(--divider-hairline);
+}
+
+[data-clean-root] .section__divider[data-divider="thread-gold"] {
+  background: var(--divider-gold);
+  height: 2px;
+}
+
+/* Old rail system removed - now using dual rail system above */
+
+/* ============================================================================
+   Dark Mode Adaptations
+   ============================================================================ */
+
+/* Explicit dark mode */
+html[data-theme="dark"] [data-clean-root] .section[data-tone="auto"] {
+  color: var(--theme-text-on-dark, #FFF8E7);
+}
+
+html[data-theme="dark"] [data-clean-root] .section__lead {
+  color: var(--theme-text-secondary-dark, #E8D4BC);
+}
+
+/* Auto dark mode (OS preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root] .section[data-tone="auto"] {
+    color: var(--theme-text-on-dark, #FFF8E7);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root] .section__lead {
+    color: var(--theme-text-secondary-dark, #E8D4BC);
+  }
+}
+
+/* ============================================================================
+   Responsive Adjustments
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  [data-clean-root] .section__header {
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  [data-clean-root] .section__actions {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [data-clean-root] .section__actions[data-align="center"] {
+    align-items: center;
+  }
+
+  [data-clean-root] .section__actions[data-align="left"] {
+    align-items: flex-start;
+  }
+
+  [data-clean-root] .section__actions[data-align="right"] {
+    align-items: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-clean-root] .section__title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  [data-clean-root] .section__script-accent {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
+
+/* ============================================================================
+   Accessibility
+   ============================================================================ */
+
+/* Focus visibility */
+[data-clean-root] .section:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--theme-accent-gold));
+  outline-offset: 3px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-clean-root] .section,
+  [data-clean-root] .section * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-clean-root] .section[data-bg="image"] {
+    background-attachment: scroll !important;
+  }
+}
+
+/* ============================================================================
+   Variant Hooks (optional flourishes per variant)
+   ============================================================================ */
+
+/* Home hero 2024 - tighter letter spacing */
+[data-clean-root] .section[data-variant="home-hero-2024"] .section__title {
+  letter-spacing: .01em;
+}
+
+/* Hotfix alternating blocks - balanced text wrapping */
+[data-clean-root] .section[data-variant="hotfix-alternating-blocks"] .section__title {
+  text-wrap: balance;
+}
+
+} /* End @layer components */

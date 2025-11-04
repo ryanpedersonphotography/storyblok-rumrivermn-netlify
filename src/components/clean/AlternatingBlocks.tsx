@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
+import Section from '@/components/ui/SectionEnhanced'
 
 interface AlternatingBlocksBlok {
   _uid?: string
@@ -9,6 +10,9 @@ interface AlternatingBlocksBlok {
   script_accent?: string
   title?: string
   description?: string
+  background_variant?: 'surface' | 'tint-rose' | 'tint-sage' | 'dark-gradient'
+  theme_override?: 'auto' | 'light' | 'dark'
+  padding_size?: 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
   blocks?: Array<{
     _uid?: string
     number?: string
@@ -25,88 +29,101 @@ interface AlternatingBlocksBlok {
 export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlok }) {
   // Fallback images to alternate between
   const fallbackImages = [
-    '/hotfix-assets/barn-interior-ceiling-beams-lighting.jpg',
-    '/hotfix-assets/property-field-wildflowers-natural.jpg',
+    '/images/barn-interior-ceiling-beams-lighting.jpg',
+    '/images/property-field-wildflowers-natural.jpg',
   ]
 
   console.log('[AlternatingBlocks] blok:', blok)
   console.log('[AlternatingBlocks] blocks count:', blok.blocks?.length || 0)
   console.log('[AlternatingBlocks] first block:', blok.blocks?.[0])
 
+  // Get styling from Storyblok or use defaults
+  const backgroundVariant = blok.background_variant || 'tint-rose'
+  const themeOverride = blok.theme_override || 'auto'
+  const paddingSize = blok.padding_size || 'fluid'
+
   return (
-    <section
+    <Section
+      align="center"
+      contentWrapper={true}  // Use enhanced content wrapper
+      background={backgroundVariant}
+      tone={themeOverride}
+      paddingY={paddingSize}
+      divider="thread-gold"
+      variant={[
+        'alternating-blocks-luxe',  // Additional styling
+        'header-center-wide',         // Remove max-width constraint on header
+        'lead-full-width',            // Remove 48ch constraint on lead text
+        'box-sizing-content'          // Override box-sizing if needed
+      ]}
+      header={{
+        scriptAccent: blok.script_accent || 'Your Perfect Venue',
+        title: blok.title || 'Why Choose Rum River Barn',
+        lead: blok.description || 'Discover what makes our venue the perfect setting for your unforgettable celebration',
+        align: 'center'
+      }}
+      headerSlotProps={{
+        'data-test-id': 'alternating-blocks-header',
+        style: { scrollMarginTop: '96px' }  // Account for fixed navbar
+      }}
       className="alternating-blocks"
       data-section="alternating-blocks"
       {...storyblokEditable(blok)}
     >
-      <div className="alternating-blocks__content-wrapper">
-        <div className="alternating-blocks__section-header">
-          <div className="alternating-blocks__script-accent">
-            {blok.script_accent || 'Your Perfect Venue'}
-          </div>
-          <h2 className="alternating-blocks__section-title">
-            {blok.title || 'Why Choose Rum River Barn'}
-          </h2>
-          <p className="alternating-blocks__lead">
-            {blok.description || 'Discover what makes our venue the perfect setting for your unforgettable celebration'}
-          </p>
-        </div>
+      <div className="alternating-blocks__container">
+        {(blok.blocks || []).map((block, index) => {
+          // Use alternating fallback images based on index
+          const fallbackImage = fallbackImages[index % fallbackImages.length]
 
-        <div className="alternating-blocks__container">
-          {(blok.blocks || []).map((block, index) => {
-            // Use alternating fallback images based on index
-            const fallbackImage = fallbackImages[index % fallbackImages.length]
+          // Handle image field - could be Storyblok asset object, string, or empty
+          const imageUrl = typeof block.image === 'object' && block.image?.filename
+            ? block.image.filename
+            : typeof block.image === 'string' && block.image.trim() !== ''
+            ? block.image
+            : fallbackImage
 
-            // Handle image field - could be Storyblok asset object, string, or empty
-            const imageUrl = typeof block.image === 'object' && block.image?.filename
-              ? block.image.filename
-              : typeof block.image === 'string' && block.image.trim() !== ''
-              ? block.image
-              : fallbackImage
-
-            return (
-              <div
-                key={block._uid || index}
-                className={`alternating-blocks__item${block.is_reverse ? ' alternating-blocks__item--reverse' : ''}`}
-                {...(block._uid ? storyblokEditable(block) : {})}
-              >
-                <div className="alternating-blocks__content">
-                  <div className="alternating-blocks__number">
-                    {block.number || `0${index + 1}`}
-                  </div>
-                  <h3 className="alternating-blocks__title">
-                    {block.title || 'Block Title'}
-                  </h3>
-                  <p className="alternating-blocks__lead">
-                    {block.lead || 'Block lead text'}
-                  </p>
-                  {(block.content || []).map((paragraph, pIndex) => {
-                    const text = typeof paragraph === 'object' && paragraph.text
-                      ? paragraph.text
-                      : String(paragraph)
-
-                    return (
-                      <p
-                        key={pIndex}
-                        className="alternating-blocks__paragraph"
-                        dangerouslySetInnerHTML={{ __html: text }}
-                      />
-                    )
-                  })}
+          return (
+            <div
+              key={block._uid || index}
+              className={`alternating-blocks__item${block.is_reverse ? ' alternating-blocks__item--reverse' : ''}`}
+              {...(block._uid ? storyblokEditable(block) : {})}
+            >
+              <div className="alternating-blocks__content">
+                <div className="alternating-blocks__number">
+                  {block.number || `0${index + 1}`}
                 </div>
-                <div className="alternating-blocks__image">
-                  <img
-                    src={imageUrl}
-                    alt={block.image_alt || 'Venue image'}
-                    width="800"
-                    height="500"
-                  />
-                </div>
+                <h3 className="alternating-blocks__title">
+                  {block.title || 'Block Title'}
+                </h3>
+                <p className="alternating-blocks__lead">
+                  {block.lead || 'Block lead text'}
+                </p>
+                {(block.content || []).map((paragraph, pIndex) => {
+                  const text = typeof paragraph === 'object' && paragraph.text
+                    ? paragraph.text
+                    : String(paragraph)
+
+                  return (
+                    <p
+                      key={pIndex}
+                      className="alternating-blocks__paragraph"
+                      dangerouslySetInnerHTML={{ __html: text }}
+                    />
+                  )
+                })}
               </div>
-            )
-          })}
-        </div>
+              <div className="alternating-blocks__image">
+                <img
+                  src={imageUrl}
+                  alt={block.image_alt || 'Venue image'}
+                  width="800"
+                  height="500"
+                />
+              </div>
+            </div>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

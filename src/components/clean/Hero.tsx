@@ -1,20 +1,20 @@
 // ───────────────────────────────────────────────────────────────────────────────
 // 1) CLEAN HERO (Storyblok-ready)  src/components/clean/Hero.tsx
 // - storyblokEditable(blok) for inline editing
-// - Field shims to match hotfix keys (kicker/title/title_accent/description/bg_image)
+// - Field mapping for clean architecture (kicker/title/title_accent/description/bg_image)
 // - Safe image handling (asset object or string)
 // - Sets --hero-bg-url for CSS layer
 // ───────────────────────────────────────────────────────────────────────────────
 'use client'
 import React from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 
 type SBAsset = { filename?: string; alt?: string } | string | undefined
 
 interface HeroBlok {
   _uid?: string
   component?: string
-  // common aliases we saw in hotfix:
+  // common field aliases for content mapping:
   kicker?: string
   title?: string
   title_accent?: string

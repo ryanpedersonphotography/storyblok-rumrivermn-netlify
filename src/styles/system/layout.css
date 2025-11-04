@@ -1,0 +1,84 @@
+/* src/styles/system/layout.css
+   Load this AFTER all component CSS. Scopes to [data-clean-root="true"].
+   Unifies containers + creates a consistent left rail across sections.
+
+   NOTE: Layout tokens moved to theme.css for unified @layer system.
+   This file now only contains utility overrides. */
+
+/* -------------------- UTILITY OVERRIDES -------------------- */
+@layer utilities {
+  /* 1) Unify header blocks (keeps center by default; opt into left via data-align="left") */
+  [data-clean-root="true"] .section-header,
+  [data-clean-root="true"] .experience-header,
+  [data-clean-root="true"] .gallery-header,
+  [data-clean-root="true"] .map-header,
+  [data-clean-root="true"] .faq-header,
+  [data-clean-root="true"] .pricing-section .section-header,
+  [data-clean-root="true"] .alternating-blocks__section-header,
+  [data-clean-root="true"] .form-header {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Switch to left-rail with a data attribute (add in Storyblok or JSX) */
+  [data-clean-root="true"] [data-align="left"] {
+    text-align: left;
+  }
+  @media (min-width: 900px) {
+    [data-clean-root="true"] [data-align="left"] {
+      max-width: var(--prose-max);
+      margin-left: var(--rail-offset);
+      margin-right: auto;
+      padding-inline: 0;
+    }
+  }
+  @media (max-width: 899px) {
+    [data-clean-root="true"] [data-align="left"] {
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* 2) Unify core containers that were using 1280/1200/1400 + mixed paddings */
+  [data-clean-root="true"] .navbar__container,
+  [data-clean-root="true"] .footer-content,
+  [data-clean-root="true"] .brand-quote-content,
+  [data-clean-root="true"] .alternating-blocks__container,
+  [data-clean-root="true"] .form-container {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* 3) Wide grids align to the same gutters */
+  [data-clean-root="true"] .venue-grid,
+  [data-clean-root="true"] .gallery-grid,
+  [data-clean-root="true"] .pricing-grid,
+  [data-clean-root="true"] .experience-grid,
+  [data-clean-root="true"] .map-container {
+    max-width: var(--page-wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  /* 4) Prose measure + rag control on left-aligned sections */
+  [data-clean-root="true"] [data-align="left"] :where(p, .lead) {
+    max-width: 65ch;
+  }
+
+  /* 5) Prevent tiny padding discrepancies from drifting the rail */
+  @media (max-width: 768px) {
+    [data-clean-root="true"] .section-header,
+    [data-clean-root="true"] .experience-header,
+    [data-clean-root="true"] .gallery-header,
+    [data-clean-root="true"] .map-header,
+    [data-clean-root="true"] .faq-header,
+    [data-clean-root="true"] .pricing-section .section-header,
+    [data-clean-root="true"] .alternating-blocks__section-header,
+    [data-clean-root="true"] .form-header {
+      padding-inline: var(--gutter); /* normalize 1.5rem vs 2rem */
+    }
+  }
+}

@@ -2,12 +2,14 @@
  * Brand logos and social proof quote
  * Dependencies: brand-proof.css
  * Storyblok-compatible with blok prop
+ * MIGRATED to unified Section component
  */
 
 'use client'
 
-import { storyblokEditable } from '@storyblok/react/rsc'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 import type { SbBlokData } from '@storyblok/react/rsc'
+import Section from '@/components/ui/SectionEnhanced'
 
 interface BrandProofStoryblok extends SbBlokData {
   brands?: string
@@ -53,11 +55,20 @@ export default function BrandProof({ blok }: { blok: BrandProofStoryblok }) {
   }
 
   return (
-    <section
-      {...storyblokEditable(blok)}
+    <Section
+      as="section"
+      align="center"
+      contentWrapper={true}  // Use legacy wrapper for consistent content width
+      paddingY="md"
+      background="tint-rose"
       className="brand-quote-section"
       data-section="brand-proof"
       data-discover="true"
+      contentSlotProps={{
+        'data-test-id': 'brand-proof-content',
+        'aria-label': 'Brand endorsements and testimonial'
+      }}
+      {...storyblokEditable(blok)}
     >
       <div className="brand-quote-content">
         {/* Brand Logos Section */}
@@ -74,6 +85,6 @@ export default function BrandProof({ blok }: { blok: BrandProofStoryblok }) {
           &ldquo;{renderQuoteText()}&rdquo;
         </p>
       </div>
-    </section>
+    </Section>
   )
 }

@@ -26,17 +26,26 @@
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RUM RIVER EXPERIENCE SECTION STYLES */
+/* ==========================================================================
+   RUM RIVER EXPERIENCE SECTION
+   - Now uses unified Section component for layout/padding/background
+   - This CSS only handles the two-column layout and internal styling
+   ========================================================================== */
 
-[data-clean-root] .rum-river-experience {
-  background: var(--theme-bg-primary, #FFFCF8);
-  padding: 100px 0;
+/* Section component handles:
+   - Background via background="surface"
+   - Padding via paddingY="xl" (100px)
+   - Container max-width and horizontal padding via Section rails
+*/
+
+/* Keep position relative for pseudo-elements (gold divider, dark mode vignette) */
+[data-clean-root="true"] .rum-river-experience {
   position: relative;
   overflow: visible;
 }
 
 /* Gold thread divider for visual separation from next section */
-[data-clean-root] .rum-river-experience::after {
+[data-clean-root="true"] .rum-river-experience::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -56,44 +65,42 @@
   z-index: 10;
 }
 
-[data-clean-root] .experience-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* Two-column grid layout - content left, image right */
+[data-clean-root="true"] .experience-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: var(--space-64);
   align-items: center;
 }
 
 /* Left Panel - Content */
-[data-clean-root] .experience-content {
+[data-clean-root="true"] .experience-content {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: var(--space-48);
 }
 
-[data-clean-root] .experience-header {
+[data-clean-root="true"] .experience-header {
   text-align: left;
 }
 
-[data-clean-root] .experience-script {
+[data-clean-root="true"] .experience-script {
   font-family: 'Dancing Script', cursive;
   font-size: 1.75rem;
   color: var(--theme-accent-rose, #9D6B7B);
-  margin: 0 0 1rem 0;
+  margin: 0 0 var(--space-16) 0;
 }
 
-[data-clean-root] .experience-title {
+[data-clean-root="true"] .experience-title {
   font-family: 'Playfair Display', serif;
   font-size: 3rem;
   color: var(--theme-text-primary, #6B4E3D);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 var(--space-24) 0;
   line-height: 1.2;
   font-weight: 400;
 }
 
-[data-clean-root] .experience-description {
+[data-clean-root="true"] .experience-description {
   font-size: 1.125rem;
   line-height: 1.8;
   color: var(--theme-text-primary, #6B4E3D);
@@ -103,17 +110,17 @@
 }
 
 /* Features Grid - Location Component Style */
-[data-clean-root] .experience-features {
+[data-clean-root="true"] .experience-features {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--gap, 3rem);
 }
 
-[data-clean-root] .experience-feature {
+[data-clean-root="true"] .experience-feature {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
+  gap: var(--space-16);
+  padding: var(--space-16);
   border-radius: 12px;
   background: var(--theme-bg-card, rgba(0, 0, 0, 0.02));
   border: 1px solid var(--theme-border-subtle, transparent);
@@ -121,14 +128,14 @@
   cursor: pointer;
 }
 
-[data-clean-root] .experience-feature:hover {
+[data-clean-root="true"] .experience-feature:hover {
   transform: translateY(-2px);
   box-shadow: var(--theme-shadow-sm, 0 8px 16px rgba(0, 0, 0, 0.08));
   border-color: var(--theme-border-medium, rgba(0, 0, 0, 0.08));
 }
 
 /* Simple Icon Container - No Background */
-[data-clean-root] .feature-icon {
+[data-clean-root="true"] .feature-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +143,7 @@
   transition: all var(--animation-duration, 0.3s) var(--animation-easing, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
-[data-clean-root] .feature-icon .icon-svg {
+[data-clean-root="true"] .feature-icon .icon-svg {
   width: var(--icon-size, 28px);
   height: var(--icon-size, 28px);
   color: var(--icon-color, #9D6B7B);
@@ -144,19 +151,19 @@
 }
 
 /* Feature Text Content */
-[data-clean-root] .feature-text {
+[data-clean-root="true"] .feature-text {
   flex: 1;
 }
 
-[data-clean-root] .feature-text h3.feature-title {
+[data-clean-root="true"] .feature-text h3.feature-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary-color, #6B4E3D);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 var(--space-8) 0;
 }
 
-[data-clean-root] .feature-text p.feature-description {
+[data-clean-root="true"] .feature-text p.feature-description {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -166,7 +173,7 @@
 }
 
 /* Right Panel - Image */
-[data-clean-root] .experience-image {
+[data-clean-root="true"] .experience-image {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -174,7 +181,7 @@
   aspect-ratio: 4 / 5;
 }
 
-[data-clean-root] .experience-img {
+[data-clean-root="true"] .experience-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -182,61 +189,61 @@
   transition: transform 0.6s ease;
 }
 
-[data-clean-root] .experience-image:hover .experience-img {
+[data-clean-root="true"] .experience-image:hover .experience-img {
   transform: scale(1.05);
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  [data-clean-root] .experience-container {
+  [data-clean-root="true"] .experience-container {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: var(--space-48);
   }
 
-  [data-clean-root] .experience-title {
+  [data-clean-root="true"] .experience-title {
     font-size: 2.5rem;
   }
 
-  [data-clean-root] .experience-image {
+  [data-clean-root="true"] .experience-image {
     order: -1;
     aspect-ratio: 16 / 9;
   }
 }
 
 @media (max-width: 768px) {
-  [data-clean-root] .rum-river-experience {
-    padding: 80px 0;
+  [data-clean-root="true"] .rum-river-experience {
+    padding: var(--space-80) 0;
   }
 
-  [data-clean-root] .experience-features {
+  [data-clean-root="true"] .experience-features {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--space-24);
   }
 
-  [data-clean-root] .experience-title {
+  [data-clean-root="true"] .experience-title {
     font-size: 2rem;
   }
 
-  [data-clean-root] .experience-script {
+  [data-clean-root="true"] .experience-script {
     font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  [data-clean-root] .rum-river-experience {
-    padding: 60px 0;
+  [data-clean-root="true"] .rum-river-experience {
+    padding: var(--space-64) 0;
   }
 
-  [data-clean-root] .experience-container {
-    padding: 0 1rem;
-    gap: 2rem;
+  [data-clean-root="true"] .experience-container {
+    padding: 0 var(--gutter);
+    gap: var(--space-32);
   }
 
-  [data-clean-root] .experience-title {
+  [data-clean-root="true"] .experience-title {
     font-size: 1.75rem;
   }
 
-  [data-clean-root] .experience-description {
+  [data-clean-root="true"] .experience-description {
     font-size: 1rem;
   }
 }
@@ -245,18 +252,18 @@
    DARK MODE - Forced (html[data-theme="dark"])
    ════════════════════════════════════════════════════════════════ */
 
-html[data-theme="dark"] [data-clean-root] .rum-river-experience {
-  background: var(--surface-3, #4A3A2A);
+html[data-theme="dark"] [data-clean-root="true"] .rum-river-experience {
+  background: var(--surface-2);
 }
 
 /* Enhance gold divider visibility in dark mode */
-html[data-theme="dark"] [data-clean-root] .rum-river-experience::after {
+html[data-theme="dark"] [data-clean-root="true"] .rum-river-experience::after {
   opacity: 0.8;
   box-shadow: 0 0 20px color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 40%, transparent);
 }
 
 /* Add gentle vignette to bottom of section in dark mode for depth */
-html[data-theme="dark"] [data-clean-root] .rum-river-experience::before {
+html[data-theme="dark"] [data-clean-root="true"] .rum-river-experience::before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -272,28 +279,28 @@ html[data-theme="dark"] [data-clean-root] .rum-river-experience::before {
   z-index: 1;
 }
 
-html[data-theme="dark"] [data-clean-root] .experience-title,
-html[data-theme="dark"] [data-clean-root] .experience-description,
-html[data-theme="dark"] [data-clean-root] .feature-text h3.feature-title,
-html[data-theme="dark"] [data-clean-root] .feature-text p.feature-description {
+html[data-theme="dark"] [data-clean-root="true"] .experience-title,
+html[data-theme="dark"] [data-clean-root="true"] .experience-description,
+html[data-theme="dark"] [data-clean-root="true"] .feature-text h3.feature-title,
+html[data-theme="dark"] [data-clean-root="true"] .feature-text p.feature-description {
   color: var(--theme-text-primary, #F5E6D3);
 }
 
-html[data-theme="dark"] [data-clean-root] .experience-script {
+html[data-theme="dark"] [data-clean-root="true"] .experience-script {
   color: var(--theme-accent-rose, #D89BAE);
 }
 
-html[data-theme="dark"] [data-clean-root] .experience-feature {
+html[data-theme="dark"] [data-clean-root="true"] .experience-feature {
   background: var(--theme-bg-card, #3D2F22);
   border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08));
 }
 
-html[data-theme="dark"] [data-clean-root] .experience-feature:hover {
+html[data-theme="dark"] [data-clean-root="true"] .experience-feature:hover {
   border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12));
   box-shadow: var(--theme-shadow-dark-sm, 0 8px 16px rgba(0, 0, 0, 0.4));
 }
 
-html[data-theme="dark"] [data-clean-root] .feature-icon .icon-svg {
+html[data-theme="dark"] [data-clean-root="true"] .feature-icon .icon-svg {
   color: var(--theme-accent-rose, #D89BAE);
 }
 
@@ -302,18 +309,18 @@ html[data-theme="dark"] [data-clean-root] .feature-icon .icon-svg {
    ════════════════════════════════════════════════════════════════ */
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-clean-root] .rum-river-experience {
-    background: var(--surface-3, #4A3A2A);
+  :root:not([data-theme="light"]) [data-clean-root="true"] .rum-river-experience {
+    background: var(--surface-2);
   }
 
   /* Enhance gold divider visibility in auto dark mode */
-  :root:not([data-theme="light"]) [data-clean-root] .rum-river-experience::after {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .rum-river-experience::after {
     opacity: 0.8;
     box-shadow: 0 0 20px color-mix(in srgb, var(--theme-accent-gold, #F0D9A8) 40%, transparent);
   }
 
   /* Add gentle vignette to bottom of section in auto dark mode */
-  :root:not([data-theme="light"]) [data-clean-root] .rum-river-experience::before {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .rum-river-experience::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -329,28 +336,28 @@ html[data-theme="dark"] [data-clean-root] .feature-icon .icon-svg {
     z-index: 1;
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .experience-title,
-  :root:not([data-theme="light"]) [data-clean-root] .experience-description,
-  :root:not([data-theme="light"]) [data-clean-root] .feature-text h3.feature-title,
-  :root:not([data-theme="light"]) [data-clean-root] .feature-text p.feature-description {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .experience-title,
+  :root:not([data-theme="light"]) [data-clean-root="true"] .experience-description,
+  :root:not([data-theme="light"]) [data-clean-root="true"] .feature-text h3.feature-title,
+  :root:not([data-theme="light"]) [data-clean-root="true"] .feature-text p.feature-description {
     color: var(--theme-text-primary, #F5E6D3);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .experience-script {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .experience-script {
     color: var(--theme-accent-rose, #D89BAE);
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .experience-feature {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .experience-feature {
     background: var(--theme-bg-card, #3D2F22);
     border-color: var(--theme-border-subtle, rgba(255, 255, 255, 0.08));
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .experience-feature:hover {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .experience-feature:hover {
     border-color: var(--theme-border-medium, rgba(255, 255, 255, 0.12));
     box-shadow: var(--theme-shadow-dark-sm, 0 8px 16px rgba(0, 0, 0, 0.4));
   }
 
-  :root:not([data-theme="light"]) [data-clean-root] .feature-icon .icon-svg {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .feature-icon .icon-svg {
     color: var(--theme-accent-rose, #D89BAE);
   }
 }

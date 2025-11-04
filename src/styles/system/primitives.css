@@ -1,0 +1,39 @@
+/* =========================================================
+   LAYOUT PRIMITIVES
+   Minimal, composable layout utilities that work INSIDE
+   your existing Section component.
+   ========================================================= */
+
+@layer components {
+  /* Stack - vertical flow with tokenized gaps */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap, var(--space-32));
+  }
+
+  /* Fluid variant - use for macro layout only */
+  .stack.is-fluid {
+    --stack-gap: var(--stack-gap-fluid-lg);
+  }
+
+  /* Cluster - wrapping horizontal flow */
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-gap, var(--space-24));
+    align-items: center;
+  }
+
+  .cluster[data-justify="between"] {
+    justify-content: space-between;
+  }
+
+  .cluster[data-justify="center"] {
+    justify-content: center;
+  }
+
+  .cluster[data-justify="end"] {
+    justify-content: flex-end;
+  }
+}

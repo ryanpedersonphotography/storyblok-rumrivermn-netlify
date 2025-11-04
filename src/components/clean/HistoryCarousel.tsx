@@ -57,7 +57,7 @@ export default function HistoryCarousel() {
           <span className="history__script">Our Story</span>
           <h2 className="history__title">A Journey Through Time</h2>
           <p className="history__lead">
-            Discover how Rum River Barn became Minnesota's premier wedding destination
+            Discover how Rum River Barn became Minnesota&apos;s premier wedding destination
           </p>
         </div>
 

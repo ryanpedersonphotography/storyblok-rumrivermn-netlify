@@ -1,0 +1,201 @@
+/* ==========================================================================
+   SECTION PRESETS & UTILITIES (scoped to /clean via [data-clean-root="true"])
+   - Section background utilities for smooth tonal progression
+   - Glassmorphism card utility (.card-dark)
+   - Section edge gradient utility
+   - Uses @layer utilities for predictable specificity
+   ========================================================================== */
+
+@layer utilities {
+  /* ===== Section Background Presets ===== */
+
+  /* Deep gradient (surface-1 → surface-0) - for dramatic contrast */
+  html[data-theme="dark"] [data-clean-root="true"] .section--deep {
+    background: var(--grad-section-deep);
+  }
+
+  /* Soft gradient (surface-2 → surface-1) - for gentle transitions */
+  html[data-theme="dark"] [data-clean-root="true"] .section--soft {
+    background: var(--grad-section-soft);
+  }
+
+  /* Rose veil - 8% rose tint on surface-2 */
+  html[data-theme="dark"] [data-clean-root="true"] .section--rose {
+    background: var(--rose-veil-8);
+  }
+
+  /* Sage veil - 8% sage tint on surface-2 */
+  html[data-theme="dark"] [data-clean-root="true"] .section--sage {
+    background: var(--sage-veil-8);
+  }
+
+  /* Gold veil - 6% gold tint on surface-3 */
+  html[data-theme="dark"] [data-clean-root="true"] .section--gold {
+    background: var(--gold-veil-6);
+  }
+
+  /* Flat surface presets for sections that need solid backgrounds */
+  html[data-theme="dark"] [data-clean-root="true"] .section--surface-0 {
+    background: var(--surface-0);
+  }
+
+  html[data-theme="dark"] [data-clean-root="true"] .section--surface-1 {
+    background: var(--surface-1);
+  }
+
+  html[data-theme="dark"] [data-clean-root="true"] .section--surface-2 {
+    background: var(--surface-2);
+  }
+
+  html[data-theme="dark"] [data-clean-root="true"] .section--surface-3 {
+    background: var(--surface-3);
+  }
+
+  html[data-theme="dark"] [data-clean-root="true"] .section--surface-4 {
+    background: var(--surface-4);
+  }
+
+  /* ===== Glassmorphism Card Utility ===== */
+
+  html[data-theme="dark"] [data-clean-root="true"] .card-dark {
+    background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+    backdrop-filter: blur(12px) saturate(1.12);
+    border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+    box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
+  }
+
+  /* Card variant with more subtle border */
+  html[data-theme="dark"] [data-clean-root="true"] .card-dark-subtle {
+    background: color-mix(in oklch, var(--surface-2) 85%, white 15%);
+    backdrop-filter: blur(12px) saturate(1.12);
+    border: 1px solid color-mix(in oklch, var(--accent-gold) 20%, transparent);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.40);
+  }
+
+  /* ===== Section Edge Gradient Utility ===== */
+
+  html[data-theme="dark"] [data-clean-root="true"] .section-edge {
+    position: relative;
+  }
+
+  html[data-theme="dark"] [data-clean-root="true"] .section-edge::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--hairline-2);
+    opacity: 0.6;
+    z-index: 10;
+  }
+
+  /* Top edge variant */
+  html[data-theme="dark"] [data-clean-root="true"] .section-edge-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--hairline-2);
+    opacity: 0.6;
+    z-index: 10;
+  }
+}
+
+/* ============================================================================
+   AUTO DARK MODE (OS Preference) - Mirror all utilities
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  @layer utilities {
+    /* ===== Section Background Presets ===== */
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--deep {
+      background: var(--grad-section-deep);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--soft {
+      background: var(--grad-section-soft);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--rose {
+      background: var(--rose-veil-8);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--sage {
+      background: var(--sage-veil-8);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--gold {
+      background: var(--gold-veil-6);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--surface-0 {
+      background: var(--surface-0);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--surface-1 {
+      background: var(--surface-1);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--surface-2 {
+      background: var(--surface-2);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--surface-3 {
+      background: var(--surface-3);
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section--surface-4 {
+      background: var(--surface-4);
+    }
+
+    /* ===== Glassmorphism Card Utility ===== */
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .card-dark {
+      background: color-mix(in oklch, var(--surface-1) 80%, white 20%);
+      backdrop-filter: blur(12px) saturate(1.12);
+      border: 1px solid color-mix(in oklch, var(--accent-gold) 35%, transparent);
+      box-shadow: var(--theme-shadow-dark-lg, 0 20px 60px rgba(0, 0, 0, 0.60));
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .card-dark-subtle {
+      background: color-mix(in oklch, var(--surface-2) 85%, white 15%);
+      backdrop-filter: blur(12px) saturate(1.12);
+      border: 1px solid color-mix(in oklch, var(--accent-gold) 20%, transparent);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.40);
+    }
+
+    /* ===== Section Edge Gradient Utility ===== */
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section-edge {
+      position: relative;
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section-edge::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--hairline-2);
+      opacity: 0.6;
+      z-index: 10;
+    }
+
+    :root:not([data-theme="light"]) [data-clean-root="true"] .section-edge-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--hairline-2);
+      opacity: 0.6;
+      z-index: 10;
+    }
+  }
+}

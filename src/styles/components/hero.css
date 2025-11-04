@@ -1,23 +1,22 @@
 /* ==========================================================================
-   CLEAN HERO (scoped to /clean via [data-clean-root])
+   CLEAN HERO (scoped to /clean via [data-clean-root="true"])
    - Token-driven (see theme.css)
    - Single BG layer in ::before, gradient overlay in ::after
-   - No !important, no hotfix classes
+   - No !important, semantic class names
    ========================================================================== */
 
 @layer components {
 
-[data-clean-root] .sr-only {
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+[data-clean-root="true"] .sr-only {
+  position:absolute;width:1px;height:1px;padding:0;margin:calc(0px - 1px);overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 
-[data-clean-root] .hero {
+[data-clean-root="true"] .hero {
   position: relative;
   min-height: 100vh;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  /* Removed 100vw hack - use scrollbar-gutter in globals.css instead */
+  width: 100%;
   max-width: none;
   display: flex;
   align-items: center;
@@ -30,7 +29,7 @@
   /* Explicit text color from tokens */
   color: var(--_text);
 
-  /* Match hotfix line-height */
+  /* Consistent line-height */
   line-height: normal;
 
   /* Local "private" props for this component - with fallback values */
@@ -45,7 +44,7 @@
 }
 
 /* One background image layer (set by inline --hero-bg-url) */
-[data-clean-root] .hero::before {
+[data-clean-root="true"] .hero::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -57,8 +56,8 @@
   z-index: 1;
 }
 
-/* Tokenized gradient overlay (hotfix match, but clean) */
-[data-clean-root] .hero::after {
+/* Tokenized gradient overlay */
+[data-clean-root="true"] .hero::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -68,12 +67,12 @@
 }
 
 /* Content */
-[data-clean-root] .hero-content {
+[data-clean-root="true"] .hero-content {
   position: relative;
   z-index: 10;
   text-align: center;
   max-width: 800px;
-  padding: 0 var(--space-xl, 2rem);
+  padding: 0 var(--gutter);
   color: var(--_text);
   animation: fadeInUp 1.2s ease-out;
 }
@@ -83,18 +82,19 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Eyebrow (script) — match hotfix 2rem exactly */
-[data-clean-root] .hero-eyebrow {
+/* Eyebrow (script) — 2rem size */
+[data-clean-root="true"] .hero-eyebrow {
   font-family: var(--font-script, 'Dancing Script', cursive);
   font-size: 2rem;
   color: var(--_accent);
   margin-bottom: var(--space-md, 1rem);
   font-weight: var(--weight-regular, 400);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  /* Light theme: no shadow needed on white background */
+  text-shadow: none;
 }
 
-/* Title & accent — stays white by default via token */
-[data-clean-root] .hero-title {
+/* Title & accent — dark text on light theme, white on dark theme via tokens */
+[data-clean-root="true"] .hero-title {
   font-family: var(--font-serif, 'Playfair Display', serif);
   font-size: clamp(3rem, 8vw, 5.5rem);
   font-weight: var(--weight-regular, 400);
@@ -102,12 +102,13 @@
   letter-spacing: -0.02em;
   margin-bottom: var(--space-xl, 2rem);
   color: var(--_text);
-  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  /* Light theme: subtle shadow for depth on white background */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
-[data-clean-root] .hero-title-accent { color: var(--_accent); }
+[data-clean-root="true"] .hero-title-accent { color: var(--_accent); }
 
-/* Lead blurb — white by token */
-[data-clean-root] .hero-lead {
+/* Lead blurb — dark on light, white on dark via token */
+[data-clean-root="true"] .hero-lead {
   font-size: var(--size-xl, 1.25rem);
   line-height: var(--line-loose, 1.8);
   color: var(--_text);
@@ -116,17 +117,18 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  /* Light theme: subtle shadow */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 
 /* CTAs */
-[data-clean-root] .hero-ctas {
+[data-clean-root="true"] .hero-ctas {
   display: flex;
   gap: var(--space-md, 1rem);
   justify-content: center;
   flex-wrap: wrap;
 }
-[data-clean-root] .hero-cta {
+[data-clean-root="true"] .hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -141,17 +143,18 @@
   cursor: pointer;
   transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease, color 200ms ease;
 }
-[data-clean-root] .hero-cta-secondary {
+[data-clean-root="true"] .hero-cta-secondary {
   background: transparent;
   color: var(--_cta-text);
   border: 2px solid var(--_accent);
   border-radius: 9999px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(228, 200, 150, 0.2);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(157, 107, 123, 0.15);
+  /* Light theme: no shadow needed */
+  text-shadow: none;
 }
-[data-clean-root] .hero-cta-secondary:hover {
+[data-clean-root="true"] .hero-cta-secondary:hover {
   background: color-mix(in srgb, var(--_accent) 90%, white 10%);
   border-color: var(--_accent);
   color: var(--_cta-hover-text);
@@ -159,7 +162,7 @@
   box-shadow: 0 8px 25px rgba(228, 200, 150, 0.4);
   text-shadow: none;
 }
-[data-clean-root] .hero-cta-secondary::before {
+[data-clean-root="true"] .hero-cta-secondary::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -168,14 +171,14 @@
   transition: transform 0.6s ease;
   z-index: 0;
 }
-[data-clean-root] .hero-cta-secondary:hover::before { transform: translateX(100%); }
-[data-clean-root] .hero-cta-secondary > * {
+[data-clean-root="true"] .hero-cta-secondary:hover::before { transform: translateX(100%); }
+[data-clean-root="true"] .hero-cta-secondary > * {
   position: relative;
   z-index: 1;
 }
 
 /* Scroll indicator */
-[data-clean-root] .hero-scroll {
+[data-clean-root="true"] .hero-scroll {
   position: absolute;
   bottom: var(--space-xl, 2rem);
   left: 50%;
@@ -188,13 +191,13 @@
   cursor: pointer;
   transition: opacity var(--duration-normal, 300ms) ease;
 }
-[data-clean-root] .hero-scroll:hover { opacity: 1; }
-[data-clean-root] .hero-scroll-text {
+[data-clean-root="true"] .hero-scroll:hover { opacity: 1; }
+[data-clean-root="true"] .hero-scroll-text {
   font-size: var(--size-sm, 0.875rem);
   margin-bottom: var(--space-xs, 0.5rem);
   font-weight: var(--weight-light, 300);
 }
-[data-clean-root] .hero-scroll-arrow {
+[data-clean-root="true"] .hero-scroll-arrow {
   font-size: var(--size-2xl, 1.5rem);
   animation: bounce 2s infinite;
   display: block;
@@ -208,21 +211,113 @@
 
 /* Tablet/Mobile */
 @media (max-width: 1024px) {
-  [data-clean-root] .hero-content { padding: 0 var(--space-lg, 1.5rem); }
-  [data-clean-root] .hero-lead { font-size: var(--size-lg, 1.125rem); margin-bottom: var(--space-2xl, 2.5rem); }
+  [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
+  [data-clean-root="true"] .hero-lead { font-size: var(--size-lg, 1.125rem); margin-bottom: var(--space-2xl, 2.5rem); }
 }
 @media (max-width: 768px) {
-  [data-clean-root] .hero-content { padding: 0 var(--space-md, 1rem); }
-  [data-clean-root] .hero-ctas { flex-direction: column; align-items: center; gap: var(--space-sm, 0.75rem); }
-  [data-clean-root] .hero-cta { padding: var(--space-sm, .75rem) var(--space-xl, 2rem); font-size: calc(var(--size-sm, 0.875rem) * 0.95); }
+  [data-clean-root="true"] .hero-content { padding: 0 var(--gutter); }
+  [data-clean-root="true"] .hero-ctas { flex-direction: column; align-items: center; gap: var(--space-sm, 0.75rem); }
+  [data-clean-root="true"] .hero-cta { padding: var(--space-sm, .75rem) var(--space-xl, 2rem); font-size: calc(var(--size-sm, 0.875rem) * 0.95); }
   /* disable parallax on mobile for perf */
-  [data-clean-root] .hero::before { background-attachment: scroll; }
+  [data-clean-root="true"] .hero::before { background-attachment: scroll; }
 }
 
 /* Focus visibility */
-[data-clean-root] .hero-cta:focus-visible {
+[data-clean-root="true"] .hero-cta:focus-visible {
   outline: var(--focus-width, 3px) solid var(--focus-ring, var(--hero-accent, #E4C896));
   outline-offset: var(--focus-offset, 3px);
+}
+
+/* ============================================================================
+   DARK MODE - Force white text and OKLCH overlay
+   ============================================================================ */
+
+/* Dark mode (explicit) */
+html[data-theme="dark"] [data-clean-root="true"] .hero {
+  /* Ensure OKLCH overlay tokens are used */
+  --_overlay-start: var(--hero-overlay-start, oklch(0.18 0.03 65 / 0.92));
+  --_overlay-mid:   var(--hero-overlay-mid, oklch(0.22 0.05 80 / 0.88));
+  --_overlay-end:   var(--hero-overlay-end, oklch(0.26 0.04 70 / 0.90));
+
+  /* Force white text from tokens */
+  --_text: var(--hero-text, oklch(0.98 0.01 95));
+  --_accent: var(--hero-accent, oklch(0.78 0.10 90));
+  --_cta-text: var(--hero-cta-text, oklch(0.98 0.01 95));
+}
+
+/* Explicitly force white on all text elements with shadows for dark mode */
+html[data-theme="dark"] [data-clean-root="true"] .hero-eyebrow {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] [data-clean-root="true"] .hero-title {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+html[data-theme="dark"] [data-clean-root="true"] .hero-lead {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] [data-clean-root="true"] .hero-content {
+  color: var(--hero-text, oklch(0.98 0.01 95));
+}
+
+html[data-theme="dark"] [data-clean-root="true"] .hero-title-accent {
+  color: var(--hero-accent, oklch(0.78 0.10 90));
+}
+
+html[data-theme="dark"] [data-clean-root="true"] .hero-cta-secondary {
+  color: var(--hero-cta-text, oklch(0.98 0.01 95));
+  border-color: var(--hero-accent, oklch(0.78 0.10 90));
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Dark mode (auto - OS preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero {
+    /* Ensure OKLCH overlay tokens are used */
+    --_overlay-start: var(--hero-overlay-start, oklch(0.18 0.03 65 / 0.92));
+    --_overlay-mid:   var(--hero-overlay-mid, oklch(0.22 0.05 80 / 0.88));
+    --_overlay-end:   var(--hero-overlay-end, oklch(0.26 0.04 70 / 0.90));
+
+    /* Force white text from tokens */
+    --_text: var(--hero-text, oklch(0.98 0.01 95));
+    --_accent: var(--hero-accent, oklch(0.78 0.10 90));
+    --_cta-text: var(--hero-cta-text, oklch(0.98 0.01 95));
+  }
+
+  /* Explicitly force white on all text elements with shadows for dark mode */
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-eyebrow {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-title {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-lead {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-content {
+    color: var(--hero-text, oklch(0.98 0.01 95));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-title-accent {
+    color: var(--hero-accent, oklch(0.78 0.10 90));
+  }
+
+  :root:not([data-theme="light"]) [data-clean-root="true"] .hero-cta-secondary {
+    color: var(--hero-cta-text, oklch(0.98 0.01 95));
+    border-color: var(--hero-accent, oklch(0.78 0.10 90));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
 }
 
 } /* End @layer components */

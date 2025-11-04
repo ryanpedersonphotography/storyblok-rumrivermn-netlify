@@ -1,0 +1,317 @@
+@layer components {
+  /* =========================================================
+     BUTTON PRIMITIVE - Production-Ready Styles
+
+     Features:
+     - Variants: solid, outline, subtle, ghost
+     - Sizes: xs, sm, md, lg (with WCAG 44x44 hit targets)
+     - Corners: round, pill, square
+     - Loading states with spinner
+     - Icon-only support
+     - HCM (High Contrast Mode) support
+     - Motion preferences respect
+     - Universal selector (native + asChild)
+     ========================================================= */
+
+  /* =========================================================
+     BASE: Shared layout + motion (grid for spinner/content)
+     ========================================================= */
+  [data-ui="button"] {
+    /* Internal, overridable knobs (default from tokens) */
+    --_pad-y: var(--btn-pad-y, var(--space-12));
+    --_pad-x: var(--btn-pad-x, var(--space-20));
+    --_radius: var(--btn-radius, var(--radius-pill));
+    --_gap: var(--btn-gap, var(--space-8));
+    --_min-h: var(--btn-min-h, 44px);
+    --_min-w: var(--btn-min-w, 44px);
+
+    /* Reset all browser defaults */
+    all: unset;
+    box-sizing: border-box;
+
+    /* Remove appearance for cross-browser consistency */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--_gap);
+
+    /* Typography */
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1;
+    vertical-align: middle;
+
+    /* Interaction */
+    user-select: none;
+    cursor: pointer;
+
+    /* WCAG 2.5.5: Minimum 44×44px hit target */
+    min-inline-size: var(--_min-w);
+    min-block-size: var(--_min-h);
+
+    /* Base padding (calculated from internal vars) */
+    padding: var(--_pad-y) var(--_pad-x);
+
+    /* Border radius */
+    border-radius: var(--_radius);
+
+    /* Smooth transitions (respects motion preferences below) */
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background-color 120ms,
+      color 120ms,
+      border-color 120ms;
+  }
+
+  /* =========================================================
+     SIZES (calculated from base tokens)
+     ========================================================= */
+  [data-ui="button"][data-size="xs"] {
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.5);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.6);
+    font-size: 0.8125rem; /* 13px */
+  }
+
+  [data-ui="button"][data-size="sm"] {
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 0.725);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 0.8);
+    font-size: 0.875rem; /* 14px */
+  }
+
+  [data-ui="button"][data-size="md"] {
+    --_pad-y: var(--btn-pad-y, var(--space-12));
+    --_pad-x: var(--btn-pad-x, var(--space-20));
+    font-size: 1rem; /* 16px */
+  }
+
+  [data-ui="button"][data-size="lg"] {
+    --_pad-y: calc(var(--btn-pad-y, var(--space-12)) * 1.25);
+    --_pad-x: calc(var(--btn-pad-x, var(--space-20)) * 1.2);
+    font-size: 1.0625rem; /* 17px */
+  }
+
+  /* =========================================================
+     CORNERS (border-radius options)
+     ========================================================= */
+  [data-ui="button"][data-corner="round"] {
+    --_radius: 8px;
+  }
+
+  [data-ui="button"][data-corner="pill"] {
+    --_radius: 9999px;
+  }
+
+  [data-ui="button"][data-corner="square"] {
+    --_radius: 0;
+  }
+
+  /* =========================================================
+     VARIANTS (behavioral, token-driven)
+     ========================================================= */
+
+  /* SOLID variant */
+  [data-ui="button"][data-variant="solid"] {
+    background: var(--btn-bg-gold, oklch(0.85 0.09 85));
+    color: var(--btn-fg-on-gold, oklch(0.20 0.03 80));
+  }
+
+  /* OUTLINE variant */
+  [data-ui="button"][data-variant="outline"] {
+    background: transparent;
+    color: var(--btn-outline-fg, var(--btn-bg-gold, oklch(0.85 0.09 85)));
+    border: 2px solid var(--btn-outline-border, color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 90%, black));
+  }
+
+  /* SUBTLE variant (14% accent mix) */
+  [data-ui="button"][data-variant="subtle"] {
+    background: color-mix(in oklch, var(--btn-bg-gold, oklch(0.85 0.09 85)) 14%, transparent);
+    color: var(--btn-bg-gold, oklch(0.85 0.09 85));
+  }
+
+  /* GHOST variant */
+  [data-ui="button"][data-variant="ghost"] {
+    background: transparent;
+    color: var(--text-primary, currentColor);
+  }
+
+  /* Ghost hover background */
+  [data-ui="button"][data-variant="ghost"]:hover:not([data-disabled="true"]):not(:disabled) {
+    background: color-mix(in oklch, currentColor 10%, transparent);
+  }
+
+  /* =========================================================
+     ICON-ONLY (square aspect ratio)
+     ========================================================= */
+  [data-ui="button"][data-icon-only="true"] {
+    aspect-ratio: 1 / 1;
+    padding: 0;
+  }
+
+  /* =========================================================
+     DISABLED & LOADING STATES
+     ========================================================= */
+
+  /* Disabled (native <button>) */
+  button[data-ui="button"][disabled],
+  button[data-ui="button"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Disabled (asChild - aria-disabled parity) */
+  [data-ui="button"][data-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Loading (blocks interaction) */
+  [data-ui="button"][data-loading="true"] {
+    pointer-events: none;
+  }
+
+  /* =========================================================
+     FOCUS STYLES (defers to global focus system)
+     ========================================================= */
+  button[data-ui="button"]:focus-visible,
+  [data-ui="button"]:focus-visible {
+    outline: var(--focus-width, 2px) solid var(--focus-ring, var(--btn-outline-border, oklch(0.78 0.08 85)));
+    outline-offset: var(--focus-offset, 2px);
+  }
+
+  /* High Contrast Mode (Windows HCM / forced-colors) */
+  @media (forced-colors: active) {
+    button[data-ui="button"],
+    [data-ui="button"] {
+      border: 1px solid ButtonText;
+      background: ButtonFace;
+      color: ButtonText;
+    }
+
+    button[data-ui="button"]:focus,
+    [data-ui="button"]:focus {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+
+    button[data-ui="button"][disabled],
+    button[data-ui="button"]:disabled,
+    [data-ui="button"][data-disabled="true"] {
+      border-color: GrayText;
+      color: GrayText;
+    }
+  }
+
+  /* =========================================================
+     HOVER & ACTIVE STATES (respects motion preferences)
+     ========================================================= */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hover: subtle lift */
+    [data-ui="button"]:where(:hover):not([data-disabled="true"]):not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    /* Active: press down + slight darken */
+    [data-ui="button"]:where(:active):not([data-disabled="true"]):not(:disabled) {
+      transform: translateY(0);
+      filter: brightness(0.98);
+    }
+  }
+
+  /* Remove transforms when motion is reduced */
+  @media (prefers-reduced-motion: reduce) {
+    [data-ui="button"] {
+      transition: none;
+      transform: none !important;
+    }
+  }
+
+  /* =========================================================
+     LOADING SPINNER & CONTENT COMPOSITION
+     ========================================================= */
+
+  /* Content wrapper - provides stable container for row/overlay modes */
+  [data-ui="button"] .btn__content {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+  }
+
+  /* Row layout - for start/end spinner positions */
+  [data-ui="button"] .btn__row {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: var(--_gap);
+  }
+
+  /* Spinner wrappers for positioning */
+  .btn__spinner-start,
+  .btn__spinner-end {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* SVG spinner sizing (inherits from font-size in em units) */
+  [data-ui="button"] .btn__spinner {
+    inline-size: var(--spinner-size, 1.1em);
+    block-size: var(--spinner-size, 1.1em);
+  }
+
+  /* Overlay spinner - centers above content */
+  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__spinner-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  /* Hide label visually when overlay spinner is active */
+  [data-ui="button"][data-spinner-position="overlay"][data-loading="true"] .btn__label {
+    opacity: 0;
+  }
+
+  /* Width preservation ghost - keeps button width stable during loading */
+  [data-ui="button"][data-preserve-width="true"] .btn__width-ghost {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    white-space: nowrap;
+    visibility: hidden;
+  }
+
+  /* Screen-reader only text (for loadingText fallback) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST MODE (forced-colors)
+     ========================================================= */
+
+  /* Ensure SVG spinner remains visible in Windows HCM */
+  @media (forced-colors: active) {
+    [data-ui="button"] .btn__spinner {
+      stroke: CanvasText;
+      fill: CanvasText;
+    }
+  }
+}
