@@ -1,6 +1,6 @@
 :root {
-  --glass-toolbar-rail-width: 78px;
-  --glass-toolbar-panel-width: 320px;
+  --glass-toolbar-rail-width: 86px;
+  --glass-toolbar-panel-width: 360px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
   --glass-toolbar-shadow: 0 32px 70px rgba(8, 6, 10, 0.38);
   --glass-toolbar-duration: 300ms;
@@ -17,18 +17,13 @@
   display: flex;
   align-items: stretch;
   gap: 0;
-  width: var(--glass-toolbar-rail-width);
+  width: calc(var(--glass-toolbar-rail-width) + var(--glass-toolbar-panel-width));
   padding: 0;
   background: transparent;
   z-index: 60;
   isolation: isolate;
   overflow: hidden;
-  transition: width var(--glass-toolbar-duration) var(--glass-toolbar-ease),
-    box-shadow var(--glass-toolbar-duration) var(--glass-toolbar-ease);
-}
-
-.glass-toolbar[data-expanded="true"] {
-  width: calc(var(--glass-toolbar-rail-width) + var(--glass-toolbar-panel-width));
+  transition: box-shadow var(--glass-toolbar-duration) var(--glass-toolbar-ease);
 }
 
 .glass-toolbar__rail {
@@ -78,7 +73,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-12, 12px);
+  gap: var(--space-18, 18px);
+  padding-top: var(--space-6, 6px);
+  padding-bottom: var(--space-6, 6px);
 }
 
 .glass-toolbar__pill {
@@ -97,11 +94,11 @@
 }
 
 .glass-toolbar__pill svg {
-  width: 22px;
-  height: 22px;
-  padding: 8px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
+  width: 24px;
+  height: 24px;
+  padding: 9px;
+  border-radius: 14px;
+  background: transparent;
   transition: background 220ms var(--glass-toolbar-ease),
     color 220ms var(--glass-toolbar-ease),
     transform 260ms var(--glass-toolbar-ease);
@@ -123,12 +120,12 @@
 }
 
 .glass-toolbar__pill.is-active svg {
-  background: rgba(255, 255, 255, 0.26);
-  color: #f9f9f9;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .glass-toolbar__pill.is-active .glass-toolbar__pill-label {
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .glass-toolbar__rail-footer {
@@ -267,22 +264,22 @@
 .glass-toolbar__subnav {
   list-style: none;
   display: grid;
-  gap: var(--space-12, 12px);
+  gap: var(--space-16, 16px);
   margin: 0;
   padding: 0;
 }
 
 .glass-toolbar__subnav button {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 12px;
-  background: color-mix(in oklch, var(--theme-bg-primary, rgba(255,255,255,.28)) 92%, transparent 8%);
-  padding: var(--space-10, 10px) var(--space-16, 16px);
+  background: transparent;
+  padding: var(--space-12, 12px) var(--space-18, 18px);
   text-align: left;
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.82rem;
   line-height: 1.35;
-  min-height: 46px;
+  min-height: 52px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -300,11 +297,12 @@
 
 .glass-toolbar__subnav button:hover,
 .glass-toolbar__subnav button:focus-visible {
-  transform: translateX(4px);
-  border-color: rgba(255, 255, 255, 0.32);
-  background: color-mix(in oklch, var(--theme-bg-secondary, rgba(255,255,255,.44)) 92%, transparent 8%);
+  background: color-mix(in oklch, var(--theme-bg-primary, rgba(255,255,255,.28)) 92%, transparent 8%);
+  border-color: rgba(255, 255, 255, 0.24);
   outline: none;
 }
+
+
 
 .glass-toolbar__subnav small {
   font-size: 0.72rem;
