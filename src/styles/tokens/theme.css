@@ -48,6 +48,7 @@
     --ok-text-walnut: oklch(0.62 0.05 55);
     --ok-text-walnut-deep: oklch(0.52 0.05 55);
   }
+}
 
 /* === Hero semantic tokens (light) === */
 :root {
@@ -61,9 +62,9 @@
   --hero-cta-hover-text: var(--text-inverse, #FFF8E7);
 
   /* Overlay stops - LIGHT THEME: White gradient overlay for elegant look */
-  --hero-overlay-start: rgba(255, 255, 255, 0.88);
-  --hero-overlay-mid:   rgba(255, 248, 231, 0.85);
-  --hero-overlay-end:   rgba(244, 228, 225, 0.90);
+  --hero-overlay-start: oklch(0.98 0.01 95 / 0.75);
+  --hero-overlay-mid:   oklch(0.97 0.02 95 / 0.70);
+  --hero-overlay-end:   oklch(0.95 0.03 30 / 0.75);
 
   /* Parallax behavior (override in media queries if needed) */
   --hero-bg-attach: fixed;
@@ -80,15 +81,17 @@
    SECTION TOKENS — LIGHT THEME
    =============================== */
 :root {
+  --hero-overlay-end:   oklch(0.26 0.04 70 / 0.75);
+  --hero-overlay-mid:   oklch(0.22 0.05 80 / 0.70);
+  --hero-overlay-start: oklch(0.18 0.03 65 / 0.75);
   /* ===== Navbar ===== */
   --navbar-bg: var(--surface-0, #FFFFFF);
   --navbar-text: var(--text-primary, #2B2B2B);
   --navbar-accent: var(--accent-gold, #E4C896);
   --navbar-scroll-bg: rgba(44, 36, 26, 0.90);
   --navbar-underline: rgba(0,0,0,0.08);
-
   --navbar-link: var(--navbar-text);
-  --navbar-link-hover: var(--navbar-accent);
+  --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 60%, var(--navbar-accent) 40%);
 
   --navbar-cta-bg: linear-gradient(135deg, #D9A3AF 0%, #C88E9A 100%);
   --navbar-cta-text: var(--text-inverse, #FFF8E7);
@@ -257,16 +260,23 @@
 
   /* Interaction distances */
   --distance-sm: 4px;
-  --distance-md: 8px;
+  --distance-md: 8px; 
   --distance-lg: 12px;
 
   /* Stagger delays for sequential animations */
   --stagger-sm: 50ms;
   --stagger-md: 100ms;
   --stagger-lg: 150ms;
-}
 
-
+  /* ===== Shadow & Backdrop Tokens (Dark) ===== */
+  --shadow-text-soft: 0 2px 4px oklch(0 0 0 / 0.45);
+  --shadow-text-light: 0 1px 2px oklch(0 0 0 / 0.25);
+  --shadow-elev-1: 0 1px 2px oklch(0 0 0 / 0.18), 0 1px 3px oklch(0 0 0 / 0.14);
+  --shadow-elev-2: 0 3px 6px oklch(0 0 0 / 0.22), 0 2px 4px oklch(0 0 0 / 0.18);
+  --shadow-elev-3: 0 8px 20px oklch(0 0 0 / 0.28), 0 4px 6px oklch(0 0 0 / 0.20);
+  --backdrop-mobile-menu: oklch(0 0 0 / 0.35);
+  --backdrop-modal: oklch(0 0 0 / 0.75);
+  --backdrop-glass: oklch(from var(--surface-0) l c h / 0.25);
   /* ===== Semantic Surfaces (LIGHT) ===== */
   --surface-0: rgb(var(--clr-cream-rgb));            /* page soft background (blush) */
   --surface-1: rgb(255 255 255);                     /* cards/contrast */
@@ -469,6 +479,17 @@
   /* Dividers */
   --divider-hairline: color-mix(in srgb, var(--theme-border-subtle, rgba(0,0,0,.12)) 75%, transparent);
   --divider-gold: var(--theme-accent-gold, #E4C896);
+
+  /* ===== Shadow & Backdrop Tokens (Light) ===== */
+  --shadow-text-soft: 0 2px 4px oklch(0 0 0 / 0.25);
+  --shadow-text-light: 0 1px 2px oklch(0 0 0 / 0.15);
+  --shadow-elev-1: 0 1px 2px oklch(0 0 0 / 0.10), 0 1px 3px oklch(0 0 0 / 0.08);
+  --shadow-elev-2: 0 3px 6px oklch(0 0 0 / 0.12), 0 2px 4px oklch(0 0 0 / 0.10);
+  --shadow-elev-3: 0 8px 20px oklch(0 0 0 / 0.16), 0 4px 6px oklch(0 0 0 / 0.12);
+  --backdrop-mobile-menu: oklch(0 0 0 / 0.28);
+  --backdrop-modal: oklch(0 0 0 / 0.60);
+  --backdrop-glass: oklch(from var(--surface-0) l c h / 0.18);
+
 }
 
 /* ---------- Dark mode (explicit) ----------------------------------------- */
