@@ -34,6 +34,9 @@ import StoryblokProvider from '@/components/StoryblokProvider';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
 import { playfairDisplay, montserrat, dancingScript } from './fonts';
 import Navbar from '@/components/clean/Navbar';
+import ThemeSelect from '@/components/dev/ThemeSelect';
+
+const isDev = process.env.NODE_ENV !== 'production';
 
 export const metadata = {
 	title: 'Rum River Barn | Wedding Venue',
@@ -61,18 +64,31 @@ export default function RootLayout({ children }) {
 							__html: `
 (function(){
   try{
-    var d = document.documentElement;
+		var d = document.documentElement;
+		var params = new URLSearchParams(window.location.search);
 
-    // Theme (light/dark)
-    var theme = localStorage.getItem('rr.theme');
-    if(!theme){
-      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    d.setAttribute('data-theme', theme);
+		// Theme (light/dark)
+		var theme = params.get('theme');
+		var allowedTheme = theme === 'dark' || theme === 'light' ? theme : null;
+		if(!allowedTheme){
+			allowedTheme = localStorage.getItem('rr.theme');
+			if(!allowedTheme){
+				allowedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			}
+		} else {
+			localStorage.setItem('rr.theme', allowedTheme);
+		}
+		d.setAttribute('data-theme', allowedTheme);
 
-    // Brand (romantic/modern) - default to romantic for public site
-    var brand = localStorage.getItem('rr.brand') || 'romantic';
-    d.setAttribute('data-brand', brand);
+		// Brand (romantic/modern) - default to romantic for public site
+		var brandParam = params.get('brand');
+		var allowedBrand = brandParam === 'romantic' || brandParam === 'modern' ? brandParam : null;
+		if(!allowedBrand){
+			allowedBrand = localStorage.getItem('rr.brand') || 'romantic';
+		} else {
+			localStorage.setItem('rr.brand', allowedBrand);
+		}
+		d.setAttribute('data-brand', allowedBrand);
   }catch(e){}
 })();
 `}}
@@ -84,6 +100,7 @@ export default function RootLayout({ children }) {
 							<Navbar />
 							{children}
 						</div>
+					{isDev ? <ThemeSelect /> : null}
 					</ThemeProvider>
 				</body>
 			</html>

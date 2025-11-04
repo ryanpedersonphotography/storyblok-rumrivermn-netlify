@@ -50,6 +50,380 @@
   }
 }
 
+  /* ============================================================================
+     BRAND VARIANTS — Romantic (Default) & Modern
+     ============================================================================
+     Override semantic tokens based on [data-brand]. Romantic values largely
+     inherit from the base configuration; modern re-colors surfaces, gradients,
+     and component-level tokens for a distinct presentation.
+     ============================================================================ */
+
+  html[data-brand="romantic"] {
+    /* Romantic palette mirrors existing base tokens. Accent overrides ensure
+       parity even if base values change later. */
+    --accent-rose: oklch(0.69 0.12 350);
+    --accent-gold: oklch(0.84 0.10 85);
+    --accent-sage: oklch(0.78 0.05 160);
+
+    --theme-accent-rose: var(--accent-rose);
+    --theme-accent-gold: var(--accent-gold);
+    --theme-accent-sage: var(--accent-sage);
+  }
+
+  html[data-brand="romantic"][data-theme="dark"],
+  :root:not([data-theme="light"])[data-brand="romantic"] {
+    --accent-rose: oklch(0.70 0.10 350);
+    --accent-gold: oklch(0.86 0.09 85);
+    --accent-sage: oklch(0.80 0.06 160);
+
+    --theme-accent-rose: var(--accent-rose);
+    --theme-accent-gold: var(--accent-gold);
+    --theme-accent-sage: var(--accent-sage);
+  }
+
+  html[data-brand="modern"] {
+    /* === Accent Palette (Light) === */
+    --accent-rose: oklch(0.72 0.10 10);
+    --accent-gold: oklch(0.86 0.07 95);
+    --accent-sage: oklch(0.80 0.07 190);
+
+    /* === Core Surfaces & Text (Light) === */
+    --surface-0: oklch(0.97 0.02 240);
+    --surface-1: oklch(0.995 0.01 240);
+    --surface-2: oklch(0.92 0.02 245);
+    --surface-3: oklch(0.88 0.03 250);
+    --surface-4: oklch(0.84 0.04 255);
+
+    --text-primary: oklch(0.28 0.04 260);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 60%, oklch(0.74 0.02 250) 40%);
+    --text-inverse: oklch(0.97 0.01 240);
+
+    --border-subtle: oklch(0.82 0.01 250 / 0.30);
+    --border-medium: oklch(0.72 0.02 250 / 0.42);
+    --focus-ring: var(--accent-sage);
+
+    --grad-section-soft: linear-gradient(180deg,
+      color-mix(in oklch, var(--surface-1) 85%, var(--accent-sage) 15%) 0%,
+      var(--surface-0) 100%
+    );
+    --grad-section-deep: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-0) 100%);
+
+    --theme-bg-primary: var(--surface-1);
+    --theme-bg-secondary: var(--surface-3);
+    --theme-bg-card: color-mix(in oklch, var(--surface-1) 80%, var(--surface-2) 20%);
+    --theme-bg-dark-section: color-mix(in oklch, var(--surface-0) 75%, var(--accent-rose) 25%);
+    --theme-text-primary: var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-border-subtle: var(--border-subtle);
+    --theme-border-medium: var(--border-medium);
+    --theme-border-focus: var(--accent-sage);
+    --theme-accent-rose: var(--accent-rose);
+    --theme-accent-gold: var(--accent-gold);
+    --theme-accent-sage: var(--accent-sage);
+
+    /* === Hero === */
+    --hero-bg: oklch(0.35 0.05 252);
+    --hero-overlay-start: oklch(0.96 0.02 210 / 0.82);
+    --hero-overlay-mid:   oklch(0.92 0.02 200 / 0.76);
+    --hero-overlay-end:   oklch(0.88 0.03 190 / 0.78);
+
+    /* === Navbar === */
+    --navbar-bg: color-mix(in oklch, var(--surface-1) 92%, white 8%);
+    --navbar-text: var(--text-primary);
+    --navbar-accent: var(--accent-sage);
+    --navbar-scroll-bg: color-mix(in oklch, var(--surface-2) 88%, black 12%);
+    --navbar-underline: oklch(0.80 0.00 240 / 0.18);
+    --navbar-link: var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
+    --navbar-cta-bg: linear-gradient(135deg, var(--accent-sage) 0%, color-mix(in oklch, var(--accent-rose) 60%, white 40%) 100%);
+    --navbar-cta-text: var(--text-inverse);
+    --navbar-logo-grad: linear-gradient(135deg, var(--accent-rose) 0%, color-mix(in oklch, var(--accent-sage) 40%, var(--accent-rose) 60%) 100%);
+
+    /* === Buttons === */
+    --btn-fg-on-gold: var(--text-inverse);
+    --btn-bg-gold: var(--accent-sage);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--btn-bg-gold) 80%, black 20%);
+    --btn-outline-fg: var(--text-primary);
+    --btn-outline-border: var(--accent-sage);
+    --btn-outline-on-image-bg: oklch(0.18 0.03 250 / 0.18);
+    --btn-outline-on-image-bg-hover: oklch(0.18 0.03 250 / 0.28);
+
+    /* === Schedule / Booking === */
+    --schedule-bg: var(--surface-1);
+    --schedule-text: var(--text-primary);
+    --schedule-field-bg: var(--surface-0);
+    --schedule-field-border: var(--border-subtle);
+    --schedule-field-focus: var(--accent-sage);
+    --schedule-cta-bg: var(--accent-rose);
+    --schedule-cta-text: var(--text-inverse);
+    --schedule-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
+    --schedule-cta-border: transparent;
+
+    /* === Experience Grid === */
+    --experience-section-bg: var(--surface-0);
+    --experience-text: var(--text-primary);
+    --feature-card-bg: var(--surface-1);
+    --feature-card-border: var(--border-subtle);
+    --feature-card-shadow: 0 14px 32px oklch(0 0 0 / 0.12);
+    --feature-icon-color: var(--accent-sage);
+    --feature-icon-bg: color-mix(in oklch, var(--accent-sage) 15%, transparent);
+
+    /* === Testimonials === */
+    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
+    --testimonials-text: var(--text-primary);
+    --testimonial-card-bg: var(--surface-1);
+    --testimonial-card-border: var(--border-subtle);
+    --testimonial-card-shadow: 0 16px 40px oklch(0 0 0 / 0.14);
+    --testimonial-quote: var(--accent-rose);
+    --testimonial-stars: color-mix(in oklch, var(--accent-gold) 70%, var(--accent-rose) 30%);
+
+    /* === History Carousel === */
+    --history-section-bg: var(--surface-0);
+    --history-text: var(--text-primary);
+    --history-slide-bg: var(--surface-1);
+    --history-slide-border: var(--border-subtle);
+    --history-slide-shadow: 0 18px 44px oklch(0 0 0 / 0.16);
+    --history-nav-bg: color-mix(in oklch, var(--surface-2) 80%, white 20%);
+    --history-nav-arrow: var(--accent-sage);
+    --history-nav-arrow-hover: color-mix(in oklch, var(--accent-sage) 55%, var(--accent-rose) 45%);
+    --history-dot: oklch(0.82 0 240 / 0.35);
+    --history-dot-active: var(--accent-rose);
+
+    /* === Weddings / Gallery === */
+    --weddings-section-bg: var(--surface-0);
+    --weddings-text: var(--text-primary);
+    --wedding-card-bg: var(--surface-1);
+    --wedding-card-overlay-bg: color-mix(in oklch, var(--accent-rose) 18%, transparent);
+    --wedding-card-shadow: 0 18px 38px oklch(0 0 0 / 0.16);
+    --wedding-cta: var(--accent-sage);
+    --wedding-cta-hover: color-mix(in oklch, var(--accent-sage) 65%, var(--accent-rose) 35%);
+
+    /* === Pricing === */
+    --pricing-section-bg: var(--surface-0);
+    --pricing-text: var(--text-primary);
+    --pricing-card-bg: var(--surface-1);
+    --pricing-card-border: var(--border-subtle);
+    --pricing-card-shadow: 0 20px 38px oklch(0 0 0 / 0.14);
+    --pricing-popular-bg: color-mix(in oklch, var(--accent-sage) 18%, transparent);
+    --pricing-popular-border: var(--accent-sage);
+    --pricing-cta-bg: var(--accent-rose);
+    --pricing-cta-text: var(--text-inverse);
+    --pricing-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
+
+    /* === About / Timeline === */
+    --about-section-bg: var(--surface-0);
+    --about-text: var(--text-primary);
+    --timeline-connector: color-mix(in oklch, var(--accent-sage) 40%, transparent);
+    --timeline-dot: var(--accent-sage);
+    --timeline-card-bg: var(--surface-1);
+    --timeline-card-border: var(--border-subtle);
+    --timeline-card-shadow: 0 12px 32px oklch(0 0 0 / 0.14);
+
+    /* === Features / Amenities === */
+    --features-section-bg: color-mix(in oklch, var(--surface-0) 85%, var(--accent-gold) 15%);
+    --features-text: var(--text-primary);
+    --features-card-bg: var(--surface-1);
+    --features-card-border: var(--border-subtle);
+    --features-card-shadow: 0 16px 34px oklch(0 0 0 / 0.14);
+    --features-icon-color: var(--accent-rose);
+    --features-icon-bg: color-mix(in oklch, var(--accent-rose) 18%, transparent);
+
+    /* === Map === */
+    --map-section-bg: color-mix(in oklch, var(--surface-0) 90%, var(--accent-sage) 10%);
+    --map-text: var(--text-primary);
+    --map-embed-border: var(--border-subtle);
+    --map-pin: var(--accent-rose);
+
+    /* === Sticky CTA === */
+    --sticky-cta-bg: var(--accent-rose);
+    --sticky-cta-text: var(--text-inverse);
+    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
+    --sticky-cta-shadow: 0 -8px 24px oklch(0 0 0 / 0.20);
+    --sticky-cta-border: transparent;
+
+    /* === Why Choose Section === */
+    --why-bg-start: color-mix(in oklch, var(--accent-sage) 24%, var(--surface-1) 76%);
+    --why-bg-end:   color-mix(in oklch, var(--accent-rose) 20%, var(--surface-2) 80%);
+    --why-text:     var(--text-primary);
+    --why-text-soft:color-mix(in oklch, var(--text-primary) 70%, white 30%);
+    --why-card:     var(--surface-1);
+    --why-border:   var(--border-subtle);
+    --why-shadow:   0 20px 44px oklch(0 0 0 / 0.16);
+  }
+
+  html[data-brand="modern"][data-theme="dark"],
+  :root:not([data-theme="light"])[data-brand="modern"] {
+    /* === Accent Palette (Dark) === */
+    --accent-rose: oklch(0.74 0.09 10);
+    --accent-gold: oklch(0.88 0.08 95);
+    --accent-sage: oklch(0.82 0.08 190);
+
+    /* === Core Surfaces & Text (Dark) === */
+    --surface-0: oklch(0.22 0.03 250);
+    --surface-1: oklch(0.19 0.03 250);
+    --surface-2: oklch(0.17 0.03 250);
+    --surface-3: oklch(0.14 0.04 252);
+    --surface-4: oklch(0.11 0.04 255);
+
+    --text-primary: oklch(0.90 0.01 260);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 65%, oklch(0.74 0.02 250) 35%);
+    --text-inverse: oklch(0.23 0.03 255);
+
+    --border-subtle: oklch(0.36 0.02 250 / 0.35);
+    --border-medium: oklch(0.46 0.02 250 / 0.48);
+    --focus-ring: var(--accent-sage);
+
+    --grad-section-soft: linear-gradient(180deg,
+      color-mix(in oklch, var(--surface-1) 85%, var(--accent-sage) 15%) 0%,
+      var(--surface-0) 100%
+    );
+    --grad-section-deep: linear-gradient(180deg,
+      color-mix(in oklch, var(--surface-0) 70%, black 30%) 0%,
+      var(--surface-0) 100%
+    );
+
+    --theme-bg-primary: var(--surface-1);
+    --theme-bg-secondary: var(--surface-3);
+    --theme-bg-card: var(--surface-2);
+    --theme-bg-dark-section: color-mix(in oklch, var(--surface-0) 82%, black 18%);
+    --theme-text-primary: var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-border-subtle: var(--border-subtle);
+    --theme-border-medium: var(--border-medium);
+    --theme-border-focus: var(--accent-sage);
+    --theme-accent-rose: var(--accent-rose);
+    --theme-accent-gold: var(--accent-gold);
+    --theme-accent-sage: var(--accent-sage);
+
+    /* === Hero === */
+    --hero-bg: oklch(0.25 0.03 250);
+    --hero-overlay-start: oklch(0.22 0.04 250 / 0.70);
+    --hero-overlay-mid:   oklch(0.24 0.04 260 / 0.66);
+    --hero-overlay-end:   oklch(0.20 0.04 260 / 0.70);
+
+    /* === Navbar === */
+    --navbar-bg: color-mix(in oklch, var(--surface-0) 82%, black 18%);
+    --navbar-text: var(--text-primary);
+    --navbar-accent: var(--accent-sage);
+    --navbar-scroll-bg: color-mix(in oklch, var(--surface-0) 80%, black 20%);
+    --navbar-underline: oklch(0.38 0 250 / 0.45);
+    --navbar-link: var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
+    --navbar-cta-bg: linear-gradient(135deg, var(--accent-rose) 0%, color-mix(in oklch, var(--accent-sage) 70%, var(--accent-rose) 30%) 100%);
+    --navbar-cta-text: var(--text-inverse);
+    --navbar-logo-grad: linear-gradient(135deg, var(--accent-sage) 0%, color-mix(in oklch, var(--accent-rose) 50%, var(--accent-sage) 50%) 100%);
+
+    /* === Buttons === */
+    --btn-fg-on-gold: var(--text-inverse);
+    --btn-bg-gold: var(--accent-rose);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--accent-rose) 72%, black 28%);
+    --btn-outline-fg: var(--text-primary);
+    --btn-outline-border: color-mix(in oklch, var(--accent-sage) 80%, var(--accent-rose) 20%);
+    --btn-outline-on-image-bg: oklch(0.12 0.03 250 / 0.45);
+    --btn-outline-on-image-bg-hover: oklch(0.12 0.03 250 / 0.55);
+
+    /* === Schedule / Booking === */
+    --schedule-bg: color-mix(in oklch, var(--surface-1) 92%, black 8%);
+    --schedule-text: var(--text-primary);
+    --schedule-field-bg: var(--surface-0);
+    --schedule-field-border: var(--border-subtle);
+    --schedule-field-focus: var(--accent-sage);
+    --schedule-cta-bg: var(--accent-rose);
+    --schedule-cta-text: var(--text-inverse);
+    --schedule-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+
+    /* === Experience Grid === */
+    --experience-section-bg: color-mix(in oklch, var(--surface-0) 92%, black 8%);
+    --experience-text: var(--text-primary);
+    --feature-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --feature-card-border: var(--border-subtle);
+    --feature-card-shadow: 0 24px 48px oklch(0 0 0 / 0.28);
+    --feature-icon-color: var(--accent-sage);
+    --feature-icon-bg: color-mix(in oklch, var(--accent-sage) 22%, transparent);
+
+    /* === Testimonials === */
+    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
+    --testimonials-text: var(--text-primary);
+    --testimonial-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --testimonial-card-border: var(--border-subtle);
+    --testimonial-card-shadow: 0 28px 52px oklch(0 0 0 / 0.32);
+    --testimonial-quote: var(--accent-sage);
+    --testimonial-stars: color-mix(in oklch, var(--accent-gold) 68%, var(--accent-rose) 32%);
+
+    /* === History Carousel === */
+    --history-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --history-text: var(--text-primary);
+    --history-slide-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --history-slide-border: var(--border-subtle);
+    --history-slide-shadow: 0 30px 64px oklch(0 0 0 / 0.40);
+    --history-nav-bg: color-mix(in oklch, var(--surface-2) 85%, black 15%);
+    --history-nav-arrow: var(--accent-sage);
+    --history-nav-arrow-hover: color-mix(in oklch, var(--accent-sage) 58%, var(--accent-rose) 42%);
+    --history-dot: oklch(0.45 0 250 / 0.55);
+    --history-dot-active: var(--accent-rose);
+
+    /* === Weddings / Gallery === */
+    --weddings-section-bg: color-mix(in oklch, var(--surface-0) 86%, black 14%);
+    --weddings-text: var(--text-primary);
+    --wedding-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --wedding-card-overlay-bg: color-mix(in oklch, var(--accent-rose) 26%, transparent);
+    --wedding-card-shadow: 0 28px 58px oklch(0 0 0 / 0.36);
+    --wedding-cta: var(--accent-sage);
+    --wedding-cta-hover: color-mix(in oklch, var(--accent-sage) 60%, var(--accent-rose) 40%);
+
+    /* === Pricing === */
+    --pricing-section-bg: color-mix(in oklch, var(--surface-0) 86%, black 14%);
+    --pricing-text: var(--text-primary);
+    --pricing-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --pricing-card-border: var(--border-subtle);
+    --pricing-card-shadow: 0 32px 72px oklch(0 0 0 / 0.42);
+    --pricing-popular-bg: color-mix(in oklch, var(--accent-sage) 28%, transparent);
+    --pricing-popular-border: var(--accent-sage);
+    --pricing-cta-bg: var(--accent-rose);
+    --pricing-cta-text: var(--text-inverse);
+    --pricing-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+
+    /* === About / Timeline === */
+    --about-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --about-text: var(--text-primary);
+    --timeline-connector: color-mix(in oklch, var(--accent-sage) 40%, transparent);
+    --timeline-dot: var(--accent-sage);
+    --timeline-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --timeline-card-border: var(--border-subtle);
+    --timeline-card-shadow: 0 28px 60px oklch(0 0 0 / 0.40);
+
+    /* === Features / Amenities === */
+    --features-section-bg: color-mix(in oklch, var(--surface-0) 88%, var(--accent-gold) 12%);
+    --features-text: var(--text-primary);
+    --features-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --features-card-border: var(--border-subtle);
+    --features-card-shadow: 0 28px 60px oklch(0 0 0 / 0.40);
+    --features-icon-color: var(--accent-rose);
+    --features-icon-bg: color-mix(in oklch, var(--accent-rose) 24%, transparent);
+
+    /* === Map === */
+    --map-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --map-text: var(--text-primary);
+    --map-embed-border: var(--border-subtle);
+    --map-pin: var(--accent-rose);
+
+    /* === Sticky CTA === */
+    --sticky-cta-bg: var(--accent-rose);
+    --sticky-cta-text: var(--text-inverse);
+    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+    --sticky-cta-shadow: 0 -14px 46px oklch(0 0 0 / 0.45);
+    --sticky-cta-border: transparent;
+
+    /* === Why Choose Section === */
+    --why-bg-start: color-mix(in oklch, var(--accent-sage) 24%, var(--surface-1) 76%);
+    --why-bg-end:   color-mix(in oklch, var(--accent-rose) 24%, var(--surface-2) 76%);
+    --why-text:     var(--text-primary);
+    --why-text-soft:color-mix(in oklch, var(--text-primary) 65%, var(--accent-gold) 35%);
+    --why-card:     color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --why-border:   var(--border-subtle);
+    --why-shadow:   0 32px 68px oklch(0 0 0 / 0.48);
+  }
+
 /* === Hero semantic tokens (light) === */
 :root {
   /* Base background */
@@ -722,44 +1096,6 @@ html[data-theme="dark"] {
   --saturate-low: 1.08;
   --saturate-med: 1.18;
   --saturate-high: 1.30;
-}
-
-/* ============================================================================
-   BRAND VARIANTS — Romantic (Default) & Modern
-   ============================================================================
-   These override accent colors based on [data-brand] attribute.
-   Public site is fixed to "romantic" via pre-paint script.
-   Brand selector only visible in dev/admin environments.
-   ============================================================================ */
-
-html[data-brand="romantic"] {
-  /* Romantic Brand Palette (Light Mode) */
-  --accent-rose: oklch(0.69 0.12 350);   /* Softer, dusty rose */
-  --accent-gold: oklch(0.84 0.10 85);    /* Warm, buttery gold */
-  --accent-sage: oklch(0.78 0.05 160);   /* Muted sage green */
-}
-
-html[data-brand="romantic"][data-theme="dark"],
-:root:not([data-theme="light"])[data-brand="romantic"] {
-  /* Romantic Brand Palette (Dark Mode) */
-  --accent-rose: oklch(0.70 0.10 350);   /* Slightly brighter in dark */
-  --accent-gold: oklch(0.86 0.09 85);    /* More luminous */
-  --accent-sage: oklch(0.80 0.06 160);   /* Lifted for visibility */
-}
-
-html[data-brand="modern"] {
-  /* Modern Brand Palette (Light Mode) */
-  --accent-rose: oklch(0.72 0.10 10);    /* Coral/peach tint */
-  --accent-gold: oklch(0.86 0.07 95);    /* Cooler, champagne gold */
-  --accent-sage: oklch(0.80 0.07 190);   /* Teal-leaning sage */
-}
-
-html[data-brand="modern"][data-theme="dark"],
-:root:not([data-theme="light"])[data-brand="modern"] {
-  /* Modern Brand Palette (Dark Mode) */
-  --accent-rose: oklch(0.74 0.09 10);    /* Vibrant coral */
-  --accent-gold: oklch(0.88 0.08 95);    /* Bright champagne */
-  --accent-sage: oklch(0.82 0.08 190);   /* Vivid teal-sage */
 }
 
 /* ---------- Auto dark (OS preference) when you're not forcing a theme ---- */
