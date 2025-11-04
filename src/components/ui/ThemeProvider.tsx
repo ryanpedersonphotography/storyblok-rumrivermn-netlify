@@ -7,7 +7,7 @@
 
 'use client'
 
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import {
   THEME_REGISTRY,
   BRAND_REGISTRY,
@@ -44,6 +44,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return 'romantic'
   })
 
+  const themeRef = useRef(theme)
+  const brandRef = useRef(brand)
+
+  useEffect(() => {
+    themeRef.current = theme
+  }, [theme])
+
+  useEffect(() => {
+    brandRef.current = brand
+  }, [brand])
+
   /* Set theme: update state, DOM, and localStorage */
   const applyThemeToDom = useCallback((nextTheme: ThemeId) => {
     if (typeof document === 'undefined') return
@@ -56,6 +67,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const setTheme = useCallback((newTheme: ThemeId) => {
+    if (themeRef.current === newTheme) return
+    themeRef.current = newTheme
     setThemeState(newTheme)
     applyThemeToDom(newTheme)
     if (typeof window !== 'undefined') {
@@ -65,6 +78,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   /* Set brand: update state, DOM, and localStorage */
   const setBrand = useCallback((newBrand: BrandId) => {
+    if (brandRef.current === newBrand) return
+    brandRef.current = newBrand
     setBrandState(newBrand)
     applyBrandToDom(newBrand)
     if (typeof window !== 'undefined') {
@@ -80,13 +95,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEYS.theme && e.newValue) {
         const nextTheme = e.newValue as ThemeId
-        setThemeState(nextTheme)
-        applyThemeToDom(nextTheme)
+        if (nextTheme && nextTheme !== themeRef.current) {
+          themeRef.current = nextTheme
+          setThemeState(nextTheme)
+          applyThemeToDom(nextTheme)
+        }
       }
       if (e.key === STORAGE_KEYS.brand && e.newValue) {
         const nextBrand = e.newValue as BrandId
-        setBrandState(nextBrand)
-        applyBrandToDom(nextBrand)
+        if (nextBrand && nextBrand !== brandRef.current) {
+          brandRef.current = nextBrand
+          setBrandState(nextBrand)
+          applyBrandToDom(nextBrand)
+        }
       }
     }
 
@@ -96,8 +117,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // Only auto-switch if user hasn't explicitly set a theme
       if (!localStorage.getItem(STORAGE_KEYS.theme)) {
         const systemTheme = preferredSystemTheme()
-        setThemeState(systemTheme)
-        applyThemeToDom(systemTheme)
+        if (systemTheme !== themeRef.current) {
+          themeRef.current = systemTheme
+          setThemeState(systemTheme)
+          applyThemeToDom(systemTheme)
+        }
       }
     }
 
