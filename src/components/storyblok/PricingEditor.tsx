@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { storyblokEditable } from '@storyblok/react/rsc'
+import { storyblokEditable } from '@storyblok/react'
 import { Check, Calendar, Star } from 'lucide-react'
 
 interface PricingEditorProps {

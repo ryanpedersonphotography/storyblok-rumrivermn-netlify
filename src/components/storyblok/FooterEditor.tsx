@@ -1,6 +1,6 @@
 'use client';
 
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 
 interface FooterProps {

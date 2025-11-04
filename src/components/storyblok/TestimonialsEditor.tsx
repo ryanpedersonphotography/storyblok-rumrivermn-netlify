@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react'
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
 
 interface TestimonialItemProps {

@@ -46,7 +46,11 @@ export default function Navbar({ blok }: { blok?: NavbarBlok }) {
 
     if (href.startsWith('#')) {
       const targetId = href.substring(1)
-      const targetElement = document.getElementById(targetId)
+      // Try to find by id first, then by data-section attribute
+      let targetElement = document.getElementById(targetId)
+      if (!targetElement) {
+        targetElement = document.querySelector(`[data-section="${targetId}"]`)
+      }
 
       if (targetElement) {
         const htmlElement = document.documentElement
@@ -88,15 +92,15 @@ export default function Navbar({ blok }: { blok?: NavbarBlok }) {
   // Default content
   const logoText = blok?.logo_text || 'Rum River Barn'
   const navItems = blok?.nav_items || [
-    { label: 'Venue', href: '#venue' },
-    { label: 'Gallery', href: '#gallery' },
+    { label: 'Spaces', href: '#spaces' },
+    { label: 'Why Choose Us', href: '#alternating-blocks' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Real Weddings', href: '#gallery' },
     { label: 'History', href: '#history' },
-    { label: 'Packages', href: '#packages' },
-    { label: 'Contact', href: '#contact' },
   ]
   const showCta = blok?.show_cta !== false
   const ctaLabel = blok?.cta_label || 'Book Now'
-  const ctaUrl = blok?.cta_url || '#contact'
+  const ctaUrl = blok?.cta_url || '#schedule-form'
 
   return (
     <>

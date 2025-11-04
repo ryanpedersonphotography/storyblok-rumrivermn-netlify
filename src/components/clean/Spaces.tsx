@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
-import type { SbBlokData } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react'
 import SpacesLayout from '@/components/layouts/SpacesLayout'
 
 interface FeatureStoryblok {

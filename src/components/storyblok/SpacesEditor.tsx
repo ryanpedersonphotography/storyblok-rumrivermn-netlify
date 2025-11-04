@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { storyblokEditable } from '@storyblok/react/rsc'
+import { storyblokEditable } from '@storyblok/react'
 
 interface SpacesEditorProps {
   blok: {

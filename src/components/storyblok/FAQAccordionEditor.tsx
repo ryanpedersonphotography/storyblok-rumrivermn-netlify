@@ -1,7 +1,7 @@
 'use client'
 
-import { storyblokEditable } from '@storyblok/react/rsc'
-import type { SbBlokData } from '@storyblok/react/rsc'
+import { storyblokEditable } from '@storyblok/react'
+import type { SbBlokData } from '@storyblok/react'
 import { useState } from 'react'
 
 interface FAQItem {

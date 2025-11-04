@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 
 interface ScheduleFormProps {
   blok: {

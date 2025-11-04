@@ -1,6 +1,6 @@
 'use client';
 
-import { storyblokEditable } from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react';
 
 interface BrandSocialProofProps {
   blok: {

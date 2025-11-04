@@ -1,4 +1,4 @@
-import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
+import { storyblokEditable } from '@storyblok/react/rsc'
 
 export default function Spaces({ blok }) {
   return (

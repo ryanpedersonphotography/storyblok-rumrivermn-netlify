@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
-import type { SbBlokData } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react'
 
 interface ScheduleFormStoryblok extends SbBlokData {
   title?: string

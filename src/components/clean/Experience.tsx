@@ -8,7 +8,7 @@
 'use client'
 
 import { storyblokEditable } from '@storyblok/react'
-import type { SbBlokData } from '@storyblok/react/rsc'
+import type { SbBlokData } from '@storyblok/react'
 import { SparklesIcon, HeartIcon, CheckBadgeIcon, HomeModernIcon } from '@heroicons/react/24/outline'
 import ExperienceLayout from '@/components/layouts/ExperienceLayout'
 
