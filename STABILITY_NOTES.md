@@ -4,6 +4,8 @@
 - **Current commit**: Latest commit on current branch
 - **Stability**: Mixed - some components working, some issues
 - **Key findings**: Found comprehensive theming system in commit f97bed6
+- **Glass toolbar navigation**: ✅ Stable hover gating with persistent child drawer behavior
+- **Known issue**: On home route, moving from parent pills to the top subnav item can still collapse the child drawer; transient hover buffer added after hover-freeze experiment introduced the regression and needs further tuning.
 
 ## Previous Stable Deployments
 1. **October 24 Deployment** (commit cf9df1d)

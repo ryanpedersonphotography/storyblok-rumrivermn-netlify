@@ -19,6 +19,7 @@
   --glass-toolbar-icon-active: rgba(255, 255, 255, 0.92);
   --glass-toolbar-pill-active-bg: rgba(255, 255, 255, 0.24);
   --glass-toolbar-chip-border: rgba(255, 255, 255, 0.2);
+}
 :root:not([data-theme="dark"]) .glass-toolbar,
 html[data-theme="light"] .glass-toolbar {
   --glass-toolbar-pill-active-bg: color-mix(in oklch, var(--theme-accent-rose, #d89bae) 28%, var(--theme-bg-primary, #ffffff) 72%);
@@ -126,7 +127,6 @@ html[data-theme="light"] .glass-toolbar {
   transition: color 180ms var(--glass-toolbar-ease);
 }
 
-
 .glass-toolbar__pill svg {
   width: 56px;
   height: 32px;
@@ -181,11 +181,6 @@ html[data-theme="light"] .glass-toolbar {
   color: var(--glass-toolbar-pill-label);
   transition: color 200ms var(--glass-toolbar-ease),
     font-variation-settings 200ms var(--glass-toolbar-ease);
-}
-
-.glass-toolbar__pill.is-active svg {
-  background: transparent;
-  color: var(--glass-toolbar-icon-active);
 }
 
 .glass-toolbar__pill.is-active .glass-toolbar__pill-label {
@@ -260,12 +255,6 @@ html[data-theme="light"] .glass-toolbar {
   gap: var(--space-12, 12px);
 }
 
-.glass-toolbar__panel-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: var(--space-8, 8px);
-}
-
 .glass-toolbar__brand {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
@@ -273,37 +262,12 @@ html[data-theme="light"] .glass-toolbar {
   color: var(--glass-toolbar-panel-muted);
 }
 
-.glass-toolbar__panel-close {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--glass-toolbar-chip-border);
-  background: var(--glass-toolbar-chip-bg);
-  color: inherit;
-  cursor: pointer;
-  transition: border-color 220ms var(--glass-toolbar-ease),
-    background 220ms var(--glass-toolbar-ease);
-}
-
-.glass-toolbar__panel-close svg {
-  width: 18px;
-  height: 18px;
-}
-
-.glass-toolbar__panel-close:hover,
-.glass-toolbar__panel-close:focus-visible {
-  border-color: var(--glass-toolbar-chip-hover-border);
-  background: var(--glass-toolbar-chip-hover-bg);
-  outline: none;
-}
-
 .glass-toolbar__panel-body {
   display: flex;
   flex-direction: column;
   gap: var(--space-20, 20px);
   flex: 1;
+  padding-top: calc(var(--space-24, 24px) + var(--space-18, 18px));
 }
 
 .glass-toolbar__details {
@@ -346,6 +310,8 @@ html[data-theme="light"] .glass-toolbar {
   min-height: 52px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 4px;
   transition: transform 240ms var(--glass-toolbar-ease),
     border-color 220ms var(--glass-toolbar-ease),

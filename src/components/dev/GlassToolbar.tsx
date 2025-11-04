@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from 'react'
+import { usePathname } from 'next/navigation'
 import {
   Squares2X2Icon,
   SparklesIcon,
@@ -8,7 +9,6 @@ import {
   CommandLineIcon,
   ArrowLeftOnRectangleIcon,
   ChevronDoubleRightIcon,
-  XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
@@ -46,8 +46,8 @@ const DEFAULT_SECTIONS: ToolbarSection[] = [
     description: 'Snapshot and quick links',
     icon: Squares2X2Icon,
     items: [
-      { id: 'dashboard', label: 'Dashboard' },
       { id: 'activity', label: 'Activity' },
+      { id: 'dashboard', label: 'Dashboard' },
       { id: 'insights', label: 'Insights' },
     ],
   },
@@ -57,8 +57,8 @@ const DEFAULT_SECTIONS: ToolbarSection[] = [
     description: 'Curate on-site journey',
     icon: SparklesIcon,
     items: [
-      { id: 'storyboard', label: 'Storyboard' },
       { id: 'timeline', label: 'Timeline' },
+      { id: 'storyboard', label: 'Storyboard' },
       { id: 'touchpoints', label: 'Touchpoints' },
     ],
   },
@@ -68,8 +68,8 @@ const DEFAULT_SECTIONS: ToolbarSection[] = [
     description: 'Themes, tokens, and scripts',
     icon: Cog6ToothIcon,
     items: [
-      { id: 'theme', label: 'Theme Tokens' },
       { id: 'integrations', label: 'Integrations' },
+      { id: 'theme', label: 'Theme Tokens' },
       { id: 'labs', label: 'Labs' },
     ],
   },
@@ -78,11 +78,6 @@ const DEFAULT_SECTIONS: ToolbarSection[] = [
     label: 'Dev Tools',
     description: 'Experiments & utilities',
     icon: CommandLineIcon,
-    items: [
-      { id: 'logs', label: 'Logs' },
-      { id: 'playground', label: 'Playground' },
-      { id: 'schema', label: 'Schema Explorer' },
-    ],
   },
 ]
 
@@ -150,13 +145,16 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
   },
   ref,
 ) {
+  const pathname = usePathname()
   const [manualPinned, setManualPinned] = React.useState(initialExpanded)
   const [internalActive, setInternalActive] = React.useState(() => activeSectionId ?? sections[0]?.id ?? '')
   const [pointerInside, setPointerInside] = React.useState(false)
   const [focusInside, setFocusInside] = React.useState(false)
   const [hoverLock, setHoverLock] = React.useState(false)
+  const [transientHover, setTransientHover] = React.useState(false)
   // Use a pointer gate so keyboard focus can expand the panel without pointer clicks keeping it open.
   const pointerFocusGate = React.useRef(false)
+  const transientHoverTimeout = React.useRef<number | null>(null)
   const panelId = React.useId()
   const prefersReducedMotion = useReducedMotion()
 
@@ -164,6 +162,22 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     () => sections.find((section) => section.id === internalActive) ?? sections[0],
     [internalActive, sections],
   )
+
+  const pathSegments = React.useMemo(() => pathname?.split('/').filter(Boolean) ?? [], [pathname])
+  const allowPersistentHover = pathSegments.length > 0
+
+  const updateHoverLock = React.useCallback(
+    (next: boolean) => {
+      setHoverLock(next && allowPersistentHover)
+    },
+    [allowPersistentHover],
+  )
+
+  React.useEffect(() => {
+    if (!allowPersistentHover) {
+      setHoverLock(false)
+    }
+  }, [allowPersistentHover])
 
   React.useEffect(() => {
     const root = document.documentElement
@@ -178,7 +192,39 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     }
   }, [activeSectionId])
 
-  const autoExpand = React.useMemo(() => pointerInside || focusInside || hoverLock, [pointerInside, focusInside, hoverLock])
+  const autoExpand = React.useMemo(
+    () => pointerInside || focusInside || hoverLock || transientHover,
+    [pointerInside, focusInside, hoverLock, transientHover],
+  )
+  const primeTransientHover = React.useCallback(() => {
+    if (allowPersistentHover) {
+      return
+    }
+    if (transientHoverTimeout.current) {
+      window.clearTimeout(transientHoverTimeout.current)
+    }
+    setTransientHover(true)
+    transientHoverTimeout.current = window.setTimeout(() => {
+      setTransientHover(false)
+      transientHoverTimeout.current = null
+    }, 900)
+  }, [allowPersistentHover])
+
+  React.useEffect(() => {
+    if (allowPersistentHover) {
+      setTransientHover(false)
+      if (transientHoverTimeout.current) {
+        window.clearTimeout(transientHoverTimeout.current)
+        transientHoverTimeout.current = null
+      }
+    }
+    return () => {
+      if (transientHoverTimeout.current) {
+        window.clearTimeout(transientHoverTimeout.current)
+        transientHoverTimeout.current = null
+      }
+    }
+  }, [allowPersistentHover])
 
   const expanded = manualPinned || autoExpand
 
@@ -226,36 +272,53 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
     (sectionId: string, hasChildren: boolean) => {
       setInternalActive(sectionId)
       if (hasChildren) {
-        setHoverLock(true)
+        updateHoverLock(true)
         setPointerInside(true)
+        primeTransientHover()
+        const section = sections.find((candidate) => candidate.id === sectionId)
+        const firstItem = section?.items?.[0]
+        if (firstItem) {
+          onItemSelect?.(sectionId, firstItem.id)
+        }
       } else if (!manualPinned) {
-        setHoverLock(false)
+        updateHoverLock(false)
         setPointerInside(false)
         setFocusInside(false)
+      } else {
+        updateHoverLock(false)
       }
       onSectionChange?.(sectionId)
     },
-    [manualPinned, onSectionChange],
+    [manualPinned, onSectionChange, onItemSelect, primeTransientHover, sections, updateHoverLock],
   )
 
   const handleSectionPointerEnter = React.useCallback(
     (sectionId: string, hasChildren: boolean) => {
       setPointerInside(true)
       if (hasChildren) {
-        setHoverLock(true)
+        updateHoverLock(true)
+        primeTransientHover()
+      } else {
+        updateHoverLock(false)
+        if (!allowPersistentHover && !manualPinned) {
+          setPointerInside(false)
+          setFocusInside(false)
+          setTransientHover(false)
+        }
       }
       setInternalActive(sectionId)
       onSectionChange?.(sectionId)
     },
-    [onSectionChange],
+    [allowPersistentHover, manualPinned, onSectionChange, primeTransientHover, updateHoverLock],
   )
 
   const handleItemClick = React.useCallback(
     (itemId: string) => {
       if (!activeSection) return
+      updateHoverLock(true)
       onItemSelect?.(activeSection.id, itemId)
     },
-    [activeSection, onItemSelect],
+    [activeSection, onItemSelect, updateHoverLock],
   )
 
   return (
@@ -269,6 +332,14 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         pointerFocusGate.current = false
         if (!manualPinned) {
           setFocusInside(false)
+          if (!allowPersistentHover) {
+            setHoverLock(false)
+          }
+        }
+        setTransientHover(false)
+        if (transientHoverTimeout.current) {
+          window.clearTimeout(transientHoverTimeout.current)
+          transientHoverTimeout.current = null
         }
       }}
       onPointerDownCapture={(event) => {
@@ -360,23 +431,11 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
         initial={expanded ? 'expanded' : 'collapsed'}
         animate={expanded ? 'expanded' : 'collapsed'}
         variants={panelVariants}
-        onPointerEnter={() => setPointerInside(true)}
+        onPointerEnter={() => {
+          setPointerInside(true)
+          primeTransientHover()
+        }}
       >
-        <div className="glass-toolbar__panel-actions">
-          <button
-            type="button"
-            className="glass-toolbar__panel-close"
-            onClick={() => {
-              setManualPinned(false)
-              setPointerInside(false)
-              setFocusInside(false)
-              setHoverLock(false)
-            }}
-            aria-label="Collapse toolbar"
-          >
-            <XMarkIcon aria-hidden="true" />
-          </button>
-        </div>
         <div className="glass-toolbar__panel-body">
           <AnimatePresence initial={false} mode="wait">
             {activeSection?.items && activeSection.items.length > 0 ? (
@@ -391,7 +450,20 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
               >
                 {activeSection.items.map((item) => (
                   <li key={item.id}>
-                    <button type="button" onClick={() => handleItemClick(item.id)}>
+                    <button
+                      type="button"
+                      onPointerEnter={() => {
+                        setPointerInside(true)
+                        updateHoverLock(true)
+                        primeTransientHover()
+                      }}
+                      onFocus={() => {
+                        setPointerInside(true)
+                        updateHoverLock(true)
+                        primeTransientHover()
+                      }}
+                      onClick={() => handleItemClick(item.id)}
+                    >
                       <span>{item.label}</span>
                       {item.description ? <small>{item.description}</small> : null}
                     </button>
