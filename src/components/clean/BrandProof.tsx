@@ -7,7 +7,7 @@
 
 'use client'
 
-import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
+import { storyblokEditable } from '@storyblok/react'
 import type { SbBlokData } from '@storyblok/react/rsc'
 import Section from '@/components/ui/SectionEnhanced'
 
