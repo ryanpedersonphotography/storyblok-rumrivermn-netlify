@@ -1,5 +1,6 @@
+'use client'
 import { MapPinIcon, ClockIcon, PhoneIcon, EnvelopeIcon, HomeIcon, CakeIcon } from '@heroicons/react/24/outline'
-import { storyblokEditable } from '@storyblok/react/rsc'
+import { storyblokEditable } from '@storyblok/react'
 import type { SbBlokData } from '@storyblok/react/rsc'
 import Section from '@/components/ui/SectionEnhanced'
 

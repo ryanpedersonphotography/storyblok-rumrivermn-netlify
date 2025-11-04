@@ -7,7 +7,7 @@
 // ───────────────────────────────────────────────────────────────────────────────
 'use client'
 import React from 'react'
-import { storyblokEditable } from '@storyblok/react'
+import { storyblokEditableEnhanced as storyblokEditable } from '@/lib/storyblokEditableEnhanced'
 
 type SBAsset = { filename?: string; alt?: string } | string | undefined
 
