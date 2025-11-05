@@ -33,27 +33,27 @@
 
 /* ===== Vertical Padding Presets ===== */
 [data-clean-root="true"] .section[data-padding-y="xs"] {
-  padding: var(--space-section-xs) 0;
+  padding: var(--pad-section-xs) 0;
 }
 
 [data-clean-root="true"] .section[data-padding-y="sm"] {
-  padding: var(--space-section-sm) 0;
+  padding: var(--pad-section-sm) 0;
 }
 
 [data-clean-root="true"] .section[data-padding-y="md"] {
-  padding: var(--space-section-md) 0;
+  padding: var(--pad-section-md) 0;
 }
 
 [data-clean-root="true"] .section[data-padding-y="lg"] {
-  padding: var(--space-section-lg) 0;
+  padding: var(--pad-section-lg) 0;
 }
 
 [data-clean-root="true"] .section[data-padding-y="xl"] {
-  padding: var(--space-section-xl) 0;
+  padding: var(--pad-section-xl) 0;
 }
 
 [data-clean-root="true"] .section[data-padding-y="fluid"] {
-  padding: var(--space-section-fluid) 0;
+  padding: var(--pad-section-fluid) 0;
 }
 
 /* ===== Hero Height ===== */
@@ -239,10 +239,6 @@
 }
 
 /* ===== Content ===== */
-[data-clean-root="true"] .section__content {
-  /* Content inherits alignment from parent section */
-}
-
 /* Content alignment for rail mode */
 [data-clean-root="true"] .section[data-align="center"] .section__content {
   text-align: center;

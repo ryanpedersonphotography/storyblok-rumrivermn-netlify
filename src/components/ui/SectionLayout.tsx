@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import * as React from 'react'
 
 /* ============================================================================
@@ -132,14 +133,21 @@ export function SectionLayout({
       )}
 
       {/* Media (if placement is 'behind', it goes before content) */}
-      {media && media.placement === 'behind' && (
+      {media && media.src && media.placement === 'behind' && (
         <div
           className="section-layout__media"
           data-placement={media.placement}
           data-aspect={media.aspect}
           data-radius={media.radius}
         >
-          <img src={media.src} alt={media.alt || ''} />
+          <Image
+            src={media.src}
+            alt={media.alt || ''}
+            fill
+            sizes="100vw"
+            className="section-layout__media-image"
+            priority={media.placement === 'behind'}
+          />
           {media.overlay && media.overlay !== 'none' && (
             <div
               className="section-layout__media-overlay"
@@ -158,14 +166,20 @@ export function SectionLayout({
       )}
 
       {/* Media (if placement is left/right, it's in the content flow) */}
-      {media && (media.placement === 'left' || media.placement === 'right') && (
+      {media && media.src && (media.placement === 'left' || media.placement === 'right') && (
         <div
           className="section-layout__media"
           data-placement={media.placement}
           data-aspect={media.aspect}
           data-radius={media.radius}
         >
-          <img src={media.src} alt={media.alt || ''} />
+          <Image
+            src={media.src}
+            alt={media.alt || ''}
+            fill
+            sizes="(min-width: 1024px) 40vw, 90vw"
+            className="section-layout__media-image"
+          />
           {media.overlay && media.overlay !== 'none' && (
             <div
               className="section-layout__media-overlay"

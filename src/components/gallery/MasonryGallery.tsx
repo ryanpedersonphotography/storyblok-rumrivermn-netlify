@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useState, useRef, useEffect } from 'react'
 import Lightbox from 'yet-another-react-lightbox'
 import 'yet-another-react-lightbox/styles.css'
@@ -69,12 +70,14 @@ export default function MasonryGallery({
                   className="masonry-item"
                   onClick={() => openLightbox(actualIndex)}
                 >
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt || `Photo ${actualIndex + 1}`}
                     loading="lazy"
                     width={image.width || 800}
                     height={image.height || 600}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               )

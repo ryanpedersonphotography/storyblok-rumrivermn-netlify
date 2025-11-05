@@ -1,3 +1,11 @@
+// export default function FAQ() {
+//   return (
+//     <div className="w-full">
+//       {/* ...existing code... */}
+//     </div>
+//   );
+// }
+
 // ===============================================================
 // FILE: src/components/clean/FAQ.tsx
 // Clean FAQ with robust Storyblok field handling + per-item fallbacks
@@ -9,6 +17,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import { renderRichText } from '@storyblok/js'
 import SectionShell from '@/components/ui/SectionShell'
+import SectionLayout from '@/components/ui/SectionLayout'
 
 type Blok = Record<string, any>
 
@@ -94,11 +103,62 @@ export default function FAQ({ blok }: { blok: Blok }) {
   // Debug: uncomment while diagnosing field shapes
   // useEffect(() => { console.log('[FAQ blok]', JSON.parse(JSON.stringify(blok))) }, [blok])
 
+  const headerSlot = (
+    <header
+      className="section-layout__header"
+      data-align="center"
+      data-max="prose"
+      data-test-id="faq-header"
+      style={{ scrollMarginTop: '80px' }}
+    >
+      {subtitle && <p className="section-layout__kicker">{subtitle}</p>}
+      {title && <h2 className="section-layout__title">{title}</h2>}
+    </header>
+  )
+
+  const contentSlot = (
+    <div
+      className="section-layout__content"
+      data-variant="legacy-full-centered"
+      data-test-id="faq-content"
+      aria-label="Frequently asked questions list"
+    >
+      <div className="faq-list">
+        {items.map((it) => {
+          const isOpen = !!open[it.uid]
+          return (
+            <div key={it.uid} className={`faq-item ${isOpen ? 'is-open' : ''}`}>
+              <button
+                type="button"
+                className="faq-question"
+                onClick={() => toggle(it.uid)}
+                aria-expanded={isOpen}
+                aria-controls={`answer-${it.uid}`}
+              >
+                <h3>{it.question}</h3>
+                <span className="faq-toggle" aria-hidden>↓</span>
+              </button>
+
+              <div
+                id={`answer-${it.uid}`}
+                className="faq-answer"
+                role="region"
+                aria-live="polite"
+              >
+                <div className="faq-answer-body" dangerouslySetInnerHTML={{ __html: it.answerHTML }} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+
   return (
     <SectionShell
       as="section"
-      container="wrapper"
       align="center"
+      container="prose"
       paddingY="lg"
       background="surface"
       tone="auto"
@@ -106,51 +166,13 @@ export default function FAQ({ blok }: { blok: Blok }) {
       data-section="faq"
       {...storyblokEditable(blok)}
     >
-      <header
-        className="section__header"
-        data-align="center"
-        data-max="prose"
-        data-test-id="faq-header"
-        style={{ scrollMarginTop: '80px' }}
-      >
-        {subtitle && <p className="section__kicker">{subtitle}</p>}
-        {title && <h2 className="section__title">{title}</h2>}
-      </header>
-
-      <div
-        className="section__content"
-        data-test-id="faq-content"
-        aria-label="Frequently asked questions list"
-      >
-        <div className="faq-list">
-          {items.map((it) => {
-            const isOpen = !!open[it.uid]
-            return (
-              <div key={it.uid} className={`faq-item ${isOpen ? 'is-open' : ''}`}>
-                <button
-                  type="button"
-                  className="faq-question"
-                  onClick={() => toggle(it.uid)}
-                  aria-expanded={isOpen}
-                  aria-controls={`answer-${it.uid}`}
-                >
-                  <h3>{it.question}</h3>
-                  <span className="faq-toggle" aria-hidden>↓</span>
-                </button>
-
-                <div
-                  id={`answer-${it.uid}`}
-                  className="faq-answer"
-                  role="region"
-                  aria-live="polite"
-                >
-                  <div className="faq-answer-body" dangerouslySetInnerHTML={{ __html: it.answerHTML }} />
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
+      <SectionLayout
+        variant="legacy-full-centered"
+        rails={{ headerWidth: 'prose', contentWidth: 'prose', align: 'center' }}
+        header={{ align: 'center' }}
+        HeaderSlot={headerSlot}
+        ContentSlot={contentSlot}
+      />
     </SectionShell>
   )
 }

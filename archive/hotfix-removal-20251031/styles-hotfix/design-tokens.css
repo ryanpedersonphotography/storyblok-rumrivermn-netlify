@@ -86,14 +86,14 @@ html, body {
   --color-bg-dark: var(--color-deep-brown);
 
   /* === NAVIGATION COLORS === */
-  --nav-hover-bg: color-mix(in srgb, var(--theme-accent-gold, #E4C896) 12%, white);
+  --nav-hover-bg: color-mix(in srgb, var(--color-accent) 12%, white);
   --nav-hover-bg-dark: color-mix(in srgb, var(--theme-bg-card, #3D2F22) 65%, transparent);
 
   /* === ICON COLORS === */
-  --icon-color: var(--theme-accent-rose, #9D6B7B);
+  --icon-color: var(--color-secondary);
   --icon-color-muted: color-mix(in srgb, var(--theme-text-secondary, #666) 70%, transparent);
   --icon-color-strong: var(--theme-accent-gold, #E4C896);
-  --icon-bg-contrast: color-mix(in srgb, var(--theme-bg-card, #FFFFFF) 12%, white);
+  --icon-bg-contrast: color-mix(in srgb, var(--color-bg-primary) 12%, white);
 
   /* ============================================================================
      RGBA VARIANTS FOR TRANSPARENCY
@@ -211,6 +211,13 @@ html, body {
      ============================================================================ */
 
   /* === PADDING === */
+  --padding-fluid-sm: clamp(8px, 1.4vw, 16px);
+  --padding-fluid-md: clamp(12px, 2vw, 24px);
+  --padding-fluid-lg: clamp(16px, 3vw, 32px);
+  --padding-fluid-xl: clamp(24px, 4vw, 48px);
+  --padding-fluid-2xl: clamp(32px, 6vw, 64px);
+
+  /* === MARGINS === */
   --padding-xs: 0.5rem;         /* 8px */
   --padding-sm: 0.75rem;        /* 12px */
   --padding-md: 1rem;           /* 16px */

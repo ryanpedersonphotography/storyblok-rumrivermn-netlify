@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { storyblokEditable } from '@storyblok/react';
+import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
@@ -325,10 +326,12 @@ export default function HistoryCarouselEditor({ blok }: HistoryCarouselProps) {
                     <div className="hotfix-history-card">
                       {/* Image with 5:4 aspect ratio */}
                       <div className="hotfix-history-image-wrapper">
-                        <img
+                        <Image
                           src={imageUrl}
                           alt={`${data.title} (${data.year})`}
                           className="hotfix-history-image"
+                          fill
+                          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 45vw, 90vw"
                           loading="lazy"
                         />
                         {/* Subtle Gradient Overlay */}

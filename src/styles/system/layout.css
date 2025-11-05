@@ -9,6 +9,7 @@
 @layer utilities {
   /* 1) Unify header blocks (keeps center by default; opt into left via data-align="left") */
   [data-clean-root="true"] .section-header,
+  [data-clean-root="true"] .alternating-blocks__container,
   [data-clean-root="true"] .experience-header,
   [data-clean-root="true"] .gallery-header,
   [data-clean-root="true"] .map-header,

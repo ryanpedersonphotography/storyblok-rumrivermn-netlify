@@ -23,12 +23,13 @@
 
 /* Question */
 [data-clean-root="true"] .faq-accordion .faq-question {
-  padding: var(--space-xl) 0; /* 2rem */
+  padding-block: var(--density-stack, var(--space-xl));
+  padding-inline: 0;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--space-lg); /* 1.25rem */
+  gap: var(--gap-inline, var(--space-lg));
   width: 100%;
   background: transparent;
   border: 0;
@@ -76,7 +77,7 @@
 [data-clean-root="true"] .faq-accordion .faq-item.is-open .faq-answer {
   max-height: 500px;
   opacity: 1;
-  padding: 0 0 var(--space-xl) 0; /* 2rem */
+  padding-block-end: var(--density-stack, var(--space-xl));
 }
 
 /* For rich text coming from Storyblok */
@@ -86,7 +87,7 @@
   line-height: var(--line-loose, 1.8);
   color: var(--text-secondary);
 }
-[data-clean-root="true"] .faq-accordion .faq-answer-body p { margin: 0 0 var(--space-16) 0; }
+[data-clean-root="true"] .faq-accordion .faq-answer-body p { margin: 0 0 var(--gap-stack, var(--space-md)) 0; }
 
 /* Dark mode */
 html[data-theme="dark"] [data-clean-root="true"] .faq-accordion .faq-question h3 {
@@ -108,10 +109,10 @@ html[data-clean-root="true"] [data-clean-root="true"] .faq-accordion .faq-answer
 /* Responsive */
 @media (max-width: 768px) {
   [data-clean-root="true"] .faq-accordion .faq-question {
-    padding: var(--space-lg) 0; /* 1.25rem */
+    padding-block: var(--gap-stack, var(--space-lg));
   }
   [data-clean-root="true"] .faq-accordion .faq-item.is-open .faq-answer {
-    padding-bottom: var(--space-lg);
+    padding-block-end: var(--gap-stack, var(--space-lg));
   }
 }
 

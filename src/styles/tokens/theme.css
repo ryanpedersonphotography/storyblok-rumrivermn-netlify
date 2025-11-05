@@ -1,70 +1,494 @@
 /* ========================================================================== *
    FILE: src/styles/tokens/theme.css
    PURPOSE: Single source of truth for color/typography/spacing/motion tokens.
-            - Combined light + dark
-            - OKLCH first, with sRGB fallbacks
-            - Includes "legacy alias" variables to avoid breaking old code
+            - Layered token architecture
+            - Romantic (default) + Modern brand support
+            - Light/Dark semantic tokens with component aliases
  * ========================================================================== */
 
-/* ===== Unified CSS Layer Declaration ===== */
-/* IMPORTANT: This must be the FIRST layer declaration in the import chain */
-/* All subsequent files use these layers without redeclaring them */
 @layer base, tokens, components, utilities;
 
-/* ---------- Base (light mode by default) ---------------------------------- */
-:root {
-  /* ===== Color Primitives (sRGB fallbacks) ===== */
-  /* Brand / palette anchor hex fallbacks */
-  --clr-walnut-900-rgb: 15 12 10;    /* #0F0C0A */
-  --clr-walnut-800-rgb: 26 20 16;    /* #1A1410 */
-  --clr-walnut-750-rgb: 35 27 20;    /* ~#231B14 (approx mid) */
-  --clr-walnut-700-rgb: 44 36 22;    /* #2C2416 */
-  --clr-walnut-650-rgb: 55 45 27;    /* ~#372D1B (approx) */
+@layer tokens {
+  /* =========================
+     1) PRIMITIVES (raw hues)
+     ========================= */
+  :root {
+    /* Romantic anchors */
+    --p-rose-60:  oklch(0.74 0.06 15);
+    --p-rose-40:  oklch(0.85 0.04 15);
+    --p-gold-50:  oklch(0.88 0.07 88);
+    --p-sage-55:  oklch(0.78 0.05 160);
+    --p-cream-95: oklch(0.95 0.02 25);
 
-  --clr-rose-rgb:        157 107 123; /* #9D6B7B */
-  --clr-rose-soft-rgb:   216 155 174; /* #D89BAE (light rose) */
-  --clr-gold-rgb:        240 217 168; /* #F0D9A8 */
-  --clr-cream-rgb:       244 228 225; /* #F4E4E1  (blush) */
-  --clr-walnut-text-rgb: 107 78 61;   /* #6B4E3D */
-  --clr-walnut-deep-rgb: 74 52 38;    /* #4A3426 */
-  --clr-white-rgb:       255 255 255; /* white */
-  --clr-black-rgb:       0 0 0;       /* black */
+    /* Neutral ladder aligned by lightness */
+    --n-98: oklch(0.98 0 255);
+    --n-95: oklch(0.95 0 255);
+    --n-92: oklch(0.92 0 255);
+    --n-88: oklch(0.88 0 255);
+    --n-84: oklch(0.84 0 255);
+    --n-28: oklch(0.28 0.03 260);
+    --n-20: oklch(0.20 0.03 255);
+    --n-16: oklch(0.16 0.03 252);
+    --n-14: oklch(0.14 0.04 252);
+    --n-11: oklch(0.11 0.04 255);
 
-  /* Preferred OKLCH variants (modern browsers) */
-  @supports (color: oklch(0.5 0 0)) {
-    --ok-walnut-900: oklch(0.18 0.03 65);
-    --ok-walnut-850: oklch(0.20 0.03 65);
-    --ok-walnut-800: oklch(0.22 0.03 65);
-    --ok-walnut-750: oklch(0.25 0.035 65);
-    --ok-walnut-700: oklch(0.28 0.040 65);
-    --ok-walnut-650: oklch(0.31 0.040 65);
+    /* Modern anchors */
+    --m-ink-45:   oklch(0.45 0.05 262);
+    --m-ink-25:   oklch(0.25 0.04 262);
+    --m-ink-18:   oklch(0.18 0.03 262);
+    --m-brass-65: oklch(0.70 0.08 85);
+    --m-brass-45: oklch(0.55 0.07 85);
+    --m-stone-70: oklch(0.68 0.04 105);
+    --m-stone-45: oklch(0.50 0.04 105);
+    --m-slate-96: oklch(0.96 0.02 240);
+    --m-slate-92: oklch(0.92 0.02 242);
+    --m-slate-88: oklch(0.88 0.02 245);
 
-    --ok-rose-500: oklch(0.74 0.06 15);  /* tuned dusty rose */
-    --ok-rose-300: oklch(0.85 0.04 15);
+    /* Motion, typography, spacing primitives */
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 420ms;
+    --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    --ok-gold-400: oklch(0.88 0.07 88);
-    --ok-cream-100: oklch(0.95 0.02 25);
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-script: "Dancing Script", "Brush Script MT", cursive;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-    --ok-text-walnut: oklch(0.62 0.05 55);
-    --ok-text-walnut-deep: oklch(0.52 0.05 55);
+    --size-sm: 0.875rem;
+    --size-base: 1rem;
+    --size-lg: 1.125rem;
+    --size-xl: 1.25rem;
+    --size-2xl: 1.5rem;
+    --size-3xl: 1.75rem;
+    --size-4xl: 2rem;
+    --size-5xl: 2.5rem;
+    --size-6xl: 3rem;
+    --line-tight: 1.2;
+    --line-normal: 1.5;
+    --line-loose: 1.8;
+    --weight-light: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-pill: 9999px;
+
+    --space-0: 0;
+    --space-2: 0.125rem;
+    --space-4: 0.25rem;
+    --space-8: 0.5rem;
+    --space-12: 0.75rem;
+    --space-16: 1rem;
+    --space-20: 1.25rem;
+    --space-24: 1.5rem;
+    --space-32: 2rem;
+    --space-40: 2.5rem;
+    --space-48: 3rem;
+    --space-56: 3.5rem;
+    --space-64: 4rem;
+    --space-80: 5rem;
+    --space-96: 6rem;
+
+    --space-2xs: var(--space-4);
+    --space-xs:  var(--space-8);
+    --space-sm:  var(--space-12);
+    --space-md:  var(--space-16);
+    --space-lg:  var(--space-20);
+    --space-xl:  var(--space-32);
+    --space-2xl: var(--space-40);
+    --space-3xl: var(--space-48);
+    --space-4xl: var(--space-64);
+    --space-5xl: var(--space-96);
+
+    --space-fluid-1: clamp(var(--space-16), 1.5vw, var(--space-24));
+    --space-fluid-2: clamp(var(--space-24), 2vw, var(--space-40));
+    --space-fluid-3: clamp(var(--space-32), 3vw, var(--space-56));
+    --space-fluid-4: clamp(var(--space-48), 5vw, var(--space-80));
+    --space-fluid-5: clamp(var(--space-64), 6vw, var(--space-96));
+
+    --section-pad-fluid: clamp(var(--space-48), 6vw, var(--space-96));
+    --stack-gap-fluid-lg: clamp(var(--space-24), 3vw, var(--space-40));
+    --hero-pad-fluid: clamp(var(--space-56), 8vw, var(--space-96));
+
+    --page-max:px;
+    --page-wide: 1400px;
+    --gutter: clamp(16px, 4vw, 64px);
+    --prose-max: 68ch;
+    --rail-offset: calc((100% - var(--page-max)) / 4 + var(--gutter));
+
+    --blur-sm: 6px;
+    --blur-md: 10px;
+    --blur-lg: 14px;
+    --blur-xl: 22px;
+    --alpha-subtle: 0.20;
+    --alpha-mid: 0.32;
+    --alpha-strong: 0.45;
+    --alpha-heavy: 0.60;
+    --saturate-low: 1.05;
+    --saturate-med: 1.15;
+    --saturate-high: 1.25;
   }
-}
 
-  /* ============================================================================
-     BRAND VARIANTS — Romantic (Default) & Modern
-     ============================================================================
-     Override semantic tokens based on [data-brand]. Romantic values largely
-     inherit from the base configuration; modern re-colors surfaces, gradients,
-     and component-level tokens for a distinct presentation.
-     ============================================================================ */
+  /* =======================================
+     2) SEMANTIC TOKENS — Romantic default
+     ======================================= */
+  :root,
+  html[data-theme="light"] {
+    --surface-0: var(--n-98);
+    --surface-1: var(--n-95);
+    --surface-2: var(--n-92);
+    --surface-3: var(--n-88);
+    --surface-4: var(--n-84);
 
+    --text-primary:   var(--n-28);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 60%, var(--surface-2) 40%);
+    --text-inverse:   var(--surface-0);
+
+    --brand:       var(--p-rose-60);
+    --accent:      var(--p-sage-55);
+    --accent-rose: var(--p-rose-60);
+    --accent-gold: var(--p-gold-50);
+    --accent-sage: var(--p-sage-55);
+
+    --border-subtle: oklch(0.82 0.01 250 / 0.26);
+    --border-medium: oklch(0.72 0.02 250 / 0.38);
+    --divider:       color-mix(in oklch, var(--border-subtle) 80%, transparent);
+
+    --focus-ring:   var(--accent-sage);
+    --focus-width:  2px;
+    --focus-offset: 2px;
+    --link:         color-mix(in oklch, var(--brand) 70%, black 30%);
+    --link-hover:   color-mix(in oklch, var(--brand) 85%, black 15%);
+
+    --shadow-elev-1: 0 8px 18px oklch(0 0 0 / 0.10);
+    --shadow-elev-3: 0 16px 38px oklch(0 0 0 / 0.18);
+
+    --theme-bg-primary:   var(--surface-1);
+    --theme-bg-secondary: var(--surface-3);
+    --theme-bg-card:      color-mix(in oklch, var(--surface-1) 80%, var(--surface-2) 20%);
+    --theme-text-primary:   var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-border-subtle:  var(--border-subtle);
+    --theme-border-medium:  var(--border-medium);
+    --theme-accent-rose:    var(--accent-rose);
+    --theme-accent-gold:    var(--accent-gold);
+    --theme-accent-sage:    var(--accent-sage);
+
+    --bg-surface:   var(--surface-0);
+    --bg-tint-rose: color-mix(in oklch, var(--surface-0) 86%, var(--accent-rose) 14%);
+    --bg-tint-sage: color-mix(in oklch, var(--surface-0) 86%, var(--accent-sage) 14%);
+    --bg-dark-grad: linear-gradient(180deg, var(--surface-2), var(--surface-0));
+
+    --hero-bg:             var(--surface-4);
+    --hero-text:           var(--text-primary);
+    --hero-accent:         var(--accent-rose);
+    --hero-cta-text:       var(--text-primary);
+    --hero-cta-hover-text: var(--text-inverse);
+    --hero-overlay-start:  oklch(0.98 0.01 95 / 0.75);
+    --hero-overlay-mid:    oklch(0.97 0.02 95 / 0.70);
+    --hero-overlay-end:    oklch(0.95 0.03 30 / 0.72);
+
+    --navbar-bg:         color-mix(in oklch, var(--surface-1) 92%, white 8%);
+    --navbar-text:       var(--text-primary);
+    --navbar-accent:     var(--accent-sage);
+    --navbar-scroll-bg:  color-mix(in oklch, var(--surface-3) 88%, black 12%);
+    --navbar-underline:  oklch(0.80 0 240 / 0.18);
+    --navbar-link:       var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
+    --navbar-cta-bg:     linear-gradient(135deg, var(--accent-sage), color-mix(in oklch, var(--accent-rose) 60%, white 40%));
+    --navbar-cta-text:   var(--text-inverse);
+    --navbar-logo-grad:  linear-gradient(135deg, var(--accent-rose), color-mix(in oklch, var(--accent-sage) 40%, var(--accent-rose) 60%));
+
+    --footer-bg:         var(--surface-3);
+    --footer-text:       var(--text-inverse);
+    --footer-link:       var(--accent-gold);
+    --footer-link-hover: var(--surface-0);
+    --footer-border:     oklch(0.78 0 240 / 0.14);
+
+    --schedule-bg:           var(--surface-1);
+    --schedule-text:         var(--text-primary);
+    --schedule-field-bg:     var(--surface-0);
+    --schedule-field-border: var(--border-subtle);
+    --schedule-field-focus:  var(--accent-gold);
+    --schedule-cta-bg:       var(--accent-gold);
+    --schedule-cta-text:     var(--text-inverse);
+
+    --map-section-bg:   var(--surface-0);
+    --map-text:         var(--text-primary);
+    --map-embed-border: var(--border-subtle);
+    --map-pin:          var(--accent-gold);
+
+    --experience-section-bg: var(--surface-0);
+    --experience-text:       var(--text-primary);
+    --feature-card-bg:       var(--surface-1);
+    --feature-card-border:   var(--border-subtle);
+    --feature-card-shadow:   var(--shadow-elev-1);
+    --feature-icon-color:    var(--accent-gold);
+
+    --testimonials-section-bg: var(--surface-0);
+    --testimonials-text:       var(--text-primary);
+    --testimonial-card-bg:     var(--surface-1);
+    --testimonial-card-border: var(--border-subtle);
+    --testimonial-card-shadow: var(--shadow-elev-3);
+    --testimonial-quote:       var(--accent-rose);
+
+    --history-section-bg:    var(--surface-0);
+    --history-text:          var(--text-primary);
+    --history-slide-bg:      var(--surface-1);
+    --history-slide-border:  var(--border-subtle);
+    --history-slide-shadow:  var(--shadow-elev-1);
+    --history-nav-bg:        color-mix(in oklch, var(--surface-2) 80%, white 20%);
+    --history-nav-arrow:     var(--accent-sage);
+
+    --weddings-section-bg:         var(--surface-0);
+    --weddings-text:               var(--text-primary);
+    --wedding-card-bg:             var(--surface-1);
+    --wedding-card-overlay-bg:     color-mix(in oklch, var(--accent-rose) 18%, transparent);
+    --wedding-card-shadow:         var(--shadow-elev-1);
+    --wedding-cta:                 var(--accent-sage);
+
+    --pricing-section-bg:         var(--surface-0);
+    --pricing-text:               var(--text-primary);
+    --pricing-card-bg:            var(--theme-bg-card);
+    --pricing-card-border:        var(--border-subtle);
+    --pricing-card-shadow:        var(--shadow-elev-1);
+    --pricing-popular-bg:         color-mix(in oklch, var(--accent-sage) 15%, transparent);
+    --pricing-popular-border:     var(--accent-sage);
+    --pricing-cta-bg:             var(--accent-rose);
+    --pricing-cta-text:           var(--text-inverse);
+
+    --gallery-rose:      var(--accent-rose);
+    --gallery-gold:      var(--accent-gold);
+    --gallery-on-dark:   var(--text-inverse);
+    --gallery-text:      var(--text-primary);
+    --gallery-text-soft: var(--text-secondary);
+    --gallery-card-bg:   var(--surface-1);
+    --gallery-border:    var(--border-subtle);
+
+    --about-section-bg:     var(--surface-0);
+    --about-text:           var(--text-primary);
+    --about-accent:         var(--accent-gold);
+    --timeline-connector:   color-mix(in oklch, var(--accent-gold) 35%, transparent);
+    --timeline-dot:         var(--accent-gold);
+
+    --features-section-bg:  var(--surface-0);
+    --features-text:        var(--text-primary);
+    --features-card-bg:     var(--surface-1);
+    --features-card-border: var(--border-subtle);
+    --features-card-shadow: var(--shadow-elev-1);
+    --features-icon-color:  var(--accent-gold);
+
+    --sticky-cta-bg:        var(--accent-rose);
+    --sticky-cta-text:      var(--text-inverse);
+    --sticky-cta-hover-bg:  color-mix(in oklch, var(--accent-rose) 82%, black 18%);
+    --sticky-cta-shadow:    0 12px 30px oklch(0 0 0 / 0.22);
+
+    --btn-radius: 9999px;
+    --btn-pad-y: 0.9rem;
+    --btn-pad-x: 2.25rem;
+    --btn-fg-on-gold: var(--text-primary);
+    --btn-bg-gold:   var(--accent-gold);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--btn-bg-gold) 85%, black 15%);
+    --btn-outline-fg:      var(--text-primary);
+    --btn-outline-border:  var(--accent-rose);
+    --btn-outline-on-image-bg:       oklch(0 0 0 / 0.24);
+    --btn-outline-on-image-bg-hover: oklch(0 0 0 / 0.32);
+
+    --why-bg-start:  color-mix(in oklch, var(--surface-0) 92%, var(--accent-gold) 8%);
+    --why-bg-end:    color-mix(in oklch, var(--surface-0) 88%, var(--accent-rose) 12%);
+    --why-text:      var(--text-primary);
+    --why-text-soft: color-mix(in oklch, var(--text-primary) 70%, var(--surface-2) 30%);
+    --why-card:      var(--surface-1);
+    --why-border:    var(--border-subtle);
+    --why-shadow:    var(--shadow-elev-1);
+  }
+
+  /* Romantic dark */
+  html[data-theme="dark"] {
+    --surface-0: var(--n-20);
+    --surface-1: oklch(0.19 0.03 250);
+    --surface-2: oklch(0.17 0.03 250);
+    --surface-3: var(--n-14);
+    --surface-4: var(--n-11);
+
+    --text-primary:   oklch(0.90 0.01 260);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 65%, oklch(0.74 0.02 250) 35%);
+    --text-inverse:   oklch(0.23 0.03 255);
+
+    --brand:       var(--p-rose-60);
+    --accent:      var(--p-sage-55);
+    --accent-rose: color-mix(in oklch, var(--p-rose-60) 85%, white 15%);
+    --accent-gold: color-mix(in oklch, var(--p-gold-50) 90%, white 10%);
+    --accent-sage: color-mix(in oklch, var(--p-sage-55) 90%, white 10%);
+
+    --border-subtle: oklch(0.36 0.02 250 / 0.35);
+    --border-medium: oklch(0.46 0.02 250 / 0.48);
+    --divider:       color-mix(in oklch, var(--border-subtle) 78%, transparent);
+
+    --focus-ring: var(--accent-sage);
+    --link:       color-mix(in oklch, var(--brand) 85%, white 15%);
+    --link-hover: color-mix(in oklch, var(--brand) 70%, white 30%);
+
+    --shadow-elev-1: 0 12px 28px oklch(0 0 0 / 0.28);
+    --shadow-elev-3: 0 32px 68px oklch(0 0 0 / 0.42);
+
+    --theme-bg-primary:   var(--surface-1);
+    --theme-bg-secondary: var(--surface-3);
+    --theme-bg-card:      var(--surface-2);
+    --theme-text-primary:   var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-border-subtle:  var(--border-subtle);
+    --theme-border-medium:  var(--border-medium);
+    --theme-accent-rose:    var(--accent-rose);
+    --theme-accent-gold:    var(--accent-gold);
+    --theme-accent-sage:    var(--accent-sage);
+
+    --bg-surface:   var(--surface-0);
+    --bg-tint-rose: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
+    --bg-tint-sage: color-mix(in oklch, var(--surface-0) 80%, var(--accent-sage) 20%);
+    --bg-dark-grad: linear-gradient(180deg, color-mix(in oklch, var(--surface-0) 70%, black 30%), var(--surface-0));
+
+    --hero-bg:             oklch(0.25 0.03 250);
+    --hero-text:           var(--text-primary);
+    --hero-accent:         var(--accent-rose);
+    --hero-cta-text:       var(--text-inverse);
+    --hero-cta-hover-text: var(--surface-1);
+    --hero-overlay-start:  oklch(0.22 0.04 250 / 0.70);
+    --hero-overlay-mid:    oklch(0.24 0.04 260 / 0.66);
+    --hero-overlay-end:    oklch(0.20 0.04 260 / 0.72);
+
+    --navbar-bg:         color-mix(in oklch, var(--surface-0) 82%, black 18%);
+    --navbar-text:       var(--text-primary);
+    --navbar-accent:     var(--accent-sage);
+    --navbar-scroll-bg:  color-mix(in oklch, var(--surface-0) 78%, black 22%);
+    --navbar-underline:  oklch(0.38 0 250 / 0.45);
+    --navbar-link:       var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
+    --navbar-cta-bg:     linear-gradient(135deg, var(--accent-rose), color-mix(in oklch, var(--accent-sage) 70%, var(--accent-rose) 30%));
+    --navbar-cta-text:   var(--text-inverse);
+    --navbar-logo-grad:  linear-gradient(135deg, var(--accent-sage), color-mix(in oklch, var(--accent-rose) 50%, var(--accent-sage) 50%));
+
+    --footer-bg:         color-mix(in oklch, var(--surface-0) 78%, black 22%);
+    --footer-text:       var(--text-primary);
+    --footer-link:       var(--accent-rose);
+    --footer-link-hover: var(--text-inverse);
+    --footer-border:     oklch(0.22 0.02 250 / 0.38);
+
+    --schedule-bg:           color-mix(in oklch, var(--surface-1) 92%, black 8%);
+    --schedule-text:         var(--text-primary);
+    --schedule-field-bg:     var(--surface-0);
+    --schedule-field-border: var(--border-subtle);
+    --schedule-field-focus:  var(--accent-sage);
+    --schedule-cta-bg:       var(--accent-rose);
+    --schedule-cta-text:     var(--surface-0);
+
+    --map-section-bg:   color-mix(in oklch, var(--surface-0) 90%, black 10%);
+    --map-text:         var(--text-primary);
+    --map-embed-border: var(--border-subtle);
+    --map-pin:          var(--accent-rose);
+
+    --experience-section-bg: color-mix(in oklch, var(--surface-0) 92%, black 8%);
+    --experience-text:       var(--text-primary);
+    --feature-card-bg:       color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --feature-card-border:   var(--border-subtle);
+    --feature-card-shadow:   var(--shadow-elev-1);
+    --feature-icon-color:    var(--accent-sage);
+
+    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
+    --testimonials-text:       var(--text-primary);
+    --testimonial-card-bg:     color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --testimonial-card-border: var(--border-subtle);
+    --testimonial-card-shadow: var(--shadow-elev-3);
+    --testimonial-quote:       var(--accent-sage);
+
+    --history-section-bg:    color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --history-text:          var(--text-primary);
+    --history-slide-bg:      color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --history-slide-border:  var(--border-subtle);
+    --history-slide-shadow:  var(--shadow-elev-1);
+    --history-nav-bg:        color-mix(in oklch, var(--surface-2) 85%, black 15%);
+    --history-nav-arrow:     var(--accent-sage);
+
+    --weddings-section-bg:         color-mix(in oklch, var(--surface-0) 86%, black 14%);
+    --weddings-text:               var(--text-primary);
+    --wedding-card-bg:             color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --wedding-card-overlay-bg:     color-mix(in oklch, var(--accent-rose) 26%, transparent);
+    --wedding-card-shadow:         var(--shadow-elev-3);
+    --wedding-cta:                 var(--accent-sage);
+
+    --pricing-section-bg:         color-mix(in oklch, var(--surface-0) 86%, black 14%);
+    --pricing-text:               var(--text-primary);
+    --pricing-card-bg:            color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --pricing-card-border:        var(--border-subtle);
+    --pricing-card-shadow:        var(--shadow-elev-1);
+    --pricing-popular-bg:         color-mix(in oklch, var(--accent-sage) 28%, transparent);
+    --pricing-popular-border:     var(--accent-sage);
+    --pricing-cta-bg:             var(--accent-rose);
+    --pricing-cta-text:           var(--surface-0);
+
+    --gallery-rose:      var(--accent-rose);
+    --gallery-gold:      var(--accent-gold);
+    --gallery-on-dark:   var(--surface-0);
+    --gallery-text:      var(--text-primary);
+    --gallery-text-soft: color-mix(in oklch, var(--text-primary) 72%, var(--accent-gold) 28%);
+    --gallery-card-bg:   color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --gallery-border:    var(--border-subtle);
+
+    --about-section-bg:   color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --about-text:         var(--text-primary);
+    --about-accent:       var(--accent-sage);
+    --timeline-connector: color-mix(in oklch, var(--accent-sage) 40%, transparent);
+    --timeline-dot:       var(--accent-sage);
+
+    --features-section-bg:  color-mix(in oklch, var(--surface-0) 88%, var(--accent-gold) 12%);
+    --features-text:        var(--text-primary);
+    --features-card-bg:     color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --features-card-border: var(--border-subtle);
+    --features-card-shadow: var(--shadow-elev-1);
+    --features-icon-color:  var(--accent-rose);
+
+    --sticky-cta-bg:        var(--accent-rose);
+    --sticky-cta-text:      var(--surface-0);
+    --sticky-cta-hover-bg:  color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+    --sticky-cta-shadow:    0 -12px 32px oklch(0 0 0 / 0.32);
+
+    --btn-fg-on-gold: var(--surface-0);
+    --btn-bg-gold:    var(--accent-rose);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
+    --btn-outline-fg:      var(--text-primary);
+    --btn-outline-border:  color-mix(in oklch, var(--accent-sage) 80%, var(--accent-rose) 20%);
+    --btn-outline-on-image-bg:       oklch(0.12 0.03 250 / 0.45);
+    --btn-outline-on-image-bg-hover: oklch(0.12 0.03 250 / 0.55);
+
+    --why-bg-start:  color-mix(in oklch, var(--surface-0) 72%, var(--accent-sage) 28%);
+    --why-bg-end:    color-mix(in oklch, var(--surface-0) 70%, var(--accent-rose) 30%);
+    --why-text:      var(--text-primary);
+    --why-text-soft: color-mix(in oklch, var(--text-primary) 65%, var(--accent-gold) 35%);
+    --why-card:      color-mix(in oklch, var(--surface-1) 80%, black 20%);
+    --why-border:    var(--border-subtle);
+    --why-shadow:    var(--shadow-elev-3);
+
+    --alpha-subtle: 0.15;
+    --alpha-mid:    0.25;
+    --alpha-strong: 0.35;
+    --alpha-heavy:  0.50;
+    --saturate-low: 1.08;
+    --saturate-med: 1.18;
+    --saturate-high: 1.30;
+  }
+
+  /* Romantic brand hook */
   html[data-brand="romantic"] {
-    /* Romantic palette mirrors existing base tokens. Accent overrides ensure
-       parity even if base values change later. */
-    --accent-rose: oklch(0.69 0.12 350);
-    --accent-gold: oklch(0.84 0.10 85);
-    --accent-sage: oklch(0.78 0.05 160);
-
+    --accent-rose: var(--p-rose-60);
+    --accent-gold: var(--p-gold-50);
+    --accent-sage: var(--p-sage-55);
     --theme-accent-rose: var(--accent-rose);
     --theme-accent-gold: var(--accent-gold);
     --theme-accent-sage: var(--accent-sage);
@@ -72,1224 +496,308 @@
 
   html[data-brand="romantic"][data-theme="dark"],
   :root:not([data-theme="light"])[data-brand="romantic"] {
-    --accent-rose: oklch(0.70 0.10 350);
-    --accent-gold: oklch(0.86 0.09 85);
-    --accent-sage: oklch(0.80 0.06 160);
-
+    --accent-rose: color-mix(in oklch, var(--p-rose-60) 85%, white 15%);
+    --accent-gold: color-mix(in oklch, var(--p-gold-50) 88%, white 12%);
+    --accent-sage: color-mix(in oklch, var(--p-sage-55) 88%, white 12%);
     --theme-accent-rose: var(--accent-rose);
     --theme-accent-gold: var(--accent-gold);
     --theme-accent-sage: var(--accent-sage);
   }
 
+  /* =======================================
+     3) BRAND OVERRIDES — Modern
+     ======================================= */
   html[data-brand="modern"] {
-    /* === Accent Palette (Light) === */
-    --accent-rose: oklch(0.72 0.10 10);
-    --accent-gold: oklch(0.86 0.07 95);
-    --accent-sage: oklch(0.80 0.07 190);
+    --surface-0: var(--m-slate-96);
+    --surface-1: var(--m-slate-92);
+    --surface-2: var(--m-slate-88);
+    --surface-3: color-mix(in oklch, var(--surface-2) 82%, var(--m-ink-45) 18%);
+    --surface-4: color-mix(in oklch, var(--surface-3) 74%, var(--m-ink-45) 26%);
 
-    /* === Core Surfaces & Text (Light) === */
-    --surface-0: oklch(0.97 0.02 240);
-    --surface-1: oklch(0.995 0.01 240);
-    --surface-2: oklch(0.92 0.02 245);
-    --surface-3: oklch(0.88 0.03 250);
-    --surface-4: oklch(0.84 0.04 255);
+    --text-primary:   var(--m-ink-45);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 65%, var(--surface-2) 35%);
+    --text-inverse:   var(--surface-0);
 
-    --text-primary: oklch(0.28 0.04 260);
-    --text-secondary: color-mix(in oklch, var(--text-primary) 60%, oklch(0.74 0.02 250) 40%);
-    --text-inverse: oklch(0.97 0.01 240);
+    --brand:        var(--m-ink-45);
+    --accent:       var(--m-brass-65);
+    --accent-rose:  var(--m-brass-65);
+    --accent-gold:  var(--m-brass-65);
+    --accent-sage:  var(--m-stone-70);
+    --accent-ink:   var(--m-ink-45);
+    --accent-brass: var(--m-brass-65);
+    --accent-stone: var(--m-stone-70);
 
-    --border-subtle: oklch(0.82 0.01 250 / 0.30);
-    --border-medium: oklch(0.72 0.02 250 / 0.42);
-    --focus-ring: var(--accent-sage);
+    --border-subtle: color-mix(in oklch, var(--text-primary) 22%, transparent);
+    --border-medium: color-mix(in oklch, var(--text-primary) 34%, transparent);
+    --divider:       color-mix(in oklch, var(--border-subtle) 80%, transparent);
 
-    --grad-section-soft: linear-gradient(180deg,
-      color-mix(in oklch, var(--surface-1) 85%, var(--accent-sage) 15%) 0%,
-      var(--surface-0) 100%
-    );
-    --grad-section-deep: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-0) 100%);
+    --focus-ring: var(--accent-stone);
+    --link:       color-mix(in oklch, var(--accent-ink) 72%, black 28%);
+    --link-hover: color-mix(in oklch, var(--accent-ink) 85%, black 15%);
 
-    --theme-bg-primary: var(--surface-1);
+    --theme-bg-primary:   var(--surface-1);
     --theme-bg-secondary: var(--surface-3);
-    --theme-bg-card: color-mix(in oklch, var(--surface-1) 80%, var(--surface-2) 20%);
-    --theme-bg-dark-section: color-mix(in oklch, var(--surface-0) 75%, var(--accent-rose) 25%);
-    --theme-text-primary: var(--text-primary);
+    --theme-bg-card:      color-mix(in oklch, var(--surface-1) 82%, var(--surface-2) 18%);
+    --theme-text-primary:   var(--text-primary);
     --theme-text-secondary: var(--text-secondary);
-    --theme-border-subtle: var(--border-subtle);
-    --theme-border-medium: var(--border-medium);
-    --theme-border-focus: var(--accent-sage);
-    --theme-accent-rose: var(--accent-rose);
-    --theme-accent-gold: var(--accent-gold);
-    --theme-accent-sage: var(--accent-sage);
+    --theme-border-subtle:  var(--border-subtle);
+    --theme-border-medium:  var(--border-medium);
+    --theme-accent-rose:    var(--accent-brass);
+    --theme-accent-gold:    var(--accent-brass);
+    --theme-accent-sage:    var(--accent-stone);
 
-    /* === Hero === */
-    --hero-bg: oklch(0.35 0.05 252);
-    --hero-overlay-start: oklch(0.96 0.02 210 / 0.82);
-    --hero-overlay-mid:   oklch(0.92 0.02 200 / 0.76);
-    --hero-overlay-end:   oklch(0.88 0.03 190 / 0.78);
+    --bg-surface:   var(--surface-0);
+    --bg-tint-rose: color-mix(in oklch, var(--surface-0) 88%, var(--accent-brass) 12%);
+    --bg-tint-sage: color-mix(in oklch, var(--surface-0) 88%, var(--accent-stone) 12%);
+    --bg-dark-grad: linear-gradient(180deg, var(--surface-2), var(--surface-0));
 
-    /* === Navbar === */
-    --navbar-bg: color-mix(in oklch, var(--surface-1) 92%, white 8%);
-    --navbar-text: var(--text-primary);
-    --navbar-accent: var(--accent-sage);
-    --navbar-scroll-bg: color-mix(in oklch, var(--surface-2) 88%, black 12%);
-    --navbar-underline: oklch(0.80 0.00 240 / 0.18);
-    --navbar-link: var(--navbar-text);
-    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
-    --navbar-cta-bg: linear-gradient(135deg, var(--accent-sage) 0%, color-mix(in oklch, var(--accent-rose) 60%, white 40%) 100%);
-    --navbar-cta-text: var(--text-inverse);
-    --navbar-logo-grad: linear-gradient(135deg, var(--accent-rose) 0%, color-mix(in oklch, var(--accent-sage) 40%, var(--accent-rose) 60%) 100%);
+    --hero-bg:             color-mix(in oklch, var(--surface-3) 70%, var(--accent-ink) 30%);
+    --hero-text:           var(--text-primary);
+    --hero-accent:         var(--accent-brass);
+    --hero-cta-text:       var(--text-inverse);
+    --hero-cta-hover-text: var(--text-primary);
+    --hero-overlay-start:  oklch(0.96 0.02 210 / 0.78);
+    --hero-overlay-mid:    oklch(0.92 0.02 200 / 0.72);
+    --hero-overlay-end:    oklch(0.88 0.03 190 / 0.74);
 
-    /* === Buttons === */
-    --btn-fg-on-gold: var(--text-inverse);
-    --btn-bg-gold: var(--accent-sage);
-    --btn-bg-gold-hover: color-mix(in oklch, var(--btn-bg-gold) 80%, black 20%);
-    --btn-outline-fg: var(--text-primary);
-    --btn-outline-border: var(--accent-sage);
-    --btn-outline-on-image-bg: oklch(0.18 0.03 250 / 0.18);
-    --btn-outline-on-image-bg-hover: oklch(0.18 0.03 250 / 0.28);
+    --navbar-bg:         color-mix(in oklch, var(--surface-1) 92%, white 8%);
+    --navbar-text:       var(--text-primary);
+    --navbar-accent:     var(--accent-stone);
+    --navbar-scroll-bg:  color-mix(in oklch, var(--surface-3) 88%, black 12%);
+    --navbar-underline:  oklch(0.60 0 250 / 0.18);
+    --navbar-link:       var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-brass) 45%);
+    --navbar-cta-bg:     linear-gradient(135deg, var(--accent-brass), color-mix(in oklch, var(--accent-ink) 40%, var(--accent-brass) 60%));
+    --navbar-cta-text:   var(--text-inverse);
+    --navbar-logo-grad:  linear-gradient(135deg, var(--accent-ink), color-mix(in oklch, var(--accent-brass) 45%, var(--accent-ink) 55%));
 
-    /* === Schedule / Booking === */
-    --schedule-bg: var(--surface-1);
-    --schedule-text: var(--text-primary);
-    --schedule-field-bg: var(--surface-0);
+    --footer-bg:         color-mix(in oklch, var(--surface-3) 80%, var(--accent-ink) 20%);
+    --footer-text:       var(--text-inverse);
+    --footer-link:       var(--accent-brass);
+    --footer-link-hover: var(--surface-0);
+
+    --schedule-bg:           var(--surface-1);
+    --schedule-text:         var(--text-primary);
+    --schedule-field-bg:     var(--surface-0);
     --schedule-field-border: var(--border-subtle);
-    --schedule-field-focus: var(--accent-sage);
-    --schedule-cta-bg: var(--accent-rose);
-    --schedule-cta-text: var(--text-inverse);
-    --schedule-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
-    --schedule-cta-border: transparent;
+    --schedule-field-focus:  var(--accent-stone);
+    --schedule-cta-bg:       var(--accent-brass);
+    --schedule-cta-text:     var(--text-inverse);
 
-    /* === Experience Grid === */
     --experience-section-bg: var(--surface-0);
-    --experience-text: var(--text-primary);
-    --feature-card-bg: var(--surface-1);
-    --feature-card-border: var(--border-subtle);
-    --feature-card-shadow: 0 14px 32px oklch(0 0 0 / 0.12);
-    --feature-icon-color: var(--accent-sage);
-    --feature-icon-bg: color-mix(in oklch, var(--accent-sage) 15%, transparent);
+    --experience-text:       var(--text-primary);
+    --feature-card-bg:       var(--surface-1);
+    --feature-card-border:   var(--border-subtle);
+    --feature-card-shadow:   var(--shadow-elev-1);
+    --feature-icon-color:    var(--accent-stone);
+    --feature-icon-bg:       color-mix(in oklch, var(--accent-stone) 18%, transparent);
 
-    /* === Testimonials === */
-    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
-    --testimonials-text: var(--text-primary);
-    --testimonial-card-bg: var(--surface-1);
+    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 82%, var(--accent-brass) 18%);
+    --testimonials-text:       var(--text-primary);
+    --testimonial-card-bg:     var(--surface-1);
     --testimonial-card-border: var(--border-subtle);
-    --testimonial-card-shadow: 0 16px 40px oklch(0 0 0 / 0.14);
-    --testimonial-quote: var(--accent-rose);
-    --testimonial-stars: color-mix(in oklch, var(--accent-gold) 70%, var(--accent-rose) 30%);
+    --testimonial-card-shadow: var(--shadow-elev-3);
+    --testimonial-quote:       var(--accent-brass);
 
-    /* === History Carousel === */
-    --history-section-bg: var(--surface-0);
-    --history-text: var(--text-primary);
-    --history-slide-bg: var(--surface-1);
-    --history-slide-border: var(--border-subtle);
-    --history-slide-shadow: 0 18px 44px oklch(0 0 0 / 0.16);
-    --history-nav-bg: color-mix(in oklch, var(--surface-2) 80%, white 20%);
-    --history-nav-arrow: var(--accent-sage);
-    --history-nav-arrow-hover: color-mix(in oklch, var(--accent-sage) 55%, var(--accent-rose) 45%);
-    --history-dot: oklch(0.82 0 240 / 0.35);
-    --history-dot-active: var(--accent-rose);
+    --history-section-bg:    var(--surface-0);
+    --history-text:          var(--text-primary);
+    --history-slide-bg:      var(--surface-1);
+    --history-slide-border:  var(--border-subtle);
+    --history-slide-shadow:  var(--shadow-elev-1);
+    --history-nav-bg:        color-mix(in oklch, var(--surface-2) 80%, white 20%);
+    --history-nav-arrow:     var(--accent-stone);
 
-    /* === Weddings / Gallery === */
-    --weddings-section-bg: var(--surface-0);
-    --weddings-text: var(--text-primary);
-    --wedding-card-bg: var(--surface-1);
-    --wedding-card-overlay-bg: color-mix(in oklch, var(--accent-rose) 18%, transparent);
-    --wedding-card-shadow: 0 18px 38px oklch(0 0 0 / 0.16);
-    --wedding-cta: var(--accent-sage);
-    --wedding-cta-hover: color-mix(in oklch, var(--accent-sage) 65%, var(--accent-rose) 35%);
+    --weddings-section-bg:         var(--surface-0);
+    --weddings-text:               var(--text-primary);
+    --wedding-card-bg:             var(--surface-1);
+    --wedding-card-overlay-bg:     color-mix(in oklch, var(--accent-brass) 18%, transparent);
+    --wedding-card-shadow:         var(--shadow-elev-1);
+    --wedding-cta:                 var(--accent-ink);
 
-    /* === Pricing === */
-    --pricing-section-bg: var(--surface-0);
-    --pricing-text: var(--text-primary);
-    --pricing-card-bg: var(--surface-1);
-    --pricing-card-border: var(--border-subtle);
-    --pricing-card-shadow: 0 20px 38px oklch(0 0 0 / 0.14);
-    --pricing-popular-bg: color-mix(in oklch, var(--accent-sage) 18%, transparent);
-    --pricing-popular-border: var(--accent-sage);
-    --pricing-cta-bg: var(--accent-rose);
-    --pricing-cta-text: var(--text-inverse);
-    --pricing-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
+    --pricing-section-bg:         var(--surface-0);
+    --pricing-text:               var(--text-primary);
+    --pricing-card-bg:            var(--theme-bg-card);
+    --pricing-card-border:        var(--border-subtle);
+    --pricing-card-shadow:        var(--shadow-elev-1);
+    --pricing-popular-bg:         color-mix(in oklch, var(--accent-stone) 18%, transparent);
+    --pricing-popular-border:     var(--accent-stone);
+    --pricing-cta-bg:             var(--accent-brass);
+    --pricing-cta-text:           var(--text-inverse);
 
-    /* === About / Timeline === */
-    --about-section-bg: var(--surface-0);
-    --about-text: var(--text-primary);
-    --timeline-connector: color-mix(in oklch, var(--accent-sage) 40%, transparent);
-    --timeline-dot: var(--accent-sage);
-    --timeline-card-bg: var(--surface-1);
-    --timeline-card-border: var(--border-subtle);
-    --timeline-card-shadow: 0 12px 32px oklch(0 0 0 / 0.14);
+    --gallery-rose:      var(--accent-brass);
+    --gallery-gold:      var(--accent-stone);
+    --gallery-on-dark:   var(--text-inverse);
+    --gallery-text:      var(--text-primary);
+    --gallery-text-soft: var(--text-secondary);
+    --gallery-card-bg:   var(--surface-1);
+    --gallery-border:    var(--border-subtle);
 
-    /* === Features / Amenities === */
-    --features-section-bg: color-mix(in oklch, var(--surface-0) 85%, var(--accent-gold) 15%);
-    --features-text: var(--text-primary);
-    --features-card-bg: var(--surface-1);
+    --about-section-bg:     var(--surface-0);
+    --about-text:           var(--text-primary);
+    --about-accent:         var(--accent-brass);
+    --timeline-connector:   color-mix(in oklch, var(--accent-stone) 40%, transparent);
+    --timeline-dot:         var(--accent-stone);
+
+    --features-section-bg:  color-mix(in oklch, var(--surface-0) 85%, var(--accent-brass) 15%);
+    --features-text:        var(--text-primary);
+    --features-card-bg:     var(--surface-1);
     --features-card-border: var(--border-subtle);
-    --features-card-shadow: 0 16px 34px oklch(0 0 0 / 0.14);
-    --features-icon-color: var(--accent-rose);
-    --features-icon-bg: color-mix(in oklch, var(--accent-rose) 18%, transparent);
+    --features-card-shadow: var(--shadow-elev-1);
+    --features-icon-color:  var(--accent-ink);
 
-    /* === Map === */
-    --map-section-bg: color-mix(in oklch, var(--surface-0) 90%, var(--accent-sage) 10%);
-    --map-text: var(--text-primary);
-    --map-embed-border: var(--border-subtle);
-    --map-pin: var(--accent-rose);
+    --sticky-cta-bg:       var(--accent-ink);
+    --sticky-cta-text:     var(--text-inverse);
+    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-ink) 80%, black 20%);
+    --sticky-cta-shadow:   0 14px 32px oklch(0 0 0 / 0.22);
 
-    /* === Sticky CTA === */
-    --sticky-cta-bg: var(--accent-rose);
-    --sticky-cta-text: var(--text-inverse);
-    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 80%, black 20%);
-    --sticky-cta-shadow: 0 -8px 24px oklch(0 0 0 / 0.20);
-    --sticky-cta-border: transparent;
+    --btn-bg-gold:     var(--accent-brass);
+    --btn-fg-on-gold:  var(--text-inverse);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--accent-brass) 80%, black 20%);
+    --btn-outline-border: var(--accent-ink);
+    --btn-outline-fg:      var(--accent-ink);
 
-    /* === Why Choose Section === */
-    --why-bg-start: color-mix(in oklch, var(--accent-sage) 24%, var(--surface-1) 76%);
-    --why-bg-end:   color-mix(in oklch, var(--accent-rose) 20%, var(--surface-2) 80%);
-    --why-text:     var(--text-primary);
-    --why-text-soft:color-mix(in oklch, var(--text-primary) 70%, white 30%);
-    --why-card:     var(--surface-1);
-    --why-border:   var(--border-subtle);
-    --why-shadow:   0 20px 44px oklch(0 0 0 / 0.16);
+    --why-bg-start:  color-mix(in oklch, var(--surface-0) 90%, var(--accent-stone) 10%);
+    --why-bg-end:    color-mix(in oklch, var(--surface-0) 88%, var(--accent-brass) 12%);
+    --why-text:      var(--text-primary);
+    --why-text-soft: color-mix(in oklch, var(--text-primary) 60%, var(--accent-brass) 40%);
+    --why-card:      var(--surface-1);
+    --why-border:    var(--border-subtle);
+    --why-shadow:    var(--shadow-elev-1);
   }
 
   html[data-brand="modern"][data-theme="dark"],
   :root:not([data-theme="light"])[data-brand="modern"] {
-    /* === Accent Palette (Dark) === */
-    --accent-rose: oklch(0.74 0.09 10);
-    --accent-gold: oklch(0.88 0.08 95);
-    --accent-sage: oklch(0.82 0.08 190);
+    --surface-0: oklch(0.22 0.03 255);
+    --surface-1: oklch(0.19 0.03 255);
+    --surface-2: oklch(0.17 0.03 260);
+    --surface-3: oklch(0.14 0.03 262);
+    --surface-4: oklch(0.11 0.03 262);
 
-    /* === Core Surfaces & Text (Dark) === */
-    --surface-0: oklch(0.22 0.03 250);
-    --surface-1: oklch(0.19 0.03 250);
-    --surface-2: oklch(0.17 0.03 250);
-    --surface-3: oklch(0.14 0.04 252);
-    --surface-4: oklch(0.11 0.04 255);
+    --text-primary:   oklch(0.90 0.01 250);
+    --text-secondary: color-mix(in oklch, var(--text-primary) 68%, oklch(0.72 0.02 240) 32%);
+    --text-inverse:   oklch(0.24 0.03 260);
 
-    --text-primary: oklch(0.90 0.01 260);
-    --text-secondary: color-mix(in oklch, var(--text-primary) 65%, oklch(0.74 0.02 250) 35%);
-    --text-inverse: oklch(0.23 0.03 255);
+    --accent-ink:   color-mix(in oklch, var(--m-ink-18) 90%, white 10%);
+    --accent-brass: color-mix(in oklch, var(--m-brass-45) 90%, white 10%);
+    --accent-stone: color-mix(in oklch, var(--m-stone-45) 92%, white 8%);
+    --accent-rose:  var(--accent-brass);
+    --accent-gold:  var(--accent-brass);
+    --accent-sage:  var(--accent-stone);
 
-    --border-subtle: oklch(0.36 0.02 250 / 0.35);
-    --border-medium: oklch(0.46 0.02 250 / 0.48);
-    --focus-ring: var(--accent-sage);
+    --border-subtle: oklch(0.32 0.02 255 / 0.32);
+    --border-medium: oklch(0.42 0.02 255 / 0.46);
+    --divider:       color-mix(in oklch, var(--border-subtle) 75%, transparent);
 
-    --grad-section-soft: linear-gradient(180deg,
-      color-mix(in oklch, var(--surface-1) 85%, var(--accent-sage) 15%) 0%,
-      var(--surface-0) 100%
-    );
-    --grad-section-deep: linear-gradient(180deg,
-      color-mix(in oklch, var(--surface-0) 70%, black 30%) 0%,
-      var(--surface-0) 100%
-    );
+    --focus-ring: var(--accent-stone);
+    --link:       color-mix(in oklch, var(--accent-ink) 88%, white 12%);
+    --link-hover: color-mix(in oklch, var(--accent-ink) 70%, white 30%);
 
-    --theme-bg-primary: var(--surface-1);
+    --theme-bg-primary:   var(--surface-1);
     --theme-bg-secondary: var(--surface-3);
-    --theme-bg-card: var(--surface-2);
-    --theme-bg-dark-section: color-mix(in oklch, var(--surface-0) 82%, black 18%);
-    --theme-text-primary: var(--text-primary);
+    --theme-bg-card:      var(--surface-2);
+    --theme-text-primary:   var(--text-primary);
     --theme-text-secondary: var(--text-secondary);
-    --theme-border-subtle: var(--border-subtle);
-    --theme-border-medium: var(--border-medium);
-    --theme-border-focus: var(--accent-sage);
-    --theme-accent-rose: var(--accent-rose);
-    --theme-accent-gold: var(--accent-gold);
-    --theme-accent-sage: var(--accent-sage);
+    --theme-border-subtle:  var(--border-subtle);
+    --theme-border-medium:  var(--border-medium);
+    --theme-accent-rose:    var(--accent-brass);
+    --theme-accent-gold:    var(--accent-brass);
+    --theme-accent-sage:    var(--accent-stone);
 
-    /* === Hero === */
-    --hero-bg: oklch(0.25 0.03 250);
-    --hero-overlay-start: oklch(0.22 0.04 250 / 0.70);
-    --hero-overlay-mid:   oklch(0.24 0.04 260 / 0.66);
-    --hero-overlay-end:   oklch(0.20 0.04 260 / 0.70);
+    --bg-surface:   var(--surface-0);
+    --bg-tint-rose: color-mix(in oklch, var(--surface-0) 78%, var(--accent-brass) 22%);
+    --bg-tint-sage: color-mix(in oklch, var(--surface-0) 78%, var(--accent-stone) 22%);
+    --bg-dark-grad: linear-gradient(180deg, color-mix(in oklch, var(--surface-0) 70%, black 30%), var(--surface-0));
 
-    /* === Navbar === */
-    --navbar-bg: color-mix(in oklch, var(--surface-0) 82%, black 18%);
-    --navbar-text: var(--text-primary);
-    --navbar-accent: var(--accent-sage);
-    --navbar-scroll-bg: color-mix(in oklch, var(--surface-0) 80%, black 20%);
-    --navbar-underline: oklch(0.38 0 250 / 0.45);
-    --navbar-link: var(--navbar-text);
-    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 55%, var(--accent-rose) 45%);
-    --navbar-cta-bg: linear-gradient(135deg, var(--accent-rose) 0%, color-mix(in oklch, var(--accent-sage) 70%, var(--accent-rose) 30%) 100%);
-    --navbar-cta-text: var(--text-inverse);
-    --navbar-logo-grad: linear-gradient(135deg, var(--accent-sage) 0%, color-mix(in oklch, var(--accent-rose) 50%, var(--accent-sage) 50%) 100%);
+    --hero-bg:            color-mix(in oklch, var(--surface-3) 55%, var(--accent-ink) 45%);
+    --hero-overlay-start: oklch(0.22 0.04 250 / 0.68);
+    --hero-overlay-mid:   oklch(0.24 0.04 260 / 0.64);
+    --hero-overlay-end:   oklch(0.20 0.04 260 / 0.66);
 
-    /* === Buttons === */
-    --btn-fg-on-gold: var(--text-inverse);
-    --btn-bg-gold: var(--accent-rose);
-    --btn-bg-gold-hover: color-mix(in oklch, var(--accent-rose) 72%, black 28%);
-    --btn-outline-fg: var(--text-primary);
-    --btn-outline-border: color-mix(in oklch, var(--accent-sage) 80%, var(--accent-rose) 20%);
-    --btn-outline-on-image-bg: oklch(0.12 0.03 250 / 0.45);
-    --btn-outline-on-image-bg-hover: oklch(0.12 0.03 250 / 0.55);
+    --navbar-bg:         color-mix(in oklch, var(--surface-0) 82%, black 18%);
+    --navbar-text:       var(--text-primary);
+    --navbar-accent:     var(--accent-brass);
+    --navbar-scroll-bg:  color-mix(in oklch, var(--surface-0) 78%, black 22%);
+    --navbar-underline:  oklch(0.36 0 255 / 0.48);
+    --navbar-link:       var(--navbar-text);
+    --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 58%, var(--accent-brass) 42%);
+    --navbar-cta-bg:     linear-gradient(135deg, var(--accent-ink), color-mix(in oklch, var(--accent-brass) 55%, var(--accent-ink) 45%));
+    --navbar-cta-text:   var(--text-inverse);
 
-    /* === Schedule / Booking === */
-    --schedule-bg: color-mix(in oklch, var(--surface-1) 92%, black 8%);
-    --schedule-text: var(--text-primary);
-    --schedule-field-bg: var(--surface-0);
+    --footer-bg:         color-mix(in oklch, var(--surface-0) 78%, black 22%);
+    --footer-text:       var(--text-primary);
+    --footer-link:       var(--accent-brass);
+    --footer-link-hover: var(--text-inverse);
+
+    --schedule-bg:           color-mix(in oklch, var(--surface-1) 90%, black 10%);
     --schedule-field-border: var(--border-subtle);
-    --schedule-field-focus: var(--accent-sage);
-    --schedule-cta-bg: var(--accent-rose);
-    --schedule-cta-text: var(--text-inverse);
-    --schedule-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+    --schedule-field-focus:  var(--accent-stone);
+    --schedule-cta-bg:       var(--accent-brass);
+    --schedule-cta-text:     var(--surface-0);
 
-    /* === Experience Grid === */
-    --experience-section-bg: color-mix(in oklch, var(--surface-0) 92%, black 8%);
-    --experience-text: var(--text-primary);
-    --feature-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --feature-card-border: var(--border-subtle);
-    --feature-card-shadow: 0 24px 48px oklch(0 0 0 / 0.28);
-    --feature-icon-color: var(--accent-sage);
-    --feature-icon-bg: color-mix(in oklch, var(--accent-sage) 22%, transparent);
+    --experience-section-bg: color-mix(in oklch, var(--surface-0) 90%, black 10%);
+    --feature-card-bg:       color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --feature-card-border:   var(--border-subtle);
+    --feature-card-shadow:   var(--shadow-elev-1);
+    --feature-icon-color:    var(--accent-stone);
 
-    /* === Testimonials === */
-    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-rose) 20%);
-    --testimonials-text: var(--text-primary);
-    --testimonial-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --testimonials-section-bg: color-mix(in oklch, var(--surface-0) 80%, var(--accent-brass) 20%);
+    --testimonial-card-bg:     color-mix(in oklch, var(--surface-1) 85%, black 15%);
     --testimonial-card-border: var(--border-subtle);
-    --testimonial-card-shadow: 0 28px 52px oklch(0 0 0 / 0.32);
-    --testimonial-quote: var(--accent-sage);
-    --testimonial-stars: color-mix(in oklch, var(--accent-gold) 68%, var(--accent-rose) 32%);
+    --testimonial-card-shadow: var(--shadow-elev-3);
+    --testimonial-quote:       var(--accent-stone);
 
-    /* === History Carousel === */
-    --history-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
-    --history-text: var(--text-primary);
-    --history-slide-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --history-slide-border: var(--border-subtle);
-    --history-slide-shadow: 0 30px 64px oklch(0 0 0 / 0.40);
-    --history-nav-bg: color-mix(in oklch, var(--surface-2) 85%, black 15%);
-    --history-nav-arrow: var(--accent-sage);
-    --history-nav-arrow-hover: color-mix(in oklch, var(--accent-sage) 58%, var(--accent-rose) 42%);
-    --history-dot: oklch(0.45 0 250 / 0.55);
-    --history-dot-active: var(--accent-rose);
+    --history-section-bg:    color-mix(in oklch, var(--surface-0) 88%, black 12%);
+    --history-slide-bg:      color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --history-slide-border:  var(--border-subtle);
+    --history-slide-shadow:  var(--shadow-elev-1);
 
-    /* === Weddings / Gallery === */
-    --weddings-section-bg: color-mix(in oklch, var(--surface-0) 86%, black 14%);
-    --weddings-text: var(--text-primary);
-    --wedding-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --wedding-card-overlay-bg: color-mix(in oklch, var(--accent-rose) 26%, transparent);
-    --wedding-card-shadow: 0 28px 58px oklch(0 0 0 / 0.36);
-    --wedding-cta: var(--accent-sage);
-    --wedding-cta-hover: color-mix(in oklch, var(--accent-sage) 60%, var(--accent-rose) 40%);
+    --weddings-section-bg:         color-mix(in oklch, var(--surface-0) 84%, black 16%);
+    --wedding-card-bg:             color-mix(in oklch, var(--surface-1) 82%, black 18%);
+    --wedding-card-shadow:         var(--shadow-elev-3);
+    --wedding-cta:                 var(--accent-brass);
 
-    /* === Pricing === */
-    --pricing-section-bg: color-mix(in oklch, var(--surface-0) 86%, black 14%);
-    --pricing-text: var(--text-primary);
-    --pricing-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --pricing-card-border: var(--border-subtle);
-    --pricing-card-shadow: 0 32px 72px oklch(0 0 0 / 0.42);
-    --pricing-popular-bg: color-mix(in oklch, var(--accent-sage) 28%, transparent);
-    --pricing-popular-border: var(--accent-sage);
-    --pricing-cta-bg: var(--accent-rose);
-    --pricing-cta-text: var(--text-inverse);
-    --pricing-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
+    --pricing-section-bg:         color-mix(in oklch, var(--surface-0) 84%, black 16%);
+    --pricing-card-bg:            color-mix(in oklch, var(--surface-1) 82%, black 18%);
+    --pricing-card-border:        var(--border-subtle);
+    --pricing-card-shadow:        var(--shadow-elev-1);
+    --pricing-popular-bg:         color-mix(in oklch, var(--accent-stone) 30%, transparent);
+    --pricing-popular-border:     var(--accent-stone);
+    --pricing-cta-bg:             var(--accent-brass);
+    --pricing-cta-text:           var(--surface-0);
 
-    /* === About / Timeline === */
-    --about-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
-    --about-text: var(--text-primary);
-    --timeline-connector: color-mix(in oklch, var(--accent-sage) 40%, transparent);
-    --timeline-dot: var(--accent-sage);
-    --timeline-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --timeline-card-border: var(--border-subtle);
-    --timeline-card-shadow: 0 28px 60px oklch(0 0 0 / 0.40);
+    --gallery-rose:      var(--accent-brass);
+    --gallery-gold:      var(--accent-stone);
+    --gallery-on-dark:   var(--surface-0);
+    --gallery-text:      var(--text-primary);
+    --gallery-text-soft: color-mix(in oklch, var(--text-primary) 60%, var(--accent-stone) 40%);
+    --gallery-card-bg:   color-mix(in oklch, var(--surface-1) 82%, black 18%);
+    --gallery-border:    var(--border-subtle);
 
-    /* === Features / Amenities === */
-    --features-section-bg: color-mix(in oklch, var(--surface-0) 88%, var(--accent-gold) 12%);
-    --features-text: var(--text-primary);
-    --features-card-bg: color-mix(in oklch, var(--surface-1) 85%, black 15%);
+    --about-section-bg: var(--surface-0);
+    --about-text:       var(--text-primary);
+    --about-accent:     var(--accent-brass);
+
+    --features-section-bg:  color-mix(in oklch, var(--surface-0) 84%, var(--accent-brass) 16%);
+    --features-card-bg:     color-mix(in oklch, var(--surface-1) 82%, black 18%);
     --features-card-border: var(--border-subtle);
-    --features-card-shadow: 0 28px 60px oklch(0 0 0 / 0.40);
-    --features-icon-color: var(--accent-rose);
-    --features-icon-bg: color-mix(in oklch, var(--accent-rose) 24%, transparent);
-
-    /* === Map === */
-    --map-section-bg: color-mix(in oklch, var(--surface-0) 88%, black 12%);
-    --map-text: var(--text-primary);
-    --map-embed-border: var(--border-subtle);
-    --map-pin: var(--accent-rose);
-
-    /* === Sticky CTA === */
-    --sticky-cta-bg: var(--accent-rose);
-    --sticky-cta-text: var(--text-inverse);
-    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-rose) 70%, black 30%);
-    --sticky-cta-shadow: 0 -14px 46px oklch(0 0 0 / 0.45);
-    --sticky-cta-border: transparent;
-
-    /* === Why Choose Section === */
-    --why-bg-start: color-mix(in oklch, var(--accent-sage) 24%, var(--surface-1) 76%);
-    --why-bg-end:   color-mix(in oklch, var(--accent-rose) 24%, var(--surface-2) 76%);
-    --why-text:     var(--text-primary);
-    --why-text-soft:color-mix(in oklch, var(--text-primary) 65%, var(--accent-gold) 35%);
-    --why-card:     color-mix(in oklch, var(--surface-1) 85%, black 15%);
-    --why-border:   var(--border-subtle);
-    --why-shadow:   0 32px 68px oklch(0 0 0 / 0.48);
-  }
-
-/* === Hero semantic tokens (light) === */
-:root {
-  /* Base background */
-  --hero-bg: #2c241a;
-
-  /* Text & accents - LIGHT THEME: Dark text on white gradient */
-  --hero-text: var(--text-primary, #6B4E3D);
-  --hero-accent: var(--accent-rose, #9D6B7B);
-  --hero-cta-text: var(--text-primary, #6B4E3D);
-  --hero-cta-hover-text: var(--text-inverse, #FFF8E7);
-
-  /* Overlay stops - LIGHT THEME: White gradient overlay for elegant look */
-  --hero-overlay-start: oklch(0.98 0.01 95 / 0.75);
-  --hero-overlay-mid:   oklch(0.97 0.02 95 / 0.70);
-  --hero-overlay-end:   oklch(0.95 0.03 30 / 0.75);
-
-  /* Parallax behavior (override in media queries if needed) */
-  --hero-bg-attach: fixed;
-
-  /* Optional hero tint helpers (for variant flourishes) */
-  --hero-gold: #E4C896;
-  --hero-warm: #3A2D22;
-  --hero-rose: #9D6B7B;
-}
-
-/* === Hero tokens (dark) will be defined in main html[data-theme="dark"] block below === */
-
-/* ===============================
-   SECTION TOKENS — LIGHT THEME
-   =============================== */
-:root {
-  --hero-overlay-end:   oklch(0.26 0.04 70 / 0.75);
-  --hero-overlay-mid:   oklch(0.22 0.05 80 / 0.70);
-  --hero-overlay-start: oklch(0.18 0.03 65 / 0.75);
-  /* ===== Navbar ===== */
-  --navbar-bg: var(--surface-0, #FFFFFF);
-  --navbar-text: var(--text-primary, #2B2B2B);
-  --navbar-accent: var(--accent-gold, #E4C896);
-  --navbar-scroll-bg: rgba(44, 36, 26, 0.90);
-  --navbar-underline: rgba(0,0,0,0.08);
-  --navbar-link: var(--navbar-text);
-  --navbar-link-hover: color-mix(in oklch, var(--navbar-text) 60%, var(--navbar-accent) 40%);
-
-  --navbar-cta-bg: linear-gradient(135deg, #D9A3AF 0%, #C88E9A 100%);
-  --navbar-cta-text: var(--text-inverse, #FFF8E7);
-
-  --navbar-logo-grad: linear-gradient(135deg, #D9A3AF 0%, #2B2B2B 100%);
-
-  /* ===== Footer ===== */
-  --footer-bg: var(--surface-1, #1E1A16);
-  --footer-text: var(--text-inverse, #FFF8E7);
-  --footer-link: var(--accent-gold, #E4C896);
-  --footer-link-hover: #FFFFFF;
-  --footer-border: rgba(255, 255, 255, 0.12);
-  --footer-accent: var(--accent-gold, #E4C896);
-
-  /* ===== Schedule / Booking ===== */
-  --schedule-bg: var(--surface-0, #FFFFFF);
-  --schedule-text: var(--text-primary, #2B2B2B);
-  --schedule-field-bg: var(--surface-0, #FFFFFF);
-  --schedule-field-border: rgba(0,0,0,0.18);
-  --schedule-field-focus: var(--accent-gold, #E4C896);
-  --schedule-cta-bg: var(--accent-gold, #E4C896);
-  --schedule-cta-text: var(--text-inverse, #FFF8E7);
-  --schedule-cta-hover-bg: #F1DCAA;
-  --schedule-cta-border: transparent;
-  --schedule-error: #B00020;
-  --schedule-success: #2E7D32;
-
-  /* ===== Map / Visit ===== */
-  --map-bg: var(--surface-0, #FFFFFF);
-  --map-text: var(--text-primary, #2B2B2B);
-  --map-embed-border: rgba(0,0,0,0.12);
-  --map-embed-radius: 50%;
-  --map-pin: var(--accent-gold, #E4C896);
-  --map-ring: rgba(228, 200, 150, 0.35);
-
-  /* ===== Rum River Experience ===== */
-  --experience-bg: var(--surface-0, #FFFFFF);
-  --experience-text: var(--text-primary, #2B2B2B);
-  --experience-grid-gap: 1.25rem;
-  --feature-card-bg: var(--surface-0, #FFFFFF);
-  --feature-card-border: rgba(0,0,0,0.08);
-  --feature-card-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  --feature-icon-color: var(--accent-gold, #E4C896);
-  --feature-accent: var(--accent-gold, #E4C896);
-
-  /* ===== Testimonials ===== */
-  --testimonials-bg: var(--surface-0, #FFFFFF);
-  --testimonials-text: var(--text-primary, #2B2B2B);
-  --testimonial-card-bg: var(--surface-0, #FFFFFF);
-  --testimonial-quote-color: var(--text-primary, #2B2B2B);
-  --testimonial-accent: var(--accent-gold, #E4C896);
-  --testimonial-shadow: 0 8px 24px rgba(0,0,0,0.10);
-  --testimonial-modal-backdrop: rgba(0,0,0,0.55);
-  --testimonial-modal-bg: var(--surface-0, #FFFFFF);
-
-  /* ===== History Carousel ===== */
-  --history-bg: var(--surface-0, #FFFFFF);
-  --history-text: var(--text-primary, #2B2B2B);
-  --history-accent: var(--accent-gold, #E4C896);
-  --history-nav-bg: rgba(0,0,0,0.55);
-  --history-nav-icon: #FFFFFF;
-  --history-slide-bg: var(--surface-0, #FFFFFF);
-  --history-slide-shadow: 0 10px 30px rgba(0,0,0,0.10);
-
-  /* ===== Weddings / Real Love Stories ===== */
-  --weddings-bg: var(--surface-0, #FFFFFF);
-  --weddings-text: var(--text-primary, #2B2B2B);
-  --wedding-card-bg: var(--surface-0, #FFFFFF);
-  --wedding-card-overlay-bg: rgba(0,0,0,0.35);
-  --wedding-card-overlay-text: #FFFFFF;
-  --wedding-card-shadow: 0 12px 32px rgba(0,0,0,0.12);
-  --wedding-image-radius: 16px;
-
-  /* ===== Pricing / Packages ===== */
-  --pricing-bg: var(--surface-0, #FFFFFF);
-  --pricing-text: var(--text-primary, #2B2B2B);
-  --price-text: var(--text-primary, #2B2B2B);
-  --price-accent: var(--accent-gold, #E4C896);
-  --pricing-card-bg: var(--surface-0, #FFFFFF);
-  --pricing-card-border: rgba(0,0,0,0.10);
-  --pricing-popular-bg: #FFF5D9;
-  --pricing-popular-accent: var(--accent-gold, #E4C896);
-  --pricing-cta-bg: var(--accent-gold, #E4C896);
-  --pricing-cta-text: var(--text-inverse, #FFF8E7);
-
-  /* ===== Gallery / Love Stories ===== */
-  --gallery-rose: var(--theme-accent-rose, #9D6B7B);
-  --gallery-gold: var(--theme-accent-gold, #E4C896);
-  --gallery-on-dark: var(--theme-text-on-dark, #FFF8E7);
-  --gallery-text: var(--theme-text-primary, #6B4E3D);
-  --gallery-text-soft: var(--theme-text-secondary, #6B4E3D);
-  --gallery-card-bg: var(--surface-0, #FFFFFF);
-  --gallery-border: rgba(0,0,0,.08);
-
-  /* ===== About / Timeline / Alternating Blocks ===== */
-  --about-bg: var(--surface-0, #FFFFFF);
-  --about-text: var(--text-primary, #2B2B2B);
-  --about-accent: var(--accent-gold, #E4C896);
-  --timeline-connector: rgba(0,0,0,0.10);
-  --timeline-dot: var(--accent-gold, #E4C896);
-  --block-alt-bg: #FAF7F2;
-
-  /* ===== Venue Features ===== */
-  --features-bg: var(--surface-0, #FFFFFF);
-  --features-text: var(--text-primary, #2B2B2B);
-  --features-grid-gap: 1rem;
-  --features-card-bg: var(--surface-0, #FFFFFF);
-  --features-card-border: rgba(0,0,0,0.08);
-  --features-card-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  --features-icon-color: var(--accent-gold, #E4C896);
-
-  /* ===== Sticky CTA ===== */
-  --sticky-cta-bg: var(--accent-gold, #E4C896);
-  --sticky-cta-text: var(--text-on-accent, #2C241A);
-  --sticky-cta-shadow: 0 10px 26px rgba(0,0,0,0.25);
-  --sticky-cta-border: transparent;
-  --sticky-cta-z: 1000;
-
-  /* ===== Unified Button System ===== */
-  --btn-radius: 9999px;
-  --btn-pad-y: 0.9rem;
-  --btn-pad-x: 2.25rem;
-
-  --btn-fg-on-gold: #2C241A;
-  --btn-bg-gold: #E4C896;
-  --btn-bg-gold-hover: color-mix(in oklab, var(--btn-bg-gold) 88%, black 12%);
-
-  --btn-outline-fg: #FFF8E7;
-  --btn-outline-border: #E4C896;
-
-  /* Safety mat behind outline buttons on images */
-  --btn-outline-on-image-bg: rgba(0,0,0,.28);
-  --btn-outline-on-image-bg-hover: rgba(0,0,0,.36);
-
-  /* ===== Why Choose Section (Light) ===== */
-  --why-bg-start: #FFF8E7;      /* warm cream */
-  --why-bg-end:   #F4E4E1;      /* light rose beige */
-  --why-text:     #6B4E3D;      /* brand brown */
-  --why-text-soft:#7B5E4E;
-  --why-number:   #E4C896;      /* gold */
-  --why-card:     #FFFFFF;
-  --why-border:   rgba(0,0,0,.08);
-  --why-shadow:   0 12px 30px rgba(0,0,0,.10);
-
-  /* ===== Glass/Glassmorphism System ===== */
-  --blur-sm: 6px;
-  --blur-md: 10px;
-  --blur-lg: 14px;
-  --blur-xl: 22px;
-
-  /* Transparency Scale */
-  --alpha-subtle: 0.20;
-  --alpha-mid: 0.32;
-  --alpha-strong: 0.45;
-  --alpha-heavy: 0.60;
-
-  /* Saturation Boost */
-  --saturate-low: 1.05;
-  --saturate-med: 1.15;
-  --saturate-high: 1.25;
-
-  /* ===== Motion/Interaction Tokens ===== */
-  --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);     /* smooth deceleration */
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);         /* bouncy spring */
-  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);       /* overshoot snap */
-
-  /* Interaction distances */
-  --distance-sm: 4px;
-  --distance-md: 8px; 
-  --distance-lg: 12px;
-
-  /* Stagger delays for sequential animations */
-  --stagger-sm: 50ms;
-  --stagger-md: 100ms;
-  --stagger-lg: 150ms;
-
-  /* ===== Shadow & Backdrop Tokens (Dark) ===== */
-  --shadow-text-soft: 0 2px 4px oklch(0 0 0 / 0.45);
-  --shadow-text-light: 0 1px 2px oklch(0 0 0 / 0.25);
-  --shadow-elev-1: 0 1px 2px oklch(0 0 0 / 0.18), 0 1px 3px oklch(0 0 0 / 0.14);
-  --shadow-elev-2: 0 3px 6px oklch(0 0 0 / 0.22), 0 2px 4px oklch(0 0 0 / 0.18);
-  --shadow-elev-3: 0 8px 20px oklch(0 0 0 / 0.28), 0 4px 6px oklch(0 0 0 / 0.20);
-  --backdrop-mobile-menu: oklch(0 0 0 / 0.35);
-  --backdrop-modal: oklch(0 0 0 / 0.75);
-  --backdrop-glass: oklch(from var(--surface-0) l c h / 0.25);
-  /* ===== Semantic Surfaces (LIGHT) ===== */
-  --surface-0: rgb(var(--clr-cream-rgb));            /* page soft background (blush) */
-  --surface-1: rgb(255 255 255);                     /* cards/contrast */
-  --surface-2: rgb(var(--clr-cream-rgb));            /* section background (FAQ light) */
-  --surface-3: rgb(250 246 242);                     /* subtle lift */
-  --surface-4: rgb(246 240 234);                     /* brightest light surface */
-
-  /* Text (LIGHT) */
-  --text-primary: rgb(var(--clr-walnut-text-rgb));   /* #6B4E3D */
-  --text-secondary: rgb(68 57 50);
-  --text-inverse: rgb(var(--clr-white-rgb));
-
-  /* Roles */
-  --accent-rose: rgb(var(--clr-rose-rgb));           /* #9D6B7B */
-  --accent-rose-soft: rgb(var(--clr-rose-soft-rgb)); /* #D89BAE */
-  --accent-gold: rgb(var(--clr-gold-rgb));
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-medium: rgba(0, 0, 0, 0.16);
-  --focus-ring: rgb(var(--clr-walnut-text-rgb));     /* subtle walnut focus */
-  --focus-width: 3px;
-  --focus-offset: 3px;
-
-  /* ===== Motion / Shadow / Radius ===== */
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 400ms;
-
-  /* Border radius scale */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-  --radius-pill: 9999px;
-
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
-
-  /* ===== Typography ===== */
-  --font-sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-script: "Dancing Script", "Brush Script MT", cursive;
-  --font-mono:  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-  --size-sm:   0.875rem;
-  --size-base: 1rem;
-  --size-lg:   1.125rem;
-  --size-xl:   1.25rem;
-  --size-2xl:  1.5rem;
-  --size-3xl:  1.75rem;
-  --size-4xl:  2rem;
-  --size-5xl:  2.5rem;
-  --size-6xl:  3rem;
-  --line-tight: 1.2;
-  --line-normal: 1.5;
-  --line-loose: 1.8;
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-light: 300;
-
-  /* =========================================================
-     SPACING SCALE & FLUID TOKENS — USAGE POLICY (2025)
-     ---------------------------------------------------------
-     1) Canonical scale:
-        - Use fixed tokens (e.g., --space-16, --space-32) for
-          components, cards, grids, and inner UI spacing.
-        - Do NOT add bespoke values to the global scale.
-
-     2) Fluid tokens:
-        - Use fluid tokens ONLY for macro layout:
-          • Section vertical padding
-          • Hero breathing room
-          • Large "stack" gaps between major blocks
-        - Define fluid tokens via clamp() between existing fixed
-          rungs. Never use raw px in clamp bounds.
-
-     3) Odd legacy values:
-        - Prefer nearest fixed rung or a local alias:
-          .component { --space-local-53: var(--space-56); }
-        - If "feel" matters more than exact px, use clamp().
-
-     4) Linting:
-        - gap/margin/padding MUST use var().
-        - Allowed exceptions: 0, auto, inherit.
-        - clamp() is allowed but must wrap fixed tokens.
-
-     5) Review checklist:
-        - No raw px in spacing declarations.
-        - No new globals unless reviewed and added to scale.
-        - Fluid tokens appear only in macro layout rules.
-     ========================================================= */
-
-  /* ===== Fixed Spacing Scale (4px base) ===== */
-  --space-0: 0;
-  --space-2: 0.125rem;  /* 2px  */
-  --space-4: 0.25rem;   /* 4px  */
-  --space-8: 0.5rem;    /* 8px  */
-  --space-12: 0.75rem;  /* 12px */
-  --space-16: 1rem;     /* 16px */
-  --space-20: 1.25rem;  /* 20px */
-  --space-24: 1.5rem;   /* 24px */
-  --space-32: 2rem;     /* 32px */
-  --space-40: 2.5rem;   /* 40px */
-  --space-48: 3rem;     /* 48px */
-  --space-56: 3.5rem;   /* 56px */
-  --space-64: 4rem;     /* 64px */
-  --space-80: 5rem;     /* 80px */
-  --space-96: 6rem;     /* 96px */
-
-  /* ===== Legacy Aliases (backward compatibility) ===== */
-  --space-2xs: var(--space-4);   /* 4px */
-  --space-xs:  var(--space-8);   /* 8px */
-  --space-sm:  var(--space-12);  /* 12px */
-  --space-md:  var(--space-16);  /* 16px */
-  --space-lg:  var(--space-20);  /* 20px */
-  --space-xl:  var(--space-32);  /* 32px */
-  --space-2xl: var(--space-40);  /* 40px */
-  --space-3xl: var(--space-48);  /* 48px */
-  --space-4xl: var(--space-64);  /* 64px */
-  --space-5xl: var(--space-96);  /* 96px */
-
-  /* ===== Fluid Spacing Tokens (for macro layout only) ===== */
-  /* Scale-relative fluid rungs (general purpose) */
-  --space-fluid-1: clamp(var(--space-16), 1.5vw, var(--space-24));
-  --space-fluid-2: clamp(var(--space-24), 2vw,   var(--space-40));
-  --space-fluid-3: clamp(var(--space-32), 3vw,   var(--space-56));
-  --space-fluid-4: clamp(var(--space-48), 5vw,   var(--space-80));
-  --space-fluid-5: clamp(var(--space-64), 6vw,   var(--space-96));
-
-  /* Semantic fluid tokens (plug-and-play for common patterns) */
-  --section-pad-fluid: clamp(var(--space-48), 6vw, var(--space-96));
-  --stack-gap-fluid-lg: clamp(var(--space-24), 3vw, var(--space-40));
-  --hero-pad-fluid: clamp(var(--space-56), 8vw, var(--space-96));
-
-  /* ===== Container Query Breakpoints (rem-based for scalability) ===== */
-  /* Use with @container rules for component-level responsiveness */
-  --cq-xs: 28rem;  /* ~448px - mobile component width */
-  --cq-sm: 36rem;  /* ~576px - small tablet component */
-  --cq-md: 48rem;  /* ~768px - tablet component */
-  --cq-lg: 64rem;  /* ~1024px - desktop component */
-  --cq-xl: 80rem;  /* ~1280px - wide desktop component */
-
-  /* ===== Gradients / hairlines for optional use (LIGHT) ===== */
-  --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
-  --grad-section-soft: linear-gradient(180deg, rgb(252 248 244) 0%, rgb(246 240 234) 100%);
-
-  /* ===== Legacy Aliases (to avoid breaking existing code) ===== */
-  --theme-bg-primary: var(--surface-1);
-  --theme-bg-secondary: var(--surface-2);
-  --theme-bg-card: var(--surface-1);
-  --theme-bg-dark-section: rgb(var(--clr-walnut-900-rgb));
-  --theme-text-primary: var(--text-primary);
-  --theme-text-secondary: var(--text-secondary);
-  --theme-border-subtle: var(--border-subtle);
-  --theme-border-medium: var(--border-medium);
-  --theme-border-focus: var(--accent-gold);
-  --theme-accent-rose: var(--accent-rose);
-  --theme-accent-sage: rgb(176 196 182); /* soft desaturated green */
-  --theme-accent-gold: var(--accent-gold);
-  --theme-shadow-dark-lg: 0 24px 70px rgba(0, 0, 0, 0.28); /* used on glass cards */
-
-  /* ===== Layout Tokens (moved from system/layout.css) ===== */
-  /* Page-level layout constraints */
-  --page-max: 1200px;                   /* unified content width */
-  --page-wide: 1400px;                  /* wide grids (gallery/pricing/maps) */
-  --gutter: clamp(16px, 4vw, 64px);     /* page side padding */
-  --prose-max: 68ch;                    /* readable text width */
-  --rail-offset: calc((100% - var(--page-max)) / 2 + var(--gutter));
-
-  /* ===== Unified Section System Tokens ===== */
-  /* Rails & Content Widths */
-  --rail-gutter: var(--gutter);         /* inherits from --gutter above */
-  --rail-prose: 65ch;                   /* readable text measure */
-  --rail-content: 1200px;               /* default content max */
-  --rail-wide: 1400px;                  /* wider grids (gallery/pricing) */
-
-  /* Vertical Rhythm (Section Padding Presets) */
-  --space-section-xs: 35px;
-  --space-section-sm: 50px;
-  --space-section-md: 60px;
-  --space-section-lg: var(--space-80);
-  --space-section-xl: var(--space-96);
-  --space-section-fluid: var(--section-pad-fluid); /* Now references semantic fluid token */
-
-  /* Background Helpers */
-  --bg-surface: var(--theme-bg-primary, #FFFCF8);
-  --bg-tint-rose: #FDF5F7; /* Fallback: light rose tint */
-  --bg-tint-sage: #F8FAF9; /* Fallback: light sage tint */
-  
-  /* Use color-mix if supported */
-  @supports (color: color-mix(in srgb, white 50%, black)) {
-    --bg-tint-rose: color-mix(in srgb, var(--bg-surface) 92%, var(--theme-accent-rose, #9D6B7B) 8%);
-    --bg-tint-sage: color-mix(in srgb, var(--bg-surface) 92%, #7A8B7F 8%);
-  }
-  --bg-dark-grad: linear-gradient(135deg, #2C2416 0%, #3D2F22 100%);
-
-  /* Overlay Strengths */
-  --overlay-soft: linear-gradient(to top, rgba(0,0,0,.45) 0%, rgba(0,0,0,.2) 50%, transparent 80%);
-  --overlay-strong: linear-gradient(to top, rgba(0,0,0,.66) 0%, rgba(0,0,0,.35) 50%, transparent 80%);
-
-  /* Dividers */
-  --divider-hairline: color-mix(in srgb, var(--theme-border-subtle, rgba(0,0,0,.12)) 75%, transparent);
-  --divider-gold: var(--theme-accent-gold, #E4C896);
-
-  /* ===== Shadow & Backdrop Tokens (Light) ===== */
-  --shadow-text-soft: 0 2px 4px oklch(0 0 0 / 0.25);
-  --shadow-text-light: 0 1px 2px oklch(0 0 0 / 0.15);
-  --shadow-elev-1: 0 1px 2px oklch(0 0 0 / 0.10), 0 1px 3px oklch(0 0 0 / 0.08);
-  --shadow-elev-2: 0 3px 6px oklch(0 0 0 / 0.12), 0 2px 4px oklch(0 0 0 / 0.10);
-  --shadow-elev-3: 0 8px 20px oklch(0 0 0 / 0.16), 0 4px 6px oklch(0 0 0 / 0.12);
-  --backdrop-mobile-menu: oklch(0 0 0 / 0.28);
-  --backdrop-modal: oklch(0 0 0 / 0.60);
-  --backdrop-glass: oklch(from var(--surface-0) l c h / 0.18);
-
-}
-
-/* ---------- Dark mode (explicit) ----------------------------------------- */
-html[data-theme="dark"] {
-  /* Surfaces (DARK) */
-  --surface-0: rgb(var(--clr-walnut-900-rgb)); /* deepest */
-  --surface-1: rgb(var(--clr-walnut-800-rgb));
-  --surface-2: oklch(from var(--ok-walnut-750, rgb(var(--clr-walnut-750-rgb))) l c h);
-  --surface-3: rgb(var(--clr-walnut-700-rgb));
-  --surface-4: rgb(var(--clr-walnut-650-rgb));
-
-  /* Text (DARK) */
-  --text-primary: rgb(var(--clr-white-rgb));
-  --text-secondary: color-mix(in oklch, rgb(var(--clr-white-rgb)) 86%, rgb(var(--clr-gold-rgb)) 14%);
-  --text-inverse: rgb(var(--clr-walnut-800-rgb));
-
-  /* Roles (DARK) */
-  --accent-rose: rgb(var(--clr-rose-soft-rgb)); /* slightly brighter in dark */
-  --accent-rose-soft: rgb(var(--clr-rose-soft-rgb));
-  --accent-gold: rgb(var(--clr-gold-rgb));
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.16);
-  --focus-ring: var(--accent-gold);
-
-  /* Gradients / hairlines (DARK) */
-  --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
-  --grad-section-soft: linear-gradient(180deg,
-    color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
-    var(--surface-1) 100%
-  );
-  --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
-
-  /* Accent veils for variety (OKLCH color-mix) */
-  --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
-  --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
-  --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
-
-  /* Enhanced hairline divider with gold accent */
-  --hairline-2: linear-gradient(180deg,
-    color-mix(in oklch, var(--accent-gold) 25%, transparent),
-    rgba(240, 217, 168, 0.05)
-  );
-
-  /* Legacy aliases (DARK) */
-  --theme-bg-primary: var(--surface-1);
-  --theme-bg-secondary: var(--surface-3);
-  --theme-bg-card: var(--surface-2);
-  --theme-bg-dark-section: var(--surface-0);
-  --theme-text-primary: var(--text-primary);
-  --theme-text-secondary: var(--text-secondary);
-  --theme-border-subtle: var(--border-subtle);
-  --theme-border-medium: var(--border-medium);
-  --theme-border-focus: var(--accent-gold);
-  --theme-accent-rose: var(--accent-rose);
-  --theme-accent-sage: rgb(182 204 190);
-  --theme-accent-gold: var(--accent-gold);
-  --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
-
-  /* =================================
-     SECTION TOKENS — DARK THEME
-     ================================= */
-
-  /* ===== Hero ===== */
-  --hero-bg: oklch(0.16 0.03 30);
-  --hero-text: oklch(0.98 0.01 95);
-  --hero-accent: oklch(0.78 0.10 90);
-  --hero-cta-text: oklch(0.98 0.01 95);
-  --hero-cta-hover-text: oklch(0.18 0.03 30);
-  --hero-overlay-start: oklch(0.18 0.03 65 / 0.92);
-  --hero-overlay-mid:   oklch(0.22 0.05 80 / 0.88);
-  --hero-overlay-end:   oklch(0.26 0.04 70 / 0.90);
-
-  /* ===== Navbar ===== */
-  --navbar-bg: oklch(0.18 0.03 30);
-  --navbar-text: oklch(0.97 0.01 95);
-  --navbar-accent: oklch(0.78 0.10 90);
-  --navbar-scroll-bg: oklch(0.16 0.03 30 / 0.92);
-  --navbar-underline: oklch(0.40 0 0 / 0.25);
-
-  --navbar-link: var(--navbar-text);
-  --navbar-link-hover: var(--navbar-accent);
-
-  --navbar-cta-bg: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.62 0.11 10) 100%);
-  --navbar-cta-text: oklch(0.16 0.03 30);
-
-  --navbar-logo-grad: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.22 0.03 30) 100%);
-
-  /* ===== Footer ===== */
-  --footer-bg: oklch(0.15 0.03 30);
-  --footer-text: oklch(0.92 0.01 95);
-  --footer-link: oklch(0.78 0.10 90);
-  --footer-link-hover: oklch(0.95 0.01 95);
-  --footer-border: oklch(0.92 0.01 95 / 0.14);
-  --footer-accent: oklch(0.78 0.10 90);
-
-  /* ===== Schedule / Booking ===== */
-  --schedule-bg: oklch(0.20 0.03 30);
-  --schedule-text: oklch(0.92 0.01 95);
-  --schedule-field-bg: oklch(0.22 0.03 30);
-  --schedule-field-border: oklch(0.92 0.01 95 / 0.20);
-  --schedule-field-focus: oklch(0.78 0.10 90);
-  --schedule-cta-bg: oklch(0.78 0.10 90);
-  --schedule-cta-text: oklch(0.15 0.03 30);
-  --schedule-cta-hover-bg: oklch(0.82 0.10 90);
-  --schedule-cta-border: transparent;
-  --schedule-error: oklch(0.60 0.20 25);
-  --schedule-success: oklch(0.60 0.15 145);
-
-  /* ===== Map ===== */
-  --map-section-bg: oklch(0.19 0.03 30);
-  --map-text: oklch(0.92 0.01 95);
-  --map-embed-border: oklch(0.92 0.01 95 / 0.12);
-  --map-embed-radius: 8px;
-  --map-pin: oklch(0.78 0.10 90);
-
-  /* ===== Experience / Features Grid ===== */
-  --experience-section-bg: oklch(0.18 0.03 30);
-  --experience-text: oklch(0.92 0.01 95);
-  --feature-card-bg: oklch(0.22 0.03 30);
-  --feature-card-border: oklch(0.92 0.01 95 / 0.10);
-  --feature-card-shadow: 0 4px 12px oklch(0 0 0 / 0.25);
-  --feature-icon-color: oklch(0.78 0.10 90);
-  --feature-icon-bg: oklch(0.78 0.10 90 / 0.12);
-
-  /* ===== Testimonials ===== */
-  --testimonials-section-bg: oklch(0.19 0.03 30);
-  --testimonials-text: oklch(0.92 0.01 95);
-  --testimonial-card-bg: oklch(0.22 0.03 30);
-  --testimonial-card-border: oklch(0.92 0.01 95 / 0.10);
-  --testimonial-card-shadow: 0 2px 10px oklch(0 0 0 / 0.20);
-  --testimonial-quote: oklch(0.78 0.10 90);
-  --testimonial-stars: oklch(0.78 0.10 90);
-  --testimonial-modal-backdrop: oklch(0 0 0 / 0.75);
-  --testimonial-modal-bg: oklch(0.20 0.03 30);
-  --testimonial-modal-border: oklch(0.92 0.01 95 / 0.15);
-
-  /* ===== History Carousel ===== */
-  --history-section-bg: oklch(0.18 0.03 30);
-  --history-text: oklch(0.92 0.01 95);
-  --history-slide-bg: oklch(0.22 0.03 30);
-  --history-slide-border: oklch(0.92 0.01 95 / 0.10);
-  --history-slide-shadow: 0 6px 16px oklch(0 0 0 / 0.30);
-  --history-nav-bg: oklch(0.22 0.03 30);
-  --history-nav-arrow: oklch(0.78 0.10 90);
-  --history-nav-arrow-hover: oklch(0.82 0.10 90);
-  --history-dot: oklch(0.92 0.01 95 / 0.35);
-  --history-dot-active: oklch(0.78 0.10 90);
-
-  /* ===== Weddings / Gallery ===== */
-  --weddings-section-bg: oklch(0.19 0.03 30);
-  --weddings-text: oklch(0.92 0.01 95);
-  --wedding-card-bg: oklch(0.22 0.03 30);
-  --wedding-card-overlay-bg: oklch(0.15 0.03 30 / 0.85);
-  --wedding-card-shadow: 0 4px 14px oklch(0 0 0 / 0.25);
-  --wedding-image-radius: 6px;
-  --wedding-cta: oklch(0.78 0.10 90);
-  --wedding-cta-hover: oklch(0.82 0.10 90);
-
-  /* ===== Gallery / Love Stories (Dark) ===== */
-  --gallery-bg-dark: var(--rose-veil-8, #3D2F2A);
-  --gallery-rose-dark: #D89BAE;
-  --gallery-gold-dark: oklch(0.78 0.10 90);
-  --gallery-text-dark: #F5E6D3;
-  --gallery-card-dark: #3D2F22;
-  --gallery-border-dark: rgba(255,255,255,.12);
-  --gallery-border-strong-dark: rgba(255,255,255,.18);
-
-  /* ===== Pricing ===== */
-  --pricing-section-bg: oklch(0.18 0.03 30);
-  --pricing-text: oklch(0.92 0.01 95);
-  --pricing-card-bg: oklch(0.22 0.03 30);
-  --pricing-card-border: oklch(0.92 0.01 95 / 0.10);
-  --pricing-card-shadow: 0 3px 12px oklch(0 0 0 / 0.20);
-  --pricing-popular-bg: oklch(0.78 0.10 90 / 0.15);
-  --pricing-popular-border: oklch(0.78 0.10 90);
-  --pricing-cta-bg: oklch(0.78 0.10 90);
-  --pricing-cta-text: oklch(0.15 0.03 30);
-  --pricing-cta-hover-bg: oklch(0.82 0.10 90);
-
-  /* ===== About / Timeline ===== */
-  --about-section-bg: oklch(0.19 0.03 30);
-  --about-text: oklch(0.92 0.01 95);
-  --timeline-connector: oklch(0.78 0.10 90 / 0.35);
-  --timeline-dot: oklch(0.78 0.10 90);
-  --timeline-card-bg: oklch(0.22 0.03 30);
-  --timeline-card-border: oklch(0.92 0.01 95 / 0.10);
-  --timeline-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
-
-  /* ===== Features / Amenities ===== */
-  --features-section-bg: oklch(0.18 0.03 30);
-  --features-text: oklch(0.92 0.01 95);
-  --features-card-bg: oklch(0.22 0.03 30);
-  --features-card-border: oklch(0.92 0.01 95 / 0.10);
-  --features-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
-  --features-icon-color: oklch(0.78 0.10 90);
-  --features-icon-bg: oklch(0.78 0.10 90 / 0.12);
-
-  /* ===== Sticky CTA ===== */
-  --sticky-cta-bg: oklch(0.78 0.10 90);
-  --sticky-cta-text: oklch(0.15 0.03 30);
-  --sticky-cta-hover-bg: oklch(0.82 0.10 90);
-  --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
-  --sticky-cta-border: oklch(0.78 0.10 90);
-  --sticky-cta-z: 100;
-
-  /* ===== Unified Button System (Dark) ===== */
-  --btn-outline-on-image-bg: rgba(0,0,0,.35);
-  --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
-
-  /* ===== Why Choose Section (Dark) ===== */
-  --why-bg-start: oklch(0.27 0.04 70);
-  --why-bg-end:   oklch(0.25 0.05 30);
-  --why-text:     #F5E6D3;
-  --why-text-soft:#E8D8C4;
-  --why-card:     oklch(0.28 0.03 70);
-  --why-border:   rgba(255,255,255,.14);
-  --why-shadow:   0 14px 36px rgba(0,0,0,.45);
-
-  /* ===== Glass System (Dark) ===== */
-  /* Blur values same as light mode */
-  /* --blur-* inherited from :root */
-
-  /* Adjusted transparency for dark backgrounds */
-  --alpha-subtle: 0.15;    /* less transparent in dark mode */
-  --alpha-mid: 0.25;
-  --alpha-strong: 0.35;
-  --alpha-heavy: 0.50;
-
-  /* Higher saturation boost for dark glassmorphism */
-  --saturate-low: 1.08;
-  --saturate-med: 1.18;
-  --saturate-high: 1.30;
-}
-
-/* ---------- Auto dark (OS preference) when you're not forcing a theme ---- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    /* Mirror the explicit dark values */
-    --surface-0: rgb(var(--clr-walnut-900-rgb));
-    --surface-1: rgb(var(--clr-walnut-800-rgb));
-    --surface-2: oklch(from var(--ok-walnut-750, rgb(var(--clr-walnut-750-rgb))) l c h);
-    --surface-3: rgb(var(--clr-walnut-700-rgb));
-    --surface-4: rgb(var(--clr-walnut-650-rgb));
-
-    --text-primary: rgb(var(--clr-white-rgb));
-    --text-secondary: color-mix(in oklch, rgb(var(--clr-white-rgb)) 86%, rgb(var(--clr-gold-rgb)) 14%);
-    --text-inverse: rgb(var(--clr-walnut-800-rgb));
-
-    --accent-rose: rgb(var(--clr-rose-soft-rgb));
-    --accent-rose-soft: rgb(var(--clr-rose-soft-rgb));
-    --accent-gold: rgb(var(--clr-gold-rgb));
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-medium: rgba(255, 255, 255, 0.16);
-    --focus-ring: var(--accent-gold);
-
-    --hairline-gold: linear-gradient(180deg, rgba(var(--clr-gold-rgb) / 0.25), rgba(var(--clr-gold-rgb) / 0.05));
-    --grad-section-soft: linear-gradient(180deg,
-      color-mix(in oklch, var(--surface-2) 96%, black 4%) 0%,
-      var(--surface-1) 100%
-    );
-    --grad-section-deep: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-0) 100%);
-
-    /* Accent veils for variety (OKLCH color-mix) */
-    --rose-veil-8: color-mix(in oklch, var(--surface-2) 92%, var(--accent-rose) 8%);
-    --sage-veil-8: color-mix(in oklch, var(--surface-2) 92%, rgb(182 204 190) 8%);
-    --gold-veil-6: color-mix(in oklch, var(--surface-3) 94%, var(--accent-gold) 6%);
-
-    /* Enhanced hairline divider with gold accent */
-    --hairline-2: linear-gradient(180deg,
-      color-mix(in oklch, var(--accent-gold) 25%, transparent),
-      rgba(240, 217, 168, 0.05)
-    );
-
-    --theme-bg-primary: var(--surface-1);
-    --theme-bg-secondary: var(--surface-3);
-    --theme-bg-card: var(--surface-2);
-    --theme-bg-dark-section: var(--surface-0);
-    --theme-text-primary: var(--text-primary);
-    --theme-text-secondary: var(--text-secondary);
-    --theme-border-subtle: var(--border-subtle);
-    --theme-border-medium: var(--border-medium);
-    --theme-border-focus: var(--accent-gold);
-    --theme-accent-rose: var(--accent-rose);
-    --theme-accent-sage: rgb(182 204 190);
-    --theme-accent-gold: var(--accent-gold);
-    --theme-shadow-dark-lg: 0 20px 60px rgba(0, 0, 0, 0.60);
-
-    /* =================================
-       SECTION TOKENS — DARK THEME
-       ================================= */
-
-    /* ===== Navbar ===== */
-    --navbar-bg: oklch(0.18 0.03 30);
-    --navbar-text: oklch(0.97 0.01 95);
-    --navbar-accent: oklch(0.78 0.10 90);
-    --navbar-scroll-bg: oklch(0.16 0.03 30 / 0.92);
-    --navbar-underline: oklch(0.40 0 0 / 0.25);
-
-    --navbar-link: var(--navbar-text);
-    --navbar-link-hover: var(--navbar-accent);
-
-    --navbar-cta-bg: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.62 0.11 10) 100%);
-    --navbar-cta-text: oklch(0.16 0.03 30);
-
-    --navbar-logo-grad: linear-gradient(135deg, oklch(0.70 0.10 5) 0%, oklch(0.22 0.03 30) 100%);
-
-    /* ===== Footer ===== */
-    --footer-bg: oklch(0.15 0.03 30);
-    --footer-text: oklch(0.92 0.01 95);
-    --footer-link: oklch(0.78 0.10 90);
-    --footer-link-hover: oklch(0.95 0.01 95);
-    --footer-border: oklch(0.92 0.01 95 / 0.14);
-    --footer-accent: oklch(0.78 0.10 90);
-
-    /* ===== Schedule / Booking ===== */
-    --schedule-bg: oklch(0.20 0.03 30);
-    --schedule-text: oklch(0.92 0.01 95);
-    --schedule-field-bg: oklch(0.22 0.03 30);
-    --schedule-field-border: oklch(0.92 0.01 95 / 0.20);
-    --schedule-field-focus: oklch(0.78 0.10 90);
-    --schedule-cta-bg: oklch(0.78 0.10 90);
-    --schedule-cta-text: oklch(0.15 0.03 30);
-    --schedule-cta-hover-bg: oklch(0.82 0.10 90);
-    --schedule-cta-border: transparent;
-    --schedule-error: oklch(0.60 0.20 25);
-    --schedule-success: oklch(0.60 0.15 145);
-
-    /* ===== Map ===== */
-    --map-section-bg: oklch(0.19 0.03 30);
-    --map-text: oklch(0.92 0.01 95);
-    --map-embed-border: oklch(0.92 0.01 95 / 0.12);
-    --map-embed-radius: 8px;
-    --map-pin: oklch(0.78 0.10 90);
-
-    /* ===== Experience / Features Grid ===== */
-    --experience-section-bg: oklch(0.18 0.03 30);
-    --experience-text: oklch(0.92 0.01 95);
-    --feature-card-bg: oklch(0.22 0.03 30);
-    --feature-card-border: oklch(0.92 0.01 95 / 0.10);
-    --feature-card-shadow: 0 4px 12px oklch(0 0 0 / 0.25);
-    --feature-icon-color: oklch(0.78 0.10 90);
-    --feature-icon-bg: oklch(0.78 0.10 90 / 0.12);
-
-    /* ===== Testimonials ===== */
-    --testimonials-section-bg: oklch(0.19 0.03 30);
-    --testimonials-text: oklch(0.92 0.01 95);
-    --testimonial-card-bg: oklch(0.22 0.03 30);
-    --testimonial-card-border: oklch(0.92 0.01 95 / 0.10);
-    --testimonial-card-shadow: 0 2px 10px oklch(0 0 0 / 0.20);
-    --testimonial-quote: oklch(0.78 0.10 90);
-    --testimonial-stars: oklch(0.78 0.10 90);
-    --testimonial-modal-backdrop: oklch(0 0 0 / 0.75);
-    --testimonial-modal-bg: oklch(0.20 0.03 30);
-    --testimonial-modal-border: oklch(0.92 0.01 95 / 0.15);
-
-    /* ===== History Carousel ===== */
-    --history-section-bg: oklch(0.18 0.03 30);
-    --history-text: oklch(0.92 0.01 95);
-    --history-slide-bg: oklch(0.22 0.03 30);
-    --history-slide-border: oklch(0.92 0.01 95 / 0.10);
-    --history-slide-shadow: 0 6px 16px oklch(0 0 0 / 0.30);
-    --history-nav-bg: oklch(0.22 0.03 30);
-    --history-nav-arrow: oklch(0.78 0.10 90);
-    --history-nav-arrow-hover: oklch(0.82 0.10 90);
-    --history-dot: oklch(0.92 0.01 95 / 0.35);
-    --history-dot-active: oklch(0.78 0.10 90);
-
-    /* ===== Weddings / Gallery ===== */
-    --weddings-section-bg: oklch(0.19 0.03 30);
-    --weddings-text: oklch(0.92 0.01 95);
-    --wedding-card-bg: oklch(0.22 0.03 30);
-    --wedding-card-overlay-bg: oklch(0.15 0.03 30 / 0.85);
-    --wedding-card-shadow: 0 4px 14px oklch(0 0 0 / 0.25);
-    --wedding-image-radius: 6px;
-    --wedding-cta: oklch(0.78 0.10 90);
-    --wedding-cta-hover: oklch(0.82 0.10 90);
-
-    /* ===== Pricing ===== */
-    --pricing-section-bg: oklch(0.18 0.03 30);
-    --pricing-text: oklch(0.92 0.01 95);
-    --pricing-card-bg: oklch(0.22 0.03 30);
-    --pricing-card-border: oklch(0.92 0.01 95 / 0.10);
-    --pricing-card-shadow: 0 3px 12px oklch(0 0 0 / 0.20);
-    --pricing-popular-bg: oklch(0.78 0.10 90 / 0.15);
-    --pricing-popular-border: oklch(0.78 0.10 90);
-    --pricing-cta-bg: oklch(0.78 0.10 90);
-    --pricing-cta-text: oklch(0.15 0.03 30);
-    --pricing-cta-hover-bg: oklch(0.82 0.10 90);
-
-    /* ===== About / Timeline ===== */
-    --about-section-bg: oklch(0.19 0.03 30);
-    --about-text: oklch(0.92 0.01 95);
-    --timeline-connector: oklch(0.78 0.10 90 / 0.35);
-    --timeline-dot: oklch(0.78 0.10 90);
-    --timeline-card-bg: oklch(0.22 0.03 30);
-    --timeline-card-border: oklch(0.92 0.01 95 / 0.10);
-    --timeline-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
-
-    /* ===== Features / Amenities ===== */
-    --features-section-bg: oklch(0.18 0.03 30);
-    --features-text: oklch(0.92 0.01 95);
-    --features-card-bg: oklch(0.22 0.03 30);
-    --features-card-border: oklch(0.92 0.01 95 / 0.10);
-    --features-card-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
-    --features-icon-color: oklch(0.78 0.10 90);
-    --features-icon-bg: oklch(0.78 0.10 90 / 0.12);
-
-    /* ===== Sticky CTA ===== */
-    --sticky-cta-bg: oklch(0.78 0.10 90);
-    --sticky-cta-text: oklch(0.15 0.03 30);
-    --sticky-cta-hover-bg: oklch(0.82 0.10 90);
-    --sticky-cta-shadow: 0 -2px 12px oklch(0 0 0 / 0.30);
-    --sticky-cta-border: oklch(0.78 0.10 90);
-    --sticky-cta-z: 100;
-
-    /* ===== Unified Button System (Auto Dark) ===== */
-    --btn-outline-on-image-bg: rgba(0,0,0,.35);
-    --btn-outline-on-image-bg-hover: rgba(0,0,0,.45);
-
-    /* ===== Why Choose Section (Auto Dark) ===== */
-    --why-bg-start: oklch(0.27 0.04 70);
-    --why-bg-end:   oklch(0.25 0.05 30);
-    --why-text:     #F5E6D3;
-    --why-text-soft:#E8D8C4;
-    --why-card:     oklch(0.28 0.03 70);
-    --why-border:   rgba(255,255,255,.14);
-    --why-shadow:   0 14px 36px rgba(0,0,0,.45);
+    --features-card-shadow: var(--shadow-elev-1);
+
+    --sticky-cta-bg:       var(--accent-brass);
+    --sticky-cta-text:     var(--surface-0);
+    --sticky-cta-hover-bg: color-mix(in oklch, var(--accent-brass) 72%, black 28%);
+    --sticky-cta-shadow:   0 -14px 38px oklch(0 0 0 / 0.45);
+
+    --btn-bg-gold:     var(--accent-brass);
+    --btn-fg-on-gold:  var(--surface-0);
+    --btn-bg-gold-hover: color-mix(in oklch, var(--accent-brass) 70%, black 30%);
+    --btn-outline-border: color-mix(in oklch, var(--accent-stone) 60%, var(--accent-ink) 40%);
+
+    --why-bg-start:  color-mix(in oklch, var(--surface-0) 72%, var(--accent-stone) 28%);
+    --why-bg-end:    color-mix(in oklch, var(--surface-0) 70%, var(--accent-brass) 30%);
+    --why-text:      var(--text-primary);
+    --why-text-soft: color-mix(in oklch, var(--text-primary) 65%, var(--accent-brass) 35%);
+    --why-card:      color-mix(in oklch, var(--surface-1) 78%, black 22%);
+    --why-border:    var(--border-subtle);
+    --why-shadow:    var(--shadow-elev-3);
   }
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React from 'react'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import Section from '@/components/ui/SectionEnhanced'
@@ -112,12 +113,12 @@ export default function AlternatingBlocks({ blok }: { blok: AlternatingBlocksBlo
                 })}
               </div>
               <div className="alternating-blocks__image">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={imageUrl}
                   alt={block.image_alt || 'Venue image'}
-                  width="800"
-                  height="500"
+                  width={800}
+                  height={500}
+                  sizes="(min-width: 1024px) 40vw, (min-width: 768px) 60vw, 90vw"
                 />
               </div>
             </div>

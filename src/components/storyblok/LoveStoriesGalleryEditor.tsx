@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
@@ -189,11 +190,13 @@ export default function LoveStoriesGalleryEditor({ blok }: LoveStoriesGalleryEdi
                 data-discover="true"
                 style={{ cursor: canOpenModal ? 'pointer' : 'default', opacity: canOpenModal ? 1 : 0.9 }}
               >
-                <img
+                <Image
                   src={imageUrl}
                   alt={`${cardTitle} at ${cardLocation}`}
-                  width="800"
-                  height="800"
+                  width={800}
+                  height={800}
+                  sizes="(min-width: 1280px) 33vw, (min-width: 768px) 45vw, 90vw"
+                  loading="lazy"
                 />
                 <div className="hotfix-gallery-overlay">
                   <div className="hotfix-gallery-couple-names">

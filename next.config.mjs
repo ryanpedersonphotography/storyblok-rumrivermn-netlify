@@ -8,6 +8,14 @@ const nextConfig = {
 	typescript: {
 		ignoreBuildErrors: true,
 	},
+	images: {
+		remotePatterns: [
+			{ protocol: 'https', hostname: 'a.storyblok.com', pathname: '/**' },
+			{ protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
+			{ protocol: 'https', hostname: 's3.amazonaws.com', pathname: '/**' },
+			{ protocol: 'https', hostname: 'images.ctfassets.net', pathname: '/**' },
+		],
+	},
 	// The following environment variables can be safely exposed to the public bundle.
 	// The Storyblok public access token is required for features like live preview.
 	env: {

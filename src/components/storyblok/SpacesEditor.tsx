@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 
@@ -130,9 +131,13 @@ export default function SpacesEditor({ blok }: SpacesEditorProps) {
         
         <div className="spaces-content layout-classic">
           <div className="venue-main-image">
-            <img 
-              src={venueData[activeVenue as keyof typeof venueData].images[currentImageIndex]} 
-              alt={venueData[activeVenue as keyof typeof venueData].title} 
+            <Image
+              src={venueData[activeVenue as keyof typeof venueData].images[currentImageIndex]}
+              alt={venueData[activeVenue as keyof typeof venueData].title}
+              width={1200}
+              height={800}
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              priority
             />
             <button className="carousel-arrow prev" onClick={prevImage}>←</button>
             <button className="carousel-arrow next" onClick={nextImage}>→</button>

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/solid'
 
@@ -74,12 +75,13 @@ export default function HistoryCarousel() {
                 <div key={index} className="history__slide">
                   <div className="history__slide-inner">
                     <div className="history__image-wrapper">
-                      <img
+                      <Image
                         src={slide.image}
                         alt={`${slide.title} - ${slide.year}`}
                         className="history__image"
-                        width="1600"
-                        height="1000"
+                        width={1600}
+                        height={1000}
+                        priority={index === currentSlide}
                       />
                       <div className="history__gradient"></div>
 

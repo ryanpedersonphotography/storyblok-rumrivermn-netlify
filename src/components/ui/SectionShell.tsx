@@ -97,6 +97,9 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
         }),
     }
 
+    const baseClass = 'section section-shell'
+    const composedClassName = className ? `${baseClass} ${className}` : baseClass
+
     return (
       <Comp
         ref={ref}
@@ -115,7 +118,7 @@ export const SectionShell = React.forwardRef<HTMLElement, SectionShellProps>(
         data-radius={radius}
         data-shadow={shadow}
         data-container-name={containerName}
-        className={`section-shell ${className}`.trim()}
+  className={composedClassName}
         style={sectionStyle}
         {...rest}
       >

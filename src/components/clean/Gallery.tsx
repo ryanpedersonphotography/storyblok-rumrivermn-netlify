@@ -1,6 +1,7 @@
 // FILE: src/components/clean/Gallery.tsx
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useMemo, useState, type HTMLAttributes } from 'react'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import Section from '@/components/ui/SectionEnhanced'
@@ -264,8 +265,7 @@ export default function Gallery({ blok }: { blok?: any } = {}) {
                     style={{ cursor: canOpenModal ? 'pointer' : 'default', opacity: isLoadingStory ? 0.85 : 1 }}
                     {...(gallery._uid ? storyblokEditable(gallery) : {})}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={imageUrl}
                       alt={`${cardTitle}${cardLocation ? ` at ${cardLocation}` : ''}`.trim()}
                       width={800}
@@ -296,8 +296,7 @@ export default function Gallery({ blok }: { blok?: any } = {}) {
                   aria-label={`${wedding.couple}${wedding.season ? ` — ${wedding.season}` : ''}`}
                   data-testid="gallery-item"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={wedding.image}
                     alt={wedding.alt}
                     width={800}

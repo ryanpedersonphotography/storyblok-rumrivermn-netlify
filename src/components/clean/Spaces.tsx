@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
 import type { SbBlokData } from '@storyblok/react'
@@ -194,9 +195,13 @@ export default function Spaces({ blok }: { blok: SpacesStoryblok }) {
               const imageSrc = images?.[safeImageIndex] || '/images/barn-exterior-full-deck-view-evening.jpg'
               
               return (
-                <img
+                <Image
                   src={imageSrc}
                   alt={currentSpace?.space_name || 'Space image'}
+                  width={1200}
+                  height={800}
+                  className="venue-main-image__img"
+                  priority
                 />
               )
             })()}

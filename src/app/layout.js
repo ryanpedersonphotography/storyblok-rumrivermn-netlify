@@ -1,5 +1,6 @@
-// 1. TOKENS - Design tokens (OKLCH colors, surfaces, gradients, accent veils)
+// 1. TOKENS - Design tokens (OKLCH colors, surfaces, gradients, spacing)
 import '@/styles/tokens/theme.css'
+import '@/styles/tokens/spacing.css'
 
 // 2. PRIMITIVES - Layout primitives and component primitives (stack, cluster, grid, button)
 import '@/styles/primitives/index.css'
@@ -28,7 +29,6 @@ import '@/styles/components/schedule-form.css'
 import '@/styles/components/map.css'
 import '@/styles/components/footer.css'
 import '@/styles/components/faq.css'
-import '@/styles/components/section.legacy-wrapper.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
 				<body>
 					<ThemeProvider>
 						<div data-clean-root="true">
-							<Navbar />
+							{/* <Navbar /> */}
 							{children}
 						</div>
 					{isDev ? <ThemeSelect /> : null}

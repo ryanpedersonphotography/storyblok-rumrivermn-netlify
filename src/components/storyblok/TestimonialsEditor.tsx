@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react';
 import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
@@ -60,10 +61,13 @@ export function TestimonialItem({ blok }: { blok: TestimonialItemProps }) {
 
       <div style={{ paddingTop: '1rem', position: 'relative', zIndex: 1 }}>
         <div className="hotfix-couple-avatar">
-          <img
+          <Image
             className="hotfix-avatar-image"
             src={avatarUrl}
             alt={blok.customer_name || 'Customer'}
+            width={160}
+            height={160}
+            sizes="96px"
           />
           <div className="hotfix-avatar-overlay"></div>
         </div>
@@ -233,10 +237,13 @@ export default function TestimonialsEditor({ blok }: TestimonialsSectionProps) {
                     <div className="hotfix-couple-avatar">
                       {avatarUrl && (
                         <>
-                          <img
+                          <Image
                             className="hotfix-avatar-image"
                             src={avatarUrl}
                             alt={title}
+                            width={160}
+                            height={160}
+                            sizes="96px"
                           />
                           <div className="hotfix-avatar-overlay"></div>
                         </>

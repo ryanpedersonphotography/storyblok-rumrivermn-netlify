@@ -1,0 +1,71 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "tokens": {
+    "size": {
+      "space": {
+        "0": { "value": "0px", "type": "dimension" },
+        "px": { "value": "1px", "type": "dimension" },
+        "3xs": { "value": "2px", "type": "dimension" },
+        "2xs": { "value": "4px", "type": "dimension" },
+        "xs": { "value": "8px", "type": "dimension" },
+        "sm": { "value": "12px", "type": "dimension" },
+        "md": { "value": "16px", "type": "dimension" },
+        "lg": { "value": "24px", "type": "dimension" },
+        "xl": { "value": "32px", "type": "dimension" },
+        "2xl": { "value": "40px", "type": "dimension" },
+        "3xl": { "value": "48px", "type": "dimension" },
+        "4xl": { "value": "64px", "type": "dimension" },
+        "5xl": { "value": "80px", "type": "dimension" },
+        "6xl": { "value": "96px", "type": "dimension" }
+      },
+      "spaceFluid": {
+        "sm": { "value": "clamp(8px, 1.4vw, 16px)", "type": "dimension" },
+        "md": { "value": "clamp(12px, 2vw, 24px)", "type": "dimension" },
+        "lg": { "value": "clamp(16px, 3vw, 32px)", "type": "dimension" },
+        "xl": { "value": "clamp(24px, 4vw, 48px)", "type": "dimension" },
+        "2xl": { "value": "clamp(32px, 6vw, 64px)", "type": "dimension" }
+      }
+    },
+    "alias": {
+      "gap": {
+        "inline": { "value": "{size.space.sm}", "type": "dimension" },
+        "stack": { "value": "{size.space.md}", "type": "dimension" },
+        "grid": { "value": "{size.space.lg}", "type": "dimension" }
+      },
+      "pad": {
+        "card": { "value": "{size.space.lg}", "type": "dimension" },
+        "chip": { "value": "{size.space.xs}", "type": "dimension" },
+        "field": { "value": "{size.space.md}", "type": "dimension" },
+        "section": { "value": "{size.spaceFluid.xl}", "type": "dimension" }
+      },
+      "radius": {
+        "buttonPadX": { "value": "{size.space.sm}", "type": "dimension" },
+        "buttonPadY": { "value": "{size.space.2xs}", "type": "dimension" }
+      }
+    },
+    "preset": {
+      "density": {
+        "compact": {
+          "gap": { "value": "{size.space.xs}" },
+          "pad": { "value": "{size.space.sm}" },
+          "stack": { "value": "{size.space.sm}" }
+        },
+        "cozy": {
+          "gap": { "value": "{size.space.sm}" },
+          "pad": { "value": "{size.space.md}" },
+          "stack": { "value": "{size.space.md}" }
+        },
+        "comfy": {
+          "gap": { "value": "{size.space.md}" },
+          "pad": { "value": "{size.space.lg}" },
+          "stack": { "value": "{size.space.lg}" }
+        },
+        "spacious": {
+          "gap": { "value": "{size.space.lg}" },
+          "pad": { "value": "{size.space.xl}" },
+          "stack": { "value": "{size.space.xl}" }
+        }
+      }
+    }
+  }
+}

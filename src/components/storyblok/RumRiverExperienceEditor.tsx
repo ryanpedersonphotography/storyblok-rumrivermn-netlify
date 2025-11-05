@@ -3,6 +3,7 @@
 import { storyblokEditable } from '@storyblok/react'
 import type { SbBlokData } from '@storyblok/react'
 import { SparklesIcon, StarIcon, HeartIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 interface RumRiverExperienceStoryblok extends SbBlokData {
   title?: string
@@ -85,10 +86,13 @@ export default function RumRiverExperienceEditor({ blok }: { blok: RumRiverExper
         </div>
 
         <div className="experience-image">
-          <img
+          <Image
             src={blok.image?.filename || 'https://a.storyblok.com/f/296659/1920x1280/c5c8e1e5c0/placeholder-barn.jpg'}
             alt={blok.image?.alt || 'Rum River Barn Experience'}
+            fill
+            sizes="(min-width: 1024px) 40vw, 90vw"
             className="experience-img"
+            priority
           />
         </div>
       </div>

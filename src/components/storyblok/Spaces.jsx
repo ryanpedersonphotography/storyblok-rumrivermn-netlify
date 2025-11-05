@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 export default function Spaces({ blok }) {
@@ -24,10 +25,13 @@ export default function Spaces({ blok }) {
               <div key={space._uid} className="space-item">
                 {space.image && (
                   <div className="space-image">
-                    <img 
+                    <Image
                       src={space.image.filename}
                       alt={space.image.alt || space.title || `Space ${index + 1}`}
+                      width={800}
+                      height={600}
                       loading="lazy"
+                      sizes="(min-width: 1024px) 33vw, 90vw"
                     />
                   </div>
                 )}

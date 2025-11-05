@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { storyblokEditable } from '@storyblok/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import WeddingGalleryModal from '../gallery/WeddingGalleryModal'
 
@@ -133,9 +134,11 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
               >
                 {coverImage && (
                   <div className="wedding-image">
-                    <img
+                    <Image
                       src={coverImage}
                       alt={`${wedding.title} wedding at Rum River Barn`}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       loading="lazy"
                     />
                   </div>
@@ -237,14 +240,14 @@ export default function FeaturedWeddingsEditor({ blok }: FeaturedWeddingsEditorP
           inset: 0;
         }
 
-        .wedding-image img {
+        .wedding-image :global(img) {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform 0.3s ease;
         }
 
-        .wedding-card:hover .wedding-image img {
+        .wedding-card:hover .wedding-image :global(img) {
           transform: scale(1.05);
         }
 

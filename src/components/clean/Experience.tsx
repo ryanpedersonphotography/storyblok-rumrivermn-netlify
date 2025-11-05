@@ -7,6 +7,7 @@
 
 'use client'
 
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react'
 import type { SbBlokData } from '@storyblok/react'
 import { SparklesIcon, HeartIcon, CheckBadgeIcon, HomeModernIcon } from '@heroicons/react/24/outline'
@@ -106,10 +107,13 @@ export default function Experience({ blok }: { blok: ExperienceStoryblok }) {
         </div>
 
         <div className="experience-image">
-          <img
+          <Image
             src={blok.image?.filename || 'https://a.storyblok.com/f/296659/1920x1280/c5c8e1e5c0/placeholder-barn.jpg'}
             alt={blok.image?.alt || 'Rum River Barn Experience'}
             className="experience-img"
+            width={960}
+            height={640}
+            priority
           />
         </div>
       </div>

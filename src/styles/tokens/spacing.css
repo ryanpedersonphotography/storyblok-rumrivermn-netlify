@@ -1,0 +1,110 @@
+/* ===========================================================================
+   SPACING TOKENS & DENSITY PRESETS
+   - Core static scale + fluid scale
+   - Semantic aliases (gap/pad)
+   - Density switching via data attributes
+   - Lightweight utility helpers (framework-agnostic)
+   =========================================================================== */
+
+@layer tokens {
+  :root {
+    /* Core scale */
+    --space-0: 0px;
+    --space-px: 1px;
+    --space-3xs: 2px;
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 40px;
+    --space-3xl: 48px;
+    --space-4xl: 64px;
+    --space-5xl: 80px;
+    --space-6xl: 96px;
+
+    /* Fluid scale */
+    --space-fluid-sm: clamp(8px, 1.4vw, 16px);
+    --space-fluid-md: clamp(12px, 2vw, 24px);
+    --space-fluid-lg: clamp(16px, 3vw, 32px);
+    --space-fluid-xl: clamp(24px, 4vw, 48px);
+    --space-fluid-2xl: clamp(32px, 6vw, 64px);
+
+    /* Semantic aliases */
+    --gap-inline: var(--space-sm);
+    --gap-stack: var(--space-md);
+    --gap-grid: var(--space-lg);
+
+    --pad-chip: var(--space-xs);
+    --pad-field: var(--space-md);
+    --pad-card: var(--space-lg);
+    --pad-section: var(--space-fluid-xl);
+
+    /* Section padding scale (maps to paddingY tokens) */
+    --pad-section-xs: clamp(16px, 2.5vw, 24px);
+    --pad-section-sm: clamp(20px, 3vw, 32px);
+    --pad-section-md: clamp(28px, 4vw, 40px);
+    --pad-section-lg: clamp(36px, 5vw, 56px);
+    --pad-section-xl: clamp(44px, 6vw, 72px);
+    --pad-section-fluid: var(--space-fluid-2xl);
+
+    /* Density presets (default = comfy) */
+    --density-gap: var(--space-md);
+    --density-pad: var(--space-lg);
+    --density-stack: var(--space-lg);
+  }
+
+  /* Density overrides */
+  [data-density="compact"] {
+    --density-gap: var(--space-xs);
+    --density-pad: var(--space-sm);
+    --density-stack: var(--space-sm);
+  }
+
+  [data-density="cozy"] {
+    --density-gap: var(--space-sm);
+    --density-pad: var(--space-md);
+    --density-stack: var(--space-md);
+  }
+
+  [data-density="comfy"] {
+    --density-gap: var(--space-md);
+    --density-pad: var(--space-lg);
+    --density-stack: var(--space-lg);
+  }
+
+  [data-density="spacious"] {
+    --density-gap: var(--space-lg);
+    --density-pad: var(--space-xl);
+    --density-stack: var(--space-xl);
+  }
+
+  /* Optional auto density via container queries */
+  @container (min-width: 900px) {
+    :root,
+    [data-density="auto"] {
+      --density-gap: var(--space-lg);
+      --density-pad: var(--space-xl);
+      --density-stack: var(--space-xl);
+    }
+  }
+}
+
+@layer utilities {
+  .u-gap-inline {
+    gap: var(--gap-inline);
+  }
+
+  .u-gap-stack > * + * {
+    margin-block-start: var(--gap-stack);
+  }
+
+  .u-pad-card {
+    padding: var(--pad-card);
+  }
+
+  .u-pad-section {
+    padding-block: var(--pad-section);
+  }
+}

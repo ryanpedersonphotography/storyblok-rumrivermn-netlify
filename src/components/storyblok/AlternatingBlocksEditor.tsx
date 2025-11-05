@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React from 'react'
 import { storyblokEditable } from '@storyblok/react'
 
@@ -52,11 +53,12 @@ export default function AlternatingBlocksEditor({ blok }: AlternatingBlocksEdito
                   ))}
                 </div>
                 <div className="hotfix-block-image">
-                  <img
+                  <Image
                     src={block.image?.filename || block.image || fallbackImage}
                     alt={block.image_alt || 'Venue image'}
-                    width="800"
-                    height="500"
+                    width={800}
+                    height={500}
+                    className="hotfix-block-image__img"
                   />
                 </div>
               </div>
