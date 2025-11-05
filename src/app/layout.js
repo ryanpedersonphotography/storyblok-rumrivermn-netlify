@@ -98,7 +98,6 @@ export default function RootLayout({ children }) {
 				<body>
 					<ThemeProvider>
 						<div data-clean-root="true">
-							<Navbar />
 							{children}
 						</div>
 					{isDev ? <ThemeSelect /> : null}

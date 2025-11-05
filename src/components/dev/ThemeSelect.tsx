@@ -8,12 +8,37 @@
 
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useTheme } from '@/components/ui/ThemeProvider'
 import { THEME_REGISTRY, BRAND_REGISTRY } from '@/lib/theme/registry'
 
 export default function ThemeSelect() {
   const { theme, setTheme, brand, setBrand } = useTheme()
+  const [isVisible, setIsVisible] = useState(true)
+
+  if (!isVisible) {
+    return (
+      <button
+        onClick={() => setIsVisible(true)}
+        style={{
+          position: 'fixed',
+          bottom: '1rem',
+          right: '1rem',
+          zIndex: 9999,
+          background: 'var(--surface-1)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: '50%',
+          padding: '0.75rem',
+          boxShadow: 'var(--shadow-lg)',
+          cursor: 'pointer',
+          fontSize: '1rem'
+        }}
+        title="Show theme controls"
+      >
+        🎨
+      </button>
+    )
+  }
 
   return (
     <div
@@ -31,8 +56,23 @@ export default function ThemeSelect() {
         fontSize: '0.875rem'
       }}
     >
-      <div style={{ marginBottom: '0.75rem', fontWeight: 600 }}>
-        Theme Controls (Dev Only)
+      <div style={{ marginBottom: '0.75rem', fontWeight: 600, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>Theme Controls (Dev Only)</span>
+        <button
+          onClick={() => setIsVisible(false)}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '1.2rem',
+            padding: '0.25rem',
+            borderRadius: '4px',
+            color: 'var(--text-secondary)'
+          }}
+          title="Hide theme controls"
+        >
+          ×
+        </button>
       </div>
 
       {/* Theme Selector */}
