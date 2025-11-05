@@ -56,25 +56,75 @@
   z-index: 1;
 }
 
-/* Tokenized gradient overlay */
+/* Reduced overlay opacity to let glass panel shine through */
 [data-clean-root="true"] .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--_overlay-start), var(--_overlay-mid) 50%, var(--_overlay-end));
+  background: linear-gradient(
+    135deg, 
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
   z-index: 2;
   pointer-events: none;
 }
 
-/* Content */
+/* Content with glass panel effect */
 [data-clean-root="true"] .hero-content {
   position: relative;
   z-index: 10;
   text-align: center;
   max-width: 800px;
-  padding: 0 var(--gutter);
+  padding: var(--space-3xl, 3rem) var(--space-2xl, 2.5rem);
+  margin: 0 var(--gutter);
   color: var(--_text);
   animation: fadeInUp 1.2s ease-out;
+  
+  /* Glass panel effect - dark theme default */
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-2xl, 16px);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Glass panel blur layer behind content */
+[data-clean-root="true"] .hero-content::after {
+  content: '';
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  width: 96%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.1);
+  filter: blur(20px);
+  border-radius: var(--radius-2xl, 16px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Light theme glass panel adjustments */
+[data-clean-root="true"]:not([data-theme="dark"]) .hero-content,
+[data-clean-root="true"][data-theme="light"] .hero-content {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+[data-clean-root="true"]:not([data-theme="dark"]) .hero-content::after,
+[data-clean-root="true"][data-theme="light"] .hero-content::after {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 @keyframes fadeInUp {
@@ -144,14 +194,17 @@
   transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease, color 200ms ease;
 }
 [data-clean-root="true"] .hero-cta-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--_cta-text);
   border: 2px solid var(--_accent);
   border-radius: 9999px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(157, 107, 123, 0.15);
-  /* Light theme: no shadow needed */
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   text-shadow: none;
 }
 [data-clean-root="true"] .hero-cta-secondary:hover {

@@ -2,42 +2,44 @@
   --glass-toolbar-rail-width: 88px;
   --glass-toolbar-panel-width: 360px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
-  --glass-toolbar-shadow: 0 32px 70px rgba(8, 6, 10, 0.38);
+  --glass-toolbar-shadow: 0 24px 56px rgba(0, 0, 0, 0.12);
   --glass-toolbar-duration: 300ms;
   --glass-toolbar-ease: cubic-bezier(0.2, 0, 0, 1);
   --glass-toolbar-fade: cubic-bezier(0.26, 0, 0.4, 1);
   
-  /* Frosted glass base colors */
-  --glass-toolbar-frost-tint: 142, 195, 212; /* Cyan-teal base */
-  --glass-toolbar-frost-dark: 28, 42, 56; /* Deep blue-gray */
+  /* Dark theme - based on light but with darker tones and more opacity */
+  --glass-toolbar-frost-tint: 0, 0, 0; /* Pure black base for dark */
+  --glass-toolbar-frost-accent: 216, 179, 190; /* Rose accent */
   
-  /* Panel glass effect variables */
-  --glass-toolbar-panel-bg: rgba(var(--glass-toolbar-frost-tint), 0.4);
-  --glass-toolbar-panel-blur: 18px;
-  --glass-toolbar-panel-border: rgba(var(--glass-toolbar-frost-tint), 0.2);
-  
-  /* Rail glass effect variables */
-  --glass-toolbar-rail-bg: rgba(255, 255, 255, 0.08);
-  --glass-toolbar-rail-blur: 24px;
+  /* Rail with more opacity for photo overlay effect */
+  --glass-toolbar-rail-bg: rgba(0, 0, 0, 0.45);
+  --glass-toolbar-rail-blur: 20px;
   --glass-toolbar-rail-overlay: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.05) 40%,
-    rgba(255, 255, 255, 0.08) 100%
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.2) 100%
   );
-  --glass-toolbar-rail-border: rgba(255, 255, 255, 0.25);
-  --glass-toolbar-rail-text: rgba(255, 255, 255, 0.88);
-  --glass-toolbar-rail-label: rgba(255, 255, 255, 0.5);
+  --glass-toolbar-rail-border: rgba(255, 255, 255, 0.08);
+  --glass-toolbar-rail-text: rgba(255, 255, 255, 0.92);
+  --glass-toolbar-rail-label: rgba(255, 255, 255, 0.45);
+  
+  /* Panel with more opacity */
+  --glass-toolbar-panel-bg: rgba(0, 0, 0, 0.65);
+  --glass-toolbar-panel-blur: 16px;
+  --glass-toolbar-panel-border: rgba(255, 255, 255, 0.06);
   
   /* Interactive elements */
-  --glass-toolbar-mark-bg: rgba(255, 255, 255, 0.12);
-  --glass-toolbar-mark-color: rgba(255, 255, 255, 0.9);
-  --glass-toolbar-pill-label: rgba(255, 255, 255, 0.72);
-  --glass-toolbar-pill-label-active: rgba(255, 255, 255, 0.95);
-  --glass-toolbar-icon-hover-bg: rgba(255, 255, 255, 0.2);
-  --glass-toolbar-icon-active: rgba(255, 255, 255, 0.98);
-  --glass-toolbar-pill-active-bg: rgba(255, 255, 255, 0.28);
-  --glass-toolbar-chip-border: rgba(255, 255, 255, 0.3);
+  --glass-toolbar-mark-bg: rgba(255, 255, 255, 0.08);
+  --glass-toolbar-mark-color: rgba(255, 255, 255, 0.85);
+  --glass-toolbar-pill-bg: rgba(255, 255, 255, 0.06);
+  --glass-toolbar-pill-label: rgba(255, 255, 255, 0.65);
+  --glass-toolbar-pill-label-active: rgba(255, 255, 255, 0.9);
+  --glass-toolbar-pill-hover-bg: rgba(255, 255, 255, 0.1);
+  --glass-toolbar-pill-hover-tint: rgba(var(--glass-toolbar-frost-accent), 0.08);
+  --glass-toolbar-icon-active: rgba(255, 255, 255, 0.95);
+  --glass-toolbar-pill-active-bg: rgba(255, 255, 255, 0.15);
+  --glass-toolbar-chip-border: rgba(255, 255, 255, 0.12);
 }
 :root:not([data-theme="dark"]) .glass-toolbar,
 html[data-theme="light"] .glass-toolbar {
@@ -207,7 +209,7 @@ html[data-theme="light"] .glass-toolbar {
   transition: color 180ms var(--glass-toolbar-ease);
 }
 
-.glass-toolbar__pill svg {
+.glass-toolbar__pill-icon-wrapper {
   width: 56px;
   height: 32px;
   display: flex;
@@ -216,43 +218,67 @@ html[data-theme="light"] .glass-toolbar {
   margin: 0 auto 4px;
   padding: 4px;
   border-radius: 16px;
-  background: transparent;
-  font-size: 24px;
-  color: inherit;
-  transition: background 200ms var(--glass-toolbar-ease),
-    backdrop-filter 200ms var(--glass-toolbar-ease),
-    box-shadow 200ms var(--glass-toolbar-ease),
-    color 200ms var(--glass-toolbar-ease),
-    transform 220ms var(--glass-toolbar-ease);
-}
-
-.glass-toolbar__pill:hover svg,
-.glass-toolbar__pill:focus-visible svg {
-  background: var(--glass-toolbar-icon-hover-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--glass-toolbar-icon-active);
-  transform: translateY(-2px);
-  outline: none;
+  background: var(--glass-toolbar-pill-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-    0 4px 12px rgba(var(--glass-toolbar-frost-tint), 0.25);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 180ms var(--glass-toolbar-ease),
+    box-shadow 180ms var(--glass-toolbar-ease);
 }
 
-.glass-toolbar__pill.is-active svg {
+.glass-toolbar__pill-icon-wrapper svg {
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.glass-toolbar__pill:hover .glass-toolbar__pill-icon-wrapper,
+.glass-toolbar__pill:focus-visible .glass-toolbar__pill-icon-wrapper {
+  background: var(--glass-toolbar-pill-hover-bg);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+/* Add subtle tint on hover */
+.glass-toolbar__pill:hover .glass-toolbar__pill-icon-wrapper::after,
+.glass-toolbar__pill:focus-visible .glass-toolbar__pill-icon-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: var(--glass-toolbar-pill-hover-tint);
+  pointer-events: none;
+}
+
+.glass-toolbar__pill:hover .glass-toolbar__pill-icon-wrapper svg,
+.glass-toolbar__pill:focus-visible .glass-toolbar__pill-icon-wrapper svg {
+  color: var(--glass-toolbar-icon-active);
+}
+
+.glass-toolbar__pill.is-active .glass-toolbar__pill-icon-wrapper {
   background: var(--glass-toolbar-pill-active-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: var(--glass-toolbar-icon-active);
   box-shadow: 
     inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
     0 4px 16px rgba(var(--glass-toolbar-frost-tint), 0.3);
 }
 
-.glass-toolbar__pill.is-active:hover svg,
-.glass-toolbar__pill.is-active:focus-visible svg {
+.glass-toolbar__pill.is-active .glass-toolbar__pill-icon-wrapper svg {
+  color: var(--glass-toolbar-icon-active);
+}
+
+.glass-toolbar__pill.is-active:hover .glass-toolbar__pill-icon-wrapper,
+.glass-toolbar__pill.is-active:focus-visible .glass-toolbar__pill-icon-wrapper {
   background: var(--glass-toolbar-pill-active-bg);
+  filter: url(#glass-depth-hover);
 }
 
 .glass-toolbar__pill:hover .glass-toolbar__pill-label,
@@ -500,12 +526,12 @@ html[data-theme="light"] .glass-toolbar {
 
 :root:not([data-theme="dark"]) .glass-toolbar,
 html[data-theme="light"] .glass-toolbar {
-  /* Light theme frost colors */
-  --glass-toolbar-frost-tint: 216, 179, 190; /* Rose tint for light mode */
-  --glass-toolbar-frost-dark: 53, 44, 36; /* Warm dark for shadows */
+  /* Light theme - similar structure to dark with lighter tones */
+  --glass-toolbar-frost-tint: 255, 255, 255; /* White base for light */
+  --glass-toolbar-frost-accent: 216, 179, 190; /* Rose accent */
   
-  /* Rail light theme with translucent glass */
-  --glass-toolbar-rail-bg: rgba(255, 255, 255, 0.35);
+  /* Rail with good opacity for photo overlay */
+  --glass-toolbar-rail-bg: rgba(255, 255, 255, 0.5);
   --glass-toolbar-rail-blur: 20px;
   --glass-toolbar-rail-overlay: linear-gradient(
     135deg,
@@ -513,25 +539,27 @@ html[data-theme="light"] .glass-toolbar {
     rgba(255, 255, 255, 0.15) 40%,
     rgba(255, 255, 255, 0.25) 100%
   );
-  --glass-toolbar-rail-border: rgba(var(--glass-toolbar-frost-tint), 0.25);
-  --glass-toolbar-rail-text: color-mix(in oklch, var(--theme-text-primary, #352c24) 95%, black 5%);
-  --glass-toolbar-rail-label: color-mix(in oklch, var(--theme-text-secondary, #605749) 75%, transparent 25%);
+  --glass-toolbar-rail-border: rgba(0, 0, 0, 0.08);
+  --glass-toolbar-rail-text: rgba(0, 0, 0, 0.85);
+  --glass-toolbar-rail-label: rgba(0, 0, 0, 0.45);
   
-  /* Panel light theme with softer glass */
-  --glass-toolbar-panel-bg: rgba(255, 255, 255, 0.65);
+  /* Panel with good opacity */
+  --glass-toolbar-panel-bg: rgba(255, 255, 255, 0.7);
   --glass-toolbar-panel-blur: 16px;
-  --glass-toolbar-panel-border: rgba(var(--glass-toolbar-frost-tint), 0.18);
+  --glass-toolbar-panel-border: rgba(0, 0, 0, 0.06);
   
   /* Interactive elements for light theme */
-  --glass-toolbar-mark-bg: rgba(var(--glass-toolbar-frost-tint), 0.15);
-  --glass-toolbar-mark-color: color-mix(in oklch, var(--theme-text-primary, #352c24) 90%, black 10%);
-  --glass-toolbar-pill-label: color-mix(in oklch, var(--theme-text-secondary, #605749) 85%, black 15%);
-  --glass-toolbar-pill-label-active: color-mix(in oklch, var(--theme-accent-rose, #d89bae) 80%, var(--theme-text-primary, #352c24) 20%);
-  --glass-toolbar-icon-hover-bg: rgba(var(--glass-toolbar-frost-tint), 0.18);
-  --glass-toolbar-icon-active: color-mix(in oklch, var(--theme-accent-rose, #d89bae) 75%, black 25%);
-  --glass-toolbar-pill-active-bg: rgba(var(--glass-toolbar-frost-tint), 0.25);
-  --glass-toolbar-chip-border: rgba(var(--glass-toolbar-frost-tint), 0.3);
-  --glass-toolbar-chip-foreground: color-mix(in oklch, var(--theme-text-primary, #352c24) 92%, black 8%);
+  --glass-toolbar-mark-bg: rgba(0, 0, 0, 0.06);
+  --glass-toolbar-mark-color: rgba(0, 0, 0, 0.8);
+  --glass-toolbar-pill-bg: rgba(0, 0, 0, 0.04);
+  --glass-toolbar-pill-label: rgba(0, 0, 0, 0.6);
+  --glass-toolbar-pill-label-active: rgba(0, 0, 0, 0.85);
+  --glass-toolbar-pill-hover-bg: rgba(0, 0, 0, 0.08);
+  --glass-toolbar-pill-hover-tint: rgba(var(--glass-toolbar-frost-accent), 0.06);
+  --glass-toolbar-icon-active: rgba(0, 0, 0, 0.9);
+  --glass-toolbar-pill-active-bg: rgba(0, 0, 0, 0.12);
+  --glass-toolbar-chip-border: rgba(0, 0, 0, 0.1);
+  --glass-toolbar-chip-foreground: rgba(0, 0, 0, 0.85);
   
   /* Panel content for light theme */
   --glass-toolbar-panel-text: color-mix(in oklch, var(--theme-text-primary, #352c24) 94%, black 6%);

@@ -405,7 +405,9 @@ const GlassToolbar = React.forwardRef<HTMLDivElement, GlassToolbarProps>(functio
                 title={section.label}
                 data-has-children={hasChildren ? 'true' : 'false'}
               >
-                <Icon aria-hidden="true" />
+                <div className="glass-toolbar__pill-icon-wrapper">
+                  <Icon aria-hidden="true" />
+                </div>
                 <span className="glass-toolbar__pill-label">{section.label}</span>
               </button>
             )
