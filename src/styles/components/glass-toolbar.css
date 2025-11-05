@@ -1,33 +1,56 @@
 :root {
-  --glass-toolbar-rail-width: 88px;
-  --glass-toolbar-panel-width: 360px;
+  /* Dark walnut colors - much darker */
+  --walnut-dark: #191410;
+  --walnut-darker: #0f0c0a;
+  --walnut-darkest: #080605;
+  --walnut-medium: #2a201a;
+  --walnut-highlight: #3d2f25;
+  
+  /* Gold accent colors from site */
+  --toolbar-gold: var(--p-gold-50, oklch(0.88 0.07 88));
+  --toolbar-gold-bright: oklch(0.92 0.09 88);
+  --toolbar-gold-muted: oklch(0.75 0.06 88);
+  
+  --glass-toolbar-rail-width: 110px;
+  --glass-toolbar-panel-width: 380px;
   --glass-toolbar-offset: var(--glass-toolbar-rail-width);
   --glass-toolbar-shadow: 0 24px 56px rgba(0, 0, 0, 0.12);
   --glass-toolbar-duration: 300ms;
   --glass-toolbar-ease: cubic-bezier(0.2, 0, 0, 1);
   --glass-toolbar-fade: cubic-bezier(0.26, 0, 0.4, 1);
   
-  /* Dark theme - based on light but with darker tones and more opacity */
-  --glass-toolbar-frost-tint: 0, 0, 0; /* Pure black base for dark */
-  --glass-toolbar-frost-accent: 216, 179, 190; /* Rose accent */
+  /* Dark theme - deep walnut with gold accents */
+  --glass-toolbar-frost-tint: 25, 20, 16; /* Dark walnut RGB */
+  --glass-toolbar-frost-accent: 216, 179, 130; /* Gold accent RGB */
   
-  /* Rail with more opacity for photo overlay effect */
-  --glass-toolbar-rail-bg: rgba(0, 0, 0, 0.45);
+  /* Rail with deep walnut gradient for volume */
+  --glass-toolbar-rail-bg: linear-gradient(
+    90deg,
+    rgba(25, 20, 16, 0.92) 0%,
+    rgba(25, 20, 16, 0.88) 30%,
+    rgba(42, 32, 26, 0.85) 70%,
+    rgba(15, 12, 10, 0.95) 100%
+  );
   --glass-toolbar-rail-blur: 20px;
   --glass-toolbar-rail-overlay: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.1) 40%,
-    rgba(0, 0, 0, 0.2) 100%
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(25, 20, 16, 0.15) 40%,
+    rgba(61, 47, 37, 0.1) 100%
   );
-  --glass-toolbar-rail-border: rgba(255, 255, 255, 0.08);
+  --glass-toolbar-rail-border: var(--toolbar-gold-muted);
   --glass-toolbar-rail-text: rgba(255, 255, 255, 0.92);
   --glass-toolbar-rail-label: rgba(255, 255, 255, 0.45);
   
-  /* Panel with more opacity */
-  --glass-toolbar-panel-bg: rgba(0, 0, 0, 0.65);
+  /* Panel with deep walnut gradient */
+  --glass-toolbar-panel-bg: linear-gradient(
+    90deg,
+    rgba(15, 12, 10, 0.88) 0%,
+    rgba(25, 20, 16, 0.82) 50%,
+    rgba(8, 6, 5, 0.9) 100%
+  );
   --glass-toolbar-panel-blur: 16px;
-  --glass-toolbar-panel-border: rgba(255, 255, 255, 0.06);
+  --glass-toolbar-panel-border: var(--toolbar-gold-muted);
   
   /* Interactive elements */
   --glass-toolbar-mark-bg: rgba(255, 255, 255, 0.08);
@@ -98,19 +121,21 @@ html[data-theme="light"] .glass-toolbar {
   color: var(--glass-toolbar-rail-text);
   overflow: hidden;
   
-  /* Multi-layer frosted glass effect */
+  /* Multi-layer frosted glass effect with volume */
   background: var(--glass-toolbar-rail-bg);
-  backdrop-filter: blur(var(--glass-toolbar-rail-blur)) saturate(1.8) contrast(1.1);
-  -webkit-backdrop-filter: blur(var(--glass-toolbar-rail-blur)) saturate(1.8) contrast(1.1);
-  border-right: 1px solid var(--glass-toolbar-rail-border);
+  backdrop-filter: blur(var(--glass-toolbar-rail-blur)) saturate(1.4) contrast(1.05);
+  -webkit-backdrop-filter: blur(var(--glass-toolbar-rail-blur)) saturate(1.4) contrast(1.05);
+  border-right: 2px solid var(--glass-toolbar-rail-border);
+  position: relative;
   
-  /* Add glass texture layers */
+  /* Volume-giving shadows and highlights */
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.05),
-    inset -1px 0 0 0 rgba(255, 255, 255, 0.1),
-    0 8px 32px rgba(var(--glass-toolbar-frost-dark), 0.3),
-    0 2px 8px rgba(var(--glass-toolbar-frost-dark), 0.2);
+    inset 2px 0 3px rgba(255, 255, 255, 0.05),
+    inset -2px 0 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.2),
+    4px 0 24px rgba(0, 0, 0, 0.4),
+    2px 0 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Glass texture overlay using pseudo-element */
@@ -124,25 +149,28 @@ html[data-theme="light"] .glass-toolbar {
   mix-blend-mode: overlay;
 }
 
-/* Vertical glass reflection/highlight */
+/* Gold divider accent */
 .glass-toolbar__rail::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 40%;
+  top: 20%;
+  bottom: 20%;
+  right: -1px;
+  width: 2px;
   background: linear-gradient(
-    90deg,
+    180deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.03) 50%,
-    rgba(255, 255, 255, 0.08) 100%
+    var(--toolbar-gold-muted) 15%,
+    var(--toolbar-gold) 50%,
+    var(--toolbar-gold-muted) 85%,
+    transparent 100%
   );
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
-  transform: translateZ(0);
+  z-index: 10;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px var(--toolbar-gold));
 }
+
 
 /* Ensure content appears above glass layers */
 .glass-toolbar__rail > * {
@@ -364,18 +392,19 @@ html[data-theme="light"] .glass-toolbar {
   opacity: 0;
   pointer-events: none;
   
-  /* Subdued frosted glass effect */
+  /* Deep walnut panel with volume */
   background: var(--glass-toolbar-panel-bg);
-  backdrop-filter: blur(var(--glass-toolbar-panel-blur)) saturate(1.4);
-  -webkit-backdrop-filter: blur(var(--glass-toolbar-panel-blur)) saturate(1.4);
+  backdrop-filter: blur(var(--glass-toolbar-panel-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--glass-toolbar-panel-blur)) saturate(1.2);
   border-left: 1px solid var(--glass-toolbar-panel-border);
   
-  /* Subtle depth and glow */
+  /* Volume-enhancing shadows */
   box-shadow: 
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.1),
+    inset 2px 0 3px rgba(255, 255, 255, 0.03),
+    inset -1px 0 2px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
-    0 12px 48px rgba(var(--glass-toolbar-frost-tint), 0.15),
-    0 4px 16px rgba(var(--glass-toolbar-frost-dark), 0.2);
+    0 12px 48px rgba(0, 0, 0, 0.25),
+    0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .glass-toolbar[data-expanded="true"] .glass-toolbar__panel {
@@ -526,27 +555,38 @@ html[data-theme="light"] .glass-toolbar {
 
 :root:not([data-theme="dark"]) .glass-toolbar,
 html[data-theme="light"] .glass-toolbar {
-  /* Light theme - similar structure to dark with lighter tones */
-  --glass-toolbar-frost-tint: 255, 255, 255; /* White base for light */
-  --glass-toolbar-frost-accent: 216, 179, 190; /* Rose accent */
+  /* Light theme - still dark walnut for consistency */
+  --glass-toolbar-frost-tint: 42, 32, 26; /* Medium walnut RGB */
+  --glass-toolbar-frost-accent: 216, 179, 130; /* Gold accent RGB */
   
-  /* Rail with good opacity for photo overlay */
-  --glass-toolbar-rail-bg: rgba(255, 255, 255, 0.5);
+  /* Rail with dark walnut even in light theme */
+  --glass-toolbar-rail-bg: linear-gradient(
+    90deg,
+    rgba(42, 32, 26, 0.88) 0%,
+    rgba(42, 32, 26, 0.82) 30%,
+    rgba(61, 47, 37, 0.78) 70%,
+    rgba(25, 20, 16, 0.9) 100%
+  );
   --glass-toolbar-rail-blur: 20px;
   --glass-toolbar-rail-overlay: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.25) 100%
+    rgba(42, 32, 26, 0.3) 0%,
+    rgba(61, 47, 37, 0.1) 40%,
+    rgba(25, 20, 16, 0.2) 100%
   );
-  --glass-toolbar-rail-border: rgba(0, 0, 0, 0.08);
+  --glass-toolbar-rail-border: var(--toolbar-gold);
   --glass-toolbar-rail-text: rgba(0, 0, 0, 0.85);
   --glass-toolbar-rail-label: rgba(0, 0, 0, 0.45);
   
-  /* Panel with good opacity */
-  --glass-toolbar-panel-bg: rgba(255, 255, 255, 0.7);
+  /* Panel with dark walnut gradient in light theme */
+  --glass-toolbar-panel-bg: linear-gradient(
+    90deg,
+    rgba(25, 20, 16, 0.85) 0%,
+    rgba(42, 32, 26, 0.78) 50%,
+    rgba(15, 12, 10, 0.88) 100%
+  );
   --glass-toolbar-panel-blur: 16px;
-  --glass-toolbar-panel-border: rgba(0, 0, 0, 0.06);
+  --glass-toolbar-panel-border: var(--toolbar-gold);
   
   /* Interactive elements for light theme */
   --glass-toolbar-mark-bg: rgba(0, 0, 0, 0.06);

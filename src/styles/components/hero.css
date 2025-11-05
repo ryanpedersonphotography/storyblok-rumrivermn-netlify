@@ -56,22 +56,42 @@
   z-index: 1;
 }
 
-/* Reduced overlay opacity to let glass panel shine through */
+/* Beautiful glassmorphic tinted overlay with green-brown gradient */
 [data-clean-root="true"] .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg, 
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0.1) 50%,
-    rgba(0, 0, 0, 0.2)
-  );
+  background: 
+    linear-gradient(
+      180deg,
+      rgba(25, 20, 16, 0.85) 0%,
+      rgba(42, 35, 26, 0.70) 25%,
+      rgba(52, 48, 37, 0.60) 50%,
+      rgba(35, 32, 24, 0.72) 75%,
+      rgba(18, 16, 12, 0.88) 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(58, 74, 60, 0.25) 0%,
+      rgba(58, 74, 60, 0.15) 40%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(42, 48, 40, 0.2) 0%,
+      transparent 50%,
+      rgba(25, 20, 16, 0.15) 100%
+    );
+  backdrop-filter: blur(3px) saturate(1.3) contrast(1.1) brightness(0.97);
+  -webkit-backdrop-filter: blur(3px) saturate(1.3) contrast(1.1) brightness(0.97);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.05),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.3);
   z-index: 2;
   pointer-events: none;
 }
 
-/* Content with glass panel effect */
+/* Content without glass panel - clean and direct */
 [data-clean-root="true"] .hero-content {
   position: relative;
   z-index: 10;
@@ -82,49 +102,45 @@
   color: var(--_text);
   animation: fadeInUp 1.2s ease-out;
   
-  /* Glass panel effect - dark theme default */
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(16px) saturate(1.5);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-2xl, 16px);
+  /* No glass panel - content sits directly on tinted overlay */
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
+/* Light theme glassmorphic overlay - green-brown tint for readability */
+[data-clean-root="true"]:not([data-theme="dark"]) .hero::after,
+[data-clean-root="true"][data-theme="light"] .hero::after {
+  background: 
+    linear-gradient(
+      180deg,
+      rgba(42, 35, 26, 0.78) 0%,
+      rgba(52, 48, 37, 0.62) 25%,
+      rgba(70, 65, 50, 0.52) 50%,
+      rgba(42, 38, 30, 0.65) 75%,
+      rgba(25, 22, 18, 0.82) 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(58, 74, 60, 0.22) 0%,
+      rgba(58, 74, 60, 0.12) 40%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(48, 52, 42, 0.18) 0%,
+      transparent 50%,
+      rgba(35, 30, 24, 0.12) 100%
+    );
+  backdrop-filter: blur(2px) saturate(1.35) contrast(1.08) brightness(0.98);
+  -webkit-backdrop-filter: blur(2px) saturate(1.35) contrast(1.08) brightness(0.98);
   box-shadow: 
-    0 12px 48px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
-}
-
-/* Glass panel blur layer behind content */
-[data-clean-root="true"] .hero-content::after {
-  content: '';
-  position: absolute;
-  top: 5%;
-  left: 2%;
-  width: 96%;
-  height: 90%;
-  background-color: rgba(0, 0, 0, 0.1);
-  filter: blur(20px);
-  border-radius: var(--radius-2xl, 16px);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Light theme glass panel adjustments */
-[data-clean-root="true"]:not([data-theme="dark"]) .hero-content,
-[data-clean-root="true"][data-theme="light"] .hero-content {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(12px) saturate(1.2);
-  -webkit-backdrop-filter: blur(12px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.2);
-}
-
-[data-clean-root="true"]:not([data-theme="dark"]) .hero-content::after,
-[data-clean-root="true"][data-theme="light"] .hero-content::after {
-  background-color: rgba(255, 255, 255, 0.3);
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.25);
 }
 
 @keyframes fadeInUp {
@@ -152,8 +168,8 @@
   letter-spacing: -0.02em;
   margin-bottom: var(--space-xl, 2rem);
   color: var(--_text);
-  /* Light theme: subtle shadow for depth on white background */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  /* Enhanced shadow for readability on tinted overlay */
+  text-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
 }
 [data-clean-root="true"] .hero-title-accent { color: var(--_accent); }
 
@@ -167,8 +183,8 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  /* Light theme: subtle shadow */
-  text-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  /* Enhanced shadow for tinted overlay */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
 }
 
 /* CTAs */
