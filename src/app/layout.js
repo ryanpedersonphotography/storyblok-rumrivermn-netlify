@@ -29,6 +29,7 @@ import '@/styles/components/schedule-form.css'
 import '@/styles/components/map.css'
 import '@/styles/components/footer.css'
 import '@/styles/components/faq.css'
+import '@/styles/components/glass-toolbar.css'
 
 import StoryblokProvider from '@/components/StoryblokProvider';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';

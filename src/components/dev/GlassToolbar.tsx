@@ -13,7 +13,6 @@ import {
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { cx } from '@/lib/react-interop'
-import '@/styles/components/glass-toolbar.css'
 import ThemeToggle from '@/components/ThemeToggle'
 
 type ToolbarItem = {
